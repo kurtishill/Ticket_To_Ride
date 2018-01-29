@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">TicketToRide</string>
+
+    <string name="username">User Name: </string>
+    <string name="password">Password: </string>
+    <string name="confirm_password">Confirm Password: </string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="password_hint"><font size="8">Must be at least 6 characters</font></string>
+    <string name="confirm_password_hint"><font size="8">Must match password</font></string>
+
+    <string name="game_id">#</string>
+    <string name="game_name">Name</string>
+    <string name="game_players">Players</string>
+    <string name="players_in_game">In Game</string>
+    <string name="create_game_button">Create Game</string>
+    <string name="join_game_button">Join Game</string>
+
+    <string name="create_new_game_header">Create New Game</string>
+    <string name="name_of_game_title">Name: </string>
+    <string name="num_players_title">Players: </string>
+    <string name="color_title">Your Color: </string>
+    <string name="cancel_button">Cancel</string>
+    <string name="ok_button">OK</string>
+    <string-array name="num_players">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="red_player">Red</string>
+    <string name="blue_player">Blue</string>
+    <string name="yellow_player">Yellow</string>
+    <string name="green_player">Green</string>
+    <string name="black_player">Black</string>
+</resources>
