@@ -1,4 +1,4 @@
-package com.example.tnels.tickettoride;
+package com.example.server.Model;
 
 /**
  * Created by tnels on 1/29/2018.

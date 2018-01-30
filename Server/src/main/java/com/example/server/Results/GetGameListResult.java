@@ -1,5 +1,7 @@
 package com.example.server.Results;
 
+import com.example.server.Model.TicketToRideGame;
+
 import java.util.List;
 
 /**
@@ -7,14 +9,14 @@ import java.util.List;
  */
 
 public class GetGameListResult extends Result {
-    private List<Game> games;
+    private List<TicketToRideGame> games;
 
-    public GetGameListResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, List<Game> games) {
+    public GetGameListResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, List<TicketToRideGame> games) {
         super(isSuccess, errorMessage, clientCommands, errorType);
         this.games=games;
     }
 
-    public List<Game> getGames(){
+    public List<TicketToRideGame> getGames(){
         return games;
     }
 }

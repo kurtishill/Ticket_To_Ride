@@ -1,4 +1,4 @@
-package com.example.tnels.tickettoride;
+package com.example.server.Model;
 
 import java.util.Map;
 
