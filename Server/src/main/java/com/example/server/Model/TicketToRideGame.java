@@ -20,6 +20,7 @@ public class TicketToRideGame {
 
     }
 
+
     public TicketToRideGame(List<Player> players)
     {
         this.players = players;

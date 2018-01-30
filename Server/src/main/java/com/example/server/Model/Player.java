@@ -14,6 +14,7 @@ public class Player {
 
     private int numTrainCars;
 
+
     /**
      * Constructor for player class. Requires username and password to login to game.
      * @param username A player's username to login.
