@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
+      <module fileurl="file://C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\Server\Server.iml" filepath="C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\Server\Server.iml" />
       <module fileurl="file://C:\Users\fryti\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\fryti\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ticket_To_Ride.iml" filepath="$PROJECT_DIR$/Ticket_To_Ride.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
