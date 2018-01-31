@@ -28,8 +28,11 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+ origin/client_views_presenters_guifacade_clientmodel
+
     compile 'com.google.code.gson:gson:2.2.4'
     compile project(":Server")
-    compile 'jp.wasabeef:blurry:2.0.3'
+ Integration
     testCompile 'junit:junit:4.12'
+    implementation project(':Server')
 }
