@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LoginResult extends Result {
     private String authToken;
-
+    //This is a test
     public LoginResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, String authToken) {
         super(isSuccess, errorMessage, clientCommands, errorType);
         this.authToken = authToken;
