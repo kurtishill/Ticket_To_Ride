@@ -10,13 +10,8 @@ import com.example.server.Results.LoginResult;
  */
 
 public class LoginService {
-    @SuppressWarnings("serial")
-    public static class UserNotExistsException extends Exception {
-        public UserNotExistsException(){
-            System.out.println("Users Does Not Exist");
-        }
-    }
-    public LoginResult Login(String username, String password) throws UserNotExistsException{
+
+    public LoginResult Login(String username, String password){
         Player player = ModelRoot.instance().UserExists(username);
         if(player != null){
             if(player.getPassword().equals(password)){

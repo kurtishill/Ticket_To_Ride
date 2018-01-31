@@ -35,7 +35,7 @@ public class ServerFacade {
     public RegisterResult Register(String username, String password) throws RegisterService.UserExistsException{
         return register.Register(username,password);
     }
-    public LoginResult Login(String username, String password) throws LoginService.UserNotExistsException{
+    public LoginResult Login(String username, String password){
         return login.Login(username, password);
     }
 }
