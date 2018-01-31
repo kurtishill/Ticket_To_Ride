@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
  * Created by fryti on 1/29/2018.
  */
 
+ origin/client_views_presenters_guifacade_clientmodel
 public class GenericCommand implements ICommand {
     private String _className;
     private String _methodName;
@@ -17,13 +18,19 @@ public class GenericCommand implements ICommand {
         _className = className;
         _methodName = methodName;
         _paramTypes = paramTypes;
+
         _paramValues = paramValues;
 
     }
 
     //fixme need to implement execute
     public Result execute() {
+ origin/client_views_presenters_guifacade_clientmodel
         /*Class<?>[] paramTypes = new Class<?>[_paramValues.length];
+
+        /*
+        Class<?>[] paramTypes = new Class<?>[_paramValues.length];
+ Integration
         for(int i=0; i< _paramValues.length; i++){
             paramTypes[i]=_paramValues[i].getClass();
         }
@@ -38,6 +45,7 @@ public class GenericCommand implements ICommand {
             return "Error: Exception Thrown";
         }
     }
+ origin/client_views_presenters_guifacade_clientmodel
 
         return null;
     }*/
@@ -72,6 +80,8 @@ public class GenericCommand implements ICommand {
         finally {
             return result;
         }
+
+ Integration
     }
 }
 

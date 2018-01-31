@@ -10,6 +10,7 @@ import java.util.List;
 public class TicketToRideGame {
 
     private List<Player> players;
+ origin/client_views_presenters_guifacade_clientmodel
     private String name;
     private int gameID;
     private int maxNumPlayers;
@@ -46,19 +47,28 @@ public class TicketToRideGame {
         return players;
     }
 
-    public void addPlayer(Player player) {
+
+
+
+    public void addPlayer(Player player)
+    {
+ Integration
         if(players.size() < 5)
             players.add(player);
     }
 
+ origin/client_views_presenters_guifacade_clientmodel
     public String getName() {
         return name;
     }
 
+
+ Integration
     public int getGameID() {
         return gameID;
     }
 
+ origin/client_views_presenters_guifacade_clientmodel
     public int getMaxNumPlayers() {
         return maxNumPlayers;
     }
@@ -74,4 +84,9 @@ public class TicketToRideGame {
     public void setMaxNumPlayers(int maxNumPlayers) {
         this.maxNumPlayers = maxNumPlayers;
     }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+ Integration
 }

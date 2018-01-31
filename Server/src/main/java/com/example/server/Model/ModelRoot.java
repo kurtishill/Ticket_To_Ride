@@ -9,18 +9,33 @@ import java.util.Map;
 public class ModelRoot {
 
     private ModelRoot _ModelRoot_Instance;
+ origin/client_views_presenters_guifacade_clientmodel
     private Map<Integer, TicketToRideGame> allGames;
     private Map<String, Player> allPlayers;
+
+
+    private Map<Integer, TicketToRideGame> allGames;
+
+    private Map<String, Player> allPlayers;
+
+ Integration
     private String mAuthToken;
 
     private ModelRoot() {}
 
+ origin/client_views_presenters_guifacade_clientmodel
     public ModelRoot instance() {
+
+
+    public ModelRoot instance()
+    {
+ Integration
         if(_ModelRoot_Instance == null)
             return new ModelRoot();
         return _ModelRoot_Instance;
     }
 
+ origin/client_views_presenters_guifacade_clientmodel
     private void addGame(int gameID, TicketToRideGame game) {
         allGames.put(gameID, game);
     }
@@ -34,6 +49,25 @@ public class ModelRoot {
     }
 
     private Map<String, Player> getAllPlayers() {
+
+    private void addGame(int gameID, TicketToRideGame game)
+    {
+        allGames.put(gameID, game);
+    }
+
+    private void allPlayer(String username, Player player)
+    {
+        allPlayers.put(username, player);
+    }
+
+    private Map<Integer, TicketToRideGame> getAllGames()
+    {
+        return allGames;
+    }
+
+    private Map<String, Player> getAllPlayers()
+    {
+ Integration
         return allPlayers;
     }
 
