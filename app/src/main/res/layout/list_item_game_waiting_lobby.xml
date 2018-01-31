@@ -2,45 +2,52 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:columnCount="4"
         android:background="@color/transparent_gray">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:text="@string/game_id"
             android:id="@+id/game_id_list_item_text_view"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
-            android:textColor="@color/white"/>
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/light_blue"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/game_name"
             android:id="@+id/game_name_list_item_text_view"
-            android:textColor="@color/white"/>
+            android:textColor="@color/light_blue"/>
 
         <TextView
-            android:layout_width="150dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/game_players"
             android:id="@+id/game_players_list_item_text_view"
             android:layout_marginStart="10dp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/light_blue"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/players_in_game"
             android:id="@+id/players_in_game_list_item_text_view"
-            android:textColor="@color/white"/>
+            android:textColor="@color/light_blue"/>
 
     </GridLayout>
 

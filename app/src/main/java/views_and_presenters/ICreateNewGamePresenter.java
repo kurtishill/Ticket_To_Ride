@@ -1,4 +1,4 @@
-package com.example.hillcollegemac.tickettoride;
+package views_and_presenters;
 
 import java.util.List;
 
@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface ICreateNewGamePresenter {
 
-    List<Integer> getNumPlayersList();
+    List<Boolean> getPlayerColors();
 
-    List<Boolean> getColorList();
-
-    void colorListChanged();
+    boolean colorListChanged(int button);
 
     void cancel();
 
     void confirmCreateGame();
+
+    boolean gameNameChanged();
 }

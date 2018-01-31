@@ -1,4 +1,4 @@
-package com.example.hillcollegemac.tickettoride;
+package views_and_presenters;
 
 /**
  * Created by HillcollegeMac on 1/27/18.

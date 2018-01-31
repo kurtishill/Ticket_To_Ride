@@ -1,7 +1,9 @@
-package com.example.hillcollegemac.tickettoride;
+package views_and_presenters;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.hillcollegemac.tickettoride.R;
 
 public class GameActivity extends AppCompatActivity {
 
