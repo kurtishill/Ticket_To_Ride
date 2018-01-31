@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="views_and_presenters.MainActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".GameActivity" android:screenOrientation="landscape">
+        <activity android:name="views_and_presenters.GameActivity" android:screenOrientation="landscape">
         </activity>
     </application>
 

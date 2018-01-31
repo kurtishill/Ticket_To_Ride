@@ -23,10 +23,10 @@
     <string name="cancel_button">Cancel</string>
     <string name="ok_button">OK</string>
     <string-array name="num_players">
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item><font color="#6AACFF">2</font></item>
+        <item><font color="#6AACFF">3</font></item>
+        <item><font color="#6AACFF">4</font></item>
+        <item><font color="#6AACFF">5</font></item>
     </string-array>
     <string name="red_player">Red</string>
     <string name="blue_player">Blue</string>

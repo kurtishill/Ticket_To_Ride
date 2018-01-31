@@ -8,9 +8,11 @@ import java.util.List;
 
 public class RegisterResult extends Result {
     private String authToken;
+ origin/client_views_presenters_guifacade_clientmodel
+
     public RegisterResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, String authToken) {
         super(isSuccess, errorMessage, clientCommands, errorType);
-        this.authToken=authToken;
+        this.authToken = authToken;
     }
 
     public String getAuthToken() {
