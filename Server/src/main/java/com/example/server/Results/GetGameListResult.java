@@ -19,6 +19,6 @@ public class GetGameListResult extends Result {
     public List<TicketToRideGame> getGames(){
         return games;
     }
- origin/client_views_presenters_guifacade_clientmodel
+
 }
- Integration
+
