@@ -6,7 +6,7 @@ import java.util.List;
  * Created by fryti on 1/29/2018.
  */
 
-public abstract class Result {
+public class Result {
     private boolean isSuccess;
     private String errorMessage;
     private List<GenericCommand> clientCommands;
