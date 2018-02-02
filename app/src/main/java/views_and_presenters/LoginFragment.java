@@ -124,7 +124,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // call an asyncTask to call the presenter to do login stuff
+                //TODO: call an asyncTask to call the presenter to do login stuff
                 // and to load the GameWaitingLobbyFragment with
                 // startActivity(new Intent(getActivity(), MainActivity.class));
 
@@ -135,7 +135,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // call an asyncTask to call the presenter to do register stuff
+                //TODO: call an asyncTask to call the presenter to do register stuff
                 // and to load the GameWaitingLobbyFragment with
                 // startActivity(new Intent(getActivity(), MainActivity.class));
             }

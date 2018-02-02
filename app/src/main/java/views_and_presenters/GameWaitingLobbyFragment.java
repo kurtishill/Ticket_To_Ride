@@ -162,6 +162,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: start async task for joinGame
                 mGameWaitingLobbyPresenter.joinGame(mSelectedGame);
                 Intent intent = new Intent(getActivity(), GameActivity.class);
                 startActivity(intent);

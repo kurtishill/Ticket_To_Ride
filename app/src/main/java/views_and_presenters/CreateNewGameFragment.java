@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -179,8 +180,10 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: create async task then start activity
                 mCreateNewGamePresenter.confirmCreateGame();
-                closeFragment();
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                startActivity(intent);
             }
         });
 
