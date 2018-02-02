@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -162,7 +163,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
             @Override
             public void onClick(View view) {
                 mGameWaitingLobbyPresenter.joinGame(mSelectedGame);
-                //TODO: start GameActivity
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                startActivity(intent);
             }
         });
 

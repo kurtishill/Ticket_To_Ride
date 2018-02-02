@@ -95,7 +95,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
             @Override
             public void afterTextChanged(Editable editable) {
                 boolean b = mCreateNewGamePresenter.gameNameChanged() &&
-                        mCreateNewGamePresenter.getPlayerColors().contains(true);
+                        mCreateNewGamePresenter.getSelectedPlayerColors().contains(true);
 
                 enableCreateNewGame(b);
             }
@@ -164,8 +164,6 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
                 enableCreateNewGame(b);
             }
         });
-
-        setColorListForAvailableColors(mCreateNewGamePresenter.getPlayerColors());
 
 
         mCancelButton = (Button) v.findViewById(R.id.cancel_button);

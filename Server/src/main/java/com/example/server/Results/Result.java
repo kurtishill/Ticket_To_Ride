@@ -16,7 +16,6 @@ public abstract class Result {
         this.isSuccess = isSuccess;
         this.errorMessage = errorMessage;
         this.clientCommands = clientCommands;
- origin/client_views_presenters_guifacade_clientmodel
         this.errorType = errorType;
     }
 
@@ -37,7 +36,6 @@ public abstract class Result {
     public String getErrorType() {
         return errorType;
     }
- origin/client_views_presenters_guifacade_clientmodel
 
     public void setSuccess(boolean success) {
         isSuccess = success;
@@ -54,5 +52,4 @@ public abstract class Result {
     public void setErrorType(String errorType) {
         this.errorType = errorType;
     }
- Integration
 }

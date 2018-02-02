@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ICreateNewGamePresenter {
 
-    List<Boolean> getPlayerColors();
+    List<Boolean> getSelectedPlayerColors();
 
     boolean colorListChanged(int button);
 

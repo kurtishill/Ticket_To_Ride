@@ -6,7 +6,6 @@ import java.lang.reflect.Method;
  * Created by fryti on 1/29/2018.
  */
 
-
 public class GenericCommand implements ICommand {
     private String _className;
     private String _methodName;
@@ -25,7 +24,6 @@ public class GenericCommand implements ICommand {
 
     //fixme need to implement execute
     public Result execute() {
-
         /*Class<?>[] paramTypes = new Class<?>[_paramValues.length];
 
         /*
@@ -55,7 +53,7 @@ public class GenericCommand implements ICommand {
             Method method = receiverClass.getMethod(_methodName, _paramTypes);
             Object receiver = receiverClass.newInstance();
             Object obj = method.invoke(receiver, _paramValues);
-            if (obj.getClass() == LoginResult.class)
+            /*if (obj.getClass() == LoginResult.class)
                 result = (LoginResult) obj;
             else if (obj.getClass() == RegisterResult.class)
                 result = (RegisterResult) obj;
@@ -67,7 +65,8 @@ public class GenericCommand implements ICommand {
                 result = (JoinGameResult) obj;
             else
                 //should never get here
-                assert result == null;
+                assert result == null;*/
+            return (Result) obj;
 
             //result object created and returned by services
         }
@@ -80,8 +79,6 @@ public class GenericCommand implements ICommand {
         finally {
             return result;
         }
-
-
     }
 }
 

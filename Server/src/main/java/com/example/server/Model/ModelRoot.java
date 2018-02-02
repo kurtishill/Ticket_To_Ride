@@ -9,14 +9,10 @@ import java.util.Map;
 
 public class ModelRoot {
 
-
     private static ModelRoot _ModelRoot_Instance = null;
-
     private Map<Integer, TicketToRideGame> allGames;
     private List<TicketToRideGame> listGames;
     private Map<String, Player> allPlayers;
-
- Integration
     private String mAuthToken;
 
     private ModelRoot() {}
@@ -29,40 +25,18 @@ public class ModelRoot {
         }
     }
 
- origin/client_views_presenters_guifacade_clientmodel
-    public ModelRoot instance() {
-
-
-    public static ModelRoot instance()
-    {
- Integration
+    public static ModelRoot instance() {
         if(_ModelRoot_Instance == null)
             return new ModelRoot();
         return _ModelRoot_Instance;
     }
 
-    private void allPlayer(String username, Player player) {
-        allPlayers.put(username, player);
-    }
-
-    private Map<Integer, TicketToRideGame> getAllGames() {
-        return allGames;
-    }
-
-    private Map<String, Player> getAllPlayers() {
-
-    private void addGame(int gameID, TicketToRideGame game)
-    {
+    public void addGame(int gameID, TicketToRideGame game) {
         allGames.put(gameID, game);
         listGames.add(game);
     }
 
-    public List<TicketToRideGame> getListGames() {
-        return listGames;
-    }
-
-    public void allPlayer(String username, Player player)
-    {
+    public void allPlayer(String username, Player player) {
         allPlayers.put(username, player);
     }
 
@@ -75,15 +49,16 @@ public class ModelRoot {
         }
     }
 
-    private Map<Integer, TicketToRideGame> getAllGames()
-    {
+    private Map<Integer, TicketToRideGame> getAllGames() {
         return allGames;
     }
 
-    private Map<String, Player> getAllPlayers()
-    {
- Integration
+    private Map<String, Player> getAllPlayers() {
         return allPlayers;
+    }
+
+    public List<TicketToRideGame> getListGames() {
+        return listGames;
     }
 
     private void setAllGames(Map<Integer, TicketToRideGame> allGames) {

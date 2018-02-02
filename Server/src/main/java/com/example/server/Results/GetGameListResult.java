@@ -19,6 +19,4 @@ public class GetGameListResult extends Result {
     public List<TicketToRideGame> getGames(){
         return games;
     }
-
 }
-
