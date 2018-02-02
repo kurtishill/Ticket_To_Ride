@@ -6,35 +6,35 @@ import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
+import com.example.server.Results.Result;
 
 /**
  * Created by tnels on 1/30/2018.
  */
 
-public class ServerProxy implements IServer {
+public class ServerProxy  {
 
-    @Override
-    public LoginResult login(String username, String password) {
+    private String serverHost;
+    private String serverPort;
+
+    public Result command(String functionName)
+    {       //TODO add correct parameters
         return null;
     }
 
-    @Override
-    public RegisterResult register(String username, String password) {
-        return null;
+    public String getServerPort() {
+        return serverPort;
     }
 
-    @Override
-    public CreateGameResult createNewGame(Player startingPlayer, int numPlayers) {
-        return null;
+    public void setServerPort(String serverPort) {
+        this.serverPort = serverPort;
     }
 
-    @Override
-    public JoinGameResult joinGame(Player player) {
-        return null;
+    public String getServerHost() {
+        return serverHost;
     }
 
-    @Override
-    public GetGameListResult getGameList() {
-        return null;
+    public void setServerHost(String serverHost) {
+        this.serverHost = serverHost;
     }
 }
