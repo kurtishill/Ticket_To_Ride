@@ -7,6 +7,9 @@ import com.example.server.Results.GenericCommand;
  * Created by fryti on 2/1/2018.
  */
 
+/**
+ * Class creates specialized command objects for each function in the server facade
+ */
 public class CommandFactory {
     public GenericCommand Login(String username, String password){
         return new GenericCommand("ServerFacade", "Login",
