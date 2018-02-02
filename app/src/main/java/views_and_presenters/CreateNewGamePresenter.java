@@ -17,7 +17,7 @@ import gui_facade.GetUserService;
 public class CreateNewGamePresenter implements ICreateNewGamePresenter {
 
     private List<Boolean> mAvailablePlayerColors;
-    private List<Boolean> mCurrAvailablePlayerColors;
+    private List<Boolean> mSelectedPlayerColors;
     private TicketToRideGame mGame;
 
     private ICreateNewGameView mCreateNewGameView;
@@ -32,11 +32,17 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         for (int i = 0; i < 5; i++) {
             mAvailablePlayerColors.add(true);
         }
-        mCurrAvailablePlayerColors = mAvailablePlayerColors;
     }
 
-    public List<Boolean> getPlayerColors() {
-        return mCurrAvailablePlayerColors;
+    {
+        mSelectedPlayerColors = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            mSelectedPlayerColors.add(false);
+        }
+    }
+
+    public List<Boolean> getSelectedPlayerColors() {
+        return mSelectedPlayerColors;
     }
 
     public TicketToRideGame getGame() {
@@ -48,15 +54,18 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
     }
 
     public boolean colorListChanged(int button) {
-        for (int i = 0; i < mCurrAvailablePlayerColors.size(); i++) {
-            if (i == button)
-                mCurrAvailablePlayerColors.set(i, true);
+        boolean b = false;
+        for (int i = 0; i < mSelectedPlayerColors.size(); i++) {
+            if (i == button) {
+                mSelectedPlayerColors.set(i, true);
+                b = true;
+            }
             else
-                mCurrAvailablePlayerColors.set(i, false);
+                mSelectedPlayerColors.set(i, false);
         }
 
-        mCreateNewGameView.setColorListForCheckedColors(mCurrAvailablePlayerColors);
-        return true;
+        mCreateNewGameView.setColorListForCheckedColors(mSelectedPlayerColors);
+        return b;
     }
 
     public void cancel() {
@@ -68,7 +77,7 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         // so this line of code causes a NodePointerException when trying to get the user
         //ClientModelRoot.instance().getUser().setColor(mCreateNewGameView.getPlayerColor());
         List<TicketToRideGame> currListOfGames = GetGamesService.getGames();
-        int largestID = -1;
+        int largestID = 0;
         if (currListOfGames.size() > 0)
             largestID = currListOfGames.get(currListOfGames.size() - 1).getGameID();
         mGame = new TicketToRideGame(GetUserService.getUser(),

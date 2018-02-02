@@ -12,7 +12,7 @@ public class ClientCommunicator {
 
     public ClientCommunicator() {}
 
-    public String encode(String info)
+    public String encode(Object info)
     {
         Gson gson = new Gson();
         return gson.toJson(info, info.getClass());
@@ -26,8 +26,7 @@ public class ClientCommunicator {
 
     public Result send(String wholeUrl)
     {
-
-
+        return null;
     }
 
 }

@@ -14,7 +14,6 @@ public class Player {
 
     private int numTrainCars;
 
- origin/client_views_presenters_guifacade_clientmodel
     private String color;
 
     private String id;
@@ -27,7 +26,6 @@ public class Player {
         color = null;
         id = null;
     }
- Integration
 
     /**
      * Constructor for player class. Requires username and password to login to game.
@@ -38,16 +36,12 @@ public class Player {
      */
     public Player(String username, String password)
     {
- Integration
         this.username = username;
         this.password = password;
         numPoints = 0;
         numTrainCars = 45;
- origin/client_views_presenters_guifacade_clientmodel
         color = null;
         id = null;
-
- Integration
     }
 
     public String getUsername() {
@@ -66,16 +60,14 @@ public class Player {
         this.password = password;
     }
 
- origin/client_views_presenters_guifacade_clientmodel
     public String getID() {
         return id;
     }
+
     public void setID(String id) {
         this.id = id;
     }
 
-
- Integration
     public int getNumPoints() {
         return numPoints;
     }
@@ -92,7 +84,6 @@ public class Player {
         this.numTrainCars = numTrainCars;
     }
 
- origin/client_views_presenters_guifacade_clientmodel
     public String getColor() {
         return color;
     }
@@ -100,8 +91,4 @@ public class Player {
     public void setColor(String color) {
         this.color = color;
     }
-
-
- Integration
-
 }
