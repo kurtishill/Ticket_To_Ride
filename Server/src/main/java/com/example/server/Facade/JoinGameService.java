@@ -15,8 +15,13 @@ public class JoinGameService {
         Player currentPlayer = ModelRoot.instance().UserExists(username);
         if(currentPlayer != null ){
             if(currentGame != null){
-                currentGame.addPlayer(currentPlayer);
-                return new JoinGameResult(true, null, null, null);
+                if(currentGame.getMaxNumPlayers() == currentGame.getPlayers().size()){
+                    return new JoinGameResult(false, "Game Already Filled", null, "fullGame");
+                }
+                else{
+                    currentGame.addPlayer(currentPlayer);
+                    return new JoinGameResult(true, null, null, null);
+                }
             }
             else{
                 return new JoinGameResult(false, "Game Does Not Exist", null, "invalidGame");
