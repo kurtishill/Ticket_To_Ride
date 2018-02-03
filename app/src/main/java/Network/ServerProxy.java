@@ -13,7 +13,14 @@ import com.example.server.Results.Result;
  */
 
 public class ServerProxy  {
-
+    private static ServerProxy instance = null;
+    protected ServerProxy(){}
+    public static ServerProxy getInstance() {
+        if(instance == null) {
+            instance = new ServerProxy();
+        }
+        return instance;
+    }
     private String serverHost;
     private String serverPort;
 

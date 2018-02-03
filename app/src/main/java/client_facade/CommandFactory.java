@@ -1,6 +1,5 @@
-package com.example.server;
+package client_facade;
 
-import com.example.server.Facade.ServerFacade;
 import com.example.server.Results.GenericCommand;
 
 /**
@@ -12,23 +11,23 @@ import com.example.server.Results.GenericCommand;
  */
 public class CommandFactory {
     public GenericCommand Login(String username, String password){
-        return new GenericCommand("ServerFacade", "Login",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "Login",
                 new Class<?>[]{ String.class, String.class }, new Object[]{username, password});
     }
     public GenericCommand Register(String username, String password){
-        return new GenericCommand("ServerFacade", "Register",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "Register",
                 new Class<?>[]{ String.class, String.class }, new Object[]{username, password});
     }
     public GenericCommand JoinGame(String username, int gameId){
-        return new GenericCommand("ServerFacade", "JoinGame",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "JoinGame",
                 new Class<?>[]{ String.class, Integer.class }, new Object[]{username, gameId});
     }
     public GenericCommand GetGameList(String username){
-        return new GenericCommand("ServerFacade", "GetGameList",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "GetGameList",
                 new Class<?>[]{ String.class}, new Object[]{username});
     }
     public GenericCommand CreateGame(String username){
-        return new GenericCommand("ServerFacade", "CreateGame",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "CreateGame",
                 new Class<?>[]{ String.class}, new Object[]{username});
     }
 }
