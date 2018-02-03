@@ -15,7 +15,7 @@ public class LoginService {
         Player player = ModelRoot.instance().UserExists(username);
         if(player != null){
             if(player.getPassword().equals(password)){
-                return new LoginResult(true, null, null, null, username);
+                return new LoginResult(true, null, null, null, player);
             }
             else {
                 return new LoginResult(false, "Incorrect Password", null, "Incorrect Password", null);

@@ -19,10 +19,10 @@ public class RegisterService {
     public RegisterResult Register(String username, String password) throws UserExistsException {
         if(ModelRoot.instance().UserExists(username) ==  null){
             ModelRoot.instance().allPlayer(username, new Player(username, password));
-            return new RegisterResult(true, null ,null, null, username );
+            return new RegisterResult(true, null ,null, null, ModelRoot.instance().UserExists(username) );
         }
         else {
-            return new RegisterResult(false, "Username Already Used", null, null, "User Exists"); //throw new UserExistsException(); // might want to just return null instead..
+            return new RegisterResult(false, "Username Already Used", null,  "User Exists", null); //throw new UserExistsException(); // might want to just return null instead..
         }
     }
 }

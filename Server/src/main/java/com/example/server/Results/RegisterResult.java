@@ -1,5 +1,7 @@
 package com.example.server.Results;
 
+import com.example.server.Model.Player;
+
 import java.util.List;
 
 /**
@@ -7,15 +9,15 @@ import java.util.List;
  */
 
 public class RegisterResult extends Result {
-    private String authToken;
+    private Player player;
 
 
-    public RegisterResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, String authToken) {
+    public RegisterResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, Player player) {
         super(isSuccess, errorMessage, clientCommands, errorType);
-        this.authToken = authToken;
+        this.player = player;
     }
 
-    public String getAuthToken() {
-        return authToken;
+    public Player getAuthToken() {
+        return player;
     }
 }
