@@ -1,5 +1,7 @@
 package views_and_presenters;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Results.Result;
 
 public class LoginFragment extends Fragment implements ILoginView {
     private static final String ARG_PARAM1 = "param1";
@@ -124,9 +127,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: call an asyncTask to call the presenter to do login stuff
-                // and to load the GameWaitingLobbyFragment with
-                // startActivity(new Intent(getActivity(), MainActivity.class));
+                new LoginAsyncTask().execute();
 
             }
         });
@@ -135,9 +136,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: call an asyncTask to call the presenter to do register stuff
-                // and to load the GameWaitingLobbyFragment with
-                // startActivity(new Intent(getActivity(), MainActivity.class));
+                new LoginAsyncTask().execute();
             }
         });
 
@@ -175,5 +174,23 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public void displayErrorMessage(String s) {
         Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+    }
+
+    private class LoginAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... v) {
+            if (mLoginButton.isPressed())
+                return mLoginPresenter.login();
+            else
+                return mLoginPresenter.register();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (result.getErrorMessage() != null) {
+                displayErrorMessage(result.getErrorMessage());
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
+        }
     }
 }

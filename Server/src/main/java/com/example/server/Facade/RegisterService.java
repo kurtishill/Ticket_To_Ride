@@ -10,7 +10,7 @@ import com.example.server.Results.RegisterResult;
  */
 
 public class RegisterService {
-    @SuppressWarnings("serial")
+
     public static class UserExistsException extends Exception {
         public UserExistsException(){
             System.out.println("Users Exists");

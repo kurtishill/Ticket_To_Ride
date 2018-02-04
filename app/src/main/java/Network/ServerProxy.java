@@ -1,12 +1,9 @@
 package Network;
 
-import com.example.server.Model.Player;
-import com.example.server.Results.CreateGameResult;
-import com.example.server.Results.GetGameListResult;
-import com.example.server.Results.JoinGameResult;
-import com.example.server.Results.LoginResult;
-import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tnels on 1/30/2018.
@@ -14,22 +11,30 @@ import com.example.server.Results.Result;
 
 public class ServerProxy  {
     private static ServerProxy instance = null;
-    protected ServerProxy(){}
-    public static ServerProxy getInstance() {
+    private static String serverHost;
+    private static String serverPort;
+
+    private ServerProxy(String serverHost, String serverPort) {
+        setServerHost(serverHost);
+        setServerPort(serverPort);
+    }
+
+    public static ServerProxy getInstance(String serverHost, String serverPort) {
         if(instance == null) {
-            instance = new ServerProxy();
+            instance = new ServerProxy(serverHost, serverPort);
         }
         return instance;
     }
-    private String serverHost;
-    private String serverPort;
 
-    public Result command(String functionName)
-    {       //TODO add correct parameters
-        return null;
+    public Result command(String functionName, List<Object> data)
+    {
+        List<Object> commandValues = new ArrayList<>();
+        commandValues.add(functionName);
+        commandValues.addAll(data);
+        return ClientCommunicator.instance().send("/command", commandValues);
     }
 
-    public String getServerPort() {
+    public static String getServerPort() {
         return serverPort;
     }
 
@@ -37,7 +42,7 @@ public class ServerProxy  {
         this.serverPort = serverPort;
     }
 
-    public String getServerHost() {
+    public static String getServerHost() {
         return serverHost;
     }
 
