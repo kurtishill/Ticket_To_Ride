@@ -189,8 +189,8 @@ public class LoginFragment extends Fragment implements ILoginView {
         protected void onPostExecute(Result result) {
             if (result.getErrorMessage() != null) {
                 displayErrorMessage(result.getErrorMessage());
-                startActivity(new Intent(getActivity(), MainActivity.class));
             }
+            startActivity(new Intent(getActivity(), MainActivity.class));
         }
     }
 }

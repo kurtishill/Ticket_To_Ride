@@ -1,5 +1,10 @@
 package Network;
 
+import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.GetGameListResult;
+import com.example.server.Results.JoinGameResult;
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
 import com.example.server.Serializer;
 
@@ -58,12 +63,20 @@ public class ClientCommunicator {
                 System.out.println("ERROR: " + http.getResponseMessage());
             }
             String resp = Serializer.readString(respBody);
-            return (Result) Serializer.decode(resp, Result.class);
+            if (resp.contains("RegisterResult"))
+                return (Result) Serializer.decode(resp, RegisterResult.class);
+            else if (resp.contains("LoginResult"))
+                return (Result) Serializer.decode(resp, LoginResult.class);
+            else if (resp.contains("GetGameList"))
+                return (Result) Serializer.decode(resp, GetGameListResult.class);
+            else if (resp.contains("JoinGameResult"))
+                return (Result) Serializer.decode(resp, JoinGameResult.class);
+            else if (resp.contains("CreateGameResult"))
+                return (Result) Serializer.decode(resp, CreateGameResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result(false, "Error", null, "IOException");
+        return new Result(false, "Error", null, "IOException", null);
     }
-
 }

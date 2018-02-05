@@ -1,5 +1,6 @@
 package com.example.server.Results;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,12 +12,22 @@ public class Result {
     private String errorMessage;
     private List<GenericCommand> clientCommands;
     private String errorType;
+    private String type;
 
-    public Result(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType) {
+    public Result() {
+        isSuccess = false;
+        errorMessage = null;
+        clientCommands = new ArrayList<>();
+        errorType = null;
+        type = null;
+    }
+
+    public Result(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, String type) {
         this.isSuccess = isSuccess;
         this.errorMessage = errorMessage;
         this.clientCommands = clientCommands;
         this.errorType = errorType;
+        this.type = type;
     }
 
 
@@ -37,6 +48,10 @@ public class Result {
         return errorType;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setSuccess(boolean success) {
         isSuccess = success;
     }
@@ -51,5 +66,9 @@ public class Result {
 
     public void setErrorType(String errorType) {
         this.errorType = errorType;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

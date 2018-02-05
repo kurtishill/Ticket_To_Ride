@@ -9,7 +9,7 @@ import java.util.List;
 public class CreateGameResult extends Result {
 
     public CreateGameResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType) {
-        super(isSuccess, errorMessage, clientCommands, errorType);
+        super(isSuccess, errorMessage, clientCommands, errorType, "CreateGameResult");
     }
 
 }

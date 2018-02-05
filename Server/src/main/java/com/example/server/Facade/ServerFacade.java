@@ -11,12 +11,12 @@ import com.example.server.Results.RegisterResult;
  */
 
 public class ServerFacade {
-    LoginService login;
-    RegisterService register;
-    GetGameListService getGameList;
-    JoinGameService joinGame;
-    CreateGameService createGame;
-    ServerFacade(){
+    private LoginService login;
+    private RegisterService register;
+    private GetGameListService getGameList;
+    private JoinGameService joinGame;
+    private CreateGameService createGame;
+    public ServerFacade(){
         login = new LoginService();
         register = new RegisterService();
         getGameList= new GetGameListService();
