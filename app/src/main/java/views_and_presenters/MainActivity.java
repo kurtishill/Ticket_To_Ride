@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.example.hillcollegemac.tickettoride.R;
 
+import client_model.ClientModelRoot;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -17,16 +19,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment;
 
-        // if model has auth token for user
-        //       load GameWaitingLobbyFragment
-        // else
-        //       load LoginFragment
+        if (ClientModelRoot.instance().getAuthToken() == null) {
+            fragment = new LoginFragment();
+            if (getSupportActionBar() != null)
+                getSupportActionBar().setTitle("Ticket To Ride: Login or Register");
+        }
+        else {
+            fragment = new GameWaitingLobbyFragment();
+            if (getSupportActionBar() != null)
+                getSupportActionBar().setTitle("Ticket To Ride: Game Waiting Lobby");
+        }
 
-
-        // for now it will just load LoginFragment
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle("Ticket To Ride: Login or Register");
-        fragment = new GameWaitingLobbyFragment();
         fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
     }
 

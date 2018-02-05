@@ -1,12 +1,12 @@
 package AsyncTasks;
 
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.server.Results.LoginResult;
 
-import client_facade.ClientFacade;
 import client_model.ClientModelRoot;
+
+//import client_facade.ClientFacade;
 
 /**
  * Created by Clayton Kings on 2/2/2018.
@@ -17,8 +17,9 @@ public class LoginTask extends AsyncTask<String, Void, LoginResult> {
 
     @Override
     protected LoginResult doInBackground(String... strings) {
-        ClientFacade facade =  new ClientFacade();
-        return facade.Login(strings[0], strings[1]);
+        //ClientFacade facade =  new ClientFacade();
+        //return facade.Login(strings[0], strings[1]);
+        return null;
     }
 
     @Override

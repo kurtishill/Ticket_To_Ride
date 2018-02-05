@@ -1,5 +1,7 @@
 package com.example.server.Model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +11,17 @@ import java.util.Map;
 
 public class ModelRoot {
 
-    private static ModelRoot _ModelRoot_Instance = null;
+    private static ModelRoot _ModelRoot_Instance;
     private Map<Integer, TicketToRideGame> allGames;
     private List<TicketToRideGame> listGames;
     private Map<String, Player> allPlayers;
-    private String mAuthToken;
 
-    private ModelRoot() {}
+    private ModelRoot() {
+        allGames = new HashMap<>();
+        listGames = new ArrayList<>();
+        allPlayers = new HashMap<>();
+    }
+
     public TicketToRideGame GameExists(int gameId){
         if(allGames.containsKey(gameId)){
             return allGames.get(gameId);
@@ -27,7 +33,7 @@ public class ModelRoot {
 
     public static ModelRoot instance() {
         if(_ModelRoot_Instance == null)
-            return new ModelRoot();
+            _ModelRoot_Instance = new ModelRoot();
         return _ModelRoot_Instance;
     }
 
@@ -67,13 +73,5 @@ public class ModelRoot {
 
     private void setAllPlayers(Map<String, Player> allPlayers) {
         this.allPlayers = allPlayers;
-    }
-
-    private String getmAuthToken() {
-        return mAuthToken;
-    }
-
-    private void setmAuthToken(String mAuthToken) {
-        this.mAuthToken = mAuthToken;
     }
 }

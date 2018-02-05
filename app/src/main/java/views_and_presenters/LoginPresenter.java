@@ -1,8 +1,11 @@
 package views_and_presenters;
 
-import AsyncTasks.LoginTask;
-import AsyncTasks.RegisterTask;
-import client_model.ClientModelRoot;
+import com.example.server.Results.Result;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Network.ServerProxy;
 
 /**
  * Created by HillcollegeMac on 1/29/18.
@@ -37,7 +40,7 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     // returns auth token
-    public String login() {
+    /*public String login() {
         LoginTask loginTask = new LoginTask();
         loginTask.execute(mLoginView.getLoginUsername() , mLoginView.getLoginPassword());
         return ClientModelRoot.instance().getUser().getUsername();
@@ -48,5 +51,21 @@ public class LoginPresenter implements ILoginPresenter {
         RegisterTask registerTask = new RegisterTask();
         registerTask.execute(mLoginView.getLoginUsername() , mLoginView.getLoginPassword());
         return ClientModelRoot.instance().getUser().getUsername();
+    }*/
+
+    public Result login() {
+        List<Object> data = new ArrayList<>();
+        data.add(mLoginView.getLoginUsername());
+        data.add(mLoginView.getLoginPassword());
+        return ServerProxy.getInstance("10.24.210.41", "8080")
+                .command("Login", data);
+    }
+
+    public Result register() {
+        List<Object> data = new ArrayList<>();
+        data.add(mLoginView.getRegisterUsername());
+        data.add(mLoginView.getRegisterPassword());
+        return ServerProxy.getInstance("10.24.210.41", "8080")
+                .command("Register", data);
     }
 }

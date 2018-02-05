@@ -1,14 +1,19 @@
 package Network;
 
-import com.example.server.Results.GenericCommand;
+import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.GetGameListResult;
+import com.example.server.Results.JoinGameResult;
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
-import com.google.gson.Gson;
+import com.example.server.Serializer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 /**
  * Created by tnels on 1/30/2018.
@@ -16,22 +21,31 @@ import java.net.URL;
 
 public class ClientCommunicator {
 
+    private static ClientCommunicator _instance;
 
-    public ClientCommunicator() {}
+    public static ClientCommunicator instance() {
+        if (_instance == null)
+            _instance = new ClientCommunicator();
+        return _instance;
+    }
+
+    private ClientCommunicator() {}
 
 
 
-    public Result send(String wholeUrl, GenericCommand command)
+    public Result send(String handlerContext, List<Object> data)
     {
         try {
+            String wholeUrl = "http://" + ServerProxy.getServerHost() + ":" +
+                    ServerProxy.getServerPort() + handlerContext;
             URL url = new URL(wholeUrl);
 
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);	// There is a request body
-
             http.connect();
-            String reqData = Serializer.encode(command);
+
+            String reqData = Serializer.encode(data);
 
             OutputStream reqBody = http.getOutputStream();
             Serializer.writeString(reqData, reqBody);
@@ -49,13 +63,20 @@ public class ClientCommunicator {
                 System.out.println("ERROR: " + http.getResponseMessage());
             }
             String resp = Serializer.readString(respBody);
-            Result result = Serializer.decode(resp);
-            return result;
+            if (resp.contains("RegisterResult"))
+                return (Result) Serializer.decode(resp, RegisterResult.class);
+            else if (resp.contains("LoginResult"))
+                return (Result) Serializer.decode(resp, LoginResult.class);
+            else if (resp.contains("GetGameList"))
+                return (Result) Serializer.decode(resp, GetGameListResult.class);
+            else if (resp.contains("JoinGameResult"))
+                return (Result) Serializer.decode(resp, JoinGameResult.class);
+            else if (resp.contains("CreateGameResult"))
+                return (Result) Serializer.decode(resp, CreateGameResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
-        return new Result(false, "Error", null, "IOException");
+        return new Result(false, "Error", null, "IOException", null);
     }
-
 }

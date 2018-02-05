@@ -2,11 +2,11 @@ package AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.example.server.Facade.RegisterService;
 import com.example.server.Results.RegisterResult;
 
-import client_facade.ClientFacade;
 import client_model.ClientModelRoot;
+
+//import client_facade.ClientFacade;
 
 /**
  * Created by Clayton Kings on 2/2/2018.
@@ -15,8 +15,10 @@ import client_model.ClientModelRoot;
 public class RegisterTask extends AsyncTask <String, Void, RegisterResult> {
     @Override
     protected RegisterResult doInBackground(String... strings){
-        ClientFacade facade =  new ClientFacade();
-        return facade.Register(strings[0], strings[1]);
+        //ClientFacade facade =  new ClientFacade();
+        //return facade.Register(strings[0], strings[1]);
+
+        return null;
     }
 
     @Override

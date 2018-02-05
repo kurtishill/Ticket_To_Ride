@@ -8,6 +8,6 @@ import java.util.List;
 
 public class JoinGameResult extends Result {
     public JoinGameResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType) {
-        super(isSuccess, errorMessage, clientCommands, errorType);
+        super(isSuccess, errorMessage, clientCommands, errorType, "JoinGameResult");
     }
 }

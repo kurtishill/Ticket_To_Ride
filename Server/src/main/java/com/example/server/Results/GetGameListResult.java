@@ -12,7 +12,7 @@ public class GetGameListResult extends Result {
     private List<TicketToRideGame> games;
 
     public GetGameListResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, List<TicketToRideGame> games) {
-        super(isSuccess, errorMessage, clientCommands, errorType);
+        super(isSuccess, errorMessage, clientCommands, errorType, "GetGameListResult");
         this.games=games;
     }
 

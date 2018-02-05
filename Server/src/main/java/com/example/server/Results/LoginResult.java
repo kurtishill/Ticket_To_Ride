@@ -12,7 +12,7 @@ public class LoginResult extends Result {
     private Player player;
 
     public LoginResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, Player player) {
-        super(isSuccess, errorMessage, clientCommands, errorType);
+        super(isSuccess, errorMessage, clientCommands, errorType, "LoginResult");
         this.player = player;
     }
 

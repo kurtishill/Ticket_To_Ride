@@ -22,61 +22,19 @@ public class GenericCommand implements ICommand {
 
     }
 
-    //fixme need to implement execute
     public Result execute() {
-        /*Class<?>[] paramTypes = new Class<?>[_paramValues.length];
-
-        /*
-        Class<?>[] paramTypes = new Class<?>[_paramValues.length];
- Integration
-        for(int i=0; i< _paramValues.length; i++){
-            paramTypes[i]=_paramValues[i].getClass();
-        }
-        try {
-            Class<?> receiverClass = Class.forName(_className);
-            Object receiver = StringProcessor.instance();
-            Method method = receiverClass.getMethod(_methodName, paramTypes);
-            return (String) method.invoke(receiver, _paramValues);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            return "Error: Exception Thrown";
-        }
-    }
- origin/client_views_presenters_guifacade_clientmodel
-
-        return null;
-    }*/
-        Result result = null;
+        Result result = new Result();
         try {
             Class<?> receiverClass = Class.forName(_className);
             Method method = receiverClass.getMethod(_methodName, _paramTypes);
-            Object receiver = receiverClass.newInstance();
-            Object obj = method.invoke(receiver, _paramValues);
-            /*if (obj.getClass() == LoginResult.class)
-                result = (LoginResult) obj;
-            else if (obj.getClass() == RegisterResult.class)
-                result = (RegisterResult) obj;
-            else if (obj.getClass() == GetGameListResult.class)
-                result = (GetGameListResult) obj;
-            else if (obj.getClass() == CreateGameResult.class)
-                result = (CreateGameResult) obj;
-            else if (obj.getClass() == JoinGameResult.class)
-                result = (JoinGameResult) obj;
-            else
-                //should never get here
-                assert result == null;*/
+            Object obj = method.invoke(receiverClass.newInstance(), _paramValues);
             return (Result) obj;
-
-            //result object created and returned by services
         }
-        catch (ClassNotFoundException ex) {
+        catch (Exception ex) {
             result.setErrorMessage(ex.getMessage());
-            result.setErrorType("ClassNotFoundException");
+            result.setErrorType("Exception");
             result.setSuccess(false);
             result.setClientCommands(null);
-        }
-        finally {
             return result;
         }
     }

@@ -1,21 +1,10 @@
 package client_facade;
 
-import com.example.server.Facade.*;
-import com.example.server.Results.CreateGameResult;
-import com.example.server.Results.GetGameListResult;
-import com.example.server.Results.JoinGameResult;
-import com.example.server.Results.LoginResult;
-import com.example.server.Results.RegisterResult;
-
-import Network.ClientCommunicator;
-import Network.ServerProxy;
-import client_model.ClientModelRoot;
-
 /**
  * Created by Clayton Kings on 2/2/2018.
  */
 
-public class ClientFacade {
+/*public class ClientFacade {
     ClientCommunicator communicator;
     CommandFactory commandFactory;
     public ClientFacade(){
@@ -41,4 +30,4 @@ public class ClientFacade {
         return "http://" + ServerProxy.getInstance().getServerHost() + ":"
             + ServerProxy.getInstance().getServerPort() + "/command/"; // fixme where are the server host and port initialized
     }
-}
+}*/

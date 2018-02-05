@@ -1,5 +1,7 @@
 package com.example.server.Model;
 
+import java.util.UUID;
+
 /**
  * Created by tnels on 1/29/2018.
  */
@@ -24,14 +26,13 @@ public class Player {
         numPoints = 0;
         numTrainCars = 45;
         color = null;
-        id = null;
+        id = UUID.randomUUID().toString();
     }
 
     /**
      * Constructor for player class. Requires username and password to login to game.
      * @param username A player's username to login.
      * @param password A player's password to login.
- origin/client_views_presenters_guifacade_clientmode
      * Points start and 0, and number of train cars starts at 45.3
      */
     public Player(String username, String password)
@@ -41,7 +42,7 @@ public class Player {
         numPoints = 0;
         numTrainCars = 45;
         color = null;
-        id = null;
+        id = UUID.randomUUID().toString();
     }
 
     public String getUsername() {

@@ -1,5 +1,7 @@
 package views_and_presenters;
 
+import com.example.server.Results.Result;
+
 /**
  * Created by HillcollegeMac on 1/27/18.
  */
@@ -17,8 +19,12 @@ public interface ILoginPresenter {
     boolean registerUsernameChanged();
 
     // returns auth token
-    String login();
+    /*String login();
 
     // returns auth token
-    String register();
+    String register();*/
+
+    Result login();
+
+    Result register();
 }
