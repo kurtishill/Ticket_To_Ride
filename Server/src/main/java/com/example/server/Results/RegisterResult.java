@@ -17,7 +17,7 @@ public class RegisterResult extends Result {
         this.player = player;
     }
 
-    public Player getAuthToken() {
+    public Player getPlayer() {
         return player;
     }
 }
