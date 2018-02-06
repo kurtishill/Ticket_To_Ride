@@ -13,11 +13,12 @@ public class CreateGameService {
     public CreateGameResult CreateGame(String username){
         Player currentPlayer = ModelRoot.instance().UserExists(username);
         if(currentPlayer != null){
-             ModelRoot.instance().addGame(ModelRoot.instance().getListGames().size(), new TicketToRideGame(currentPlayer));
-            return new CreateGameResult(true, null, null, null );
+            TicketToRideGame game = new TicketToRideGame(currentPlayer);
+            ModelRoot.instance().addGame(ModelRoot.instance().getListGames().size(), game);
+            return new CreateGameResult(true, null, null, null, game);
         }
         else{
-            return new CreateGameResult(false, "User Does Not Exist",  null, "invalidUser");
+            return new CreateGameResult(false, "User Does Not Exist",  null, "invalidUser", null);
         }
     }
 }

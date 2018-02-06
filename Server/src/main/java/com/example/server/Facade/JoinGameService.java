@@ -16,19 +16,19 @@ public class JoinGameService {
         if(currentPlayer != null ){
             if(currentGame != null){
                 if(currentGame.getMaxNumPlayers() == currentGame.getPlayers().size()){
-                    return new JoinGameResult(false, "Game Already Filled", null, "fullGame");
+                    return new JoinGameResult(false, "Game Already Filled", null, "fullGame", null);
                 }
                 else{
                     currentGame.addPlayer(currentPlayer);
-                    return new JoinGameResult(true, null, null, null);
+                    return new JoinGameResult(true, null, null, null, currentGame);
                 }
             }
             else{
-                return new JoinGameResult(false, "Game Does Not Exist", null, "invalidGame");
+                return new JoinGameResult(false, "Game Does Not Exist", null, "invalidGame", null);
             }
         }
         else{
-            return new JoinGameResult(false, "User Does Not Exist", null, "userInvalid");
+            return new JoinGameResult(false, "User Does Not Exist", null, "userInvalid", null);
         }
     }
 }

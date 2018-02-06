@@ -3,7 +3,6 @@ package AsyncTasks;
 import android.os.AsyncTask;
 
 import com.example.server.Results.CreateGameResult;
-import com.example.server.Results.RegisterResult;
 
 import client_model.ClientModelRoot;
 
