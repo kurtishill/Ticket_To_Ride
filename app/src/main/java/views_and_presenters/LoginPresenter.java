@@ -1,11 +1,14 @@
 package views_and_presenters;
 
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Network.ServerProxy;
+import gui_facade.AddUserService;
 
 /**
  * Created by HillcollegeMac on 1/29/18.
@@ -39,33 +42,26 @@ public class LoginPresenter implements ILoginPresenter {
         return mLoginView.getRegisterUsername().length() > 0;
     }
 
-    // returns auth token
-    /*public String login() {
-        LoginTask loginTask = new LoginTask();
-        loginTask.execute(mLoginView.getLoginUsername() , mLoginView.getLoginPassword());
-        return ClientModelRoot.instance().getUser().getUsername();
-    }
-
-    // returns auth token
-    public String register() {
-        RegisterTask registerTask = new RegisterTask();
-        registerTask.execute(mLoginView.getLoginUsername() , mLoginView.getLoginPassword());
-        return ClientModelRoot.instance().getUser().getUsername();
-    }*/
-
     public Result login() {
         List<Object> data = new ArrayList<>();
         data.add(mLoginView.getLoginUsername());
         data.add(mLoginView.getLoginPassword());
-        return ServerProxy.getInstance("10.24.210.41", "8080")
+        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
                 .command("Login", data);
+        LoginResult loginResult = (LoginResult) result;
+        AddUserService.addUser(loginResult.getPlayer());
+        return result;
+
     }
 
     public Result register() {
         List<Object> data = new ArrayList<>();
         data.add(mLoginView.getRegisterUsername());
         data.add(mLoginView.getRegisterPassword());
-        return ServerProxy.getInstance("10.24.210.41", "8080")
+        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
                 .command("Register", data);
+        RegisterResult registerResult = (RegisterResult) result;
+        AddUserService.addUser(registerResult.getPlayer());
+        return result;
     }
 }

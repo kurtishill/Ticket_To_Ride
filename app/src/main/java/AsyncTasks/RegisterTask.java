@@ -24,7 +24,7 @@ public class RegisterTask extends AsyncTask <String, Void, RegisterResult> {
     @Override
     protected void onPostExecute(RegisterResult registerResult) {
         if(registerResult.isSuccess()){
-            ClientModelRoot.instance().setUser(registerResult.getAuthToken());
+            ClientModelRoot.instance().setUser(registerResult.getPlayer());
         }
         else {
            /* CharSequence text = loginResult.getErrorMessage();
