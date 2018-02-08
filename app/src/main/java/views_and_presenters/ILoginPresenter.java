@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Results.Result;
 
 /**
@@ -27,4 +28,6 @@ public interface ILoginPresenter {
     Result login();
 
     Result register();
+
+    void postExecuteAddUser(Player user);
 }

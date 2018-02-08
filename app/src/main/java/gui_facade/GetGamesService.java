@@ -12,7 +12,11 @@ import client_model.ClientModelRoot;
 
 public class GetGamesService {
 
-    public static List<TicketToRideGame> getGames() {
-        return ClientModelRoot.instance().getGames();
+    public static List<TicketToRideGame> getGamesList() {
+        return ClientModelRoot.instance().getGamesList();
+    }
+
+    public static TicketToRideGame getCurrGame() {
+        return ClientModelRoot.instance().getCurrGame();
     }
 }

@@ -42,24 +42,41 @@ public class ModelRoot {
         listGames.add(game);
     }
 
-    public void allPlayer(String username, Player player) {
-        allPlayers.put(username, player);
+    public void allPlayer(String authToken, Player player) {
+        allPlayers.put(authToken, player);
     }
 
-    public Player UserExists(String username){
-        if(allPlayers.containsKey(username)){
-            return allPlayers.get(username);
+    public Player UserExists(String authToken){
+        if(allPlayers.containsKey(authToken)){
+            return allPlayers.get(authToken);
         }
         else{
             return null;
         }
     }
 
-    private Map<Integer, TicketToRideGame> getAllGames() {
+    public boolean UserNameExists(String username) {
+        boolean check = false;
+        for (Map.Entry<String, Player> entry : allPlayers.entrySet()) {
+            if (entry.getValue().getUsername().equals(username))
+                check = true;
+        }
+        return check;
+    }
+
+    public Player getPlayerByUserName(String username) {
+        for (Map.Entry<String, Player> entry : allPlayers.entrySet()) {
+            if (entry.getValue().getUsername().equals(username))
+                return entry.getValue();
+        }
+        return null;
+    }
+
+    public Map<Integer, TicketToRideGame> getAllGames() {
         return allGames;
     }
 
-    private Map<String, Player> getAllPlayers() {
+    public Map<String, Player> getAllPlayers() {
         return allPlayers;
     }
 
@@ -67,11 +84,11 @@ public class ModelRoot {
         return listGames;
     }
 
-    private void setAllGames(Map<Integer, TicketToRideGame> allGames) {
+    public void setAllGames(Map<Integer, TicketToRideGame> allGames) {
         this.allGames = allGames;
     }
 
-    private void setAllPlayers(Map<String, Player> allPlayers) {
+    public void setAllPlayers(Map<String, Player> allPlayers) {
         this.allPlayers = allPlayers;
     }
 }

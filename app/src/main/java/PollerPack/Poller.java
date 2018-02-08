@@ -15,7 +15,7 @@ public class Poller {
         timer.schedule(new TimerTask() {
             public void run() {
                 //GetGameListResult result = new ClientFacade().GetGameList();//send HTTP requests
-                //ClientModelRoot.instance().setGames(result.getGames());
+                //ClientModelRoot.instance().setGames(result.getGamesList());
             }
         }, 0, 3000);
     }

@@ -26,16 +26,17 @@ public class CommandFactory {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "Register",
                 new Class<?>[]{ String.class, String.class }, new Object[]{username, password});
     }
-    public GenericCommand JoinGame(String username, int gameId){
+    public GenericCommand JoinGame(int gameId, String authToken){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "JoinGame",
-                new Class<?>[]{ String.class, Integer.class }, new Object[]{username, gameId});
+                new Class<?>[]{ Integer.class, String.class }, new Object[]{gameId, authToken});
     }
     public GenericCommand GetGameList(String username){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "GetGameList",
                 new Class<?>[]{String.class}, new Object[]{username});
     }
-    public GenericCommand CreateGame(String username){
+    public GenericCommand CreateGame(String gameName, Integer maxNumPlayers, String color, String authToken){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "CreateGame",
-                new Class<?>[]{ String.class}, new Object[]{username});
+                new Class<?>[]{String.class, Integer.class, String.class, String.class}, new Object[]{gameName,
+                maxNumPlayers, color, authToken});
     }
 }

@@ -1,12 +1,18 @@
 package views_and_presenters;
 
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.Result;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import gui_facade.EditObserversInModel;
+import gui_facade.GetGamesService;
+import gui_facade.GetUserService;
 import gui_facade.JoinGameService;
 
 /**
@@ -20,13 +26,20 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
 
     public GameWaitingLobbyPresenter(IGameWaitingLobbyView v) {
         mGameWaitingLobbyView = v;
-        ClientModelRoot.instance().addObserver(this);
+        EditObserversInModel.addObserverToModel(this);
     }
 
-    public void joinGame(TicketToRideGame game) {
-        JoinGameService.joinGame(game);
+    public Result joinGame(int gameId) {
+        List<Object> data = new ArrayList<>();
+        data.add(gameId);
+        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
+                .command("JoinGame", data, GetUserService.getUser().getID());
+        EditObserversInModel.deleteObserverInModel(this);
+        return result;
+    }
 
-        //TODO: call serverproxy
+    public void callJoinGameService(TicketToRideGame game) {
+        JoinGameService.joinGame(game);
     }
 
     public void update(Observable obs, Object obj) {
@@ -34,7 +47,7 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
         // check to see if obs is the observable (in this case ClientModelRoot)
         // that the presenter is observing
         if (obs == ClientModelRoot.instance()) {
-            mAllGamesList = ClientModelRoot.instance().getGames();
+            mAllGamesList = GetGamesService.getGamesList();
             mGameWaitingLobbyView.displayGameList();
         }
     }

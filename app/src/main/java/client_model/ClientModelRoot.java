@@ -17,11 +17,10 @@ public class ClientModelRoot extends Observable {
 
     private static ClientModelRoot _instance;
 
-    private List<TicketToRideGame> mGames;
+    private List<TicketToRideGame> mGamesList;
     private Map<String, Player> mPlayers;
     private Player mUser;
     private String mAuthToken;
-    private int mLatestGameId;
     private TicketToRideGame mCurrGame;
 
     public static ClientModelRoot instance() {
@@ -31,16 +30,15 @@ public class ClientModelRoot extends Observable {
     }
 
     private ClientModelRoot() {
-        mGames = new ArrayList<>();
+        mGamesList = new ArrayList<>();
         mPlayers = new HashMap<>();
         mUser = null;
         mAuthToken = null;
-        mLatestGameId = 0;
         mCurrGame = null;
     }
 
-    public List<TicketToRideGame> getGames() {
-        return mGames;
+    public List<TicketToRideGame> getGamesList() {
+        return mGamesList;
     }
 
     public Map<String, Player> getPlayers() {
@@ -49,10 +47,6 @@ public class ClientModelRoot extends Observable {
 
     public Player getUser() {
         return mUser;
-    }
-
-    public int getLatestGameId() {
-        return mLatestGameId;
     }
 
     public TicketToRideGame getCurrGame() {
@@ -64,7 +58,7 @@ public class ClientModelRoot extends Observable {
     }
 
     public void setGames(List<TicketToRideGame> games) {
-        mGames = games;
+        mGamesList = games;
         setChanged();
         notifyObservers(games);
         clearChanged();
@@ -76,10 +70,6 @@ public class ClientModelRoot extends Observable {
 
     public void setUser(Player user) {
         mUser = user;
-    }
-
-    public void setLatestGameId(int id) {
-        mLatestGameId = id;
     }
 
     public void setAuthToken(String authToken) {

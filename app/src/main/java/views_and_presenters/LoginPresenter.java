@@ -1,7 +1,6 @@
 package views_and_presenters;
 
-import com.example.server.Results.LoginResult;
-import com.example.server.Results.RegisterResult;
+import com.example.server.Model.Player;
 import com.example.server.Results.Result;
 
 import java.util.ArrayList;
@@ -46,11 +45,8 @@ public class LoginPresenter implements ILoginPresenter {
         List<Object> data = new ArrayList<>();
         data.add(mLoginView.getLoginUsername());
         data.add(mLoginView.getLoginPassword());
-        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
-                .command("Login", data);
-        LoginResult loginResult = (LoginResult) result;
-        AddUserService.addUser(loginResult.getPlayer());
-        return result;
+        return ServerProxy.getInstance("192.168.1.216", "8080")
+                .command("Login", data, null);
 
     }
 
@@ -58,10 +54,11 @@ public class LoginPresenter implements ILoginPresenter {
         List<Object> data = new ArrayList<>();
         data.add(mLoginView.getRegisterUsername());
         data.add(mLoginView.getRegisterPassword());
-        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
-                .command("Register", data);
-        RegisterResult registerResult = (RegisterResult) result;
-        AddUserService.addUser(registerResult.getPlayer());
-        return result;
+        return ServerProxy.getInstance("192.168.1.216", "8080")
+                .command("Register", data, null);
+    }
+
+    public void postExecuteAddUser(Player user) {
+        AddUserService.addUser(user);
     }
 }

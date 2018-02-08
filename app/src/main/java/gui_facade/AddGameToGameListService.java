@@ -13,10 +13,8 @@ import client_model.ClientModelRoot;
 public class AddGameToGameListService {
 
     public static void addGameToGameList(TicketToRideGame game) {
-        List<TicketToRideGame> list = ClientModelRoot.instance().getGames();
+        List<TicketToRideGame> list = ClientModelRoot.instance().getGamesList();
         list.add(game);
         ClientModelRoot.instance().setGames(list);
-
-        //TODO: call serverproxy
     }
 }

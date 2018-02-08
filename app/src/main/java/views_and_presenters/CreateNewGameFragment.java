@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -14,16 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.Result;
 
 import java.util.List;
 
 public class CreateNewGameFragment extends Fragment implements ICreateNewGameView, AdapterView.OnItemSelectedListener {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "title";
 
+    private TextView mCreateGameTitleTextView;
     private EditText mGameNameEditText;
     private Spinner mNumPlayersSpinner;
     private RadioButton mRedRadioButton,
@@ -38,7 +43,6 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
     private ICreateNewGamePresenter mCreateNewGamePresenter;
 
     private String mParam1;
-    private String mParam2;
 
     public CreateNewGameFragment() {
         // Required empty public constructor
@@ -49,15 +53,13 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment CreateNewGameFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreateNewGameFragment newInstance(String param1, String param2) {
+    public static CreateNewGameFragment newInstance(String param1) {
         CreateNewGameFragment fragment = new CreateNewGameFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,7 +69,6 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -81,6 +82,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
 
         mMaxNumPlayers = 0;
 
+        mCreateGameTitleTextView = (TextView) v.findViewById(R.id.create_game_title_text_view);
         mGameNameEditText = (EditText) v.findViewById(R.id.game_name_edit_text);
         mGameNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -180,10 +182,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: create async task then start activity
-                mCreateNewGamePresenter.confirmCreateGame();
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                startActivity(intent);
+                new CreateGameAsyncTask().execute();
             }
         });
 
@@ -211,20 +210,16 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
             return "black";
     }
 
-    public void setColorListForAvailableColors(List<Boolean> list) {
-        mRedRadioButton.setEnabled(list.get(0));
-        mBlueRadioButton.setEnabled(list.get(1));
-        mYellowRadioButton.setEnabled(list.get(2));
-        mGreenRadioButton.setEnabled(list.get(3));
-        mBlackRadioButton.setEnabled(list.get(4));
-    }
-
     public void setColorListForCheckedColors(List<Boolean> list) {
         mRedRadioButton.setChecked(list.get(0));
         mBlueRadioButton.setChecked(list.get(1));
         mYellowRadioButton.setChecked(list.get(2));
         mGreenRadioButton.setChecked(list.get(3));
         mBlackRadioButton.setChecked(list.get(4));
+    }
+
+    public void displayToast(String toast) {
+        Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
     }
 
     public void enableCreateNewGame(boolean b) {
@@ -246,5 +241,21 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
     @Override
     public void onNothingSelected(AdapterView<?> arg) {
         // left blank intentionally
+    }
+
+    private class CreateGameAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... params) {
+            return mCreateNewGamePresenter.confirmCreateGame();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (result.isSuccess()) {
+                CreateGameResult createGameResult = (CreateGameResult) result;
+                mCreateNewGamePresenter.addGame(createGameResult.getGame());
+                startActivity(new Intent(getActivity(), GameActivity.class));
+            }
+        }
     }
 }

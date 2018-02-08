@@ -1,5 +1,8 @@
 package views_and_presenters;
 
+import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.Result;
+
 import java.util.List;
 
 /**
@@ -14,7 +17,9 @@ public interface ICreateNewGamePresenter {
 
     void cancel();
 
-    void confirmCreateGame();
+    Result confirmCreateGame();
 
     boolean gameNameChanged();
+
+    void addGame(TicketToRideGame game);
 }

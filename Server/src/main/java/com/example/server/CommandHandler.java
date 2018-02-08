@@ -30,11 +30,13 @@ public class CommandHandler implements HttpHandler {
                 // Get the HTTP request headers
                 Headers reqHeaders = exchange.getRequestHeaders();
                 InputStream reqData = exchange.getRequestBody();
-                // Extract the auth token from the "Authorization" header
 
                 if (reqData != null) {
                     // Check to see if an "Authorization" header is present
-                    //if (reqHeaders.containsKey("Authorization")) {
+                    String authToken = null;
+                    if (reqHeaders.containsKey("Authorization")) {
+                        authToken = reqHeaders.getFirst("Authorization");
+                    }
 
                     String reqBody = Serializer.readString(reqData);
 
@@ -50,11 +52,13 @@ public class CommandHandler implements HttpHandler {
                                 commandValues.get(2).toString());
                     }
                     else if (commandValues.get(0).equals("JoinGame")) {
-                        command = CommandFactory.instance().JoinGame(commandValues.get(1).toString(),
-                                Integer.parseInt(commandValues.get(2).toString()));
+                        Double d = (Double) commandValues.get(1);
+                        command = CommandFactory.instance().JoinGame(d.intValue(), authToken);
                     }
                     else if (commandValues.get(0).equals("CreateGame")) {
-                        command = CommandFactory.instance().CreateGame(commandValues.get(1).toString());
+                        Double d = (Double) commandValues.get(2);
+                        command = CommandFactory.instance().CreateGame(commandValues.get(1).toString(),
+                                d.intValue(), commandValues.get(3).toString(), authToken);
                     }
                     else
                         command = CommandFactory.instance().GetGameList(commandValues.get(1).toString());

@@ -10,9 +10,9 @@ import com.example.server.Results.JoinGameResult;
  */
 
 public class JoinGameService {
-    public JoinGameResult JoinGame(String username, int gameId){
+    public JoinGameResult JoinGame(Integer gameId, String authToken){
         TicketToRideGame currentGame = ModelRoot.instance().GameExists(gameId);
-        Player currentPlayer = ModelRoot.instance().UserExists(username);
+        Player currentPlayer = ModelRoot.instance().getAllPlayers().get(authToken);
         if(currentPlayer != null ){
             if(currentGame != null){
                 if(currentGame.getMaxNumPlayers() == currentGame.getPlayers().size()){

@@ -26,12 +26,12 @@ public class ServerProxy  {
         return instance;
     }
 
-    public Result command(String functionName, List<Object> data)
+    public Result command(String functionName, List<Object> data, String authToken)
     {
         List<Object> commandValues = new ArrayList<>();
         commandValues.add(functionName);
         commandValues.addAll(data);
-        return ClientCommunicator.instance().send("/command", commandValues);
+        return ClientCommunicator.instance().send("/command", commandValues, authToken);
     }
 
     public static String getServerPort() {
