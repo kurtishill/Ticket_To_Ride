@@ -12,9 +12,10 @@ import com.example.server.Results.LoginResult;
 public class LoginService {
 
     public LoginResult Login(String username, String password){
-        Player player = ModelRoot.instance().UserExists(username);
+        Player player = ModelRoot.instance().getPlayerByUserName(username);
         if(player != null){
             if(player.getPassword().equals(password)){
+                player.setId();
                 return new LoginResult(true, null, null, null, player);
             }
             else {

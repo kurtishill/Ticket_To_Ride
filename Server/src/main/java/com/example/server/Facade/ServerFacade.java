@@ -23,11 +23,11 @@ public class ServerFacade {
         joinGame = new JoinGameService();
         createGame = new CreateGameService();
     }
-    public CreateGameResult CreateGame(String username){
-        return createGame.CreateGame(username);
+    public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken){
+        return createGame.CreateGame(gameName, maxNumPlayers, playerColor, authToken);
     }
-    public JoinGameResult JoinGame(String username, int gameId){
-        return joinGame.JoinGame(username, gameId);
+    public JoinGameResult JoinGame(Integer gameId, String authToken){
+        return joinGame.JoinGame(gameId, authToken);
     }
     public GetGameListResult GetGameList(String username){
         return getGameList.GetGameList(username);

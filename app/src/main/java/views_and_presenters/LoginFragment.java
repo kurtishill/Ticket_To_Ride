@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
 
 public class LoginFragment extends Fragment implements ILoginView {
@@ -128,7 +130,6 @@ public class LoginFragment extends Fragment implements ILoginView {
             @Override
             public void onClick(View v) {
                 new LoginAsyncTask().execute();
-
             }
         });
 
@@ -141,7 +142,6 @@ public class LoginFragment extends Fragment implements ILoginView {
         });
 
         return v;
-
     }
 
     public void enableLogin(boolean b) {
@@ -187,10 +187,22 @@ public class LoginFragment extends Fragment implements ILoginView {
 
         @Override
         protected void onPostExecute(Result result) {
-            if (result.getErrorMessage() != null) {
+            if (!result.isSuccess()) {
                 displayErrorMessage(result.getErrorMessage());
             }
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            else {
+                RegisterResult rResult;
+                LoginResult lResult;
+                if (result.getType().equals("RegisterResult")) {
+                    rResult = (RegisterResult) result;
+                    mLoginPresenter.postExecuteAddUser(rResult.getPlayer());
+                }
+                else {
+                    lResult = (LoginResult) result;
+                    mLoginPresenter.postExecuteAddUser(lResult.getPlayer());
+                }
+                startActivity(new Intent(getActivity(), MainActivity.class));
+            }
         }
     }
 }

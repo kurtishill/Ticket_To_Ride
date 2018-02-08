@@ -17,7 +17,6 @@ public class GenericCommand implements ICommand {
         _className = className;
         _methodName = methodName;
         _paramTypes = paramTypes;
-
         _paramValues = paramValues;
 
     }

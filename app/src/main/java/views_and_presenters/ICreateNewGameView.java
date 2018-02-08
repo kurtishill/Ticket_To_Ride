@@ -14,7 +14,7 @@ public interface ICreateNewGameView {
 
     String getPlayerColor();
 
-    void setColorListForAvailableColors(List<Boolean> list);
+    void displayToast(String toast);
 
     void setColorListForCheckedColors(List<Boolean> list);
 

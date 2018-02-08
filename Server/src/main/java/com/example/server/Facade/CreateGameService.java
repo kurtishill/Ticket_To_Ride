@@ -10,15 +10,15 @@ import com.example.server.Results.CreateGameResult;
  */
 
 public class CreateGameService {
-    public CreateGameResult CreateGame(String username){
-        Player currentPlayer = ModelRoot.instance().UserExists(username);
-        if(currentPlayer != null){
-            TicketToRideGame game = new TicketToRideGame(currentPlayer);
-            ModelRoot.instance().addGame(ModelRoot.instance().getListGames().size(), game);
-            return new CreateGameResult(true, null, null, null, game);
-        }
-        else{
-            return new CreateGameResult(false, "User Does Not Exist",  null, "invalidUser", null);
-        }
+    public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken){
+        Player currentPlayer = ModelRoot.instance().UserExists(authToken);
+        currentPlayer.setColor(playerColor);
+        ModelRoot.instance().allPlayer(authToken, currentPlayer);
+        TicketToRideGame game = new TicketToRideGame(currentPlayer);
+        game.setName(gameName);
+        game.setMaxNumPlayers(maxNumPlayers);
+        game.setGameID(ModelRoot.instance().getListGames().size() + 1);
+        ModelRoot.instance().addGame(ModelRoot.instance().getListGames().size() + 1, game);
+        return new CreateGameResult(true, null, null, null, game);
     }
 }

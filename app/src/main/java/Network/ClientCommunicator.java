@@ -33,7 +33,7 @@ public class ClientCommunicator {
 
 
 
-    public Result send(String handlerContext, List<Object> data)
+    public Result send(String handlerContext, List<Object> data, String authToken)
     {
         try {
             String wholeUrl = "http://" + ServerProxy.getServerHost() + ":" +
@@ -43,6 +43,8 @@ public class ClientCommunicator {
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
             http.setRequestMethod("POST");
             http.setDoOutput(true);	// There is a request body
+            if (authToken != null)
+                http.setRequestProperty("Authorization", authToken);
             http.connect();
 
             String reqData = Serializer.encode(data);

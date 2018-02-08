@@ -85,6 +85,10 @@ public class Player {
         this.numTrainCars = numTrainCars;
     }
 
+    public void setId() {
+        id = UUID.randomUUID().toString();
+    }
+
     public String getColor() {
         return color;
     }

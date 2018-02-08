@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.JoinGameResult;
+import com.example.server.Results.Result;
 
 import java.util.List;
 
@@ -35,6 +38,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
     private TicketToRideGame mSelectedGame;
 
     private IGameWaitingLobbyPresenter mGameWaitingLobbyPresenter;
+    private ICreateNewGameView mCreateNewGameView;
 
     private String mParam1;
     private String mParam2;
@@ -162,10 +166,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: start async task for joinGame
-                mGameWaitingLobbyPresenter.joinGame(mSelectedGame);
-                Intent intent = new Intent(getActivity(), GameActivity.class);
-                startActivity(intent);
+                new JoinGameAsyncTask().execute();
             }
         });
 
@@ -177,7 +178,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
     }
 
     public void displayGameList() {
-        mGameWaitingLobbyPresenter.setAllGamesList(GetGamesService.getGames());
+        mGameWaitingLobbyPresenter.setAllGamesList(GetGamesService.getGamesList());
         mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
         mGameListRecyclerView.setAdapter(mAdapter);
         mSelectedGame = null;
@@ -192,6 +193,22 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         for (int i = 0; i < mGameListRecyclerView.getChildCount(); i++) {
             GameWaitingLobbyHolder holder = (GameWaitingLobbyHolder) mGameListRecyclerView.findViewHolderForAdapterPosition(i);
             holder.itemView.setBackgroundColor(getResources().getColor(R.color.transparent_gray));
+        }
+    }
+
+    private class JoinGameAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... params) {
+            return mGameWaitingLobbyPresenter.joinGame(mSelectedGame.getGameID());
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (result.isSuccess()) {
+                JoinGameResult joinGameResult = (JoinGameResult) result;
+                mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
+                startActivity(new Intent(getActivity(), GameActivity.class));
+            }
         }
     }
 }
