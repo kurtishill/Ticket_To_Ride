@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 import Network.ServerProxy;
 import gui_facade.AddGameToGameListService;
+import gui_facade.AddUserService;
 import gui_facade.GetUserService;
 import gui_facade.SetCurrGame;
 import gui_facade.SetPlayerColorService;
@@ -75,14 +77,15 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         data.add(gameName);
         data.add(maxNumPlayers);
         data.add(playerColor);
-        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
+        Result result = ServerProxy.getInstance("10.37.79.84", "8080")
                 .command("CreateGame", data, GetUserService.getUser().getID());
         return result;
     }
 
     public void addGame(TicketToRideGame game) {
-        GetUserService.getUser();
-        SetPlayerColorService.setPlayerColor(GetUserService.getUser().getColor());
+        Player user = GetUserService.getUser();
+        user.setColor(game.getPlayers().get(0).getColor());
+        AddUserService.addUser(user);
         AddGameToGameListService.addGameToGameList(game);
         SetCurrGame.setCurrGame(game);
     }

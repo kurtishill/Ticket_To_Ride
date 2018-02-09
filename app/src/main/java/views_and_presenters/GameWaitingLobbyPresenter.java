@@ -33,7 +33,7 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
     public Result joinGame(int gameId) {
         List<Object> data = new ArrayList<>();
         data.add(gameId);
-        Result result = ServerProxy.getInstance("192.168.1.216", "8080")
+        Result result = ServerProxy.getInstance("10.37.79.84", "8080")
                 .command("JoinGame", data, GetUserService.getUser().getID());
         EditObserversInModel.deleteObserverInModel(this);
         return result;
@@ -43,9 +43,13 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
         JoinGameService.joinGame(game);
     }
 
-    public void callSetPlayerColorService(String color){  SetPlayerColorService.setPlayerColor(color);}
+    public void callSetPlayerColorService(String color){
+        SetPlayerColorService.setPlayerColor(color);
+    }
 
-    public void callSetPlayerColorService(){ SetPlayerColorService.setPlayerColor();}
+    public void callSetPlayerColorService(){
+        SetPlayerColorService.setPlayerColor();
+    }
 
     public void update(Observable obs, Object obj) {
 
