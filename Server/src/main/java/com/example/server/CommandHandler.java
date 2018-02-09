@@ -60,8 +60,10 @@ public class CommandHandler implements HttpHandler {
                         command = CommandFactory.instance().CreateGame(commandValues.get(1).toString(),
                                 d.intValue(), commandValues.get(3).toString(), authToken);
                     }
-                    else
-                        command = CommandFactory.instance().GetGameList(commandValues.get(1).toString());
+                    // GetGameList command
+                    else {
+                        command = CommandFactory.instance().GetGameList();
+                    }
 
                     Result result = command.execute();
 

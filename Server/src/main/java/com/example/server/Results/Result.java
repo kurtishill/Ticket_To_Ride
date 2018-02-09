@@ -10,7 +10,7 @@ import java.util.List;
 public class Result {
     private boolean isSuccess;
     private String errorMessage;
-    private List<GenericCommand> clientCommands;
+    private List<ICommand> clientCommands;
     private String errorType;
     private String type;
 
@@ -22,7 +22,7 @@ public class Result {
         type = null;
     }
 
-    public Result(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, String type) {
+    public Result(boolean isSuccess, String errorMessage, List<ICommand> clientCommands, String errorType, String type) {
         this.isSuccess = isSuccess;
         this.errorMessage = errorMessage;
         this.clientCommands = clientCommands;
@@ -39,7 +39,7 @@ public class Result {
         return errorMessage;
     }
 
-    public List<GenericCommand> getClientCommands() {
+    public List<ICommand> getClientCommands() {
 
         return clientCommands;
     }
@@ -60,7 +60,7 @@ public class Result {
         this.errorMessage = errorMessage;
     }
 
-    public void setClientCommands(List<GenericCommand> clientCommands) {
+    public void setClientCommands(List<ICommand> clientCommands) {
         this.clientCommands = clientCommands;
     }
 

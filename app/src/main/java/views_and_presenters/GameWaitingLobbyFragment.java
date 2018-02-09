@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.TicketToRideGame;
@@ -206,10 +207,11 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                //set player color service call here?
                 mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
                 startActivity(new Intent(getActivity(), GameActivity.class));
             }
+            else
+                Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class JoinGameResult extends Result {
     private TicketToRideGame game;
 
-    public JoinGameResult(boolean isSuccess, String errorMessage, List<GenericCommand> clientCommands, String errorType, TicketToRideGame game) {
+    public JoinGameResult(boolean isSuccess, String errorMessage, List<ICommand> clientCommands, String errorType, TicketToRideGame game) {
         super(isSuccess, errorMessage, clientCommands, errorType, "JoinGameResult");
         this.game=game;
     }
