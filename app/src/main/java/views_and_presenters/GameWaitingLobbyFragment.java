@@ -207,7 +207,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
+                if (joinGameResult.getGame() != null)
+                    mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
                 startActivity(new Intent(getActivity(), GameActivity.class));
             }
             else

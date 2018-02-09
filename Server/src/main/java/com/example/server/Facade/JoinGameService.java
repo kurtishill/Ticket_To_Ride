@@ -15,6 +15,11 @@ public class JoinGameService {
         Player currentPlayer = ModelRoot.instance().getAllPlayers().get(authToken);
         if(currentPlayer != null ){
             if(currentGame != null){
+                for (int i = 0; i < currentGame.getPlayers().size(); i++) {
+                    if (currentGame.getPlayers().get(i).getID().equals(authToken))
+                        return new JoinGameResult(true, "You're already in the game", null,
+                                "alreadyInGame", null);
+                }
                 if(currentGame.getMaxNumPlayers() == currentGame.getPlayers().size()){
                     return new JoinGameResult(false, "Game Already Filled", null, "fullGame", null);
                 }

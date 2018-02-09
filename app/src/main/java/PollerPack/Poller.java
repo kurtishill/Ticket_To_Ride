@@ -1,5 +1,8 @@
 package PollerPack;
 
+import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.GenericCommand;
+import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
 
@@ -17,22 +20,37 @@ import Network.ClientCommunicator;
  */
 
 public class Poller {
-    void Poll(){
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                Result gameListResult = pollGameList();
-                List<ICommand> commands = gameListResult.getClientCommands();
-                for (int i = 0; i < commands.size(); i++) {
-                    commands.get(i).execute();
-                }
-            }
-        }, 0, 3000);
+    private static Timer timer;
+
+    public Poller() {
+        timer = new Timer();
     }
 
-    private Result pollGameList() {
+    public void poll(){
+        timer.schedule(new TimerTask() {
+            public void run() {
+                List<ICommand> commands = new ArrayList<>();
+                commands.add(pollGameList());
+
+                for (int i = 0; i < commands.size(); i++) {
+                    if (commands.get(i) != null)
+                        commands.get(i).execute();
+                }
+            }
+        }, 0, 7000);
+    }
+
+    private ICommand pollGameList() {
         List<Object> data = new ArrayList<>();
         data.add("GetGameList");
-        return ClientCommunicator.instance().send("/command", data, null);
+        Result result = ClientCommunicator.instance().send("/command", data, null);
+        GetGameListResult getGameListResult = (GetGameListResult) result;
+        List<TicketToRideGame> games = getGameListResult.getGames();
+        if (games != null) {
+            return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
+                    new Class<?>[]{ArrayList.class}, new Object[]{games});
+        }
+        else
+            return null;
     }
 }

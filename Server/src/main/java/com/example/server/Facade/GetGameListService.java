@@ -2,9 +2,7 @@ package com.example.server.Facade;
 
 import com.example.server.ClientCommandManager;
 import com.example.server.Model.ModelRoot;
-import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.GetGameListResult;
-import com.example.server.Results.ICommand;
 
 import java.util.List;
 
@@ -14,10 +12,27 @@ import java.util.List;
 
 public class GetGameListService {
     public GetGameListResult GetGameList() {
-        List<TicketToRideGame> gameList = ModelRoot.instance().getListGames();
-        ClientCommandManager.instance().addCommand(ClientCommandManager.instance().GetGameList(gameList));
+        if (ClientCommandManager.instance().getCommandList().contains("UpdateGameList")) {
+            List<String> commandList = ClientCommandManager.instance().getCommandList();
+            ClientCommandManager.instance().setCommands(commandList);
+            commandList.remove("UpdateGameList");
+            return new GetGameListResult(true, null, null, null,
+                    ModelRoot.instance().getListGames());
+        }
+        else
+            return new GetGameListResult(true, null, null, null, null);
+        /*List<String> commandsInManager = ClientCommandManager.instance().getCommandList();
+        ClientCommand updateGameCommand = new ClientCommand();
+        for (int i = 0; i < commandsInManager.size(); i++) {
+            if (commandsInManager.get(i).equals("UpdateGameList")) {
+                updateGameCommand.addData(ModelRoot.instance().getListGames());
+                updateGameCommand.setType("UpdateGameList");
+                i = commandsInManager.size() - 1;
+            }
+        }*/
+        //List<TicketToRideGame> gameList = ModelRoot.instance().getListGames();
+        //ClientCommandManager.instance().addCommand(ClientCommandManager.instance().GetGameList(gameList));
 
-        List<ICommand> commands = ClientCommandManager.instance().getCommandList();
-        return new GetGameListResult(true, null, commands, null, null);
+        //List<ICommand> commands = ClientCommandManager.instance().getCommandList();
     }
 }

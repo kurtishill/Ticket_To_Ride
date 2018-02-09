@@ -11,7 +11,7 @@ import java.util.List;
 public class CreateGameResult extends Result {
     private TicketToRideGame game;
 
-    public CreateGameResult(boolean isSuccess, String errorMessage, List<ICommand> clientCommands, String errorType, TicketToRideGame game){
+    public CreateGameResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands, String errorType, TicketToRideGame game){
         super(isSuccess, errorMessage, clientCommands, errorType, "CreateGameResult");
         this.game=game;
 

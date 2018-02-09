@@ -12,7 +12,7 @@ public class RegisterResult extends Result {
     private Player player;
 
 
-    public RegisterResult(boolean isSuccess, String errorMessage, List<ICommand> clientCommands, String errorType, Player player) {
+    public RegisterResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands, String errorType, Player player) {
         super(isSuccess, errorMessage, clientCommands, errorType, "RegisterResult");
         this.player = player;
     }

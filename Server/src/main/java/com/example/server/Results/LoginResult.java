@@ -11,7 +11,7 @@ import java.util.List;
 public class LoginResult extends Result {
     private Player player;
 
-    public LoginResult(boolean isSuccess, String errorMessage, List<ICommand> clientCommands, String errorType, Player player) {
+    public LoginResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands, String errorType, Player player) {
         super(isSuccess, errorMessage, clientCommands, errorType, "LoginResult");
         this.player = player;
     }
