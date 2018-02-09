@@ -71,7 +71,7 @@ public class CommandHandler implements HttpHandler {
                         command = CommandFactory.instance().GetGameList();
                     }
 
-                    Result result = command.execute();
+                    Result result = (Result) command.execute();
 
                     String respData = Serializer.encode(result);
 

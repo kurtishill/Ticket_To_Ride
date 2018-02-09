@@ -6,5 +6,5 @@ package com.example.server.Results;
 
 public interface ICommand {
 
-    Result execute();
+    Object execute();
 }

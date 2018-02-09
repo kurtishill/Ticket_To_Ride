@@ -16,8 +16,9 @@ public class ClientFacade {
         mUpdateGameListService = new UpdateGameListService();
     }
 
-    public void UpdateGameList(List<TicketToRideGame> games) {
+    public Object UpdateGameList(List<TicketToRideGame> games) {
         mUpdateGameListService.updateGameList(games);
+        return null;
     }
 }
 
