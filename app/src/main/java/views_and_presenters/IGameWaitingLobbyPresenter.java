@@ -14,6 +14,8 @@ public interface IGameWaitingLobbyPresenter {
     Result joinGame(int gameId);
 
     void callJoinGameService(TicketToRideGame game);
+    void callSetPlayerColorService(String color);
+    void callSetPlayerColorService();
 
     List<TicketToRideGame> getAllGamesList();
 

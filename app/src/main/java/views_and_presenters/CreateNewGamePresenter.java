@@ -10,6 +10,7 @@ import Network.ServerProxy;
 import gui_facade.AddGameToGameListService;
 import gui_facade.GetUserService;
 import gui_facade.SetCurrGame;
+import gui_facade.SetPlayerColorService;
 
 /**
  * Created by HillcollegeMac on 1/29/18.
@@ -61,6 +62,11 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         mGame = null;
     }
 
+    @Override
+    public void callSetPlayerColorService(String color) {
+        SetPlayerColorService.setPlayerColor(color);
+    }
+
     public Result confirmCreateGame() {
         String gameName = mCreateNewGameView.getGameName();
         Integer maxNumPlayers = mCreateNewGameView.getMaxNumPlayers();
@@ -75,6 +81,8 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
     }
 
     public void addGame(TicketToRideGame game) {
+        GetUserService.getUser();
+        SetPlayerColorService.setPlayerColor(GetUserService.getUser().getColor());
         AddGameToGameListService.addGameToGameList(game);
         SetCurrGame.setCurrGame(game);
     }

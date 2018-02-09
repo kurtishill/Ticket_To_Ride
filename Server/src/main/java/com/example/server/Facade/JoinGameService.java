@@ -19,6 +19,8 @@ public class JoinGameService {
                     return new JoinGameResult(false, "Game Already Filled", null, "fullGame", null);
                 }
                 else{
+                    currentPlayer.setColor(currentGame.getAvailableColors().get(0)); //gives player a color
+                    currentGame.getAvailableColors().remove(0);
                     currentGame.addPlayer(currentPlayer);
                     return new JoinGameResult(true, null, null, null, currentGame);
                 }

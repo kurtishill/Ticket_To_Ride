@@ -18,6 +18,7 @@ public class CreateGameService {
         game.setName(gameName);
         game.setMaxNumPlayers(maxNumPlayers);
         game.setGameID(ModelRoot.instance().getListGames().size() + 1);
+        game.getAvailableColors().remove(playerColor); //added 2/9 by Brandon
         ModelRoot.instance().addGame(ModelRoot.instance().getListGames().size() + 1, game);
         return new CreateGameResult(true, null, null, null, game);
     }

@@ -14,6 +14,7 @@ import gui_facade.EditObserversInModel;
 import gui_facade.GetGamesService;
 import gui_facade.GetUserService;
 import gui_facade.JoinGameService;
+import gui_facade.SetPlayerColorService;
 
 /**
  * Created by HillcollegeMac on 1/29/18.
@@ -41,6 +42,10 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
     public void callJoinGameService(TicketToRideGame game) {
         JoinGameService.joinGame(game);
     }
+
+    public void callSetPlayerColorService(String color){  SetPlayerColorService.setPlayerColor(color);}
+
+    public void callSetPlayerColorService(){ SetPlayerColorService.setPlayerColor();}
 
     public void update(Observable obs, Object obj) {
 
