@@ -33,9 +33,9 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
     public Result joinGame(int gameId) {
         List<Object> data = new ArrayList<>();
         data.add(gameId);
-        Result result = ServerProxy.getInstance("10.37.79.84", "8080")
+        Result result = ServerProxy.getInstance()
                 .command("JoinGame", data, GetUserService.getUser().getID());
-        EditObserversInModel.deleteObserverInModel(this);
+        //EditObserversInModel.deleteObserverInModel(this);
         return result;
     }
 

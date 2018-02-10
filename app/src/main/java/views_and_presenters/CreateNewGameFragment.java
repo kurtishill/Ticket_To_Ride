@@ -254,6 +254,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
             if (result.isSuccess()) {
                 CreateGameResult createGameResult = (CreateGameResult) result;
                 mCreateNewGamePresenter.addGame(createGameResult.getGame());
+                closeFragment();
                 startActivity(new Intent(getActivity(), GameActivity.class));
             }
         }

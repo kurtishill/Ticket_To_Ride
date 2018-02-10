@@ -60,8 +60,16 @@ public class ClientModelRoot extends Observable {
     public void setGames(List<TicketToRideGame> games) {
         mGamesList = games;
         setChanged();
-        notifyObservers(games);
+        notifyObservers(this);
         clearChanged();
+    }
+
+    public void updateCurrentGame() {
+        for (int i = 0; i < mGamesList.size(); i++) {
+            if (mCurrGame.getGameID() == mGamesList.get(i).getGameID()) {
+                mCurrGame = mGamesList.get(i);
+            }
+        }
     }
 
     public void setPlayers(Map<String, Player> players) {

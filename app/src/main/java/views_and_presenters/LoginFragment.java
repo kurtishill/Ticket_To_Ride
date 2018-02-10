@@ -18,6 +18,8 @@ import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
 
+import PollerPack.Poller;
+
 public class LoginFragment extends Fragment implements ILoginView {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -201,6 +203,8 @@ public class LoginFragment extends Fragment implements ILoginView {
                     lResult = (LoginResult) result;
                     mLoginPresenter.postExecuteAddUser(lResult.getPlayer());
                 }
+                Poller poller = new Poller();
+                poller.poll();
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
         }

@@ -77,7 +77,7 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         data.add(gameName);
         data.add(maxNumPlayers);
         data.add(playerColor);
-        Result result = ServerProxy.getInstance("10.37.79.84", "8080")
+        Result result = ServerProxy.getInstance()
                 .command("CreateGame", data, GetUserService.getUser().getID());
         return result;
     }

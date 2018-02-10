@@ -29,8 +29,8 @@ public class ServerFacade {
     public JoinGameResult JoinGame(Integer gameId, String authToken){
         return joinGame.JoinGame(gameId, authToken);
     }
-    public GetGameListResult GetGameList(String username){
-        return getGameList.GetGameList(username);
+    public GetGameListResult GetGameList(){
+        return getGameList.GetGameList();
     }
     public RegisterResult Register(String username, String password) throws RegisterService.UserExistsException{
         return register.Register(username,password);

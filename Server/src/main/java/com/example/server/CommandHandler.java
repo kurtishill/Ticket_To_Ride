@@ -54,16 +54,24 @@ public class CommandHandler implements HttpHandler {
                     else if (commandValues.get(0).equals("JoinGame")) {
                         Double d = (Double) commandValues.get(1);
                         command = CommandFactory.instance().JoinGame(d.intValue(), authToken);
+                        List<String> commandList = ClientCommandManager.instance().getCommandList();
+                        if (!commandList.contains("UpdateGameList"))
+                            ClientCommandManager.instance().addCommand("UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("CreateGame")) {
                         Double d = (Double) commandValues.get(2);
                         command = CommandFactory.instance().CreateGame(commandValues.get(1).toString(),
                                 d.intValue(), commandValues.get(3).toString(), authToken);
+                        List<String> commandList = ClientCommandManager.instance().getCommandList();
+                        if (!commandList.contains("UpdateGameList"))
+                            ClientCommandManager.instance().addCommand("UpdateGameList");
                     }
-                    else
-                        command = CommandFactory.instance().GetGameList(commandValues.get(1).toString());
+                    // GetGameList command
+                    else {
+                        command = CommandFactory.instance().GetGameList();
+                    }
 
-                    Result result = command.execute();
+                    Result result = (Result) command.execute();
 
                     String respData = Serializer.encode(result);
 

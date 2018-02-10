@@ -14,14 +14,14 @@ public class ServerProxy  {
     private static String serverHost;
     private static String serverPort;
 
-    private ServerProxy(String serverHost, String serverPort) {
-        setServerHost(serverHost);
-        setServerPort(serverPort);
+    private ServerProxy() {
+        serverHost = "10.24.64.87";
+        serverPort = "8080";
     }
 
-    public static ServerProxy getInstance(String serverHost, String serverPort) {
+    public static ServerProxy getInstance() {
         if(instance == null) {
-            instance = new ServerProxy(serverHost, serverPort);
+            instance = new ServerProxy();
         }
         return instance;
     }
@@ -38,15 +38,7 @@ public class ServerProxy  {
         return serverPort;
     }
 
-    public void setServerPort(String serverPort) {
-        this.serverPort = serverPort;
-    }
-
     public static String getServerHost() {
         return serverHost;
-    }
-
-    public void setServerHost(String serverHost) {
-        this.serverHost = serverHost;
     }
 }
