@@ -35,7 +35,7 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
         data.add(gameId);
         Result result = ServerProxy.getInstance()
                 .command("JoinGame", data, GetUserService.getUser().getID());
-        EditObserversInModel.deleteObserverInModel(this);
+        //EditObserversInModel.deleteObserverInModel(this);
         return result;
     }
 

@@ -81,8 +81,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
                 @Override
                 public void onClick(View v) {
                     mSelectedGame = mGameWaitingLobbyPresenter.getAllGamesList().get(getAdapterPosition());
-                    turnOffBackgroundColorsOnRecyclerView();
-                    itemView.setBackgroundColor(getResources().getColor(R.color.white));
+                    //turnOffBackgroundColorsOnRecyclerView();
+                    //itemView.setBackgroundColor(getResources().getColor(R.color.white));
                     enableJoinGame(mGameWaitingLobbyPresenter.gameSelected());
                 }
             });
@@ -130,6 +130,10 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         @Override
         public int getItemCount() {
             return mGameList.size();
+        }
+
+        public void setGameList(List<TicketToRideGame> list) {
+            mGameList = list;
         }
     }
 
@@ -180,16 +184,22 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
 
     public void displayGameList() {
         mGameWaitingLobbyPresenter.setAllGamesList(GetGamesService.getGamesList());
-        mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
+        if (mAdapter == null) {
+            mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
+        }
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                if (GetGamesService.getGamesList().size() != mAdapter.getItemCount()) {
+                    //mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
+                    //mAdapter.notifyDataSetChanged();
+                }
+                mAdapter.setGameList(GetGamesService.getGamesList());
                 mGameListRecyclerView.setAdapter(mAdapter);
             }
         });
-        //mGameListRecyclerView.setAdapter(mAdapter);
-        mSelectedGame = null;
-        enableJoinGame(false);
+        //mSelectedGame = null;
+        //enableJoinGame(false);
     }
 
     public void enableJoinGame(boolean b) {
@@ -213,7 +223,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                if (joinGameResult.getGame() != null)
+                if (joinGameResult.getGame() != null && joinGameResult.isSuccess())
                     mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
                 startActivity(new Intent(getActivity(), GameActivity.class));
             }

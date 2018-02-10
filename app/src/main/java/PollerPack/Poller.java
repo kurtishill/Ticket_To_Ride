@@ -36,26 +36,15 @@ public class Poller {
                 commands.add(pollGameList());
 
                 runCommands();
-
-                //cancel();
-
-                /*for (int i = 0; i < commands.size(); i++) {
-                    if (commands.get(i) != null)
-                        commands.get(i).execute();
-                }*/
-                //run();
             }
-        }, 7000, 5000);
+        }, 0, 1000);
     }
 
     private void runCommands() {
-        //timer.cancel();
         for (int i = 0; i < commands.size(); i++) {
             if (commands.get(i) != null)
                 commands.get(i).execute();
         }
-        //timer = new Timer();
-        //poll();
     }
 
     private ICommand pollGameList() {

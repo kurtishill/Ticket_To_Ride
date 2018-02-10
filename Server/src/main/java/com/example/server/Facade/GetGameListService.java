@@ -15,7 +15,7 @@ public class GetGameListService {
         if (ClientCommandManager.instance().getCommandList().contains("UpdateGameList")) {
             List<String> commandList = ClientCommandManager.instance().getCommandList();
             ClientCommandManager.instance().setCommands(commandList);
-            commandList.remove("UpdateGameList");
+            //commandList.remove("UpdateGameList");
             return new GetGameListResult(true, null, null, null,
                     ModelRoot.instance().getListGames());
         }

@@ -34,7 +34,12 @@ public class GameActivity extends AppCompatActivity implements IGameView {
         mWaitingTextView.setText(title);
     }
 
-    public void displayToast(String toast) {
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+    public void displayToast(final String toast) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GameActivity.this, toast, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
