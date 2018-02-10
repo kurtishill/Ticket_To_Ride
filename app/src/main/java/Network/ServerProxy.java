@@ -15,9 +15,7 @@ public class ServerProxy  {
     private static String serverPort;
 
     private ServerProxy() {
-        //setServerHost("10.24.71.167");
-        //setServerPort("8080");
-        serverHost = "10.24.71.167";
+        serverHost = "192.168.1.216";
         serverPort = "8080";
     }
 
@@ -40,15 +38,7 @@ public class ServerProxy  {
         return serverPort;
     }
 
-    /*public void setServerPort(String serverPort) {
-        this.serverPort = serverPort;
-    }*/
-
     public static String getServerHost() {
         return serverHost;
     }
-
-    /*public void setServerHost(String serverHost) {
-        this.serverHost = serverHost;
-    }*/
 }

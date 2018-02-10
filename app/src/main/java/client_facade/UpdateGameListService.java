@@ -2,7 +2,7 @@ package client_facade;
 
 import com.example.server.Model.TicketToRideGame;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import client_model.ClientModelRoot;
 
@@ -12,7 +12,11 @@ import client_model.ClientModelRoot;
 
 public class UpdateGameListService {
 
-    public void updateGameList(List<TicketToRideGame> games) {
+    public UpdateGameListService() {
+
+    }
+
+    public void updateGameList(ArrayList<TicketToRideGame> games) {
         ClientModelRoot.instance().setGames(games);
     }
 }

@@ -21,23 +21,41 @@ import Network.ClientCommunicator;
 
 public class Poller {
     private static Timer timer;
+    private List<ICommand> commands;
 
     public Poller() {
         timer = new Timer();
+        commands = new ArrayList<>();
     }
 
     public void poll(){
         timer.schedule(new TimerTask() {
+            @Override
             public void run() {
-                List<ICommand> commands = new ArrayList<>();
+                commands = new ArrayList<>();
                 commands.add(pollGameList());
 
-                for (int i = 0; i < commands.size(); i++) {
+                runCommands();
+
+                //cancel();
+
+                /*for (int i = 0; i < commands.size(); i++) {
                     if (commands.get(i) != null)
                         commands.get(i).execute();
-                }
+                }*/
+                //run();
             }
-        }, 0, 7000);
+        }, 7000, 5000);
+    }
+
+    private void runCommands() {
+        //timer.cancel();
+        for (int i = 0; i < commands.size(); i++) {
+            if (commands.get(i) != null)
+                commands.get(i).execute();
+        }
+        //timer = new Timer();
+        //poll();
     }
 
     private ICommand pollGameList() {

@@ -181,7 +181,13 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
     public void displayGameList() {
         mGameWaitingLobbyPresenter.setAllGamesList(GetGamesService.getGamesList());
         mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
-        mGameListRecyclerView.setAdapter(mAdapter);
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mGameListRecyclerView.setAdapter(mAdapter);
+            }
+        });
+        //mGameListRecyclerView.setAdapter(mAdapter);
         mSelectedGame = null;
         enableJoinGame(false);
     }

@@ -25,7 +25,7 @@ public class GenericCommand implements ICommand {
         Result result = new Result();
         try {
             Class<?> receiverClass = Class.forName(_className);
-            Method method = receiverClass.getMethod(_methodName, _paramTypes);
+            Method method = receiverClass.getDeclaredMethod(_methodName, _paramTypes);
             Object obj = method.invoke(receiverClass.newInstance(), _paramValues);
             return obj;
         }

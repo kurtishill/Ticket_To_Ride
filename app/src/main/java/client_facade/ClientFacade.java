@@ -2,7 +2,7 @@ package client_facade;
 
 import com.example.server.Model.TicketToRideGame;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Clayton Kings on 2/2/2018.
@@ -16,7 +16,7 @@ public class ClientFacade {
         mUpdateGameListService = new UpdateGameListService();
     }
 
-    public Object UpdateGameList(List<TicketToRideGame> games) {
+    public Object UpdateGameList(ArrayList<TicketToRideGame> games) {
         mUpdateGameListService.updateGameList(games);
         return null;
     }
