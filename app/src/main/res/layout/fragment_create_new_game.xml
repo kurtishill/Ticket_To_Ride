@@ -1,10 +1,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/create_new_game_framgment"
-    tools:context="com.example.hillcollegemac.tickettoride.CreateNewGameFragment">
+    android:id="@+id/create_new_game_framgment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,6 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/create_new_game_header"
+                android:id="@+id/create_game_title_text_view"
                 android:textColor="@color/white"
                 android:textAppearance="@android:style/TextAppearance.Large"
                 android:padding="5dp"/>
@@ -36,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/game_name"
+                android:text="@string/name_of_game_title"
                 android:textColor="@color/white"/>
 
             <EditText
@@ -178,6 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ok_button"
+                android:enabled="false"
                 android:text="@string/ok_button"/>
 
         </LinearLayout>
