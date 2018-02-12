@@ -3,8 +3,6 @@ package com.example.server.Model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by tnels on 1/29/2018.
@@ -94,4 +92,24 @@ public class TicketToRideGame {
     }
 
     public void setAvailableColors(List<String> availableColors){ this.availableColors=availableColors;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (o == null)
+            return false;
+        if (o.getClass() != this.getClass())
+            return false;
+
+        TicketToRideGame other = (TicketToRideGame) o;
+
+        return other.getGameID() == this.getGameID();
+
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * gameID + maxNumPlayers + name.hashCode();
+    }
 }

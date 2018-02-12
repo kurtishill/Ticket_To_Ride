@@ -104,6 +104,10 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
             mPlayerListTextView.setText(sb.toString());
             String playersInGame = mGame.getPlayers().size() + " / " + mGame.getMaxNumPlayers();
             mPlayersInGameTextView.setText(playersInGame);
+            if (mGame != null && mSelectedGame != null) {
+                if (mSelectedGame.equals(mGame))
+                    itemView.setBackgroundColor(getResources().getColor(R.color.white));
+            }
         }
     }
 

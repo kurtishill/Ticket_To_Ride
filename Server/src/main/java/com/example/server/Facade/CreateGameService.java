@@ -10,16 +10,25 @@ import com.example.server.Results.CreateGameResult;
  */
 
 public class CreateGameService {
-    public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken){
+    public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken) {
         Player currentPlayer = ModelRoot.instance().UserExists(authToken);
         currentPlayer.setColor(playerColor);
         ModelRoot.instance().allPlayer(authToken, currentPlayer);
-        TicketToRideGame game = new TicketToRideGame(currentPlayer);
-        game.setName(gameName);
-        game.setMaxNumPlayers(maxNumPlayers);
-        game.setGameID(ModelRoot.instance().getListGames().size() + 1);
-        game.getAvailableColors().remove(playerColor); //added 2/9 by Brandon
-        ModelRoot.instance().addGame(game.getGameID(), game);
-        return new CreateGameResult(true, null, null, null, game);
+        boolean b = true;
+        for (int i = 0; i < ModelRoot.instance().getListGames().size(); i++) {
+            if (gameName.equals(ModelRoot.instance().getListGames().get(i).getName()))
+                b = false;
+        }
+        if (b) {
+            TicketToRideGame game = new TicketToRideGame(currentPlayer);
+            game.setName(gameName);
+            game.setMaxNumPlayers(maxNumPlayers);
+            game.setGameID(ModelRoot.instance().getListGames().size() + 1);
+            game.getAvailableColors().remove(playerColor); //added 2/9 by Brandon
+            ModelRoot.instance().addGame(game.getGameID(), game);
+            return new CreateGameResult(true, null, null, null, game);
+        }
+        return new CreateGameResult(false, "Game name already taken", null,
+                "Game already made", null);
     }
 }

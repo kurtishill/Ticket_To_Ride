@@ -21,18 +21,5 @@ public class GetGameListService {
         }
         else
             return new GetGameListResult(true, null, null, null, null);
-        /*List<String> commandsInManager = ClientCommandManager.instance().getCommandList();
-        ClientCommand updateGameCommand = new ClientCommand();
-        for (int i = 0; i < commandsInManager.size(); i++) {
-            if (commandsInManager.get(i).equals("UpdateGameList")) {
-                updateGameCommand.addData(ModelRoot.instance().getListGames());
-                updateGameCommand.setType("UpdateGameList");
-                i = commandsInManager.size() - 1;
-            }
-        }*/
-        //List<TicketToRideGame> gameList = ModelRoot.instance().getListGames();
-        //ClientCommandManager.instance().addCommand(ClientCommandManager.instance().GetGameList(gameList));
-
-        //List<ICommand> commands = ClientCommandManager.instance().getCommandList();
     }
 }
