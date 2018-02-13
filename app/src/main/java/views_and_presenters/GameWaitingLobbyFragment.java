@@ -81,8 +81,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
                 @Override
                 public void onClick(View v) {
                     mSelectedGame = mGameWaitingLobbyPresenter.getAllGamesList().get(getAdapterPosition());
-                    //turnOffBackgroundColorsOnRecyclerView();
-                    //itemView.setBackgroundColor(getResources().getColor(R.color.white));
+                    turnOffBackgroundColorsOnRecyclerView();
+                    itemView.setBackgroundColor(getResources().getColor(R.color.white));
                     enableJoinGame(mGameWaitingLobbyPresenter.gameSelected());
                 }
             });
@@ -104,10 +104,6 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
             mPlayerListTextView.setText(sb.toString());
             String playersInGame = mGame.getPlayers().size() + " / " + mGame.getMaxNumPlayers();
             mPlayersInGameTextView.setText(playersInGame);
-            if (mGame != null && mSelectedGame != null) {
-                if (mSelectedGame.equals(mGame))
-                    itemView.setBackgroundColor(getResources().getColor(R.color.white));
-            }
         }
     }
 
@@ -135,10 +131,6 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         public int getItemCount() {
             return mGameList.size();
         }
-
-        public void setGameList(List<TicketToRideGame> list) {
-            mGameList = list;
-        }
     }
 
     @Override
@@ -160,6 +152,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
 
         mGameListRecyclerView = (RecyclerView) v.findViewById(R.id.game_list_recycler_view);
         mGameListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        displayGameList();
 
         mCreateGameButton = (Button) v.findViewById(R.id.create_game_button);
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
@@ -188,22 +182,13 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
 
     public void displayGameList() {
         mGameWaitingLobbyPresenter.setAllGamesList(GetGamesService.getGamesList());
-        if (mAdapter == null) {
-            mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
-        }
+        mAdapter = new GameWaitingLobbyAdapter(mGameWaitingLobbyPresenter.getAllGamesList());
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (GetGamesService.getGamesList().size() != mAdapter.getItemCount()) {
-                    //mAdapter.notifyItemRangeChanged(0, mAdapter.getItemCount());
-                    //mAdapter.notifyDataSetChanged();
-                }
-                mAdapter.setGameList(GetGamesService.getGamesList());
                 mGameListRecyclerView.setAdapter(mAdapter);
             }
         });
-        //mSelectedGame = null;
-        //enableJoinGame(false);
     }
 
     public void enableJoinGame(boolean b) {
@@ -211,9 +196,11 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
     }
 
     private void turnOffBackgroundColorsOnRecyclerView() {
-        for (int i = 0; i < mGameListRecyclerView.getChildCount(); i++) {
+        for (int i = 0; i < mAdapter.getItemCount(); i++) {
             GameWaitingLobbyHolder holder = (GameWaitingLobbyHolder) mGameListRecyclerView.findViewHolderForAdapterPosition(i);
-            holder.itemView.setBackgroundColor(getResources().getColor(R.color.transparent_gray));
+            if (holder != null) {
+                holder.itemView.setBackgroundColor(getResources().getColor(R.color.transparent_gray));
+            }
         }
     }
 

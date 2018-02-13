@@ -14,12 +14,12 @@ public class CreateGameService {
         Player currentPlayer = ModelRoot.instance().UserExists(authToken);
         currentPlayer.setColor(playerColor);
         ModelRoot.instance().allPlayer(authToken, currentPlayer);
-        boolean b = true;
+        boolean gameNameDoesNotExist = true;
         for (int i = 0; i < ModelRoot.instance().getListGames().size(); i++) {
             if (gameName.equals(ModelRoot.instance().getListGames().get(i).getName()))
-                b = false;
+                gameNameDoesNotExist = false;
         }
-        if (b) {
+        if (gameNameDoesNotExist) {
             TicketToRideGame game = new TicketToRideGame(currentPlayer);
             game.setName(gameName);
             game.setMaxNumPlayers(maxNumPlayers);

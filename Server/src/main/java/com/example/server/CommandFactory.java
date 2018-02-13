@@ -30,9 +30,9 @@ public class CommandFactory {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "JoinGame",
                 new Class<?>[]{ Integer.class, String.class }, new Object[]{gameId, authToken});
     }
-    public GenericCommand GetGameList(){
+    public GenericCommand GetGameList(String authToken){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "GetGameList",
-                new Class<?>[]{}, new Object[]{});
+                new Class<?>[]{String.class}, new Object[]{authToken});
     }
     public GenericCommand CreateGame(String gameName, Integer maxNumPlayers, String color, String authToken){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "CreateGame",
