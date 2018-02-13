@@ -24,10 +24,6 @@ public class GameActivity extends AppCompatActivity implements IGameView {
         mGamePresenter = new GamePresenter(this);
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
-
-        // temporary
-        if (mGamePresenter.getGame().getPlayers().size() == mGamePresenter.getGame().getMaxNumPlayers())
-            changeTitle("");
     }
 
     public void changeTitle(String title) {

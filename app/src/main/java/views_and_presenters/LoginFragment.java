@@ -19,6 +19,7 @@ import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
 
 import PollerPack.Poller;
+import client_model.ClientModelRoot;
 
 public class LoginFragment extends Fragment implements ILoginView {
     private static final String ARG_PARAM1 = "param1";
@@ -203,10 +204,25 @@ public class LoginFragment extends Fragment implements ILoginView {
                     lResult = (LoginResult) result;
                     mLoginPresenter.postExecuteAddUser(lResult.getPlayer());
                 }
-                Poller poller = new Poller();
-                poller.poll();
+                new GetDataAsyncTask().execute();
                 startActivity(new Intent(getActivity(), MainActivity.class));
             }
+        }
+    }
+
+    private class GetDataAsyncTask extends AsyncTask<Void, Void, Poller> {
+        @Override
+        protected Poller doInBackground(Void... v) {
+            Poller poller = new Poller("sign-in");
+            poller.signInPoll();
+            return poller;
+        }
+
+        @Override
+        protected void onPostExecute(Poller p) {
+            p.runCommands();
+            Poller poller = new Poller(ClientModelRoot.instance().getAuthToken());
+            poller.poll();
         }
     }
 }

@@ -257,6 +257,8 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
                 closeFragment();
                 startActivity(new Intent(getActivity(), GameActivity.class));
             }
+            else
+                displayToast(result.getErrorMessage());
         }
     }
 }

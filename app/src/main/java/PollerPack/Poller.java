@@ -20,12 +20,14 @@ import Network.ClientCommunicator;
  */
 
 public class Poller {
-    private static Timer timer;
+    private Timer timer;
     private List<ICommand> commands;
+    private String key;
 
-    public Poller() {
+    public Poller(String key) {
         timer = new Timer();
         commands = new ArrayList<>();
+        this.key = key;
     }
 
     public void poll(){
@@ -40,7 +42,19 @@ public class Poller {
         }, 0, 1000);
     }
 
-    private void runCommands() {
+    public void signInPoll() {
+        commands = new ArrayList<>();
+        commands.add(pollGameList());
+
+        runCommands();
+    }
+
+    public void cancel() {
+        timer.cancel();
+        timer.purge();
+    }
+
+    public void runCommands() {
         for (int i = 0; i < commands.size(); i++) {
             if (commands.get(i) != null)
                 commands.get(i).execute();
@@ -50,7 +64,7 @@ public class Poller {
     private ICommand pollGameList() {
         List<Object> data = new ArrayList<>();
         data.add("GetGameList");
-        Result result = ClientCommunicator.instance().send("/command", data, null);
+        Result result = ClientCommunicator.instance().send("/command", data, key);
         GetGameListResult getGameListResult = (GetGameListResult) result;
         List<TicketToRideGame> games = getGameListResult.getGames();
         if (games != null) {
