@@ -21,7 +21,6 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/black"/>
 
-
     </RelativeLayout>
 
 </RelativeLayout>
