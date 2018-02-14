@@ -47,26 +47,26 @@ public class ClientCommandManager {
         Player player = ModelRoot.instance().getAllPlayers().get(authToken);
         Set<String> set;
         for (Map.Entry<String, Player> entry : ModelRoot.instance().getAllPlayers().entrySet()) {
-            if (command.equals("UpdateGameListJoin")) {
-                if (commands.get(entry.getKey()) == null)
+            /*if (command.equals("UpdateGameListJoin")) {
+                if (commands.get(entry.getValue().getUsername()) == null)
                     set = new HashSet<>();
                 else
-                    set = commands.get(player.getUsername());
+                    set = commands.get(entry.getValue().getUsername());
 
                 set.add("UpdateGameList");
-                commands.put(player.getUsername(), set);
+                commands.put(entry.getValue().getUsername(), set);
             }
-            else {
-                if (!entry.getKey().equals(player.getUsername())) {
-                    if (commands.get(entry.getKey()) == null)
+            else {*/
+                if (!entry.getValue().getUsername().equals(player.getUsername())) {
+                    if (commands.get(entry.getValue().getUsername()) == null)
                         set = new HashSet<>();
                     else
-                        set = commands.get(player.getUsername());
+                        set = commands.get(entry.getValue().getUsername());
 
                     set.add(command);
-                    commands.put(player.getUsername(), set);
+                    commands.put(entry.getValue().getUsername(), set);
                 }
-            }
+            //}
         }
     }
 
