@@ -9,4 +9,6 @@ public interface IGameView {
     void displayToast(String toast);
 
     void changeTitle(String title);
+
+    void gameStarted();
 }

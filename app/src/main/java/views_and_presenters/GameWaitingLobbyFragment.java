@@ -124,6 +124,7 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         @Override
         public void onBindViewHolder(final GameWaitingLobbyHolder holder, int position) {
             TicketToRideGame game = mGameList.get(position);
+            holder.setIsRecyclable(false);
             holder.bind(game);
         }
 
@@ -214,9 +215,11 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                if (joinGameResult.getGame() != null && joinGameResult.isSuccess())
+                if (joinGameResult.getGame() != null && joinGameResult.isSuccess()) {
+                    Intent intent = new Intent(getActivity(), GameActivity.class);
+                    startActivity(intent);
                     mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
-                startActivity(new Intent(getActivity(), GameActivity.class));
+                }
             }
             else
                 Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_SHORT).show();

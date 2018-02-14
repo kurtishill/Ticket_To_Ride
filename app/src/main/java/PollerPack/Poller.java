@@ -49,11 +49,6 @@ public class Poller {
         runCommands();
     }
 
-    public void cancel() {
-        timer.cancel();
-        timer.purge();
-    }
-
     public void runCommands() {
         for (int i = 0; i < commands.size(); i++) {
             if (commands.get(i) != null)

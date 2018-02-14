@@ -55,7 +55,7 @@ public class CommandHandler implements HttpHandler {
                         Double d = (Double) commandValues.get(1);
                         command = CommandFactory.instance().JoinGame(d.intValue(), authToken);
                         ClientCommandManager.instance().addCommand(authToken,
-                                    "UpdateGameListJoin");
+                                    "UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("CreateGame")) {
                         Double d = (Double) commandValues.get(2);

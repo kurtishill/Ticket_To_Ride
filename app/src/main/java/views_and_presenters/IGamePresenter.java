@@ -9,4 +9,6 @@ import com.example.server.Model.TicketToRideGame;
 public interface IGamePresenter {
 
     TicketToRideGame getGame();
+
+    void didGameStart();
 }

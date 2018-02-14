@@ -24,19 +24,29 @@ public class GamePresenter implements IGamePresenter, Observer {
         EditObserversInModel.addObserverToModel(this);
     }
 
+    // for other clients
     public void update(Observable obs, Object obj) {
         if (obs == ClientModelRoot.instance()) {
             ClientModelRoot.instance().updateCurrentGame();
             mGame = ClientModelRoot.instance().getCurrGame();
-            if (GetGamesService.getCurrGame().getPlayers().size() ==
-                    GetGamesService.getCurrGame().getMaxNumPlayers()) {
-                mGameView.changeTitle("Game Started");
+            if (mGame.getPlayers().size() == mGame.getMaxNumPlayers()) {
+                mGameView.changeTitle("");
                 mGameView.displayToast("Game started");
+                mGameView.gameStarted();
             }
         }
     }
 
     public TicketToRideGame getGame() {
         return mGame;
+    }
+
+    // for user
+    public void didGameStart() {
+        if (mGame.getMaxNumPlayers() == mGame.getPlayers().size()) {
+            mGameView.gameStarted();
+            mGameView.changeTitle("");
+            mGameView.displayToast("Game Started");
+        }
     }
 }

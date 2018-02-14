@@ -20,9 +20,5 @@ public class JoinGameService {
                 games.set(i, game);
         }
         ClientModelRoot.instance().setGames(games);
-        /*Map<String, Player> players = ClientModelRoot.instance().getPlayers();
-        players.put(game.getPlayers().get(game.getPlayers().size() - 1).getID(),
-                game.getPlayers().get(game.getPlayers().size() - 1));
-        ClientModelRoot.instance().setPlayers(players);*/
     }
 }

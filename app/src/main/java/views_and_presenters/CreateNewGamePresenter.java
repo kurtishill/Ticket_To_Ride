@@ -86,8 +86,8 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         Player user = GetUserService.getUser();
         user.setColor(game.getPlayers().get(0).getColor());
         AddUserService.addUser(user);
-        AddGameToGameListService.addGameToGameList(game);
         SetCurrGame.setCurrGame(game);
+        AddGameToGameListService.addGameToGameList(game);
     }
 
     public boolean gameNameChanged() {
