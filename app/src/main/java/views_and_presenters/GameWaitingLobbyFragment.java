@@ -32,7 +32,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
     private TextView mGameIDTextView,
             mGameNameTextView,
             mPlayerListTextView,
-            mPlayersInGameTextView;
+            mPlayersInGameTextView,
+            mSelectedGameTextView;
 
     private Button mCreateGameButton, mJoinGameButton;
 
@@ -81,9 +82,10 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
                 @Override
                 public void onClick(View v) {
                     mSelectedGame = mGameWaitingLobbyPresenter.getAllGamesList().get(getAdapterPosition());
-                    turnOffBackgroundColorsOnRecyclerView();
-                    itemView.setBackgroundColor(getResources().getColor(R.color.white));
+                    String selectedGameText = "Selected Game: " + mSelectedGame.getName();
+                    mSelectedGameTextView.setText(selectedGameText);
                     enableJoinGame(mGameWaitingLobbyPresenter.gameSelected());
+                    Toast.makeText(getActivity(), "Game \"" + mSelectedGame.getName() + "\" selected", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -174,6 +176,8 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
             }
         });
 
+        mSelectedGameTextView = (TextView) v.findViewById(R.id.game_selected_text_view);
+
         return v;
     }
 
@@ -196,15 +200,6 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         mJoinGameButton.setEnabled(b);
     }
 
-    private void turnOffBackgroundColorsOnRecyclerView() {
-        for (int i = 0; i < mAdapter.getItemCount(); i++) {
-            GameWaitingLobbyHolder holder = (GameWaitingLobbyHolder) mGameListRecyclerView.findViewHolderForAdapterPosition(i);
-            if (holder != null) {
-                holder.itemView.setBackgroundColor(getResources().getColor(R.color.transparent_gray));
-            }
-        }
-    }
-
     private class JoinGameAsyncTask extends AsyncTask<Void, Void, Result> {
         @Override
         protected Result doInBackground(Void... params) {
@@ -215,11 +210,13 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                if (joinGameResult.getGame() != null && joinGameResult.isSuccess()) {
-                    Intent intent = new Intent(getActivity(), GameActivity.class);
-                    startActivity(intent);
+                if (joinGameResult.getGame() != null)
                     mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
-                }
+
+                // user is already in the game
+                else if (joinGameResult.getGame() == null)
+                    mGameWaitingLobbyPresenter.callJoinGameService(mSelectedGame);
+                startActivity(new Intent(getActivity(), GameActivity.class));
             }
             else
                 Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_SHORT).show();
