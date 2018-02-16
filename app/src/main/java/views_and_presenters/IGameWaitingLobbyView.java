@@ -14,4 +14,6 @@ public interface IGameWaitingLobbyView {
     void displayGameList();
 
     void enableJoinGame(boolean b);
+
+    void toggleViews(boolean toggle);
 }

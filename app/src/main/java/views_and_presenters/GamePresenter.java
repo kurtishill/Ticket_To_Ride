@@ -30,9 +30,7 @@ public class GamePresenter implements IGamePresenter, Observer {
             ClientModelRoot.instance().updateCurrentGame();
             mGame = ClientModelRoot.instance().getCurrGame();
             if (mGame.getPlayers().size() == mGame.getMaxNumPlayers()) {
-                mGameView.changeTitle("");
-                mGameView.displayToast("Game started");
-                mGameView.gameStarted();
+                didGameStart();
             }
         }
     }
@@ -42,11 +40,14 @@ public class GamePresenter implements IGamePresenter, Observer {
     }
 
     // for user
-    public void didGameStart() {
+    public boolean didGameStart() {
         if (mGame.getMaxNumPlayers() == mGame.getPlayers().size()) {
             mGameView.gameStarted();
             mGameView.changeTitle("");
-            mGameView.displayToast("Game Started");
+            mGameView.displayToast("Game " + mGameView.getGameStatus());
+            mGameView.toggleDrawButtons(true);
+            return true;
         }
+        return false;
     }
 }

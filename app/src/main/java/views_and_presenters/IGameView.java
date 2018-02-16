@@ -11,4 +11,8 @@ public interface IGameView {
     void changeTitle(String title);
 
     void gameStarted();
+
+    String getGameStatus();
+
+    void toggleDrawButtons(boolean toggle);
 }

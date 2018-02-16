@@ -10,5 +10,5 @@ public interface IGamePresenter {
 
     TicketToRideGame getGame();
 
-    void didGameStart();
+    boolean didGameStart();
 }

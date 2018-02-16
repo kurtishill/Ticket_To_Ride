@@ -2,9 +2,11 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ttrmap">
+    android:background="@drawable/ttrmap"
+    android:id="@+id/game_map_layout">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,13 +15,106 @@
         android:id="@+id/view_layout">
 
         <TextView
+            android:id="@+id/game_activity_waiting_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Waiting For Lobby To Fill..."
-            android:id="@+id/game_activity_waiting_text_view"
+            android:fontFamily="@font/slabopx_regular"
             android:gravity="center_horizontal|center_vertical"
+            android:text="Waiting For Lobby To Fill..."
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/black"/>
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/train_car_card_back"
+            android:text="@string/draw_train_car_card"
+            android:id="@+id/draw_cards_button"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/slabopx_regular"
+            android:enabled="false"/>
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/draw_cards_button"
+            android:background="@drawable/claim_route_back"
+            android:text="@string/place_trains"
+            android:id="@+id/place_trains_button"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/slabopx_regular"
+            android:enabled="false"/>
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@id/place_trains_button"
+            android:background="@drawable/destination_card_back"
+            android:text="@string/draw_routes"
+            android:id="@+id/draw_routes_button"
+            android:layout_margin="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/slabopx_regular"
+            android:enabled="false"/>
+
+
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/destination_picker_fragment_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+        </FrameLayout>
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/bank_fragment_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true">
+
+        </FrameLayout>
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/stats_fragment_container"
+            android:layout_width="450dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true">
+
+        </FrameLayout>
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/game_history_fragment_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true">
+
+        </FrameLayout>
+
+        <FrameLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/chat_fragment_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true">
+
+        </FrameLayout>
 
     </RelativeLayout>
 

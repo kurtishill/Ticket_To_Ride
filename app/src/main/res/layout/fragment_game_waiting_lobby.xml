@@ -10,8 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentEnd="true"
-        android:layout_margin="20dp"
-        android:id="@+id/game_waiting_lobby_layout">
+        android:layout_margin="20dp">
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -26,27 +25,31 @@
                 android:text="@string/game_id"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="5dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_name"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="@string/game_players"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:text="@string/players_in_game"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
         </GridLayout>
 
@@ -55,6 +58,7 @@
             android:layout_height="185dp"
             android:id="@+id/game_list_recycler_view"
             android:background="@color/transparent_gray"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +71,8 @@
                 android:id="@+id/game_selected_text_view"
                 android:textColor="@color/white"
                 android:paddingStart="2dp"
-                android:text="Selected Game: "/>
+                android:text="Selected Game: "
+                android:fontFamily="@font/slabopx_regular"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,14 +85,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/create_game_button"
-                android:id="@+id/create_game_button"/>
+                android:id="@+id/create_game_button"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:text="@string/join_game_button"
-                android:id="@+id/join_game_button"/>
+                android:id="@+id/join_game_button"
+                android:fontFamily="@font/slabopx_regular"/>
+
         </LinearLayout>
 
 
@@ -95,7 +103,7 @@
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@id/fragment_container"
+        android:id="@id/destination_picker_fragment_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
