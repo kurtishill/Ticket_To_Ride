@@ -13,4 +13,6 @@ public interface IDestinationPickerPresenter {
     ArrayList<String> getSelectedRoutes();
 
     void onClickRoutesChosen();
+
+    boolean getRouteSelectionChange();
 }

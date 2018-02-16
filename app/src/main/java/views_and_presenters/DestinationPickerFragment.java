@@ -77,13 +77,15 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             public void onClick(View v) {
                 boolean select = mDestinationPickerPresenter.routeSelected(mRouteOne.getText().toString());
                 if (!select) {
-                    mRouteTwo.setBackgroundColor(0);
-                    mRouteThree.setBackgroundColor(0);
                     mChooseButton.setEnabled(false);
                 }
-                mRouteOne.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
-                if (mDestinationPickerPresenter.getSelectedRoutes().size() == 2)
+                else
                     mChooseButton.setEnabled(true);
+
+                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                    mRouteOne.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
+                else
+                    mRouteOne.setBackgroundColor(0);
             }
         });
 
@@ -94,13 +96,15 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             public void onClick(View v) {
                 boolean select = mDestinationPickerPresenter.routeSelected(mRouteTwo.getText().toString());
                 if (!select) {
-                    mRouteOne.setBackgroundColor(0);
-                    mRouteThree.setBackgroundColor(0);
                     mChooseButton.setEnabled(false);
                 }
-                mRouteTwo.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
-                if (mDestinationPickerPresenter.getSelectedRoutes().size() == 2)
+                else
                     mChooseButton.setEnabled(true);
+
+                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                    mRouteTwo.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
+                else
+                    mRouteTwo.setBackgroundColor(0);
             }
         });
 
@@ -111,13 +115,15 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             public void onClick(View v) {
                 boolean select = mDestinationPickerPresenter.routeSelected(mRouteThree.getText().toString());
                 if (!select) {
-                    mRouteOne.setBackgroundColor(0);
-                    mRouteTwo.setBackgroundColor(0);
                     mChooseButton.setEnabled(false);
                 }
-                mRouteThree.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
-                if (mDestinationPickerPresenter.getSelectedRoutes().size() == 2)
+                else
                     mChooseButton.setEnabled(true);
+
+                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                    mRouteThree.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
+                else
+                    mRouteThree.setBackgroundColor(0);
             }
         });
 
@@ -132,11 +138,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         });
 
         return v;
-    }
-
-    private void deselect(TextView tv1, TextView tv2) {
-        tv1.setBackgroundColor(getResources().getColor(R.color.white));
-        tv2.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
     private void closeFragment() {
