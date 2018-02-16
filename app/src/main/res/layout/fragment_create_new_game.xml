@@ -24,7 +24,8 @@
                 android:id="@+id/create_game_title_text_view"
                 android:textColor="@color/white"
                 android:textAppearance="@android:style/TextAppearance.Large"
-                android:padding="5dp"/>
+                android:padding="5dp"
+                android:fontFamily="@font/slabopx_regular"/>
 
         </LinearLayout>
 
@@ -36,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_of_game_title"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <EditText
                 android:layout_width="100dp"
@@ -55,7 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/num_players_title"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -81,7 +84,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/red_player"
-                        android:textColor="@color/red"/>
+                        android:textColor="@color/red"
+                        android:fontFamily="@font/slabopx_regular"/>
 
                 </LinearLayout>
 
@@ -99,7 +103,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/blue_player"
-                        android:textColor="@color/blue"/>
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/slabopx_regular"/>
 
                 </LinearLayout>
 
@@ -117,7 +122,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/yellow_player"
-                        android:textColor="@color/yellow"/>
+                        android:textColor="@color/yellow"
+                        android:fontFamily="@font/slabopx_regular"/>
 
                 </LinearLayout>
 
@@ -135,7 +141,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/green_player"
-                        android:textColor="@color/green"/>
+                        android:textColor="@color/green"
+                        android:fontFamily="@font/slabopx_regular"/>
 
                 </LinearLayout>
 
@@ -153,7 +160,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/black_player"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/slabopx_regular"/>
 
                 </LinearLayout>
 
@@ -171,14 +179,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancel_button"
-                android:text="@string/cancel_button"/>
+                android:text="@string/cancel_button"
+                android:fontFamily="@font/slabopx_regular"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ok_button"
                 android:enabled="false"
-                android:text="@string/ok_button"/>
+                android:text="@string/ok_button"
+                android:fontFamily="@font/slabopx_regular"/>
 
         </LinearLayout>
 

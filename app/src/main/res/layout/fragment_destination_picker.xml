@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@color/transparent_gray">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/draw_routes"
+        android:textColor="@color/white"
+        android:fontFamily="@font/slabopx_regular"
+        android:padding="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_gravity="center"
+        android:textAppearance="?android:textAppearanceLarge"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Route 1"
+        android:id="@+id/destination_one_text_view"
+        android:fontFamily="@font/slabopx_regular"
+        android:textColor="@color/white"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:gravity="center"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Route 2"
+        android:id="@+id/destination_two_text_view"
+        android:fontFamily="@font/slabopx_regular"
+        android:textColor="@color/white"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:gravity="center"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Route 3"
+        android:id="@+id/destination_three_text_view"
+        android:fontFamily="@font/slabopx_regular"
+        android:textColor="@color/white"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:gravity="center"
+        android:layout_margin="5dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_button"
+        android:id="@+id/choose_button"
+        android:fontFamily="@font/slabopx_regular"
+        android:enabled="false"/>
+
+</LinearLayout>

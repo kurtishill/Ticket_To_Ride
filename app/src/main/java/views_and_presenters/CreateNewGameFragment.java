@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,6 +45,8 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
 
     private String mParam1;
 
+    OnCloseFragmentListener mListener;
+
     public CreateNewGameFragment() {
         // Required empty public constructor
     }
@@ -62,6 +65,17 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mListener = (OnCloseFragmentListener) context;
+        } catch (ClassCastException ex) {
+            throw new ClassCastException(context.toString() + " must implement OnCloseFragmentListener");
+        }
     }
 
     @Override
@@ -174,6 +188,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
             @Override
             public void onClick(View v) {
                 mCreateNewGamePresenter.cancel();
+                mListener.onClose();
                 closeFragment();
             }
         });
@@ -182,6 +197,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
         mOkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mListener.onClose();
                 new CreateGameAsyncTask().execute();
             }
         });

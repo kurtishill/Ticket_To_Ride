@@ -33,4 +33,24 @@
     <string name="yellow_player">Yellow</string>
     <string name="green_player">Green</string>
     <string name="black_player">Black</string>
+
+    <string name="menu_stats_title">Player Stats</string>
+    <string name="menu_history_title">Game History</string>
+    <string name="menu_chat_title">Chat</string>
+
+    <string name="draw_train_car_card">Draw Trains</string>
+    <string name="place_trains">Place Trains</string>
+    <string name="draw_routes">Draw Routes</string>
+
+    <string name="send_button">Send</string>
+
+    <string name="bank_title">BANK</string>
+
+    <string name="choose_button">Choose</string>
+
+    <string name="close_button">Close</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

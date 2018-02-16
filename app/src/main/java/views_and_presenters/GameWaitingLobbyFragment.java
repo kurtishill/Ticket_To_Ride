@@ -24,6 +24,7 @@ import java.util.List;
 import gui_facade.GetGamesService;
 
 public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLobbyView {
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -162,9 +163,10 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         mCreateGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toggleViews(false);
                 CreateNewGameFragment fragment = new CreateNewGameFragment();
                 FragmentManager fm = getChildFragmentManager();
-                fm.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, fragment).addToBackStack(null).commit();
             }
         });
 
@@ -210,16 +212,32 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
                 JoinGameResult joinGameResult = (JoinGameResult) result;
-                if (joinGameResult.getGame() != null)
+                Intent intent = new Intent(getActivity(), GameActivity.class);
+                if (joinGameResult.getGame() != null) {
+                    intent.putExtra(GameActivity.GAME_START_STATUS, "started");
                     mGameWaitingLobbyPresenter.callJoinGameService(joinGameResult.getGame());
+                }
 
                 // user is already in the game
-                else if (joinGameResult.getGame() == null)
-                    mGameWaitingLobbyPresenter.callJoinGameService(mSelectedGame);
-                startActivity(new Intent(getActivity(), GameActivity.class));
+                else if (joinGameResult.getGame() == null) {
+                    intent.putExtra(GameActivity.GAME_START_STATUS, "resumed");
+                    mGameWaitingLobbyPresenter.setCurrGame(mSelectedGame);
+                }
+                startActivity(intent);
             }
             else
                 Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void toggleViews(final boolean toggle) {
+        mCreateGameButton.setEnabled(toggle);
+        if (toggle && mSelectedGame != null)
+            mJoinGameButton.setEnabled(true);
+        else
+            mJoinGameButton.setEnabled(false);
+        for (int i = 0; i < mGameListRecyclerView.getChildCount(); i++) {
+            mGameListRecyclerView.getChildAt(i).setEnabled(toggle);
         }
     }
 }
