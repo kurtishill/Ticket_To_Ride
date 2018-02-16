@@ -9,22 +9,26 @@ import java.util.ArrayList;
 public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
     private ArrayList<String> mSelectedRoutes;
+    private boolean mChange;
 
     public DestinationPickerPresenter(ArrayList<String> routes) {
         mSelectedRoutes = routes;
     }
 
     public boolean routeSelected(String selectedRoute) {
-        if (!mSelectedRoutes.contains(selectedRoute)) {
-            if (mSelectedRoutes.size() == 2) {
-                mSelectedRoutes.clear();
-                mSelectedRoutes.add(selectedRoute);
+        if (mSelectedRoutes.contains(selectedRoute)) {
+            mSelectedRoutes.remove(selectedRoute);
+            mChange = false;
+            if (mSelectedRoutes.size() < 1)
                 return false;
-            }
+            else
+                return true;
+        }
+        else {
+            mChange = true;
             mSelectedRoutes.add(selectedRoute);
             return true;
         }
-        return true;
     }
 
     public ArrayList<String> getSelectedRoutes() {
@@ -33,5 +37,9 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
     public void onClickRoutesChosen() {
         // do something with the routes chosen by the player
+    }
+
+    public boolean getRouteSelectionChange() {
+        return mChange;
     }
 }
