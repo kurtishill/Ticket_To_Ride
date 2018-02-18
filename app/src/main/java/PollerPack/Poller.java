@@ -1,6 +1,8 @@
 package PollerPack;
 
+import com.example.server.ChatMessage;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.ChatResult;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.ICommand;
@@ -12,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Network.ClientCommunicator;
+import client_model.ClientModelRoot;
 
 //import client_facade.ClientFacade;
 
@@ -45,6 +48,7 @@ public class Poller {
     public void signInPoll() {
         commands = new ArrayList<>();
         commands.add(pollGameList());
+        commands.add(pollChat());
 
         runCommands();
     }
@@ -65,6 +69,23 @@ public class Poller {
         if (games != null) {
             return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
                     new Class<?>[]{ArrayList.class}, new Object[]{games});
+        }
+        else
+            return null;
+    }
+    private ICommand pollChat() {
+        if(ClientModelRoot.instance().getCurrGame() == null){
+            return null;
+        }
+        List<Object> data = new ArrayList<>();
+        data.add("GetChat");
+        data.add(ClientModelRoot.instance().getCurrGame().getGameID());
+        Result result = ClientCommunicator.instance().send("/command", data, key);
+        ChatResult chatResult = (ChatResult) result;
+        List<ChatMessage> chat = chatResult.getChat();
+        if (chat != null) {
+            return new GenericCommand("client_facade.ClientFacade", "UpdateChat",
+                    new Class<?>[]{ArrayList.class}, new Object[]{chat});
         }
         else
             return null;

@@ -58,6 +58,22 @@ public class ClientCommandManager {
             }
         }
     }
+    public void addGameCommand(int gameID, String command) {
+        TicketToRideGame game = ModelRoot.instance().getAllGames().get(gameID);
+        List<Player> players =  game.getPlayers();
+        Set<String> set;
+        for (int i = 0; i < players.size(); i++) {
+
+            if (commands.get(players.get(i).getUsername()) == null)
+                set = new HashSet<>();
+            else
+                set = commands.get(players.get(i).getUsername());
+
+            set.add(command);
+            commands.put(players.get(i).getUsername(), set);
+
+        }
+    }
 
     public Map<String, Set<String>> getCommands() {
         return commands;
@@ -74,5 +90,9 @@ public class ClientCommandManager {
     public GenericCommand GetGameList(List<TicketToRideGame> list) {
         return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
                 new Class<?>[]{ArrayList.class}, new Object[]{list});
+    }
+    public GenericCommand GetChat(List<ChatMessage> chat) {
+        return new GenericCommand("client_facade.ClientFacade", "UpdateGameChatService",
+                new Class<?>[]{ArrayList.class}, new Object[]{chat});
     }
 }

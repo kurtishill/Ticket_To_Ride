@@ -1,8 +1,12 @@
 package com.example.server.Model;
 
+import com.example.server.ChatMessage;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
 
 /**
  * Created by tnels on 1/29/2018.
@@ -15,6 +19,7 @@ public class TicketToRideGame {
     private int gameID;
     private int maxNumPlayers;
     private List<String> availableColors;
+    private List<ChatMessage> chat;
 
     public TicketToRideGame(){
         players = new ArrayList<>();
@@ -23,6 +28,7 @@ public class TicketToRideGame {
         maxNumPlayers = 0;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
+        chat = new ArrayList<>();
     }
 
     public TicketToRideGame(Player player) {
@@ -31,12 +37,14 @@ public class TicketToRideGame {
         name = null;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
+        chat = new ArrayList<>();
     }
 
     public TicketToRideGame(List<Player> players) {
         this.players = players;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
+        chat = new ArrayList<>();
     }
 
     public TicketToRideGame(Player player,
@@ -50,6 +58,7 @@ public class TicketToRideGame {
         this.maxNumPlayers = maxNumPlayers;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
+        chat = new ArrayList<>();
     }
 
     public List<Player> getPlayers() {
@@ -57,7 +66,13 @@ public class TicketToRideGame {
     }
 
 
+    public List<ChatMessage> getChat() {
+        return chat;
+    }
 
+    public void setChat(ChatMessage message) {
+        this.chat.add(message);
+    }
 
     public void addPlayer(Player player)
     {

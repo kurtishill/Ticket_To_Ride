@@ -1,5 +1,6 @@
 package client_model;
 
+import com.example.server.ChatMessage;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 
@@ -16,7 +17,7 @@ import java.util.Observable;
 public class ClientModelRoot extends Observable {
 
     private static ClientModelRoot _instance;
-
+    private List<ChatMessage> chat;
     private List<TicketToRideGame> mGamesList;
     private Map<String, Player> mPlayers;
     private Player mUser;
@@ -39,6 +40,18 @@ public class ClientModelRoot extends Observable {
 
     public List<TicketToRideGame> getGamesList() {
         return mGamesList;
+    }
+
+    public List<ChatMessage> getChat() {
+        return chat;
+    }
+
+    public void addMessage(ChatMessage message){
+        chat.add(message);
+    }
+
+    public void setChat(List<ChatMessage> chat) {
+        this.chat = chat;
     }
 
     public Map<String, Player> getPlayers() {

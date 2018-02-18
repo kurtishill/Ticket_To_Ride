@@ -1,6 +1,7 @@
 package com.example.server;
 
 
+import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
 import com.sun.net.httpserver.Headers;
@@ -63,9 +64,23 @@ public class CommandHandler implements HttpHandler {
                                 d.intValue(), commandValues.get(3).toString(), authToken);
                         ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
                     }
+                    else if (commandValues.get(0).equals("UpdateChat")) {
+                        Double d = (Double) commandValues.get(2);
+                        ChatMessage message = (ChatMessage) commandValues.get(1);
+                        command = CommandFactory.instance().UpdateChat(message, d.intValue());
+                        ClientCommandManager.instance().addGameCommand(d.intValue(),
+                                "GetChat");
+                    }
                     // GetGameList command
                     else {
-                        command = CommandFactory.instance().GetGameList(authToken);
+
+                        try {
+                            Double d = (Double) commandValues.get(0);
+                            command = CommandFactory.instance().GetChat(d.intValue());
+                        }
+                        catch(Exception e){
+                            command = CommandFactory.instance().GetGameList(authToken);
+                        }
                     }
 
                     Result result = (Result) command.execute();
