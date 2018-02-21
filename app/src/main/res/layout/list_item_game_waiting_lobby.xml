@@ -19,8 +19,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginStart="5dp"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/light_blue"
-            android:fontFamily="@font/slabopx_regular"/>
+            android:textColor="@color/light_blue"/>
 
         <TextView
             android:layout_width="50dp"
@@ -29,8 +28,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/game_name"
             android:id="@+id/game_name_list_item_text_view"
-            android:textColor="@color/light_blue"
-            android:fontFamily="@font/slabopx_regular"/>
+            android:textColor="@color/light_blue"/>
 
         <TextView
             android:layout_width="155dp"
@@ -40,8 +38,7 @@
             android:text="@string/game_players"
             android:id="@+id/game_players_list_item_text_view"
             android:layout_marginStart="10dp"
-            android:textColor="@color/light_blue"
-            android:fontFamily="@font/slabopx_regular"/>
+            android:textColor="@color/light_blue"/>
 
         <TextView
             android:layout_width="100dp"
@@ -50,8 +47,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/players_in_game"
             android:id="@+id/players_in_game_list_item_text_view"
-            android:textColor="@color/light_blue"
-            android:fontFamily="@font/slabopx_regular"/>
+            android:textColor="@color/light_blue"/>
 
     </GridLayout>
 

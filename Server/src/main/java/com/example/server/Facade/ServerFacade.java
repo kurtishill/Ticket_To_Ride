@@ -45,7 +45,7 @@ public class ServerFacade {
     public ChatResult UpdateChat(ChatMessage message, int gameId){
         return chatService.updateChat(message, gameId);
     }
-    public ChatResult GetChat(int gameId){
-        return chatService.getChat(gameId);
+    public ChatResult GetChat(int gameId, String auth){
+        return chatService.getChat(gameId, auth);
     }
 }

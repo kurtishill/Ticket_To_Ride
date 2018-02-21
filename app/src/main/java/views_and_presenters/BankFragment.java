@@ -76,7 +76,7 @@ public class BankFragment extends Fragment implements IBankView {
         mBankPresenter = new BankPresenter();
 
         mFaceUpCardOne = (CardView) v.findViewById(R.id.face_up_card_1);
-        mFaceUpCardOne.setBackgroundResource(R.drawable.black_card);
+        //mFaceUpCardOne.setBackgroundResource(R.drawable.black_card);
 
         mFaceUpCardTwo = (CardView) v.findViewById(R.id.face_up_card_2);
         mFaceUpCardThree = (CardView) v.findViewById(R.id.face_up_card_3);
@@ -84,7 +84,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardFive = (CardView) v.findViewById(R.id.face_up_card_5);
 
         mTrainCarCardDeck = (CardView) v.findViewById(R.id.train_car_card_deck);
-        mTrainCarCardDeck.setBackgroundResource(R.drawable.train_car_card_deck);
+        //mTrainCarCardDeck.setBackgroundResource(R.drawable.train_car_card_deck);
 
         return v;
     }

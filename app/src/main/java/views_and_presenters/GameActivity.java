@@ -1,7 +1,9 @@
 package views_and_presenters;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -112,7 +114,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 //TODO: start fragment
                 return true;
             case R.id.menu_chat:
-                //TODO: start fragment
+                ChatFragment mChatFragment = new ChatFragment();//TODO: start fragment
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.chat_fragment, mChatFragment).addToBackStack(null).commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

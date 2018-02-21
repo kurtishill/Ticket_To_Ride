@@ -37,7 +37,6 @@
                 android:id="@+id/chat_send_button"
                 android:text="@string/send_button"
                 android:textSize="12sp"
-                android:fontFamily="@font/slabopx_regular"
                 android:layout_weight="1"/>
 
 
@@ -47,8 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/close_button"
-            android:id="@+id/chat_close_button"
-            android:fontFamily="@font/slabopx_regular"/>
+            android:id="@+id/chat_close_button"/>
 
     </LinearLayout>
 

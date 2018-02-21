@@ -7,5 +7,5 @@ import com.example.server.ChatMessage;
  */
 
 public interface IChatView {
-    String getMessage();
+    //String getMessage();
 }

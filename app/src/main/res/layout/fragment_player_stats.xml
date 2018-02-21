@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@drawable/old_map_background2"
     android:id="@+id/player_stats_fragment_container">
 
     <RelativeLayout
@@ -18,7 +17,6 @@
             android:layout_alignParentTop="true"
             android:padding="30dp"
             android:textColor="@color/white"
-            android:fontFamily="@font/slabopx_regular"
             android:textSize="20sp"
             android:text="Player Name"/>
 
@@ -32,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:fontFamily="@font/slabopx_regular"
             android:textColor="@color/white"
             android:text="Routes Owned"/>
 

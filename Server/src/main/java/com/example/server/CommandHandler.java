@@ -71,16 +71,13 @@ public class CommandHandler implements HttpHandler {
                         ClientCommandManager.instance().addGameCommand(d.intValue(),
                                 "GetChat");
                     }
-                    // GetGameList command
+                    else if (commandValues.get(0).equals("GetChat")) {
+                        Double d = (Double) commandValues.get(1);
+                        command = CommandFactory.instance().GetChat(d.intValue(), authToken);
+                    }// GetGameList command
                     else {
-
-                        try {
-                            Double d = (Double) commandValues.get(0);
-                            command = CommandFactory.instance().GetChat(d.intValue());
-                        }
-                        catch(Exception e){
                             command = CommandFactory.instance().GetGameList(authToken);
-                        }
+
                     }
 
                     Result result = (Result) command.execute();

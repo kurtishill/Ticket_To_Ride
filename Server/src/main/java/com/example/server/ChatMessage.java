@@ -5,7 +5,13 @@ package com.example.server;
  */
 
 public class ChatMessage {
-    String message;
-    String username;
-    String color;
+    public ChatMessage(String message, String username, String color){
+        this.message = message;
+        this.username = username;
+        this.color = color;
+    }
+
+    public String message;
+    public String username;
+    public String color;
 }

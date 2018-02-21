@@ -1,32 +1,55 @@
 package views_and_presenters;
 
-import android.app.Fragment;
+
+import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.ChatMessage;
+import com.example.server.Model.ModelRoot;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.JoinGameResult;
+import com.example.server.Results.Result;
 
 import java.util.List;
+
+import client_model.ClientModelRoot;
+import gui_facade.GetGamesService;
 
 /**
  * Created by Clayton Kings on 2/17/2018.
  */
 
 public class ChatFragment extends Fragment implements IChatView {
-    private RecyclerView mGameListRecyclerView;
+    private RecyclerView mChatRecyclerView;
     private Button send;
-    public static GameWaitingLobbyFragment newInstance(String param1, String param2) {
-        GameWaitingLobbyFragment fragment = new GameWaitingLobbyFragment();
+    private EditText messageToSend;
+    private TextView listMessages;
+    private TextView listName;
+    private ChatPresenter mChatPresenter;
+    String messageText;
+    private ChatAdapter mAdapter;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    public static ChatFragment newInstance(String param1, String param2) {
+        ChatFragment fragment = new ChatFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -34,72 +57,67 @@ public class ChatFragment extends Fragment implements IChatView {
         return fragment;
     }
 
-    private class GameWaitingLobbyHolder extends RecyclerView.ViewHolder{
+    private class ChatHolder extends RecyclerView.ViewHolder{
         private ChatMessage message;
 
-        private GameWaitingLobbyHolder(LayoutInflater inflater, ViewGroup parent) {
+        private ChatHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_chat, parent, false));
 
-            mGameIDTextView = (TextView) itemView.findViewById(R.id.game_id_list_item_text_view);
-            mGameNameTextView = (TextView) itemView.findViewById(R.id.game_name_list_item_text_view);
-            mPlayerListTextView = (TextView) itemView.findViewById(R.id.game_players_list_item_text_view);
-            mPlayersInGameTextView = (TextView) itemView.findViewById(R.id.players_in_game_list_item_text_view);
+            listMessages = (TextView) itemView.findViewById(R.id.chat_list_item_text_view);
+            listName = (TextView) itemView.findViewById(R.id.text_message_name);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSelectedGame = mGameWaitingLobbyPresenter.getAllGamesList().get(getAdapterPosition());
-                    String selectedGameText = "Selected Game: " + mSelectedGame.getName();
-                    mSelectedGameTextView.setText(selectedGameText);
-                    enableJoinGame(mGameWaitingLobbyPresenter.gameSelected());
-                    Toast.makeText(getActivity(), "Game \"" + mSelectedGame.getName() + "\" selected", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
 
-        private void bind(TicketToRideGame game) {
-            mGame = game;
-            mGameIDTextView.setText(String.valueOf(mGame.getGameID()));
-            mGameNameTextView.setText(game.getName());
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mGame.getPlayers().size(); i++) {
-                if (mGame.getPlayers().get(i).getUsername() != null)
-                    sb.append(mGame.getPlayers().get(i).getUsername());
-                if (i + 1 != mGame.getPlayers().size()) {
-                    sb.append(", ");
-                }
+        private void bind(ChatMessage messageM) {
+            this.message = messageM;
+            listMessages.setText(message.message);
+            listName.setText(message.username);
+            //listMessages.setBackground(); //"red", "blue", "yellow", "green", "black"
+            if (messageM.color.equals("red")) {// todo create text bubbles for each color and set them here
+                listMessages.setBackgroundColor(Color.RED);
             }
-            mPlayerListTextView.setText(sb.toString());
-            String playersInGame = mGame.getPlayers().size() + " / " + mGame.getMaxNumPlayers();
-            mPlayersInGameTextView.setText(playersInGame);
+            else if (messageM.color.equals("blue")) {// todo create text bubbles for each color and set them here
+                listMessages.setBackgroundColor(Color.BLUE);
+            }
+            else if (messageM.color.equals("black")) {// todo create text bubbles for each color and set them here
+                listMessages.setBackgroundColor(Color.BLACK);
+            }
+            else if (messageM.color.equals("yellow")) {// todo create text bubbles for each color and set them here
+                listMessages.setBackgroundColor(Color.YELLOW);
+            }
+            else if (messageM.color.equals("green")) {// todo create text bubbles for each color and set them here
+                listMessages.setBackgroundColor(Color.GREEN);
+            }
+            else {
+                System.out.println("Color not named");
+            }
         }
     }
 
-    private class GameWaitingLobbyAdapter extends RecyclerView.Adapter<GameWaitingLobbyFragment.GameWaitingLobbyHolder> {
-        private List<TicketToRideGame> mGameList;
+    private class ChatAdapter extends RecyclerView.Adapter<ChatFragment.ChatHolder> {
+        private List<ChatMessage> mChatList;
 
-        public GameWaitingLobbyAdapter(List<TicketToRideGame> games) {
-            mGameList = games;
+        public ChatAdapter(List<ChatMessage> chat) {
+            mChatList = chat;
         }
 
         @Override
-        public GameWaitingLobbyFragment.GameWaitingLobbyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ChatFragment.ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
-            return new GameWaitingLobbyFragment.GameWaitingLobbyHolder(layoutInflater, parent);
+            return new ChatFragment.ChatHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(final GameWaitingLobbyFragment.GameWaitingLobbyHolder holder, int position) {
-            TicketToRideGame game = mGameList.get(position);
+        public void onBindViewHolder(final ChatFragment.ChatHolder holder, int position) {
+            ChatMessage message = mChatList.get(position);
             holder.setIsRecyclable(false);
-            holder.bind(game);
+            holder.bind(message);
         }
 
         @Override
         public int getItemCount() {
-            return mGameList.size();
+            return mChatList.size();
         }
     }
 
@@ -107,8 +125,7 @@ public class ChatFragment extends Fragment implements IChatView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            System.out.println("ADD SOMETHING IN CHAT ONCREATE ");
         }
     }
 
@@ -118,38 +135,72 @@ public class ChatFragment extends Fragment implements IChatView {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.fragment_game_waiting_lobby, container, false);
 
-        mGameWaitingLobbyPresenter = new GameWaitingLobbyPresenter(this);
+        mChatPresenter= new ChatPresenter(this);
 
-        mGameListRecyclerView = (RecyclerView) v.findViewById(R.id.game_list_recycler_view);
-        mGameListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mChatRecyclerView = (RecyclerView) v.findViewById(R.id.chat_recycler_view);
+        mChatRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        displayGameList();
+        displayChat();
 
-        mCreateGameButton = (Button) v.findViewById(R.id.create_game_button);
-        mCreateGameButton.setOnClickListener(new View.OnClickListener() {
+        send = (Button) v.findViewById(R.id.chat_send_button);
+        send.setEnabled(false);
+        send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleViews(false);
-                CreateNewGameFragment fragment = new CreateNewGameFragment();
-                FragmentManager fm = getChildFragmentManager();
-                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, fragment).addToBackStack(null).commit();
+                //toggleViews(false);
+
             }
         });
 
-        mJoinGameButton = (Button) v.findViewById(R.id.join_game_button);
-        mJoinGameButton.setOnClickListener(new View.OnClickListener() {
+        messageToSend = (EditText) v.findViewById(R.id.chat_edit_text);
+        messageToSend.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                new GameWaitingLobbyFragment.JoinGameAsyncTask().execute();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                messageText = charSequence.toString();
+                if (messageText.isEmpty()){
+                    send.setEnabled(false);
+                }
+                else {
+                    send.setEnabled(true);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
-
-        mSelectedGameTextView = (TextView) v.findViewById(R.id.game_selected_text_view);
 
         return v;
     }
-    @Override
-    public String getMessage() {
-        return null;
+    public void displayChat() {
+        mAdapter = new ChatAdapter(ClientModelRoot.instance().getCurrGame().getChat());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mChatRecyclerView.setAdapter(mAdapter);
+            }
+        });
     }
+    private class SendMessageAsync extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... params) {
+            return mChatPresenter.sendMessage(messageText);
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (result.isSuccess()) {
+
+            } else
+                Toast.makeText(getActivity(), result.getErrorMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

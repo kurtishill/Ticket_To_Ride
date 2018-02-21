@@ -39,7 +39,7 @@ public class Poller {
             public void run() {
                 commands = new ArrayList<>();
                 commands.add(pollGameList());
-
+                commands.add(pollChat());
                 runCommands();
             }
         }, 0, 1000);
@@ -48,7 +48,7 @@ public class Poller {
     public void signInPoll() {
         commands = new ArrayList<>();
         commands.add(pollGameList());
-        commands.add(pollChat());
+
 
         runCommands();
     }
