@@ -9,16 +9,20 @@ public class Route
     private int pointValue;
     private String color;
     private boolean occupied;
-    private List<City> cities;
+    private City city1;
+    private City city2;
     private Player owner;
 
     //call this constructor when initializing a game. Without player occupying route
-    public Route(int length, int pointValue, String color, List<City> cities)
+    public Route(int length, int pointValue, String color, City city1, City city2)
     {
         this.length = length;
         this.pointValue = pointValue;
         this.color = color;
-        this.cities = cities;
+        this.city1 = city1;
+        this.city2 = city2;
+        this.occupied = false;
+        this.owner = null;
     }
 
     private int getLength() {
@@ -53,12 +57,12 @@ public class Route
         this.occupied = occupied;
     }
 
-    private List<City> getCities() {
-        return cities;
+    private City getCity1() {
+        return city1;
     }
 
-    private void setCities(List<City> cities) {
-        this.cities = cities;
+    private City getCity2() {
+        return city2;
     }
 
     private Player getOwner() {
@@ -82,15 +86,11 @@ public class Route
         {
             if(this.color == r.getColor())
             {
-                if(this.cities.at(0).equals(r.getCities().at(0)))
-                {
-                    if(this.cities.at(1).equals(r.getCities().at(1)))
-                        return true;
-                }
+                if(this.city1 == r.getCity1() && this.city2 == r.getCity2())
+                    return true;
             }
         }
         return false;
     }
-
 
 }

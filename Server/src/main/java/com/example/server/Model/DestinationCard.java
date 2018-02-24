@@ -5,20 +5,22 @@ package com.example.server.Model;
  **/
 public class DestinationCard
 {
-    private List<Route> routePath;
+    private City city1;
+    private City city2;
     private int pointValue;
 
-    public DestinationCard(List<Route> routePath, int pointValue) {
-        this.routePath = routePath;
+    public DestinationCard(City city1, City city2, int pointValue) {
+        this.city1 = city1;
+        this.city2 = city2;
         this.pointValue = pointValue;
     }
 
-    public List<Route> getRoutePath() {
-        return  routePath;
+    public City getCity1() {
+        return city1;
     }
 
-    public void setRoutePath(List<Route> routePath) {
-        this.routePath = routePath;
+    public City getCity2() {
+        return city2;
     }
 
     public int getPointValue() {
@@ -41,7 +43,7 @@ public class DestinationCard
 
         if(this.pointValue = d.getPointValue())
         {
-            if(this.routePath.equals(d.getRoutePath()))
+            if(this.city1 == d.getCity1() && this.city2 == d.getCity2())
                 return true;
         }
         return false;
