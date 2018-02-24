@@ -20,6 +20,10 @@ public class TicketToRideGame {
     private int maxNumPlayers;
     private List<String> availableColors;
     private List<ChatMessage> chat;
+    private List<TrainCard> deckTrainCards;
+    private List<DestinationCard> deckDestinationCards;
+    private List<TrainCard> faceUpCards;
+    private List<Route> availableRoutes;
 
     public TicketToRideGame(){
         players = new ArrayList<>();
@@ -29,6 +33,10 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
     }
 
     public TicketToRideGame(Player player) {
@@ -38,6 +46,10 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
     }
 
     public TicketToRideGame(List<Player> players) {
@@ -45,6 +57,10 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
     }
 
     public TicketToRideGame(Player player,
@@ -59,6 +75,10 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
     }
 
     public List<Player> getPlayers() {
@@ -107,6 +127,73 @@ public class TicketToRideGame {
     }
 
     public void setAvailableColors(List<String> availableColors){ this.availableColors=availableColors;}
+
+    public List<TrainCard> getDeckTrainCards() {
+        return deckTrainCards;
+    }
+
+    public void addTrainCard(TrainCard card) {
+        deckTrainCards.add(card);
+    }
+
+    public void removeTrainCard(TrainCard card) {
+        for(int i = 0; i < deckTrainCards.size(); i++) {
+            if(deckTrainCards.get(i).equals(card))
+            {
+                deckTrainCards.remove(i);
+                break;
+            }
+        }
+    }
+
+    public List<DestinationCard> getDeckDestinationCards() {
+        return deckDestinationCards;
+    }
+
+    public void addDestinationCard(DestinationCard card) {
+        deckDestinationCards.add(card);
+    }
+
+    public void removeDestinationCard(DestinationCard card)
+    {
+        for(int i = 0; i < deckDestinationCards.size(); i++)
+        {
+            if(deckDestinationCards.get(i).equals(card))
+            {
+                deckDestinationCards.remove(i);
+                break;
+            }
+        }
+    }
+
+    public List<TrainCard> getFaceUpCards() {
+        return faceUpCards;
+    }
+
+    public void addFaceUpCard()
+    {
+        if(faceUpCards.size() < 5)
+        {
+            faceUpCards.add(deckTrainCards.get(0));
+            deckTrainCards.remove(0);
+        }
+    }
+
+    public removeFaceUpCard(TrainCard card)
+    {
+        for(int i = 0; i < faceUpCards.size(); i++)
+        {
+            if(faceUpCards.get(i).equals(card))
+            {
+                faceUpCards.remove(i);
+                break;
+            }
+        }
+    }
+
+    public List<Route> getAvailableRoutes() {
+        return availableRoutes;
+    }
 
     @Override
     public boolean equals(Object o) {
