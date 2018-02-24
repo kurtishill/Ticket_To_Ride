@@ -37,6 +37,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        onStartUp();
     }
 
     public TicketToRideGame(Player player) {
@@ -50,6 +51,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        onStartUp();
     }
 
     public TicketToRideGame(List<Player> players) {
@@ -61,6 +63,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        onStartUp();
     }
 
     public TicketToRideGame(Player player,
@@ -79,6 +82,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        onStartUp();
     }
 
     public List<Player> getPlayers() {
@@ -205,6 +209,16 @@ public class TicketToRideGame {
                 break;
             }
         }
+    }
+
+    public void shuffleTrainCards()
+    {
+        Collections.shuffle(deckTrainCards);
+    }
+
+    public void shuffleDestinationCards()
+    {
+        Collections.shuffle(deckDestinationCards);
     }
 
     //hard coding in the cities and routes and cards
