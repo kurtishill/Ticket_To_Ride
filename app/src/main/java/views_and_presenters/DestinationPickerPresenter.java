@@ -1,8 +1,14 @@
 package views_and_presenters;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Results.Result;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import Network.ServerProxy;
+import client_model.ClientModelRoot;
+import gui_facade.DrawDestinationTicketsService;
 
 /**
  * Created by HillcollegeMac on 2/15/18.
@@ -32,10 +38,18 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
             return true;
         }
     }
-    public ArrayList<DestinationCard> drawThreeCards(){
+    public Result drawThreeCards(){
         //draws the three cards for the user to pick from
+        List<Object> data = new ArrayList<>();
+        data.add(ClientModelRoot.instance().getUser());
+        data.add(ClientModelRoot.instance().getCurrGame().getGameID());
+        return ServerProxy.getInstance()
+                .command("DrawDestinationTickets", data, null);
 
-        return null;
+
+    }
+    public void postExecuteDrawCards(){
+        DrawDestinationTicketsService.drawCards();
     }
     public void returnDiscardsToDeck(){
 

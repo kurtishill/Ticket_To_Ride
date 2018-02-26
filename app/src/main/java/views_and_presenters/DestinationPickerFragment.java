@@ -1,6 +1,8 @@
 package views_and_presenters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.DestinationCard;
+import com.example.server.Results.DrawDestinationTicketsResult;
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
+import com.example.server.Results.Result;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import client_model.ClientModelRoot;
 
 public class DestinationPickerFragment extends Fragment implements IDestinationPickerView {
 
@@ -23,6 +34,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             mDeckSize;
 
     private Button mChooseButton;
+    private Button mDrawButton; //we don't draw the cards until the button is pressed
 
     private IDestinationPickerPresenter mDestinationPickerPresenter;
 
@@ -127,6 +139,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                     mRouteThree.setBackgroundColor(0);
             }
         });
+        //mDeckSize = (TextView) v.findViewById(R.id.destination_deck_size);
+        mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
 
         mChooseButton = (Button) v.findViewById(R.id.choose_button);
         mChooseButton.setOnClickListener(new View.OnClickListener() {
@@ -137,11 +151,42 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 closeFragment();
             }
         });
+        mDrawButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                new DrawDestinationTicketsAsyncTask().execute();
+            }
+        });
 
         return v;
     }
 
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+    private class DrawDestinationTicketsAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... v) {
+           return mDestinationPickerPresenter.drawThreeCards();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (!result.isSuccess()) {
+                displayErrorMessage(result.getErrorMessage());
+            }
+            else {
+                DrawDestinationTicketsResult drawResult = (DrawDestinationTicketsResult) result;
+                List<DestinationCard> destinationCards = drawResult.getDestinationCards();
+                mRouteOne.setText(destinationCards.get(0).toString());
+                mRouteTwo.setText(destinationCards.get(1).toString());
+                mRouteThree.setText(destinationCards.get(2).toString());
+                mDestinationPickerPresenter.postExecuteDrawCards();
+
+            }
+        }
+    }
+    public void displayErrorMessage(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 }
