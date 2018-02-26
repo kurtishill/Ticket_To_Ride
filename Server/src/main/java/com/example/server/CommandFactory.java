@@ -55,4 +55,8 @@ public class CommandFactory {
                 new Class<?>[]{Player.class, Integer.class}, new Object[]{player,
                 gameId});
     }
+    public GenericCommand SelectDestinationTicekts(Player player, int gameId){
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawDestinationCards",
+                new Class<?>[]{Player.class, Integer.class}, new Object[]{player,
+                gameId});
 }

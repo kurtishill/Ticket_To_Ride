@@ -81,6 +81,13 @@ public class CommandHandler implements HttpHandler {
                                 (Player) commandValues.get(1), d.intValue());
                         ClientCommandManager.instance().addCommand(authToken, "DrawDestinationTickets");
                     }
+                    else if (commandValues.get(0).equals("SelectDestinationTickets")){
+                        Double d = (Double) commandValues.get(2);
+                        //THESE VALUES MIGHT BE WRONG
+                        command = CommandFactory.instance().DrawDestinationTicekts(
+                                (Player) commandValues.get(1), d.intValue());
+                        ClientCommandManager.instance().addCommand(authToken, "SelectDestinationTickets");
+                    }
                     else {
 
                         try {

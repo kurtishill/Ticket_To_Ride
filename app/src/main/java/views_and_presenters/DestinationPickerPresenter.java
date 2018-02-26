@@ -17,6 +17,7 @@ import gui_facade.DrawDestinationTicketsService;
 public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
     private ArrayList<String> mSelectedRoutes;
+    private ArrayList<String> mDiscardedRoutes;
     private boolean mChange;
 
     public DestinationPickerPresenter(ArrayList<String> routes) {
@@ -51,16 +52,16 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     public void postExecuteDrawCards(){
         DrawDestinationTicketsService.drawCards();
     }
-    public void returnDiscardsToDeck(){
 
-    }
 
     public ArrayList<String> getSelectedRoutes() {
         return mSelectedRoutes;
     }
 
-    public void onClickRoutesChosen() {
+    public Result onClickRoutesChosen() {
         // do something with the routes chosen by the player
+
+
     }
 
     public boolean getRouteSelectionChange() {

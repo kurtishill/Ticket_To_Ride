@@ -34,7 +34,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             mDeckSize;
 
     private Button mChooseButton;
-    private Button mDrawButton; //we don't draw the cards until the button is pressed
+    private Button mDrawButton; //we don't draw the cards until the button is pressed?
 
     private IDestinationPickerPresenter mDestinationPickerPresenter;
 

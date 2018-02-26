@@ -48,6 +48,9 @@ public class ServerFacade {
     public DrawDestinationTicketsResult DrawDestinationTickets(Player player, int gameId){
         return drawDestinationTickets.draw(player, gameId);
     }
+    public DrawDestinationTicketsResult SelectDestinationTickets(Player player, int gameId){
+        return drawDestinationTickets.draw(player, gameId);
+    }
     public ChatResult UpdateChat(ChatMessage message, int gameId){
         return chatService.updateChat(message, gameId);
     }
