@@ -1,5 +1,7 @@
 package views_and_presenters;
 
+import com.example.server.Model.DestinationCard;
+
 import java.util.ArrayList;
 
 /**
@@ -29,6 +31,14 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
             mSelectedRoutes.add(selectedRoute);
             return true;
         }
+    }
+    public ArrayList<DestinationCard> drawThreeCards(){
+        //draws the three cards for the user to pick from
+
+        return null;
+    }
+    public void returnDiscardsToDeck(){
+
     }
 
     public ArrayList<String> getSelectedRoutes() {

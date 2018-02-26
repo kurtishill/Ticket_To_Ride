@@ -1,8 +1,10 @@
 package com.example.server.Facade;
 
 import com.example.server.ChatMessage;
+import com.example.server.Model.Player;
 import com.example.server.Results.ChatResult;
 import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
@@ -18,6 +20,7 @@ public class ServerFacade {
     private GetGameListService getGameList;
     private JoinGameService joinGame;
     private CreateGameService createGame;
+    private DrawDestinationTicketsService drawDestinationTickets;
     private ChatService chatService;
     public ServerFacade(){
         login = new LoginService();
@@ -41,6 +44,9 @@ public class ServerFacade {
     }
     public LoginResult Login(String username, String password){
         return login.Login(username, password);
+    }
+    public DrawDestinationTicketsResult DrawDestinationTickets(Player player, int gameId){
+        return drawDestinationTickets.draw(player, gameId);
     }
     public ChatResult UpdateChat(ChatMessage message, int gameId){
         return chatService.updateChat(message, gameId);

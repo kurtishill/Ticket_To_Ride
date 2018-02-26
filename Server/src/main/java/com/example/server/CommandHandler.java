@@ -1,6 +1,7 @@
 package com.example.server;
 
 
+import com.example.server.Model.Player;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
@@ -72,6 +73,14 @@ public class CommandHandler implements HttpHandler {
                                 "GetChat");
                     }
                     // GetGameList command
+
+                    else if (commandValues.get(0).equals("DrawDestinationTickets")){
+                        Double d = (Double) commandValues.get(2);
+                        //THESE VALUES MIGHT BE WRONG
+                        command = CommandFactory.instance().DrawDestinationTicekts(
+                                (Player) commandValues.get(1), d.intValue());
+                        ClientCommandManager.instance().addCommand(authToken, "DrawDestinationTickets");
+                    }
                     else {
 
                         try {

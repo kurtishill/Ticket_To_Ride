@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.server.Model.Player;
 import com.example.server.Results.GenericCommand;
 
 /**
@@ -47,6 +48,11 @@ public class CommandFactory {
     public GenericCommand GetChat(int gameId){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "GetChat",
                 new Class<?>[]{Integer.class}, new Object[]{
+                gameId});
+    }
+    public GenericCommand DrawDestinationTicekts(Player player, int gameId){
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawDestinationCards",
+                new Class<?>[]{Player.class, Integer.class}, new Object[]{player,
                 gameId});
     }
 }

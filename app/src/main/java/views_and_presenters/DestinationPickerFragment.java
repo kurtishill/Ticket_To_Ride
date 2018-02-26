@@ -19,7 +19,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
 
     private TextView mRouteOne,
             mRouteTwo,
-            mRouteThree;
+            mRouteThree,
+            mDeckSize;
 
     private Button mChooseButton;
 
