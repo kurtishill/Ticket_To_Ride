@@ -14,7 +14,7 @@ public class DrawDestinationTicketsResult extends Result {
 
     public DrawDestinationTicketsResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands,
                                         String errorType, List<DestinationCard> cards) {
-        super(isSuccess, errorMessage, clientCommands, errorType, "CreateGameResult");
+        super(isSuccess, errorMessage, clientCommands, errorType, "DrawDestinationTicketsResult");
         destinationCards = cards;
     }
     public List<DestinationCard> getDestinationCards(){return destinationCards;}

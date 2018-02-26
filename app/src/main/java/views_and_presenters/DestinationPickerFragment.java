@@ -18,6 +18,7 @@ import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
+import com.example.server.Results.SelectDestinationTicketsResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             mDeckSize;
 
     private Button mChooseButton;
-    private Button mDrawButton; //we don't draw the cards until the button is pressed?
+
 
     private IDestinationPickerPresenter mDestinationPickerPresenter;
 
@@ -73,7 +74,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             if (routes instanceof ArrayList) {
                 pickableRoutes = (ArrayList) routes;
             }
-            mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes);
+            //mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes); we won't be declaring this here
+            mDestinationPickerPresenter = new DestinationPickerPresenter();
         }
     }
 
@@ -82,6 +84,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_destination_picker, container, false);
+
+        new DrawDestinationTicketsAsyncTask().execute(); //we want to draw the cards when the view is opened.
 
         mRouteOne = (TextView) v.findViewById(R.id.destination_one_text_view);
         //mRouteOne.setText(mDestinationPickerPresenter.getSelectedRoutes().get(0));
@@ -146,15 +150,9 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mChooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDestinationPickerPresenter.onClickRoutesChosen();
+                new SelectDestinationTicketsAsyncTask().execute();
                 mListener.onClose();
                 closeFragment();
-            }
-        });
-        mDrawButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                new DrawDestinationTicketsAsyncTask().execute();
             }
         });
 
@@ -178,10 +176,31 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             else {
                 DrawDestinationTicketsResult drawResult = (DrawDestinationTicketsResult) result;
                 List<DestinationCard> destinationCards = drawResult.getDestinationCards();
+                mDestinationPickerPresenter.setAllRoutes(destinationCards);
                 mRouteOne.setText(destinationCards.get(0).toString());
                 mRouteTwo.setText(destinationCards.get(1).toString());
                 mRouteThree.setText(destinationCards.get(2).toString());
-                mDestinationPickerPresenter.postExecuteDrawCards();
+                mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
+
+            }
+        }
+    }
+    private class SelectDestinationTicketsAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... v) {
+            return mDestinationPickerPresenter.onClickRoutesChosen();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (!result.isSuccess()) {
+                displayErrorMessage(result.getErrorMessage());
+            }
+            else {
+                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
+                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
+                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
+                mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
 
             }
         }

@@ -1,6 +1,7 @@
 package com.example.server;
 
 
+import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
@@ -83,9 +84,11 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("SelectDestinationTickets")){
                         Double d = (Double) commandValues.get(2);
-                        //THESE VALUES MIGHT BE WRONG
-                        command = CommandFactory.instance().DrawDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue());
+                        List<DestinationCard> selectedCards = commandValues.get(3);
+                        List<DestinationCard> discardedCards = commandValues.get(4);
+                        //FIXME idk what to do here so it creates a command correctly
+                        command = CommandFactory.instance().SelectDestinationTicekts(
+                                (Player) commandValues.get(1), d.intValue(), selectedCards, discardedCards);
                         ClientCommandManager.instance().addCommand(authToken, "SelectDestinationTickets");
                     }
                     else {
