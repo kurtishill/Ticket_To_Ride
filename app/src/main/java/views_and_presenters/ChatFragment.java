@@ -187,7 +187,7 @@ public class ChatFragment extends Fragment implements IChatView {
         });
         return v;
     }
-    private void closeFragment() {
+    private void closeFragment() { // its so hard to push
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
     @Override
