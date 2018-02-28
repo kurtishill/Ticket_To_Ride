@@ -34,18 +34,28 @@ public class DestinationCard
     @Override
     public boolean equals(Object o)
     {
-        if(this.class != o.class)
+        if(this.getClass() != o.getClass())
             return false;
         if(this == o)
             return true;
 
         DestinationCard d = (DestinationCard)o;
 
-        if(this.pointValue = d.getPointValue())
+        if(this.pointValue == d.getPointValue())
         {
             if(this.city1 == d.getCity1() && this.city2 == d.getCity2())
                 return true;
         }
         return false;
+    }
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder(city1.getName());
+        sb.append("-");
+        sb.append(city2.getName());
+        sb.append(": ");
+        sb.append(pointValue);
+
+        return sb.toString();
     }
 }

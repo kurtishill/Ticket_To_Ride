@@ -1,5 +1,7 @@
 package com.example.server.Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -115,7 +117,7 @@ public class Player {
 
     public void removeTrainCard(TrainCard card) {
         for(int i = 0; i < trainCards.size(); i++) {
-            if(trainCards.at(i).getColor().equals(card.getColor()))
+            if(trainCards.get(i).getColor().equals(card.getColor()))
             {
                 trainCards.remove(i);
                 break;
@@ -129,7 +131,7 @@ public class Player {
 
     public void removeDestinationCard(DestinationCard card) {
         for(int i = 0; i < destinationCards.size(); i++) {
-            if(destinationCards.at(i).equals(card))
+            if(destinationCards.get(i).equals(card))
             {
                 destinationCards.remove(i);
                 break;

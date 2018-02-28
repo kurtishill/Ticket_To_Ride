@@ -1,6 +1,8 @@
 package views_and_presenters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,10 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.DestinationCard;
+import com.example.server.Results.DrawDestinationTicketsResult;
+import com.example.server.Results.LoginResult;
+import com.example.server.Results.RegisterResult;
+import com.example.server.Results.Result;
+import com.example.server.Results.SelectDestinationTicketsResult;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import client_model.ClientModelRoot;
 
 public class DestinationPickerFragment extends Fragment implements IDestinationPickerView {
 
@@ -19,17 +31,19 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
 
     private TextView mRouteOne,
             mRouteTwo,
-            mRouteThree;
+            mRouteThree,
+            mDeckSize;
 
     private Button mChooseButton;
+
 
     private IDestinationPickerPresenter mDestinationPickerPresenter;
 
     OnCloseFragmentListener mListener;
 
-    public static DestinationPickerFragment newInstance(ArrayList<String> routes) {
+    public static DestinationPickerFragment newInstance() {
         Bundle args = new Bundle();
-        args.putSerializable(ROUTES, routes);
+
 
         DestinationPickerFragment fragment = new DestinationPickerFragment();
         fragment.setArguments(args);
@@ -54,14 +68,16 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            Object routes = getArguments().get(ROUTES);
-            ArrayList<String> pickableRoutes = new ArrayList<>();
-            if (routes instanceof ArrayList) {
-                pickableRoutes = (ArrayList) routes;
-            }
-            mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes);
-        }
+//        if (getArguments() != null) {
+//            Object routes = getArguments().get(ROUTES);
+//            ArrayList<String> pickableRoutes = new ArrayList<>();
+//            if (routes instanceof ArrayList) {
+//                pickableRoutes = (ArrayList) routes;
+//            }
+//            //mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes); we won't be declaring this here
+//
+//        }
+        mDestinationPickerPresenter = new DestinationPickerPresenter();
     }
 
     @Override
@@ -69,6 +85,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_destination_picker, container, false);
+
+        new DrawDestinationTicketsAsyncTask().execute(); //we want to draw the cards when the view is opened.
 
         mRouteOne = (TextView) v.findViewById(R.id.destination_one_text_view);
         //mRouteOne.setText(mDestinationPickerPresenter.getSelectedRoutes().get(0));
@@ -126,12 +144,14 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                     mRouteThree.setBackgroundColor(0);
             }
         });
+        //mDeckSize = (TextView) v.findViewById(R.id.destination_deck_size);
+        mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
 
         mChooseButton = (Button) v.findViewById(R.id.choose_button);
         mChooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDestinationPickerPresenter.onClickRoutesChosen();
+                new SelectDestinationTicketsAsyncTask().execute();
                 mListener.onClose();
                 closeFragment();
             }
@@ -142,5 +162,51 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
 
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+    private class DrawDestinationTicketsAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... v) {
+           return mDestinationPickerPresenter.drawThreeCards();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (!result.isSuccess()) {
+                displayErrorMessage(result.getErrorMessage());
+            }
+            else {
+                DrawDestinationTicketsResult drawResult = (DrawDestinationTicketsResult) result;
+                List<DestinationCard> destinationCards = drawResult.getDestinationCards();
+                mDestinationPickerPresenter.setAllRoutes(destinationCards);
+                mRouteOne.setText(destinationCards.get(0).toString());
+                mRouteTwo.setText(destinationCards.get(1).toString());
+                mRouteThree.setText(destinationCards.get(2).toString());
+                mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
+
+            }
+        }
+    }
+    private class SelectDestinationTicketsAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... v) {
+            return mDestinationPickerPresenter.onClickRoutesChosen();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            if (!result.isSuccess()) {
+                displayErrorMessage(result.getErrorMessage());
+            }
+            else {
+                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
+                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
+                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
+                mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
+
+            }
+        }
+    }
+    public void displayErrorMessage(String s) {
+        Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
     }
 }
