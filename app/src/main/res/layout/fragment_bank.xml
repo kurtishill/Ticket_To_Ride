@@ -17,7 +17,6 @@
             android:text="@string/bank_title"
             android:textColor="@color/white"
             android:textSize="40sp"
-            android:fontFamily="@font/slabopx_regular"
             android:layout_gravity="center"/>
 
         <LinearLayout

@@ -48,8 +48,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/username"
                             android:textColor="@color/black"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/slabopx_regular"/>
+                            android:layout_marginTop="5dp"/>
 
                         <EditText
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -74,8 +73,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/username"
                             android:textColor="@color/black"
-                            android:layout_marginTop="5dp"
-                            android:fontFamily="@font/slabopx_regular"/>
+                            android:layout_marginTop="5dp"/>
 
                         <EditText
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -99,8 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/password"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/slabopx_regular"/>
+                            android:textColor="@color/black"/>
 
                         <EditText
                             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -129,8 +126,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/password"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/slabopx_regular"/>
+                                android:textColor="@color/black"/>
 
                             <EditText
                                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -155,8 +151,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/confirm_password"
-                                android:textColor="@color/black"
-                                android:fontFamily="@font/slabopx_regular"/>
+                                android:textColor="@color/black"/>
 
                             <EditText
                                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -166,7 +161,7 @@
                                 android:layout_width="100dp"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/register_confirm_password_edit_text"
-                                android:fontFamily="@font/slabopx_regular"/>
+                                />
 
                         </LinearLayout>
 
@@ -179,8 +174,7 @@
                         android:layout_marginTop="-10dp"
                         android:text="@string/login_button"
                         android:id="@+id/login_button"
-                        android:enabled="false"
-                        android:fontFamily="@font/slabopx_regular"/>
+                        android:enabled="false"/>
 
                     <Button
                         android:layout_width="wrap_content"
@@ -189,8 +183,7 @@
                         android:layout_marginTop="-10dp"
                         android:text="@string/register_button"
                         android:id="@+id/register_button"
-                        android:enabled="false"
-                        android:fontFamily="@font/slabopx_regular"/>
+                        android:enabled="false"/>
 
                 </GridLayout>
 

@@ -52,16 +52,17 @@ public class ServerFacade {
     public LoginResult Login(String username, String password){
         return login.Login(username, password);
     }
+
     public DrawDestinationTicketsResult DrawDestinationTickets(Player player, int gameId){
         return drawDestinationTickets.draw(player, gameId);
     }
     public SelectDestinationTicketsResult SelectDestinationTickets(Player player, int gameId, List<DestinationCard> selectedRoutes, List<DestinationCard> discardedRoutes){
         return selectDestinationTickets.select(player, gameId, selectedRoutes, discardedRoutes);
     }
-    public ChatResult UpdateChat(ChatMessage message, int gameId){
+    public ChatResult UpdateChat(ChatMessage message, Integer gameId){
         return chatService.updateChat(message, gameId);
     }
-    public ChatResult GetChat(int gameId){
-        return chatService.getChat(gameId);
+    public ChatResult GetChat(Integer gameId, String username){
+        return chatService.getChat(gameId, username);
     }
 }

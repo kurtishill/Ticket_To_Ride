@@ -13,7 +13,7 @@ public class ChatResult extends Result {
     private List<ChatMessage> chat;
 
     public ChatResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands, String errorType, List<ChatMessage> chat) {
-        super(isSuccess, errorMessage, clientCommands, errorType, "LoginResult");
+        super(isSuccess, errorMessage, clientCommands, errorType, "ChatResult");
         this.chat = chat;
     }
 

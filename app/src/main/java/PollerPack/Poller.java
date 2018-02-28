@@ -39,7 +39,7 @@ public class Poller {
             public void run() {
                 commands = new ArrayList<>();
                 commands.add(pollGameList());
-
+                commands.add(pollChat());
                 runCommands();
             }
         }, 0, 1000);
@@ -48,7 +48,7 @@ public class Poller {
     public void signInPoll() {
         commands = new ArrayList<>();
         commands.add(pollGameList());
-        commands.add(pollChat());
+
 
         runCommands();
     }
@@ -80,11 +80,12 @@ public class Poller {
         List<Object> data = new ArrayList<>();
         data.add("GetChat");
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         Result result = ClientCommunicator.instance().send("/command", data, key);
         ChatResult chatResult = (ChatResult) result;
-        List<ChatMessage> chat = chatResult.getChat();
+        List<ChatMessage> chat = (ArrayList) chatResult.getChat();
         if (chat != null) {
-            return new GenericCommand("client_facade.ClientFacade", "UpdateChat",
+            return new GenericCommand("client_facade.ClientFacade", "UpdateGameChat",
                     new Class<?>[]{ArrayList.class}, new Object[]{chat});
         }
         else
