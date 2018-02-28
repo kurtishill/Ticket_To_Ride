@@ -1,5 +1,7 @@
 package com.example.server;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Clayton Kings on 2/17/2018.
  */

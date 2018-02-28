@@ -4,14 +4,16 @@ package com.example.server;
  * Created by HillcollegeMac on 2/3/18.
  */
 
+
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-
 public class Serializer {
 
     private static Gson gson = new Gson();
@@ -61,4 +63,5 @@ public class Serializer {
         sw.write(str);
         sw.flush();
     }
+
 }

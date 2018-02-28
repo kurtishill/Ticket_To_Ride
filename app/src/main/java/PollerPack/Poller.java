@@ -80,11 +80,12 @@ public class Poller {
         List<Object> data = new ArrayList<>();
         data.add("GetChat");
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         Result result = ClientCommunicator.instance().send("/command", data, key);
         ChatResult chatResult = (ChatResult) result;
-        List<ChatMessage> chat = chatResult.getChat();
+        List<ChatMessage> chat = (ArrayList) chatResult.getChat();
         if (chat != null) {
-            return new GenericCommand("client_facade.ClientFacade", "UpdateChat",
+            return new GenericCommand("client_facade.ClientFacade", "UpdateGameChat",
                     new Class<?>[]{ArrayList.class}, new Object[]{chat});
         }
         else

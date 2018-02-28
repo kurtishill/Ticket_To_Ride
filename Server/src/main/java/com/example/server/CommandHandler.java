@@ -4,6 +4,7 @@ package com.example.server;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
+import com.google.gson.internal.LinkedTreeMap;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -14,6 +15,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by ckingsbu on 1/29/18.
@@ -66,14 +69,17 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("UpdateChat")) {
                         Double d = (Double) commandValues.get(2);
-                        ChatMessage message = (ChatMessage) commandValues.get(1);
+                        ChatMessage message = new ChatMessage((String)((LinkedTreeMap)commandValues.get(1)).get("message"),
+                                (String)((LinkedTreeMap)commandValues.get(1)).get("username"),
+                                (String)((LinkedTreeMap)commandValues.get(1)).get("color"));// fix this
                         command = CommandFactory.instance().UpdateChat(message, d.intValue());
                         ClientCommandManager.instance().addGameCommand(d.intValue(),
                                 "GetChat");
                     }
                     else if (commandValues.get(0).equals("GetChat")) {
                         Double d = (Double) commandValues.get(1);
-                        command = CommandFactory.instance().GetChat(d.intValue(), authToken);
+                        String username = (String) commandValues.get(2);
+                        command = CommandFactory.instance().GetChat(d.intValue(), username);
                     }// GetGameList command
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

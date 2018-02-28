@@ -44,9 +44,9 @@ public class CommandFactory {
                 new Class<?>[]{ChatMessage.class, Integer.class}, new Object[]{message,
                 gameId});
     }
-    public GenericCommand GetChat(int gameId, String auth){
+    public GenericCommand GetChat(int gameId, String username){
         return new GenericCommand("com.example.server.Facade.ServerFacade", "GetChat",
                 new Class<?>[]{Integer.class, String.class}, new Object[]{
-                gameId, auth});
+                gameId, username});
     }
 }

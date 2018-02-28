@@ -116,7 +116,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             case R.id.menu_chat:
                 ChatFragment mChatFragment = new ChatFragment();//TODO: start fragment
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.chat_fragment, mChatFragment).addToBackStack(null).commit();
+                fm.beginTransaction().replace(R.id.game_map_layout, mChatFragment).addToBackStack(null).commit();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

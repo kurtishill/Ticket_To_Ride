@@ -42,17 +42,16 @@ public class ChatFragment extends Fragment implements IChatView {
     private EditText messageToSend;
     private TextView listMessages;
     private TextView listName;
+    private Button close;
     private ChatPresenter mChatPresenter;
     String messageText;
     private ChatAdapter mAdapter;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    public static ChatFragment newInstance(String param1, String param2) {
+    public static ChatFragment newInstance() {
         ChatFragment fragment = new ChatFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -133,7 +132,7 @@ public class ChatFragment extends Fragment implements IChatView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View v = inflater.inflate(R.layout.fragment_game_waiting_lobby, container, false);
+        final View v = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mChatPresenter= new ChatPresenter(this);
 
@@ -147,7 +146,9 @@ public class ChatFragment extends Fragment implements IChatView {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //toggleViews(false);
+                new SendMessageAsync().execute();//toggleViews(false);
+                messageToSend.setText("");
+                displayChat();
 
             }
         });
@@ -176,13 +177,25 @@ public class ChatFragment extends Fragment implements IChatView {
 
             }
         });
-
+        close = (Button) v.findViewById(R.id.chat_close_button);
+        close.isEnabled();
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
+            }
+        });
         return v;
     }
-    public void displayChat() {
+    private void closeFragment() {
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+    @Override
+    public void displayChat() { // todo the stuff wont show up after sent but it is sent back
         mAdapter = new ChatAdapter(ClientModelRoot.instance().getCurrGame().getChat());
         getActivity().runOnUiThread(new Runnable() {
             @Override
+
             public void run() {
                 mChatRecyclerView.setAdapter(mAdapter);
             }

@@ -17,22 +17,20 @@ public class ChatService {
     public ChatResult updateChat(ChatMessage message, int gameId){
         try{
             ModelRoot.instance().GameExists(gameId).setChat(message);
-            // todo add a command to pull the chats
+            // todo add a command to poll the chats
             return new ChatResult(true, null, null, null,ModelRoot.instance().GameExists(gameId).getChat());
         }
         catch(Exception e){
             return new ChatResult(false, e.getMessage(), null, "Exception",null);
         }
     }
-    public ChatResult getChat(int gameId, String authToken){
+    public ChatResult getChat(int gameId, String username){
         try{
             Map<String, Set<String>> commandMap = ClientCommandManager.instance().getCommands();
-            Set<String> commands = commandMap.get(authToken);
+            Set<String> commands = commandMap.get(username);
             if (commands != null) {
-                if (commands.contains("GetChat")) {
-                    if (!authToken.equals("sign-in"))
-                        commands.remove("GetChat");
-                    commandMap.put(authToken, commands);
+                if (commands.contains("GetChat")){
+                    commandMap.remove("GetChat");
                     ClientCommandManager.instance().setCommands(commandMap);
                     return new ChatResult(true, null, null, null,
                             ModelRoot.instance().GameExists(gameId).getChat());

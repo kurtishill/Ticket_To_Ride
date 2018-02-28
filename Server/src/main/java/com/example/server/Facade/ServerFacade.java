@@ -42,10 +42,10 @@ public class ServerFacade {
     public LoginResult Login(String username, String password){
         return login.Login(username, password);
     }
-    public ChatResult UpdateChat(ChatMessage message, int gameId){
+    public ChatResult UpdateChat(ChatMessage message, Integer gameId){
         return chatService.updateChat(message, gameId);
     }
-    public ChatResult GetChat(int gameId, String auth){
-        return chatService.getChat(gameId, auth);
+    public ChatResult GetChat(Integer gameId, String username){
+        return chatService.getChat(gameId, username);
     }
 }

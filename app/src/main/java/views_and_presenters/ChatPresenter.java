@@ -33,11 +33,17 @@ public class ChatPresenter implements IChatPresenter, Observer {
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         Result result = ServerProxy.getInstance()
                 .command("UpdateChat", data, GetUserService.getUser().getID());
-        return null;
+        if(result.isSuccess()){
+//            ClientModelRoot.instance().addMessage(messageSend);
+        }
+        mChatView.displayChat();
+        return result;
     }
 
     @Override
-    public void update(Observable observable, Object o) {
-
+    public void update(Observable obs, Object o) {
+        if (obs == ClientModelRoot.instance()) {
+            mChatView.displayChat();
+        }
     }
 }
