@@ -52,7 +52,7 @@ public class server {
         // incoming client connections.
         System.out.println("Starting server");
         try{
-            System.out.println(InetAddress.getLocalHost().getHostAddress());
+            //System.out.println(InetAddress.getLocalHost().getHostAddress());
         }
         catch (Exception e){
 

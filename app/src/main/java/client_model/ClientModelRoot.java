@@ -52,6 +52,8 @@ public class ClientModelRoot extends Observable {
 
     public void setChat(List<ChatMessage> chat) {
         this.chat = chat;
+        setChanged();
+        notifyObservers();
     }
 
     public Map<String, Player> getPlayers() {

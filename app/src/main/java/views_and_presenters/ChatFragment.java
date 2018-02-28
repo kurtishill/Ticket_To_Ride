@@ -73,7 +73,7 @@ public class ChatFragment extends Fragment implements IChatView {
             listName.setText(message.username);
             //listMessages.setBackground(); //"red", "blue", "yellow", "green", "black"
             if (messageM.color.equals("red")) {// todo create text bubbles for each color and set them here
-                //listMessages.setBackgroundColor(Color.RED);
+                listMessages.setBackgroundColor(Color.RED);
                 listMessages.setBackgroundResource(R.drawable.rounded_rectangle_red);
             }
             else if (messageM.color.equals("blue")) {// todo create text bubbles for each color and set them here
