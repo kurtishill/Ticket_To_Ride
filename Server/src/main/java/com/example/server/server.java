@@ -3,6 +3,7 @@ package com.example.server;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**
@@ -50,6 +51,12 @@ public class server {
         // Log message indicating that the HttpServer is about the start accepting
         // incoming client connections.
         System.out.println("Starting server");
+        try{
+            System.out.println(InetAddress.getLocalHost().getHostAddress());
+        }
+        catch (Exception e){
+
+        }
 
 
         server.start();
