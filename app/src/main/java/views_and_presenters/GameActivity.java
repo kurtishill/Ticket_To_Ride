@@ -78,11 +78,11 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             @Override
             public void onClick(View view) {
                 toggleDrawButtons(false);
-                ArrayList<String> routes = new ArrayList<>();
-                //TODO: add routes that the player can pick here
+//                ArrayList<String> routes = new ArrayList<>();
+//                //TODO: add routes that the player can pick here
 
                 FragmentManager fm = getSupportFragmentManager();
-                mDestinationPickerFragment = DestinationPickerFragment.newInstance(routes);
+                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                         .addToBackStack(null).commit();
 

@@ -41,9 +41,9 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
 
     OnCloseFragmentListener mListener;
 
-    public static DestinationPickerFragment newInstance(ArrayList<String> routes) {
+    public static DestinationPickerFragment newInstance() {
         Bundle args = new Bundle();
-        args.putSerializable(ROUTES, routes);
+
 
         DestinationPickerFragment fragment = new DestinationPickerFragment();
         fragment.setArguments(args);
@@ -68,15 +68,16 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            Object routes = getArguments().get(ROUTES);
-            ArrayList<String> pickableRoutes = new ArrayList<>();
-            if (routes instanceof ArrayList) {
-                pickableRoutes = (ArrayList) routes;
-            }
-            //mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes); we won't be declaring this here
-            mDestinationPickerPresenter = new DestinationPickerPresenter();
-        }
+//        if (getArguments() != null) {
+//            Object routes = getArguments().get(ROUTES);
+//            ArrayList<String> pickableRoutes = new ArrayList<>();
+//            if (routes instanceof ArrayList) {
+//                pickableRoutes = (ArrayList) routes;
+//            }
+//            //mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes); we won't be declaring this here
+//
+//        }
+        mDestinationPickerPresenter = new DestinationPickerPresenter();
     }
 
     @Override

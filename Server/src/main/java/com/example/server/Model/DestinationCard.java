@@ -34,7 +34,7 @@ public class DestinationCard
     @Override
     public boolean equals(Object o)
     {
-        if(this.class != o.class)
+        if(this.getClass() != o.getClass())
             return false;
         if(this == o)
             return true;
