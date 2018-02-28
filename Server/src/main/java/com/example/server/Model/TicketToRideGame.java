@@ -4,6 +4,7 @@ import com.example.server.ChatMessage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
@@ -183,7 +184,7 @@ public class TicketToRideGame {
         }
     }
 
-    public removeFaceUpCard(TrainCard card)
+    public void removeFaceUpCard(TrainCard card)
     {
         for(int i = 0; i < faceUpCards.size(); i++)
         {
@@ -224,42 +225,42 @@ public class TicketToRideGame {
     //hard coding in the cities and routes and cards
     private void onStartUp()
     {
-        City duluth = new City("Duluth", 1020.46875, 261.41748);
-        City washington = new City("Washington", 1646.7773, 395.5276);
-        City winnipeg = new City("Winnipeg", 814.39453, 95.27124);
-        City pittsburg = new City("Pittsburg", 1475.6836, 327.4673);
-        City newOrleans = new City("New Orleans", 1249.5703, 7628.85547);
-        City chicago = new City("Chicago", 1242.5977, 349.4839);
-        City miami = new City("Miami", 1648.7695, 806.92163);
-        City newYork = new City("New York", 1631.7773, 268.43774);
-        City charleston = new City("Charleston", 1589.7656, 580.69116);
-        City boston = new City("Boston", 1725.8203, 158.32178);
-        City atlanta = new City("Atlanta", 1420.6641, 573.70386);
-        City montreal = new City("Montreal", 1596.7383, 75.26514);
-        City nashville = new City("Nashville", 1330.6055, 523.63916);
-        City toronto = new City("Toronto", 1448.6719, 200.37744);
-        City saintLouis = new City("Saint Louis", 1161.5625, 468.59766);
-        City oklahomaCity = new City("Oklahoma City", 965.4492, 586.72266);
-        City raleigh = new City("Raleigh", 1538.7305, 488.63672);
-        City saultStMarie = new City("Sault St. Marie", 1249.5703, 167.31958);
-        City elPaso = new City("El Paso", 674.2969, 745.84863);
-        City denver = new City("Denver", 698.3203, 487.615);
-        City phoenix = new City("Phoenix", 460.1953, 698.81616);
-        City santaFe = new City("Santa Fe", 681.3281, 621.75806);
-        City losAngeles = new City("Los Angeles", 243.10547, 687.80786);
-        City houston = new City("Houston", 1073.4961, 769.87573);
-        City lasVegas = new City("Las Vegas", 362.16797, 602.7407);
-        City dallas = new City("Dallas", 999.4336, 712.8237);
-        City sanFrancisco = new City("San Francisco", 103.00781, 535.6692);
-        City seattle = new City("Seattle", 168.04688, 182.34888);
-        City saltLakeCity = new City("Salt Lake City", 460.1953, 441.5713);
-        City vancouver = new City("Vancouver", 175.07812, 108.29004);
-        City portland = new City("Portland", 125.03906, 256.4077);
-        City littleRock = new City("Little Rock", 1130.5078, 591.69949);
-        City calgary = new City("Calgary", 407.16797, 80.24194);
-        City kansasCity = new City("Kansas City", 1003.47656, 466.58716);
-        City helena = new City("Helena", 590.27344, 269.4265);
-        City omaha = new City("Omaha", 963.45703, 391.53955);
+        City duluth = new City("Duluth", 1020.46875f, 261.41748f);
+        City washington = new City("Washington", 1646.7773f, 395.5276f);
+        City winnipeg = new City("Winnipeg", 814.39453f, 95.27124f);
+        City pittsburg = new City("Pittsburg", 1475.6836f, 327.4673f);
+        City newOrleans = new City("New Orleans", 1249.5703f, 7628.85547f);
+        City chicago = new City("Chicago", 1242.5977f, 349.4839f);
+        City miami = new City("Miami", 1648.7695f, 806.92163f);
+        City newYork = new City("New York", 1631.7773f, 268.43774f);
+        City charleston = new City("Charleston", 1589.7656f, 580.69116f);
+        City boston = new City("Boston", 1725.8203f, 158.32178f);
+        City atlanta = new City("Atlanta", 1420.6641f, 573.70386f);
+        City montreal = new City("Montreal", 1596.7383f, 75.26514f);
+        City nashville = new City("Nashville", 1330.6055f, 523.63916f);
+        City toronto = new City("Toronto", 1448.6719f, 200.37744f);
+        City saintLouis = new City("Saint Louis", 1161.5625f, 468.59766f);
+        City oklahomaCity = new City("Oklahoma City", 965.4492f, 586.72266f);
+        City raleigh = new City("Raleigh", 1538.7305f, 488.63672f);
+        City saultStMarie = new City("Sault St. Marie", 1249.5703f, 167.31958f);
+        City elPaso = new City("El Paso", 674.2969f, 745.84863f);
+        City denver = new City("Denver", 698.3203f, 487.615f);
+        City phoenix = new City("Phoenix", 460.1953f, 698.81616f);
+        City santaFe = new City("Santa Fe", 681.3281f, 621.75806f);
+        City losAngeles = new City("Los Angeles", 243.10547f, 687.80786f);
+        City houston = new City("Houston", 1073.4961f, 769.87573f);
+        City lasVegas = new City("Las Vegas", 362.16797f, 602.7407f);
+        City dallas = new City("Dallas", 999.4336f, 712.8237f);
+        City sanFrancisco = new City("San Francisco", 103.00781f, 535.6692f);
+        City seattle = new City("Seattle", 168.04688f, 182.34888f);
+        City saltLakeCity = new City("Salt Lake City", 460.1953f, 441.5713f);
+        City vancouver = new City("Vancouver", 175.07812f, 108.29004f);
+        City portland = new City("Portland", 125.03906f, 256.4077f);
+        City littleRock = new City("Little Rock", 1130.5078f, 591.69949f);
+        City calgary = new City("Calgary", 407.16797f, 80.24194f);
+        City kansasCity = new City("Kansas City", 1003.47656f, 466.58716f);
+        City helena = new City("Helena", 590.27344f, 269.4265f);
+        City omaha = new City("Omaha", 963.45703f, 391.53955f);
 
         Route miamiNewOrleans = new Route(6, 15, "red", miami, newOrleans);
         Route miamiAtlanta = new Route(5, 10, "blue", miami, atlanta);
@@ -469,7 +470,7 @@ public class TicketToRideGame {
         DestinationCard sanFranciscoAtlanta = new DestinationCard(sanFrancisco, atlanta, 17);
         DestinationCard chicagoNewOrleans = new DestinationCard(chicago, newOrleans, 7);
         DestinationCard chicagoSantaFe = new DestinationCard(chicago, santaFe, 9);
-        DestinationCard seattleLosAngeles = new DestinationCard(seattle, losAngeles);
+        DestinationCard seattleLosAngeles = new DestinationCard(seattle, losAngeles, 9);
         DestinationCard calgarySaltLakeCity = new DestinationCard(calgary, saltLakeCity, 7);
         DestinationCard portlandPhoenix = new DestinationCard(portland, phoenix, 11);
         DestinationCard denverElPaso = new DestinationCard(denver, elPaso, 4);
@@ -477,19 +478,19 @@ public class TicketToRideGame {
         DestinationCard duluthElPaso = new DestinationCard(duluth, elPaso, 10);
         DestinationCard saultStMarieOklahomaCity = new DestinationCard(saultStMarie, oklahomaCity, 9);
         DestinationCard denverPittsburg = new DestinationCard(denver, pittsburg, 11);
-        DestinationCard losAngelesChicago = new DestinationCard(losAngeles, chicago 16);
+        DestinationCard losAngelesChicago = new DestinationCard(losAngeles, chicago, 16);
         DestinationCard portlandNashville = new DestinationCard(portland, nashville, 17);
         DestinationCard torontoMiami = new DestinationCard(toronto, miami, 10);
         DestinationCard vancouverSantaFe = new DestinationCard(vancouver, santaFe, 13);
-        DestinationCard calgaryPhoenix = new DestinationCard(calgary, phoenix 13);
+        DestinationCard calgaryPhoenix = new DestinationCard(calgary, phoenix, 13);
         DestinationCard montrealNewOrleans = new DestinationCard(montreal, newOrleans, 13);
         DestinationCard montrealAtlanta = new DestinationCard(montreal, atlanta, 9);
         DestinationCard losAngelesNewYork = new DestinationCard(losAngeles, newYork, 21);
         DestinationCard kansasCityHouston = new DestinationCard(kansasCity, houston, 5);
         DestinationCard saultStMarieNashville = new DestinationCard(saultStMarie, nashville, 8);
-        DestinationCard winnipegLittleRock = new DestinationCard(winnipeg, littleRock 11);
-        DestinationCard vancouverMontreal = new DestinationCard(vancouver, montreal);
-        DestinationCard newYorkAtlanta = new DestinationCard(newYork, atlanta);
+        DestinationCard winnipegLittleRock = new DestinationCard(winnipeg, littleRock, 11);
+        DestinationCard vancouverMontreal = new DestinationCard(vancouver, montreal,20);
+        DestinationCard newYorkAtlanta = new DestinationCard(newYork, atlanta, 6);
         DestinationCard dallasNewYork = new DestinationCard(dallas, newYork, 11);
         DestinationCard bostonMiami = new DestinationCard(boston, miami, 12);
 

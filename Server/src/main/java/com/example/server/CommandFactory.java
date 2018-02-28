@@ -1,6 +1,10 @@
 package com.example.server;
 
+import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Player;
 import com.example.server.Results.GenericCommand;
+
+import java.util.List;
 
 /**
  * Created by fryti on 2/1/2018.
@@ -48,5 +52,14 @@ public class CommandFactory {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "GetChat",
                 new Class<?>[]{Integer.class, String.class}, new Object[]{
                 gameId, username});
+    }
+    public GenericCommand DrawDestinationTicekts(Player player, int gameId){
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawDestinationCards",
+                new Class<?>[]{Player.class, Integer.class}, new Object[]{player,
+                gameId});
+    }
+    public GenericCommand SelectDestinationTicekts(Player player, int gameId, List<DestinationCard> selectedCards, List<DestinationCard> discardedCards) {
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationCards",
+                new Class<?>[]{Player.class, Integer.class, List.class, List.class}, new Object[]{player, gameId, selectedCards, discardedCards});
     }
 }

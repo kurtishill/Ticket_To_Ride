@@ -2,6 +2,7 @@ package Network;
 
 import com.example.server.Results.ChatResult;
 import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
@@ -80,6 +81,8 @@ public class ClientCommunicator {
                 return (Result)Serializer.decode(resp, ChatResult.class);
             else if (resp.contains("GetChat"))
                 return (Result)Serializer.decode(resp, ChatResult.class);
+            else if (resp.contains("DrawDestinationTicketsResult"))
+                return (Result) Serializer.decode(resp, DrawDestinationTicketsResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();
