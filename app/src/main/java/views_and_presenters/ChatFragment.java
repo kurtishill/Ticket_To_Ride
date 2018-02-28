@@ -73,19 +73,24 @@ public class ChatFragment extends Fragment implements IChatView {
             listName.setText(message.username);
             //listMessages.setBackground(); //"red", "blue", "yellow", "green", "black"
             if (messageM.color.equals("red")) {// todo create text bubbles for each color and set them here
-                listMessages.setBackgroundColor(Color.RED);
+                //listMessages.setBackgroundColor(Color.RED);
+                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_red);
             }
             else if (messageM.color.equals("blue")) {// todo create text bubbles for each color and set them here
-                listMessages.setBackgroundColor(Color.BLUE);
+                //listMessages.setBackgroundColor(Color.BLUE);
+                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_blue);
             }
             else if (messageM.color.equals("black")) {// todo create text bubbles for each color and set them here
-                listMessages.setBackgroundColor(Color.BLACK);
+                //listMessages.setBackgroundColor(Color.BLACK);
+                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_black);
             }
             else if (messageM.color.equals("yellow")) {// todo create text bubbles for each color and set them here
-                listMessages.setBackgroundColor(Color.YELLOW);
+                //listMessages.setBackgroundColor(Color.YELLOW);
+                listMessages.setBackgroundResource(R.drawable.round_rectangle_yellow);
             }
             else if (messageM.color.equals("green")) {// todo create text bubbles for each color and set them here
-                listMessages.setBackgroundColor(Color.GREEN);
+                //listMessages.setBackgroundColor(Color.GREEN);
+                listMessages.setBackgroundResource(R.drawable.round_rectangle_green);
             }
             else {
                 System.out.println("Color not named");
@@ -93,7 +98,7 @@ public class ChatFragment extends Fragment implements IChatView {
         }
     }
 
-    private class ChatAdapter extends RecyclerView.Adapter<ChatFragment.ChatHolder> {
+    private class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
         private List<ChatMessage> mChatList;
 
         public ChatAdapter(List<ChatMessage> chat) {
@@ -101,7 +106,7 @@ public class ChatFragment extends Fragment implements IChatView {
         }
 
         @Override
-        public ChatFragment.ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
             return new ChatFragment.ChatHolder(layoutInflater, parent);
@@ -110,7 +115,7 @@ public class ChatFragment extends Fragment implements IChatView {
         @Override
         public void onBindViewHolder(final ChatFragment.ChatHolder holder, int position) {
             ChatMessage message = mChatList.get(position);
-            holder.setIsRecyclable(false);
+            //holder.setIsRecyclable(false);
             holder.bind(message);
         }
 
@@ -195,7 +200,6 @@ public class ChatFragment extends Fragment implements IChatView {
         mAdapter = new ChatAdapter(ClientModelRoot.instance().getCurrGame().getChat());
         getActivity().runOnUiThread(new Runnable() {
             @Override
-
             public void run() {
                 mChatRecyclerView.setAdapter(mAdapter);
             }
