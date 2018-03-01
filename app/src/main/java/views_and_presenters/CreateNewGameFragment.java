@@ -45,7 +45,7 @@ public class CreateNewGameFragment extends Fragment implements ICreateNewGameVie
 
     private String mParam1;
 
-    OnCloseFragmentListener mListener;
+    private OnCloseFragmentListener mListener;
 
     public CreateNewGameFragment() {
         // Required empty public constructor

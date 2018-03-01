@@ -146,4 +146,12 @@ public class Player {
     public void addRoute(Route route) {
         claimedRoutes.add(route);
     }
+
+    public List<TrainCard> getTrainCards() {
+        return trainCards;
+    }
+
+    public List<DestinationCard> getDestinationCards() {
+        return destinationCards;
+    }
 }

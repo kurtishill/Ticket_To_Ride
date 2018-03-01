@@ -1,6 +1,7 @@
 package views_and_presenters;
 
-import com.example.server.ChatMessage;
+import com.example.server.Model.ChatMessage;
+import com.example.server.Model.Player;
 import com.example.server.Results.Result;
 
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.Observer;
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
 import gui_facade.EditObserversInModel;
-import gui_facade.GetGamesService;
 import gui_facade.GetUserService;
 
 /**
@@ -19,31 +19,41 @@ import gui_facade.GetUserService;
  */
 
 public class ChatPresenter implements IChatPresenter, Observer {
-    public IChatView  mChatView;
+    private  IChatView  mChatView;
+
     public ChatPresenter(IChatView v) {
         mChatView = v;
         EditObserversInModel.addObserverToModel(this);
     }
+
     @Override
     public Result sendMessage(String message) {
-        ChatMessage messageSend = new ChatMessage(message, ClientModelRoot.instance().getUser().getUsername()
-                , ClientModelRoot.instance().getUser().getColor());
         List<Object> data = new ArrayList<>();
-        data.add(messageSend);
+        data.add(message);
+        data.add(ClientModelRoot.instance().getUser().getUsername());
+        data.add(ClientModelRoot.instance().getUser().getColor());
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         Result result = ServerProxy.getInstance()
                 .command("UpdateChat", data, GetUserService.getUser().getID());
-        if(result.isSuccess()){
-//            ClientModelRoot.instance().addMessage(messageSend);
-        }
-        mChatView.displayChat();
         return result;
     }
 
     @Override
-    public void update(Observable obs, Object o) {
-        if (obs == ClientModelRoot.instance()) {
+    public void update(Observable obs, Object obj) {
+        if (obj.equals(ClientModelRoot.instance().getCurrGame().getChat())) {
             mChatView.displayChat();
         }
+    }
+
+    public void setChatList(List<ChatMessage> chatMessages) {
+        ClientModelRoot.instance().setChat(chatMessages);
+    }
+
+    public Player getUser() {
+        return ClientModelRoot.instance().getUser();
+    }
+
+    public void close() {
+        EditObserversInModel.deleteObserverInModel(this);
     }
 }

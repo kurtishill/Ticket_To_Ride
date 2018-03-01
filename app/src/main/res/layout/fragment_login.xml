@@ -77,8 +77,9 @@
 
                         <EditText
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:inputType="text"
+                            android:inputType="textMultiLine"
                             android:textColor="@color/black"
+                            android:hint="@string/username_hint"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:id="@+id/register_username_edit_text"

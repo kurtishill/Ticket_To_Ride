@@ -2,6 +2,7 @@ package com.example.server.Facade;
 
 import com.example.server.ClientCommandManager;
 import com.example.server.Model.ModelRoot;
+import com.example.server.Model.Player;
 import com.example.server.Results.GetGameListResult;
 
 import java.util.Map;
@@ -13,8 +14,13 @@ import java.util.Set;
 
 public class GetGameListService {
     public GetGameListResult GetGameList(String authToken) {
+        Player player = ModelRoot.instance().UserExists(authToken);
         Map<String, Set<String>> commandMap = ClientCommandManager.instance().getCommands();
-        Set<String> commands = commandMap.get(authToken);
+        Set<String> commands;
+        if (player == null)
+            commands = commandMap.get(authToken);
+        else
+            commands = commandMap.get(player.getUsername());
         if (commands != null) {
             if (commands.contains("UpdateGameList")) {
                 if (!authToken.equals("sign-in"))
@@ -26,15 +32,5 @@ public class GetGameListService {
             }
         }
         return new GetGameListResult(true, null, null, null, null);
-
-        /*if (ClientCommandManager.instance().getCommandList().contains("UpdateGameList")) {
-            List<String> commandList = ClientCommandManager.instance().getCommandList();
-            ClientCommandManager.instance().setCommands(commandList);
-            //commandList.remove("UpdateGameList");
-            return new GetGameListResult(true, null, null, null,
-                    ModelRoot.instance().getListGames());
-        }
-        else
-            return new GetGameListResult(true, null, null, null, null);*/
     }
 }

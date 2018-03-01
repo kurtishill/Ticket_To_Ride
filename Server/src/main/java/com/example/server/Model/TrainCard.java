@@ -28,7 +28,7 @@ public class TrainCard
             return true;
 
         TrainCard t = (TrainCard)o;
-        return this.color == t.getColor();
+        return this.color.equals(t.getColor());
     }
 
 }

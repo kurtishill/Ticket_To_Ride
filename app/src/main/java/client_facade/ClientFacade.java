@@ -1,6 +1,6 @@
 package client_facade;
 
-import com.example.server.ChatMessage;
+import com.example.server.Model.ChatMessage;
 import com.example.server.Model.TicketToRideGame;
 
 import java.util.ArrayList;
