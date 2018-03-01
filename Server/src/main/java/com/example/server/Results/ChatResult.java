@@ -1,7 +1,6 @@
 package com.example.server.Results;
 
-import com.example.server.ChatMessage;
-import com.example.server.Model.Player;
+import com.example.server.Model.ChatMessage;
 
 import java.util.List;
 

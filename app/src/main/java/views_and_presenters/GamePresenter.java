@@ -26,7 +26,7 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     // for other clients
     public void update(Observable obs, Object obj) {
-        if (obs == ClientModelRoot.instance()) {
+        if (obj.equals(ClientModelRoot.instance().getGamesList())) {
             ClientModelRoot.instance().updateCurrentGame();
             mGame = ClientModelRoot.instance().getCurrGame();
             if (mGame.getPlayers().size() == mGame.getMaxNumPlayers()) {
@@ -45,7 +45,7 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.gameStarted();
             mGameView.changeTitle("");
             mGameView.displayToast("Game " + mGameView.getGameStatus());
-            mGameView.toggleDrawButtons(true);
+            mGameView.toggleButtons(true);
             return true;
         }
         return false;

@@ -14,5 +14,5 @@ public interface IGameView {
 
     String getGameStatus();
 
-    void toggleDrawButtons(boolean toggle);
+    void toggleButtons(boolean toggle);
 }

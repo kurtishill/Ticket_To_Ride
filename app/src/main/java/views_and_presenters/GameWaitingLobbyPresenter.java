@@ -46,7 +46,7 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
 
         // check to see if obs is the observable (in this case ClientModelRoot)
         // that the presenter is observing
-        if (obs == ClientModelRoot.instance()) {
+        if (obj.equals(ClientModelRoot.instance().getGamesList())) {
             mAllGamesList = GetGamesService.getGamesList();
             mGameWaitingLobbyView.displayGameList();
         }

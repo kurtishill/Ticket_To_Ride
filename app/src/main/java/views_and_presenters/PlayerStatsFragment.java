@@ -208,16 +208,12 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
             mTrainsColumnLayout.addView(trainsTextView,lp);
 
             TextView trainsCardsTextView = new TextView(getActivity());
-            /* placeholder */
-            trainsCardsTextView.setText("0");
-            /*-------------*/
+            trainsCardsTextView.setText(String.valueOf(player.getTrainCards().size()));
             trainsCardsTextView.setTextColor(getResources().getColor(R.color.white));
             mTrainCardsColumnLayout.addView(trainsCardsTextView, lp);
 
             TextView destCardsTextView = new TextView(getActivity());
-            /* placeholder */
-            destCardsTextView.setText("0");
-            /*-------------*/
+            destCardsTextView.setText(String.valueOf(player.getDestinationCards().size()));
             destCardsTextView.setTextColor(getResources().getColor(R.color.white));
             mDestCardsColumnLayout.addView(destCardsTextView, lp);
 

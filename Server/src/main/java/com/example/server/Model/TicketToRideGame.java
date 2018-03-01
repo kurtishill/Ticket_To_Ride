@@ -1,13 +1,9 @@
 package com.example.server.Model;
 
-import com.example.server.ChatMessage;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
 
 /**
  * Created by tnels on 1/29/2018.
@@ -95,8 +91,12 @@ public class TicketToRideGame {
         return chat;
     }
 
-    public void setChat(ChatMessage message) {
+    public void addChat(ChatMessage message) {
         this.chat.add(message);
+    }
+
+    public void setChat(List<ChatMessage> chatMessages) {
+        this.chat = chatMessages;
     }
 
     public void addPlayer(Player player)
@@ -117,7 +117,9 @@ public class TicketToRideGame {
         return maxNumPlayers;
     }
 
-    public List<String> getAvailableColors(){return availableColors;}
+    public List<String> getAvailableColors() {
+        return availableColors;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -131,7 +133,9 @@ public class TicketToRideGame {
         this.maxNumPlayers = maxNumPlayers;
     }
 
-    public void setAvailableColors(List<String> availableColors){ this.availableColors=availableColors;}
+    public void setAvailableColors(List<String> availableColors){
+        this.availableColors=availableColors;
+    }
 
     public List<TrainCard> getDeckTrainCards() {
         return deckTrainCards;

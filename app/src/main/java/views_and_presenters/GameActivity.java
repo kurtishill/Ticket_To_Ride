@@ -41,7 +41,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     // from OnCloseFragmentListener interface
     @Override
     public void onClose() {
-        toggleDrawButtons(true);
+        toggleButtons(true);
+
     }
 
     @Override
@@ -63,7 +64,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleDrawButtons(false);
+                toggleButtons(false);
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
@@ -75,7 +76,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlaceTrainsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //toggleDrawButtons(false);
+                //toggleButtons(false);
             }
         });
 
@@ -83,7 +84,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mDrawRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleDrawButtons(false);
+                toggleButtons(false);
 //                ArrayList<String> routes = new ArrayList<>();
 //                //TODO: add routes that the player can pick here
 
@@ -112,7 +113,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_stats:
-                toggleDrawButtons(false);
+                toggleButtons(false);
                 mPlayerStatsFragment = new PlayerStatsFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
                         .addToBackStack(null).commit();
@@ -121,7 +122,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 //TODO: start fragment
                 return true;
             case R.id.menu_chat:
-                toggleDrawButtons(false);
+                toggleButtons(false);
                 ChatFragment mChatFragment = new ChatFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 fm.beginTransaction().replace(R.id.chat_fragment_container, mChatFragment).addToBackStack(null).commit();
@@ -157,7 +158,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mWaitingTextView.setBackgroundColor(0);
     }
 
-    public void toggleDrawButtons(boolean toggle) {
+    public void toggleButtons(boolean toggle) {
         mDrawCardsButton.setEnabled(toggle);
         mPlaceTrainsButton.setEnabled(toggle);
         mDrawRoutesButton.setEnabled(toggle);

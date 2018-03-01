@@ -5,4 +5,10 @@ package views_and_presenters;
  */
 
 public class BankPresenter implements IBankPresenter {
+
+    private IBankView mBankView;
+
+    public BankPresenter(IBankView v) {
+        mBankView = v;
+    }
 }

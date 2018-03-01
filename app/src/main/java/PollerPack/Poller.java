@@ -1,6 +1,6 @@
 package PollerPack;
 
-import com.example.server.ChatMessage;
+import com.example.server.Model.ChatMessage;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.ChatResult;
 import com.example.server.Results.GenericCommand;
@@ -83,7 +83,7 @@ public class Poller {
         data.add(ClientModelRoot.instance().getUser().getUsername());
         Result result = ClientCommunicator.instance().send("/command", data, key);
         ChatResult chatResult = (ChatResult) result;
-        List<ChatMessage> chat = (ArrayList) chatResult.getChat();
+        List<ChatMessage> chat = chatResult.getChat();
         if (chat != null) {
             return new GenericCommand("client_facade.ClientFacade", "UpdateGameChat",
                     new Class<?>[]{ArrayList.class}, new Object[]{chat});

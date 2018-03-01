@@ -14,6 +14,7 @@ public class GameResources {
     private static Map<String, Integer> mTextColors;
     private static Map<String, Integer> mBackgroundColors;
     private static Map<String, Integer> mCardBackgrounds;
+    private static Map<String, Integer> mChatBackgrounds;
 
     static {
         mTextColors = new HashMap<>();
@@ -40,6 +41,13 @@ public class GameResources {
         mCardBackgrounds.put("purple", R.drawable.purple_card);
         mCardBackgrounds.put("white", R.drawable.white_card);
         mCardBackgrounds.put("wild", R.drawable.wild_card);
+
+        mChatBackgrounds = new HashMap<>();
+        mChatBackgrounds.put("red", R.drawable.rounded_rectangle_red);
+        mChatBackgrounds.put("blue", R.drawable.rounded_rectangle_blue);
+        mChatBackgrounds.put("yellow", R.drawable.rounded_rectangle_yellow);
+        mChatBackgrounds.put("green", R.drawable.rounded_rectangle_green);
+        mChatBackgrounds.put("black", R.drawable.rounded_rectangle_black);
     }
 
     public static Map<String, Integer> getTextColors() {
@@ -52,5 +60,9 @@ public class GameResources {
 
     public static Map<String, Integer> getCardBackground() {
         return mCardBackgrounds;
+    }
+
+    public static Map<String, Integer> getChatBackgrounds() {
+        return mChatBackgrounds;
     }
 }
