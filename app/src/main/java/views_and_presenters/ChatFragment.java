@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -46,6 +47,7 @@ public class ChatFragment extends Fragment implements IChatView {
     private ChatPresenter mChatPresenter;
     String messageText;
     private ChatAdapter mAdapter;
+    private OnCloseFragmentListener mListener;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -126,6 +128,17 @@ public class ChatFragment extends Fragment implements IChatView {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mListener = (OnCloseFragmentListener) context;
+        } catch (ClassCastException ex) {
+            throw new ClassCastException(context.toString() + " must implement OnCloseFragmentListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -187,14 +200,17 @@ public class ChatFragment extends Fragment implements IChatView {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mListener.onClose();
                 closeFragment();
             }
         });
         return v;
     }
+
     private void closeFragment() { // its so hard to push
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
+
     @Override
     public void displayChat() { // todo the stuff wont show up after sent but it is sent back
         mAdapter = new ChatAdapter(ClientModelRoot.instance().getCurrGame().getChat());

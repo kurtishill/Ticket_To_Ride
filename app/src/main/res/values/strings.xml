@@ -6,6 +6,7 @@
     <string name="confirm_password">Confirm Password: </string>
     <string name="login_button">Login</string>
     <string name="register_button">Register</string>
+    <string name="username_hint"><font size="8">No more than 10 characters</font></string>
     <string name="password_hint"><font size="8">Must be at least 6 characters</font></string>
     <string name="confirm_password_hint"><font size="8">Must match password</font></string>
 
@@ -37,6 +38,7 @@
     <string name="menu_stats_title">Player Stats</string>
     <string name="menu_history_title">Game History</string>
     <string name="menu_chat_title">Chat</string>
+    <string name="menu_turn_title">Player Turns</string>
 
     <string name="draw_train_car_card">Draw Trains</string>
     <string name="place_trains">Place Trains</string>

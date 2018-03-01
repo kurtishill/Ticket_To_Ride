@@ -5,22 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ttrmap"
     android:id="@+id/game_map_layout">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent_gray"
-        android:id="@+id/view_layout">
-
-        <TextView
-            android:id="@+id/game_activity_waiting_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Waiting For Lobby To Fill..."
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/black"/>
+        android:layout_height="match_parent">
 
         <Button
             android:layout_width="70dp"
@@ -31,6 +21,7 @@
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:textColor="@color/white"
+            android:background="@drawable/draw_cards"
             android:enabled="false"/>
 
         <Button
@@ -38,12 +29,12 @@
             android:layout_height="30dp"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/draw_cards_button"
-
             android:text="@string/place_trains"
             android:id="@+id/place_trains_button"
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:textColor="@color/white"
+            android:background="@drawable/destination_card_back1"
             android:enabled="false"/>
 
         <Button
@@ -56,9 +47,8 @@
             android:layout_margin="5dp"
             android:textSize="12sp"
             android:textColor="@color/white"
+            android:background="@drawable/destination_card_back2"
             android:enabled="false"/>
-
-
 
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -108,6 +98,48 @@
             android:layout_centerInParent="true">
 
         </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/transparent_gray"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:id="@+id/player_turn_layout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/game_players"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/game_activity_waiting_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Waiting For Lobby To Fill..."
+            android:background="@color/transparent_gray"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/black"/>
 
     </RelativeLayout>
 

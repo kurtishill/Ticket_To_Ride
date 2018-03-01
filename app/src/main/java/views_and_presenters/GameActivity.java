@@ -1,21 +1,21 @@
 package views_and_presenters;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.Player;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements IGameView,
         OnCloseFragmentListener {
@@ -27,7 +27,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private IGamePresenter mGamePresenter;
 
     private TextView mWaitingTextView;
-    private RelativeLayout mViewLayout;
+
+    private LinearLayout mPlayerTurnsLayout;
 
     private Button mDrawCardsButton,
             mPlaceTrainsButton,
@@ -36,7 +37,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
 
-    // from OnCloseFragmentListener interface in DestinationPickerFragment
+    // from OnCloseFragmentListener interface
     @Override
     public void onClose() {
         toggleDrawButtons(true);
@@ -53,7 +54,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mGamePresenter = new GamePresenter(this);
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
-        mViewLayout = (RelativeLayout) findViewById(R.id.view_layout);
+
+        mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
+        displayPlayerTurn();
 
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
@@ -114,10 +117,16 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 //TODO: start fragment
                 return true;
             case R.id.menu_chat:
-                ChatFragment mChatFragment = new ChatFragment();//TODO: start fragment
+                toggleDrawButtons(false);
+                ChatFragment mChatFragment = new ChatFragment();
                 FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.game_map_layout, mChatFragment).addToBackStack(null).commit();
+                fm.beginTransaction().replace(R.id.chat_fragment_container, mChatFragment).addToBackStack(null).commit();
                 return true;
+            case R.id.menu_turn:
+                if (mPlayerTurnsLayout.getVisibility() == View.VISIBLE)
+                    mPlayerTurnsLayout.setVisibility(View.INVISIBLE);
+                else
+                    mPlayerTurnsLayout.setVisibility(View.VISIBLE);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -141,12 +150,28 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     }
 
     public void gameStarted() {
-        mViewLayout.setBackgroundColor(0);
+        mWaitingTextView.setBackgroundColor(0);
     }
 
     public void toggleDrawButtons(boolean toggle) {
         mDrawCardsButton.setEnabled(toggle);
         mPlaceTrainsButton.setEnabled(toggle);
         mDrawRoutesButton.setEnabled(toggle);
+    }
+
+    private void displayPlayerTurn() {
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        lp.setMargins(10, 10, 10, 0);
+
+        List<Player> players = mGamePresenter.getGame().getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            TextView playerView = new TextView(this);
+            playerView.setText(players.get(i).getUsername());
+            playerView.setBackgroundResource(GameResources.getBackgroundColors().get(players.get(i).getColor()));
+            playerView.setTextColor(getResources().getColor(R.color.white));
+            playerView.setGravity(Gravity.CENTER);
+            mPlayerTurnsLayout.addView(playerView, lp);
+        }
     }
 }

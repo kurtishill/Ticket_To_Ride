@@ -38,7 +38,7 @@ public class LoginPresenter implements ILoginPresenter {
     }
 
     public boolean registerUsernameChanged() {
-        return mLoginView.getRegisterUsername().length() > 0;
+        return mLoginView.getRegisterUsername().length() > 0 && mLoginView.getRegisterUsername().length() < 11;
     }
 
     public Result login() {
