@@ -182,22 +182,28 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mDrawRoutesButton.setEnabled(toggle);
     }
 
-    private void displayPlayerTurn() {
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        lp.setMargins(10, 0, 10, 10);
+    public void displayPlayerTurn() {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                lp.setMargins(10, 0, 10, 10);
 
-        List<Player> players = mGamePresenter.getGame().getPlayers();
-        for (int i = 0; i < players.size(); i++) {
-            TextView playerView = new TextView(this);
-            playerView.setText(players.get(i).getUsername());
-            playerView.setBackgroundResource(GameResources.getBackgroundColors().get(players.get(i).getColor()));
-            if (players.get(i).equals(players.get(mGamePresenter.getGame().getTurn())))
-                playerView.setTextColor(getResources().getColor(R.color.light_blue));
-            else
-                playerView.setTextColor(getResources().getColor(R.color.white));
-            playerView.setGravity(Gravity.CENTER);
-            mPlayerTurnsLayout.addView(playerView, lp);
-        }
+                List<Player> players = mGamePresenter.getGame().getPlayers();
+                // there are already two children in mPlayerTurnsLayout
+                for (int i = mPlayerTurnsLayout.getChildCount() - 2; i < players.size(); i++) {
+                    TextView playerView = new TextView(GameActivity.this);
+                    playerView.setText(players.get(i).getUsername());
+                    playerView.setBackgroundResource(GameResources.getBackgroundColors().get(players.get(i).getColor()));
+                    if (players.get(i).equals(players.get(mGamePresenter.getGame().getTurn())))
+                        playerView.setTextColor(getResources().getColor(R.color.light_blue));
+                    else
+                        playerView.setTextColor(getResources().getColor(R.color.white));
+                    playerView.setGravity(Gravity.CENTER);
+                    mPlayerTurnsLayout.addView(playerView, lp);
+                }
+            }
+        });
     }
 }

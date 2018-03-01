@@ -15,4 +15,6 @@ public interface IGameView {
     void toggleButtons(boolean toggle);
 
     void gameStarted(final String toast);
+
+    void displayPlayerTurn();
 }
