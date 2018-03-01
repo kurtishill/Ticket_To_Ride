@@ -10,9 +10,9 @@ public interface IGameView {
 
     void changeTitle(String title);
 
-    void gameStarted();
-
     String getGameStatus();
 
     void toggleButtons(boolean toggle);
+
+    void gameStarted(final String toast);
 }

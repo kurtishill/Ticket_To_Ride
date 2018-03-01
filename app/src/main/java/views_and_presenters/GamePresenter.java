@@ -26,10 +26,11 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     // for other clients
     public void update(Observable obs, Object obj) {
-        if (obj.equals(ClientModelRoot.instance().getCurrGame())) {
+        if (obj.equals(ClientModelRoot.instance().getGamesList())) {
             ClientModelRoot.instance().updateCurrentGame();
+            TicketToRideGame checkGame = mGame;
             mGame = ClientModelRoot.instance().getCurrGame();
-            if (mGame.getPlayers().size() == mGame.getMaxNumPlayers()) {
+            if (mGame.getPlayers().size() == mGame.getMaxNumPlayers() && !checkGame.equals(mGame)) {
                 didGameStart();
             }
         }
@@ -42,10 +43,11 @@ public class GamePresenter implements IGamePresenter, Observer {
     // for user
     public boolean didGameStart() {
         if (mGame.getMaxNumPlayers() == mGame.getPlayers().size()) {
-            mGameView.gameStarted();
-            mGameView.changeTitle("");
-            mGameView.displayToast("Game " + mGameView.getGameStatus());
-            mGameView.toggleButtons(true);
+            mGameView.gameStarted("Game " + mGameView.getGameStatus());
+            //mGameView.gameStarted();
+            //mGameView.changeTitle("");
+            //mGameView.displayToast("Game " + mGameView.getGameStatus());
+            //mGameView.toggleButtons(true);
             return true;
         }
         return false;

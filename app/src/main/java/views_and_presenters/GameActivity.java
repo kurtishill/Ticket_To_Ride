@@ -34,6 +34,11 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             mPlaceTrainsButton,
             mDrawRoutesButton;
 
+    private MenuItem mTurnMenuItem,
+            mChatMenuItem,
+            mGameHistoryMenuItem,
+            mPlayerStatsMenuItem;
+
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
     private PlayerStatsFragment mPlayerStatsFragment;
@@ -43,6 +48,41 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public void onClose() {
         toggleButtons(true);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_stats:
+                toggleButtons(false);
+                mPlayerStatsFragment = new PlayerStatsFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
+                        .addToBackStack(null).commit();
+                return true;
+            case R.id.menu_history:
+                //TODO: start fragment
+                return true;
+            case R.id.menu_chat:
+                toggleButtons(false);
+                ChatFragment mChatFragment = new ChatFragment();
+                FragmentManager fm = getSupportFragmentManager();
+                fm.beginTransaction().replace(R.id.chat_fragment_container, mChatFragment).addToBackStack(null).commit();
+                return true;
+            case R.id.menu_turn:
+                if (mPlayerTurnsLayout.getVisibility() == View.VISIBLE)
+                    mPlayerTurnsLayout.setVisibility(View.INVISIBLE);
+                else
+                    mPlayerTurnsLayout.setVisibility(View.VISIBLE);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -59,6 +99,11 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
+
+        mTurnMenuItem = (MenuItem) findViewById(R.id.menu_turn);
+        mChatMenuItem = (MenuItem) findViewById(R.id.menu_chat);
+        mGameHistoryMenuItem = (MenuItem) findViewById(R.id.menu_history);
+        mPlayerStatsMenuItem = (MenuItem) findViewById(R.id.menu_stats);
 
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
@@ -102,41 +147,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.menu_stats:
-                toggleButtons(false);
-                mPlayerStatsFragment = new PlayerStatsFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
-                        .addToBackStack(null).commit();
-                return true;
-            case R.id.menu_history:
-                //TODO: start fragment
-                return true;
-            case R.id.menu_chat:
-                toggleButtons(false);
-                ChatFragment mChatFragment = new ChatFragment();
-                FragmentManager fm = getSupportFragmentManager();
-                fm.beginTransaction().replace(R.id.chat_fragment_container, mChatFragment).addToBackStack(null).commit();
-                return true;
-            case R.id.menu_turn:
-                if (mPlayerTurnsLayout.getVisibility() == View.VISIBLE)
-                    mPlayerTurnsLayout.setVisibility(View.INVISIBLE);
-                else
-                    mPlayerTurnsLayout.setVisibility(View.VISIBLE);
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     public String getGameStatus() {
         return mGameStatus;
     }
@@ -149,13 +159,21 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(GameActivity.this, toast, Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
-    public void gameStarted() {
-        mWaitingTextView.setBackgroundColor(0);
+    public void gameStarted(final String toast) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mWaitingTextView.setText("");
+                Toast.makeText(GameActivity.this, toast, Toast.LENGTH_SHORT).show();
+                mWaitingTextView.setBackgroundColor(0);
+                toggleButtons(true);
+            }
+        });
     }
 
     public void toggleButtons(boolean toggle) {
@@ -174,7 +192,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             TextView playerView = new TextView(this);
             playerView.setText(players.get(i).getUsername());
             playerView.setBackgroundResource(GameResources.getBackgroundColors().get(players.get(i).getColor()));
-            playerView.setTextColor(getResources().getColor(R.color.white));
+            if (players.get(i).equals(players.get(mGamePresenter.getGame().getTurn())))
+                playerView.setTextColor(getResources().getColor(R.color.light_blue));
+            else
+                playerView.setTextColor(getResources().getColor(R.color.white));
             playerView.setGravity(Gravity.CENTER);
             mPlayerTurnsLayout.addView(playerView, lp);
         }

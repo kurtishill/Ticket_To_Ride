@@ -16,8 +16,11 @@ public class GetGameListService {
     public GetGameListResult GetGameList(String authToken) {
         Player player = ModelRoot.instance().UserExists(authToken);
         Map<String, Set<String>> commandMap = ClientCommandManager.instance().getCommands();
-        //Set<String> commands = commandMap.get(authToken);
-        Set<String> commands = commandMap.get(player.getUsername());
+        Set<String> commands;
+        if (player == null)
+            commands = commandMap.get(authToken);
+        else
+            commands = commandMap.get(player.getUsername());
         if (commands != null) {
             if (commands.contains("UpdateGameList")) {
                 if (!authToken.equals("sign-in"))

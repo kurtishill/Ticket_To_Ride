@@ -21,8 +21,9 @@ public class TicketToRideGame {
     private List<DestinationCard> deckDestinationCards;
     private List<TrainCard> faceUpCards;
     private List<Route> availableRoutes;
+    private int turn;
 
-    public TicketToRideGame(){
+    public TicketToRideGame() {
         players = new ArrayList<>();
         name = null;
         gameID = 0;
@@ -34,6 +35,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        turn = 0;
         onStartUp();
     }
 
@@ -48,6 +50,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        turn = 0;
         onStartUp();
     }
 
@@ -60,6 +63,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        turn = 0;
         onStartUp();
     }
 
@@ -79,6 +83,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        turn = 0;
         onStartUp();
     }
 
@@ -119,6 +124,14 @@ public class TicketToRideGame {
 
     public List<String> getAvailableColors() {
         return availableColors;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 
     public void setName(String name) {

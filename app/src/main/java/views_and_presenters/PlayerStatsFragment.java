@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.Player;
 import com.example.server.Model.Route;
+import com.example.server.Model.TrainCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,17 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
     private IPlayerStatsPresenter mPlayerStatsPresenter;
 
     private TextView mPlayerNameTextView;
+
+    private TextView mNumRedCardTextView,
+            mNumBlueCardTextView,
+            mNumGreenCardTextView,
+            mNumYellowCardTextView,
+            mNumBlackCardTextView,
+            mNumOrangeCardTextView,
+            mNumPurpleCardTextView,
+            mNumWhiteCardTextView,
+            mNumWildCardTextView;
+
     private LinearLayout mPlayerNameColumnLayout,
             mPointsColumnLayout,
             mTrainsColumnLayout,
@@ -141,6 +153,16 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
         mPlayerNameTextView = (TextView) v.findViewById(R.id.player_name_stats_text_view);
         mPlayerNameTextView.setText(mPlayerStatsPresenter.getUser().getUsername());
 
+        mNumRedCardTextView = (TextView) v.findViewById(R.id.red_card_stats_text_view);
+        mNumBlueCardTextView = (TextView) v.findViewById(R.id.blue_card_stats_text_view);
+        mNumGreenCardTextView = (TextView) v.findViewById(R.id.green_card_stats_text_view);
+        mNumYellowCardTextView = (TextView) v.findViewById(R.id.yellow_card_stats_text_view);
+        mNumBlackCardTextView = (TextView) v.findViewById(R.id.black_card_stats_text_view);
+        mNumOrangeCardTextView = (TextView) v.findViewById(R.id.orange_card_stats_text_view);
+        mNumPurpleCardTextView = (TextView) v.findViewById(R.id.purple_card_stats_text_view);
+        mNumWhiteCardTextView = (TextView) v.findViewById(R.id.white_card_stats_text_view);
+        mNumWildCardTextView = (TextView) v.findViewById(R.id.wild_card_stats_text_view);
+
         mPlayerNameColumnLayout = (LinearLayout) v.findViewById(R.id.stats_player_column_layout);
         mPointsColumnLayout = (LinearLayout) v.findViewById(R.id.stats_points_column_layout);
         mTrainsColumnLayout = (LinearLayout) v.findViewById(R.id.stats_trains_column_layout);
@@ -185,7 +207,65 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
+    private void setCardsForUser() {
+        int redCards = 0;
+        int blueCards = 0;
+        int yellowCards = 0;
+        int greenCards = 0;
+        int blackCards = 0;
+        int orangeCards = 0;
+        int purpleCards = 0;
+        int whiteCards = 0;
+        int wildCards = 0;
+
+        for (int i = 0; i < mPlayerStatsPresenter.getUser().getTrainCards().size(); i++) {
+            switch(mPlayerStatsPresenter.getUser().getTrainCards().get(i).getColor()) {
+                case "red":
+                    redCards += 1;
+                    break;
+                case "blue":
+                    blueCards += 1;
+                    break;
+                case "yellow":
+                    yellowCards += 1;
+                    break;
+                case "green":
+                    greenCards += 1;
+                    break;
+                case "black":
+                    blackCards += 1;
+                    break;
+                case "orange":
+                    orangeCards += 1;
+                    break;
+                case "purple":
+                    purpleCards += 1;
+                    break;
+                case "white":
+                    whiteCards += 1;
+                    break;
+                case "wild":
+                    wildCards += 1;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        mNumRedCardTextView.setText(String.valueOf(redCards));
+        mNumBlueCardTextView.setText(String.valueOf(blueCards));
+        mNumYellowCardTextView.setText(String.valueOf(yellowCards));
+        mNumGreenCardTextView.setText(String.valueOf(greenCards));
+        mNumBlackCardTextView.setText(String.valueOf(blackCards));
+        mNumOrangeCardTextView.setText(String.valueOf(orangeCards));
+        mNumPurpleCardTextView.setText(String.valueOf(purpleCards));
+        mNumWhiteCardTextView.setText(String.valueOf(whiteCards));
+        mNumWildCardTextView.setText(String.valueOf(wildCards));
+    }
+
     public void displayPlayerStats() {
+        setCardsForUser();
+
         List<Player> players = mPlayerStatsPresenter.getGame().getPlayers();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
