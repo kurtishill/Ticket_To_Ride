@@ -52,6 +52,12 @@
 
     <string name="close_button">Close</string>
 
+    <string name="stats_player">Player</string>
+    <string name="stats_points">Points</string>
+    <string name="stats_num_trains">Trains</string>
+    <string name="stats_num_train_cards">Train Cards</string>
+    <string name="stats_num_dest_cards">Dest Cards</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
