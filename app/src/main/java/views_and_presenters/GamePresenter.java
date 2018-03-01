@@ -26,7 +26,7 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     // for other clients
     public void update(Observable obs, Object obj) {
-        if (obj.equals(ClientModelRoot.instance().getGamesList())) {
+        if (obj.equals(ClientModelRoot.instance().getCurrGame())) {
             ClientModelRoot.instance().updateCurrentGame();
             mGame = ClientModelRoot.instance().getCurrGame();
             if (mGame.getPlayers().size() == mGame.getMaxNumPlayers()) {

@@ -68,6 +68,7 @@ public class ClientModelRoot extends Observable {
         mGamesList = games;
         setChanged();
         notifyObservers(mGamesList);
+        notifyObservers(mCurrGame);
         clearChanged();
     }
 
