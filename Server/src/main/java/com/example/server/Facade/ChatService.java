@@ -30,7 +30,7 @@ public class ChatService {
             Set<String> commands = commandMap.get(username);
             if (commands != null) {
                 if (commands.contains("GetChat")){
-                    commandMap.remove("GetChat");
+                    commands.remove("GetChat");
                     ClientCommandManager.instance().setCommands(commandMap);
                     return new ChatResult(true, null, null, null,
                             ModelRoot.instance().GameExists(gameId).getChat());

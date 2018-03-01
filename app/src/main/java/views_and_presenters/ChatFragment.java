@@ -69,28 +69,28 @@ public class ChatFragment extends Fragment implements IChatView {
 
         private void bind(ChatMessage messageM) {
             this.message = messageM;
-            listMessages.setText(message.message);
-            listName.setText(message.username);
+            listMessages.setText(this.message.message);
+            listName.setText(this.message.username);
             //listMessages.setBackground(); //"red", "blue", "yellow", "green", "black"
             if (messageM.color.equals("red")) {// todo create text bubbles for each color and set them here
                 listMessages.setBackgroundColor(Color.RED);
-                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_red);
+                //listMessages.setBackgroundResource(R.drawable.rounded_rectangle_red);
             }
             else if (messageM.color.equals("blue")) {// todo create text bubbles for each color and set them here
-                //listMessages.setBackgroundColor(Color.BLUE);
-                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_blue);
+                listMessages.setBackgroundColor(Color.BLUE);
+                //listMessages.setBackgroundResource(R.drawable.rounded_rectangle_blue);
             }
             else if (messageM.color.equals("black")) {// todo create text bubbles for each color and set them here
-                //listMessages.setBackgroundColor(Color.BLACK);
-                listMessages.setBackgroundResource(R.drawable.rounded_rectangle_black);
+                listMessages.setBackgroundColor(Color.BLACK);
+                //listMessages.setBackgroundResource(R.drawable.rounded_rectangle_black);
             }
             else if (messageM.color.equals("yellow")) {// todo create text bubbles for each color and set them here
-                //listMessages.setBackgroundColor(Color.YELLOW);
-                listMessages.setBackgroundResource(R.drawable.round_rectangle_yellow);
+                listMessages.setBackgroundColor(Color.YELLOW);
+                //listMessages.setBackgroundResource(R.drawable.round_rectangle_yellow);
             }
             else if (messageM.color.equals("green")) {// todo create text bubbles for each color and set them here
-                //listMessages.setBackgroundColor(Color.GREEN);
-                listMessages.setBackgroundResource(R.drawable.round_rectangle_green);
+                listMessages.setBackgroundColor(Color.GREEN);
+                //listMessages.setBackgroundResource(R.drawable.round_rectangle_green);
             }
             else {
                 System.out.println("Color not named");
