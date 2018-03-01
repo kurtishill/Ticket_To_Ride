@@ -36,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
+    private PlayerStatsFragment mPlayerStatsFragment;
 
     // from OnCloseFragmentListener interface
     @Override
@@ -111,7 +112,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.menu_stats:
-                //TODO: start fragment
+                toggleDrawButtons(false);
+                mPlayerStatsFragment = new PlayerStatsFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
+                        .addToBackStack(null).commit();
                 return true;
             case R.id.menu_history:
                 //TODO: start fragment
@@ -162,7 +166,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private void displayPlayerTurn() {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        lp.setMargins(10, 10, 10, 0);
+        lp.setMargins(10, 0, 10, 10);
 
         List<Player> players = mGamePresenter.getGame().getPlayers();
         for (int i = 0; i < players.size(); i++) {

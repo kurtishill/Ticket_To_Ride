@@ -36,8 +36,4 @@ public class PlayerStatsPresenter implements IPlayerStatsPresenter {
     public Player getUser() {
         return mUser;
     }
-
-    public IPlayerStatsView getPlayerStatsView() {
-        return mPlayerStatsView;
-    }
 }

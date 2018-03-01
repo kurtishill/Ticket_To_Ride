@@ -1,18 +1,25 @@
 package views_and_presenters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +47,12 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
             mTrainCardsColumnLayout,
             mDestCardsColumnLayout;
 
+    private Button mCloseButton;
+
+    private RecyclerView mRoutesRecyclerView;
+    private RouteAdapter mAdapter;
+    private TextView mRouteTextView;
+
     private OnCloseFragmentListener mListener;
 
     public PlayerStatsFragment() {
@@ -62,6 +75,50 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private class RouteHolder extends RecyclerView.ViewHolder{
+        private Route mRoute;
+
+        private RouteHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_routes, parent, false));
+
+            mRouteTextView = (TextView) itemView.findViewById(R.id.routes_list_item_text_view);
+        }
+
+        private void bind(Route route) {
+            mRoute = route;
+            mRouteTextView.setText(mRoute.toString());
+            mRouteTextView.setTextColor(getResources().getColor(R.color.white));
+            mRouteTextView.setBackgroundResource(GameResources.getBackgroundColors().get(mRoute.getOwner().getColor()));
+        }
+    }
+
+    private class RouteAdapter extends RecyclerView.Adapter<RouteHolder> {
+        private List<Route> mRouteList;
+
+        public RouteAdapter(List<Route> routes) {
+            mRouteList = routes;
+        }
+
+        @Override
+        public RouteHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+
+            return new RouteHolder(layoutInflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(final RouteHolder holder, int position) {
+            Route route = mRouteList.get(position);
+            holder.setIsRecyclable(false);
+            holder.bind(route);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mRouteList.size();
+        }
     }
 
     @Override
@@ -90,6 +147,18 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
         mTrainCardsColumnLayout = (LinearLayout) v.findViewById(R.id.stats_trains_cards_column_layout);
         mDestCardsColumnLayout = (LinearLayout) v.findViewById(R.id.stats_dest_cards_column_layout);
 
+        mRoutesRecyclerView = (RecyclerView) v.findViewById(R.id.routes_recyclerview);
+        mRoutesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mCloseButton = (Button) v.findViewById(R.id.stats_close_button);
+        mCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClose();
+                closeFragment();
+            }
+        });
+
         displayPlayerStats();
 
         return v;
@@ -112,6 +181,10 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
         mListener = null;
     }
 
+    private void closeFragment() {
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+
     public void displayPlayerStats() {
         List<Player> players = mPlayerStatsPresenter.getGame().getPlayers();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -121,15 +194,16 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
             TextView playerTextView = new TextView(getActivity());
             playerTextView.setText(player.getUsername());
             playerTextView.setTextColor(getResources().getColor(GameResources.getTextColors().get(player.getColor())));
+            playerTextView.setTypeface(Typeface.DEFAULT_BOLD);
             mPlayerNameColumnLayout.addView(playerTextView, lp);
 
             TextView pointsTextView = new TextView(getActivity());
-            pointsTextView.setText(player.getNumPoints());
+            pointsTextView.setText(String.valueOf(player.getNumPoints()));
             pointsTextView.setTextColor(getResources().getColor(R.color.white));
             mPointsColumnLayout.addView(pointsTextView, lp);
 
             TextView trainsTextView = new TextView(getActivity());
-            trainsTextView.setText(player.getNumTrainCars());
+            trainsTextView.setText(String.valueOf(player.getNumTrainCars()));
             trainsTextView.setTextColor(getResources().getColor(R.color.white));
             mTrainsColumnLayout.addView(trainsTextView,lp);
 
@@ -146,6 +220,18 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
             /*-------------*/
             destCardsTextView.setTextColor(getResources().getColor(R.color.white));
             mDestCardsColumnLayout.addView(destCardsTextView, lp);
+
+            displayRoutes();
         }
+    }
+
+    private void displayRoutes() {
+        List<Player> players = mPlayerStatsPresenter.getGame().getPlayers();
+        List<Route> routes = new ArrayList<>();
+        for (int i = 0; i < players.size(); i++) {
+            routes.addAll(players.get(i).getClaimedRoutes());
+        }
+        mAdapter = new RouteAdapter(routes);
+        mRoutesRecyclerView.setAdapter(mAdapter);
     }
 }

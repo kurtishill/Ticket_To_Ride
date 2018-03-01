@@ -64,5 +64,9 @@ public class City
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        return 31 * name.hashCode() + (int) x;
+    }
 
 }
