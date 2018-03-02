@@ -1,9 +1,9 @@
 package com.example.server;
 
 
+import com.example.server.Model.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
-import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
 import com.google.gson.internal.LinkedTreeMap;
@@ -17,15 +17,15 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by ckingsbu on 1/29/18.
  */
 public class CommandHandler implements HttpHandler {
 
-    @Override
+    @Override​
+90
+
     public void handle(HttpExchange exchange) throws IOException {
         boolean success = false;
 
@@ -70,12 +70,11 @@ public class CommandHandler implements HttpHandler {
                         ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("UpdateChat")) {
-                        Double d = (Double) commandValues.get(2);
-                        ChatMessage message = new ChatMessage((String)((LinkedTreeMap)commandValues.get(1)).get("message"),
-                                (String)((LinkedTreeMap)commandValues.get(1)).get("username"),
-                                (String)((LinkedTreeMap)commandValues.get(1)).get("color"));// fix this
-                        command = CommandFactory.instance().UpdateChat(message, d.intValue());
-                        ClientCommandManager.instance().addGameCommand(d.intValue(),
+                        Double gameId = (Double) commandValues.get(4);
+                        ChatMessage message = new ChatMessage(commandValues.get(1).toString(),
+                                commandValues.get(2).toString(), commandValues.get(3).toString());
+                        command = CommandFactory.instance().UpdateChat(message, gameId.intValue());
+                        ClientCommandManager.instance().addGameCommand(gameId.intValue(),
                                 "GetChat");
                     }
                     else if (commandValues.get(0).equals("GetChat")) {

@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.server.Model.ChatMessage;
 import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
@@ -77,22 +78,5 @@ public class ClientCommandManager {
 
     public Map<String, Set<String>> getCommands() {
         return commands;
-    }
-
-    public ClientCommand makeClientCommandList(String typeOfCommand) {
-        ClientCommand clientCommand = new ClientCommand("UpdateGameList");
-        if (typeOfCommand.equals("UpdateGameList")) {
-            clientCommand.addData((ModelRoot.instance().getListGames()));
-            return clientCommand;
-        }
-        return null;
-    }
-    public GenericCommand GetGameList(List<TicketToRideGame> list) {
-        return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
-                new Class<?>[]{ArrayList.class}, new Object[]{list});
-    }
-    public GenericCommand GetChat(List<ChatMessage> chat) {
-        return new GenericCommand("client_facade.ClientFacade", "UpdateGameChatService",
-                new Class<?>[]{ArrayList.class}, new Object[]{chat});
     }
 }

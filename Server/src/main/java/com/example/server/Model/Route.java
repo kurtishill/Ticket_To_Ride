@@ -25,51 +25,51 @@ public class Route
         this.owner = null;
     }
 
-    private int getLength() {
+    public int getLength() {
         return length;
     }
 
-    private void setLength(int length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
-    private int getPointValue() {
+    public int getPointValue() {
         return pointValue;
     }
 
-    private void setPointValue(int pointValue) {
+    public void setPointValue(int pointValue) {
         this.pointValue = pointValue;
     }
 
-    private String getColor() {
+    public String getColor() {
         return color;
     }
 
-    private void setColor(String color) {
+    public void setColor(String color) {
         this.color = color;
     }
 
-    private boolean isOccupied() {
+    public boolean isOccupied() {
         return occupied;
     }
 
-    private void setOccupied(boolean occupied) {
+    public void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
 
-    private City getCity1() {
+    public City getCity1() {
         return city1;
     }
 
-    private City getCity2() {
+    public City getCity2() {
         return city2;
     }
 
-    private Player getOwner() {
+    public Player getOwner() {
         return owner;
     }
 
-    private void setOwner(Player owner) {
+    public void setOwner(Player owner) {
         this.owner = owner;
     }
 
@@ -91,6 +91,16 @@ public class Route
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * owner.hashCode() + color.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Points: " + pointValue + " - " + city1.getName() + " to " + city2.getName();
     }
 
 }
