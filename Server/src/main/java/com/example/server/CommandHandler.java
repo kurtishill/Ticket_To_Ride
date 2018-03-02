@@ -80,14 +80,14 @@ public class CommandHandler implements HttpHandler {
                         command = CommandFactory.instance().GetChat(d.intValue(), username);
                     }
                     else if (commandValues.get(0).equals("DrawDestinationTickets")){
-                        Double d = (Double) commandValues.get(2);
+                        Double d = (Double) commandValues.get(2); //gameID
                         //THESE VALUES MIGHT BE WRONG
-                        command = CommandFactory.instance().DrawDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue());
+                        command = CommandFactory.instance().DrawDestinationTickets(
+                                (String) commandValues.get(1), d.intValue());
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "DrawDestinationTickets");
                     }
                     else if (commandValues.get(0).equals("SelectDestinationTickets")){
-                        Double d = (Double) commandValues.get(2);
+                        Double d = (Double) commandValues.get(2); //gameid
                         List<DestinationCard> selectedCards = (ArrayList) commandValues.get(3);
                         List<DestinationCard> discardedCards =(ArrayList) commandValues.get(4);
                         //FIXME idk what to do here so it creates a command correctly

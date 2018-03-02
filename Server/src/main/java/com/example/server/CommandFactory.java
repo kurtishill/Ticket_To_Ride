@@ -54,13 +54,13 @@ public class CommandFactory {
                 new Class<?>[]{Integer.class, String.class}, new Object[]{
                 gameId, username});
     }
-    public GenericCommand DrawDestinationTicekts(Player player, int gameId){
-        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawDestinationCards",
-                new Class<?>[]{Player.class, Integer.class}, new Object[]{player,
+    public GenericCommand DrawDestinationTickets(String playerName, int gameId){
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawDestinationTickets",
+                new Class<?>[]{String.class, Integer.class}, new Object[]{playerName,
                 gameId});
     }
     public GenericCommand SelectDestinationTicekts(Player player, int gameId, List<DestinationCard> selectedCards, List<DestinationCard> discardedCards) {
-        return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationCards",
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationTickets",
                 new Class<?>[]{Player.class, Integer.class, List.class, List.class}, new Object[]{player, gameId, selectedCards, discardedCards});
     }
 }

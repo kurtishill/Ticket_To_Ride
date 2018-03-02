@@ -145,7 +145,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             }
         });
         //mDeckSize = (TextView) v.findViewById(R.id.destination_deck_size);
-        mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
+        //mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
 
         mChooseButton = (Button) v.findViewById(R.id.choose_button);
         mChooseButton.setOnClickListener(new View.OnClickListener() {

@@ -53,10 +53,10 @@ public class ServerFacade {
         return login.Login(username, password);
     }
 
-    public DrawDestinationTicketsResult DrawDestinationTickets(Player player, int gameId){
+    public DrawDestinationTicketsResult DrawDestinationTickets(String player, Integer gameId){
         return drawDestinationTickets.draw(player, gameId);
     }
-    public SelectDestinationTicketsResult SelectDestinationTickets(Player player, int gameId, List<DestinationCard> selectedRoutes, List<DestinationCard> discardedRoutes){
+    public SelectDestinationTicketsResult SelectDestinationTickets(Player player, Integer gameId, List<DestinationCard> selectedRoutes, List<DestinationCard> discardedRoutes){
         return selectDestinationTickets.select(player, gameId, selectedRoutes, discardedRoutes);
     }
     public ChatResult UpdateChat(ChatMessage message, Integer gameId){

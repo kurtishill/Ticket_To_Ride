@@ -58,7 +58,7 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     public Result drawThreeCards(){
         //draws the three cards for the user to pick from
         List<Object> data = new ArrayList<>();
-        data.add(ClientModelRoot.instance().getUser());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         return ServerProxy.getInstance()
                 .command("DrawDestinationTickets", data, null);
