@@ -100,7 +100,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteOne.getText().toString()))
                     mRouteOne.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteOne.setBackgroundColor(0);
@@ -112,6 +112,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mRouteTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //select indicates if you can or can't press the select button
                 boolean select = mDestinationPickerPresenter.routeSelected(mRouteTwo.getText().toString());
                 if (!select) {
                     mChooseButton.setEnabled(false);
@@ -119,7 +120,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteTwo.getText().toString()))
                     mRouteTwo.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteTwo.setBackgroundColor(0);
@@ -138,7 +139,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteThree.getText().toString()))
                     mRouteThree.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteThree.setBackgroundColor(0);

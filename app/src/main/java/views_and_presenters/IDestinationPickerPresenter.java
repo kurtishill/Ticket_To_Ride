@@ -23,6 +23,7 @@ public interface IDestinationPickerPresenter {
     void postExecuteDrawCards();
     void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards);
     void setAllRoutes(List<DestinationCard> allRoutes);
-
+    boolean canChoose();
+    boolean isRouteAlreadySelected(String route);
     boolean getRouteSelectionChange();
 }

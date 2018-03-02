@@ -20,18 +20,19 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     private ArrayList<DestinationCard> mSelectedRoutes;
     private ArrayList<DestinationCard> mDiscardedRoutes;
     private boolean mChange;
+    private int numRoutesSelected;
 
     public DestinationPickerPresenter(ArrayList<DestinationCard> routes) {
         mSelectedRoutes = routes;
         mSelectedRoutes = new ArrayList();
         mDiscardedRoutes = new ArrayList();
-
+        numRoutesSelected=0;
     }
     public DestinationPickerPresenter() {
         mSelectedRoutes = new ArrayList();
         mSelectedRoutes = new ArrayList();
         mDiscardedRoutes = new ArrayList();
-
+        numRoutesSelected=0;
     }
 
     public boolean routeSelected(String selectedRoute) {
@@ -40,17 +41,19 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
                 if (mSelectedRoutes.contains(mAllRoutes.get(i)))
                     mSelectedRoutes.remove(mAllRoutes.get(i));
-                mChange = false;
-                if (mSelectedRoutes.size() < 1)
+                else {
+                    mChange = true;
+                    mSelectedRoutes.add(mAllRoutes.get(i));
+
+                }
+                mChange = true;
+
+                if (mSelectedRoutes.size() < 2)
                     return false;
                 else
                     return true;
             }
-            else {
-                mChange = true;
-                mSelectedRoutes.add(mAllRoutes.get(i));
-                return true;
-            }
+
         }
 
         return false;
@@ -71,7 +74,19 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     public void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards){
         //SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
     }
+    public boolean canChoose(){
+        if(numRoutesSelected>1)
+            return true;
+        return false;
 
+    }
+    public boolean isRouteAlreadySelected(String route){
+        for(int i=0; i<mSelectedRoutes.size(); i++){
+            if(mSelectedRoutes.get(i).toString().equals(route))
+                return true;
+        }
+        return false;
+    }
     public void setAllRoutes(List<DestinationCard> allRoutes){ mAllRoutes = allRoutes;}
 
     public ArrayList<DestinationCard> getSelectedRoutes() {
@@ -96,8 +111,9 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
                 mDiscardedRoutes.add(mAllRoutes.get(i));
         }
     }
-
+    public int getNumRoutesSelected(){return numRoutesSelected;}
     public boolean getRouteSelectionChange() {
         return mChange;
     }
 }
+
