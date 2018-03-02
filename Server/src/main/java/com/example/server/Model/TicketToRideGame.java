@@ -116,7 +116,14 @@ public class TicketToRideGame {
     public void addPlayer(Player player)
     {
         if(players.size() < 5)
+        {
+            for(int i = 0; i < 4; i++)
+            {
+                player.addTrainCard(deckTrainCards.get(0));
+                removeTrainCard(deckTrainCards.get(0));
+            }
             players.add(player);
+        }
     }
 
     public List<GameHistory> getGameHistoryList() {

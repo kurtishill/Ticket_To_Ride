@@ -17,4 +17,6 @@ public interface IGameView {
     void gameStarted(final String toast);
 
     void displayPlayerTurn();
+
+    void onStartUp();
 }

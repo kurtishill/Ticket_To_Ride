@@ -152,13 +152,13 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         if (getIntent() != null ) {
             mGameStatus = getIntent().getStringExtra(GAME_START_STATUS);
             boolean gameStarted = mGamePresenter.didGameStart();
-            if (mGamePresenter.getGame().getRound() == 0) {
-                toggleButtons(false);
-                FragmentManager fm = getSupportFragmentManager();
-                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
-                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
-                        .addToBackStack(null).commit();
-            }
+//            if (mGamePresenter.getGame().getRound() == 0) {
+//                toggleButtons(false);
+//                FragmentManager fm = getSupportFragmentManager();
+//                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+//                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
+//                        .addToBackStack(null).commit();
+//            }
             if (gameStarted)
                 toggleButtons(true);
         }
@@ -186,6 +186,15 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 toggleButtons(true);
             }
         });
+    }
+
+    public void onStartUp()
+    {
+        toggleButtons(false);
+        FragmentManager fm = getSupportFragmentManager();
+        mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+        fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
+                .addToBackStack(null).commit();
     }
 
     public void toggleButtons(boolean toggle) {
