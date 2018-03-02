@@ -93,6 +93,11 @@ public class ClientModelRoot extends Observable {
 
     public void setCurrGame(TicketToRideGame currGame) {
         mCurrGame = currGame;
+        for (int i = 0; i < mGamesList.size(); i++) {
+            if (mCurrGame.getGameID() == mGamesList.get(i).getGameID()) {
+                mGamesList.set(i, mCurrGame);
+            }
+        }
     }
 
     public void addUserToCurrGame() {

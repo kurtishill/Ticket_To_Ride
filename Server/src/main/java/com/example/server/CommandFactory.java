@@ -3,6 +3,7 @@ package com.example.server;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Model.TrainCard;
 import com.example.server.Results.GenericCommand;
 
 import java.util.ArrayList;
@@ -63,5 +64,11 @@ public class CommandFactory {
     public GenericCommand SelectDestinationTickets(String playerName, int gameId, ArrayList<DestinationCard> selectedCards, ArrayList<DestinationCard> discardedCards) {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationTickets",
                 new Class<?>[]{String.class, Integer.class, ArrayList.class, ArrayList.class}, new Object[]{playerName, gameId, selectedCards, discardedCards});
+    }
+    public GenericCommand DrawTwoCardsFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
+                                               Integer gameId, String authToken) {
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawFromBank",
+                new Class<?>[]{ArrayList.class, ArrayList.class, ArrayList.class, Integer.class, String.class}, new Object[]{selectedCards,
+                faceUpCards, trainCardDeck, gameId, authToken});
     }
 }

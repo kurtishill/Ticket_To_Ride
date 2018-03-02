@@ -5,6 +5,7 @@ import com.example.server.Model.ChatMessage;
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Model.TrainCard;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
@@ -137,6 +138,38 @@ public class CommandHandler implements HttpHandler {
                         command = CommandFactory.instance().SelectDestinationTickets(
                                 (String) commandValues.get(1), d.intValue(), reconstructedSelectedCards, reconstructedDiscardedCards);
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
+                    }
+                    else if (commandValues.get(0).equals("DrawTwoCardsFromBank")) {
+                        Double gameId = (Double) commandValues.get(4);
+                        ArrayList<Object> selectedCards = (ArrayList) commandValues.get(1);
+                        ArrayList<Object> faceUpCards = (ArrayList) commandValues.get(2);
+                        ArrayList<Object> trainCardDeck = (ArrayList) commandValues.get(3);
+
+                        ArrayList<TrainCard> reconstructedSelectedCards = new ArrayList<>();
+                        ArrayList<TrainCard> reconstructedFaceUpCards = new ArrayList<>();
+                        ArrayList<TrainCard> reconstructedTrainCardDeck = new ArrayList<>();
+
+                        // this is really ugly, but I think necessary because of how Gson treats generic types (e.g. ArrayList)
+                        for (int i = 0; i < selectedCards.size(); i++) {
+                            LinkedTreeMap<String, String> selectedCard = (LinkedTreeMap) selectedCards.get(i);
+                            TrainCard card = new TrainCard(selectedCard.get("color"));
+                            reconstructedSelectedCards.add(card);
+                        }
+                        for (int i = 0; i < faceUpCards.size(); i++) {
+                            LinkedTreeMap<String, String> faceUpCard = (LinkedTreeMap) faceUpCards.get(i);
+                            TrainCard card = new TrainCard(faceUpCard.get("color"));
+                            reconstructedFaceUpCards.add(card);
+                        }
+                        for (int i = 0; i < trainCardDeck.size(); i++) {
+                            LinkedTreeMap<String, String> deckCard = (LinkedTreeMap) trainCardDeck.get(i);
+                            TrainCard card = new TrainCard(deckCard.get("color"));
+                            reconstructedTrainCardDeck.add(card);
+                        }
+
+                        command = CommandFactory.instance().DrawTwoCardsFromBank(reconstructedSelectedCards,
+                                reconstructedFaceUpCards, reconstructedTrainCardDeck, gameId.intValue(), authToken);
+
+                        ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

@@ -42,6 +42,14 @@ public class ModelRoot {
         listGames.add(game);
     }
 
+    public void updateGame(int gameId, TicketToRideGame game) {
+        allGames.put(gameId, game);
+        for (int i = 0; i < listGames.size(); i++) {
+            if (gameId == listGames.get(i).getGameID())
+                listGames.set(i , game);
+        }
+    }
+
     public void allPlayer(String authToken, Player player) {
         allPlayers.put(authToken, player);
     }

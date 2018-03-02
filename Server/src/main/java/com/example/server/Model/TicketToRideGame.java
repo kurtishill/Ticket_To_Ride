@@ -21,6 +21,7 @@ public class TicketToRideGame {
     private List<DestinationCard> deckDestinationCards;
     private List<TrainCard> faceUpCards;
     private List<Route> availableRoutes;
+    private List<GameHistory> gameHistoryList;
     private int turn;
 
     public TicketToRideGame() {
@@ -35,6 +36,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
         turn = 0;
         onStartUp();
     }
@@ -50,6 +52,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
         turn = 0;
         onStartUp();
     }
@@ -63,6 +66,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
         turn = 0;
         onStartUp();
     }
@@ -83,6 +87,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
         turn = 0;
         onStartUp();
     }
@@ -108,6 +113,18 @@ public class TicketToRideGame {
     {
         if(players.size() < 5)
             players.add(player);
+    }
+
+    public List<GameHistory> getGameHistoryList() {
+        return gameHistoryList;
+    }
+
+    public void addGameHistoryList(GameHistory event) {
+        gameHistoryList.add(event);
+    }
+
+    public void setGameHistoryList(List<GameHistory> events) {
+        gameHistoryList = events;
     }
 
     public String getName() {
@@ -229,6 +246,14 @@ public class TicketToRideGame {
         }
     }
 
+    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
+
+    public void setDeckTrainCards(List<TrainCard> deckTrainCards) {
+        this.deckTrainCards = deckTrainCards;
+    }
+
     public void shuffleTrainCards()
     {
         Collections.shuffle(deckTrainCards);
@@ -237,6 +262,12 @@ public class TicketToRideGame {
     public void shuffleDestinationCards()
     {
         Collections.shuffle(deckDestinationCards);
+    }
+
+    public void changeTurn() {
+        turn++;
+        if (turn == players.size())
+            turn = 0;
     }
 
     //hard coding in the cities and routes and cards
@@ -467,6 +498,7 @@ public class TicketToRideGame {
         availableRoutes.add(omahaDenver);
         availableRoutes.add(omahaHelena);
         availableRoutes.add(duluthWinnipeg);
+        availableRoutes.add(duluthHelena);
         availableRoutes.add(oklahomaCityDenver);
         availableRoutes.add(oklahomaCitySantaFe);
         availableRoutes.add(elPasoSantaFe);
@@ -558,6 +590,9 @@ public class TicketToRideGame {
             deckTrainCards.add(new TrainCard("wild"));
         }
 
+        // added by Kurt
+        shuffleTrainCards();
+        shuffleDestinationCards();
     }
 
 

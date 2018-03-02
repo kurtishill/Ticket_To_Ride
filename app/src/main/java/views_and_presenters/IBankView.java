@@ -6,4 +6,6 @@ package views_and_presenters;
 
 public interface IBankView {
 
+    void displayToast(String toast);
+
 }

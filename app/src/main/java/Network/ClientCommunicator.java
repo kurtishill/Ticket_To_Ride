@@ -3,6 +3,7 @@ package Network;
 import com.example.server.Results.ChatResult;
 import com.example.server.Results.CreateGameResult;
 import com.example.server.Results.DrawDestinationTicketsResult;
+import com.example.server.Results.DrawFromBankResult;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
@@ -27,13 +28,12 @@ public class ClientCommunicator {
     private static ClientCommunicator _instance;
 
     public static ClientCommunicator instance() {
-        if (_instance == null)
+        if (_instance == null)            
             _instance = new ClientCommunicator();
         return _instance;
     }
 
     private ClientCommunicator() {}
-
 
 
     public Result send(String handlerContext, List<Object> data, String authToken)
@@ -86,6 +86,8 @@ public class ClientCommunicator {
                 return (Result) Serializer.decode(resp, DrawDestinationTicketsResult.class);
             else if (resp.contains("SelectDestinationTicketsResult"))
                 return (Result) Serializer.decode(resp, SelectDestinationTicketsResult.class);
+            else if (resp.contains("DrawFromBankResult"))
+                return (Result) Serializer.decode(resp, DrawFromBankResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();
