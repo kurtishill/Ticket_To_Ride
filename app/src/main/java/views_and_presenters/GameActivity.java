@@ -191,6 +191,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 lp.setMargins(10, 0, 10, 10);
 
                 List<Player> players = mGamePresenter.getGame().getPlayers();
+
                 // there are already two children in mPlayerTurnsLayout
                 for (int i = mPlayerTurnsLayout.getChildCount() - 2; i < players.size(); i++) {
                     TextView playerView = new TextView(GameActivity.this);

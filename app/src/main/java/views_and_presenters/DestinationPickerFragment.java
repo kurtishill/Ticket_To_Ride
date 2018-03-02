@@ -163,6 +163,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
+
     private class DrawDestinationTicketsAsyncTask extends AsyncTask<Void, Void, Result> {
         @Override
         protected Result doInBackground(Void... v) {

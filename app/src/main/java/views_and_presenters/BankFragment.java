@@ -1,13 +1,16 @@
 package views_and_presenters;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.TrainCard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +38,8 @@ public class BankFragment extends Fragment implements IBankView {
             mFaceUpCardFive,
             mTrainCarCardDeck;
 
+    private OnCloseFragmentListener mListener;
+
     public BankFragment() {
         // Required empty public constructor
     }
@@ -58,6 +63,17 @@ public class BankFragment extends Fragment implements IBankView {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mListener = (OnCloseFragmentListener) context;
+        } catch (ClassCastException ex) {
+            throw new ClassCastException(context.toString() + " must implement OnCloseFragmentListener");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,16 +92,87 @@ public class BankFragment extends Fragment implements IBankView {
         mBankPresenter = new BankPresenter(this);
 
         mFaceUpCardOne = (CardView) v.findViewById(R.id.face_up_card_1);
-        //mFaceUpCardOne.setBackgroundResource(R.drawable.black_card);
+        mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(0).getColor()));
+        mFaceUpCardOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
+                mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
+                        .get(newCard.getColor()));
+            }
+        });
 
         mFaceUpCardTwo = (CardView) v.findViewById(R.id.face_up_card_2);
-        mFaceUpCardThree = (CardView) v.findViewById(R.id.face_up_card_3);
-        mFaceUpCardFour = (CardView) v.findViewById(R.id.face_up_card_4);
-        mFaceUpCardFive = (CardView) v.findViewById(R.id.face_up_card_5);
+        mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(1).getColor()));
+        mFaceUpCardTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
+                mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
+                        .get(newCard.getColor()));
+            }
+        });
 
-        mTrainCarCardDeck = (CardView) v.findViewById(R.id.train_car_card_deck);
+        mFaceUpCardThree = (CardView) v.findViewById(R.id.face_up_card_3);
+        mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(2).getColor()));
+        mFaceUpCardThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
+                mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
+                        .get(newCard.getColor()));
+            }
+        });
+
+        mFaceUpCardFour = (CardView) v.findViewById(R.id.face_up_card_4);
+        mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(3).getColor()));
+        mFaceUpCardFour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
+                mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
+                        .get(newCard.getColor()));
+            }
+        });
+
+        mFaceUpCardFive = (CardView) v.findViewById(R.id.face_up_card_5);
+        mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(4).getColor()));
+        mFaceUpCardFive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
+                mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
+                        .get(newCard.getColor()));
+            }
+        });
+
+        mTrainCarCardDeck = (CardView ) v.findViewById(R.id.train_car_card_deck);
         mTrainCarCardDeck.setBackgroundResource(R.drawable.train_car_card_deck);
+        mTrainCarCardDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBankPresenter.deckCardSelected();
+            }
+        });
 
         return v;
+    }
+
+    public void displayToast(final String toast) {
+        Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
+    }
+
+    public void close() {
+        mListener.onClose();
+        closeFragment();
+    }
+
+    private void closeFragment() {
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 }

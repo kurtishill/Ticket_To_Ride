@@ -34,8 +34,22 @@ public class GamePresenter implements IGamePresenter, Observer {
                     checkGame.getPlayers().size() < mGame.getPlayers().size()) {
                 didGameStart();
             }
+
             // stuff for the game to be updated with
             mGameView.displayPlayerTurn();
+
+            int indexOfUser = 0;
+            for (int i = 0; i < mGame.getPlayers().size(); i++) {
+                if (mGame.getPlayers().get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())) {
+                    indexOfUser = i;
+                    break;
+                }
+            }
+            if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser) {
+                mGameView.toggleButtons(false);
+            }
+            else
+                mGameView.toggleButtons(true);
         }
     }
 
