@@ -32,7 +32,7 @@ public class SelectDestinationTicketsService {
         for(int i=0; i<discardedRoutes.size(); i++){
             game.getDeckDestinationCards().add(discardedRoutes.get(i));
         }
-        return new SelectDestinationTicketsResult(true, null, null, null, selectedRoutes, discardedRoutes);
+        return new SelectDestinationTicketsResult(true, null, null, null, game);
         //todo surround in try catch in case of bad result somehow?
     }
 

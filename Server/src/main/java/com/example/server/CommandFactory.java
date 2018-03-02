@@ -60,7 +60,7 @@ public class CommandFactory {
                 new Class<?>[]{String.class, Integer.class}, new Object[]{playerName,
                 gameId});
     }
-    public GenericCommand SelectDestinationTicekts(String playerName, int gameId, ArrayList<DestinationCard> selectedCards, ArrayList<DestinationCard> discardedCards) {
+    public GenericCommand SelectDestinationTickets(String playerName, int gameId, ArrayList<DestinationCard> selectedCards, ArrayList<DestinationCard> discardedCards) {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationTickets",
                 new Class<?>[]{String.class, Integer.class, ArrayList.class, ArrayList.class}, new Object[]{playerName, gameId, selectedCards, discardedCards});
     }

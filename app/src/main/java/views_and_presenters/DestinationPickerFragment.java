@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
@@ -199,10 +200,13 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 displayErrorMessage(result.getErrorMessage());
             }
             else {
-                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
-                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
-                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
-                //mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
+                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult)result;
+                TicketToRideGame game = selectResult.getGame();
+                mDestinationPickerPresenter.updateGame(game);
+//                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
+//                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
+//                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
+//                //mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
 
             }
         }

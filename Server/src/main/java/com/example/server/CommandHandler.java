@@ -134,9 +134,9 @@ public class CommandHandler implements HttpHandler {
 
 
                         //FIXME idk what to do here so it creates a command correctly
-                        command = CommandFactory.instance().SelectDestinationTicekts(
+                        command = CommandFactory.instance().SelectDestinationTickets(
                                 (String) commandValues.get(1), d.intValue(), reconstructedSelectedCards, reconstructedDiscardedCards);
-                        ClientCommandManager.instance().addGameCommand(d.intValue(), "SelectDestinationTickets");
+                        ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

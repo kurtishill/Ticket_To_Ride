@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import gui_facade.AddUserService;
 import gui_facade.DrawDestinationTicketsService;
 import gui_facade.SelectDestinationTicketsService;
 
@@ -92,6 +94,22 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     public ArrayList<DestinationCard> getSelectedRoutes() {
         return mSelectedRoutes;
     }
+
+    public void updateGame(TicketToRideGame game){
+        List<TicketToRideGame> games = ClientModelRoot.instance().getGamesList();
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameID() == game.getGameID())
+                games.set(i, game);
+        }
+
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            if (ClientModelRoot.instance().getUser().getUsername().equals(game.getPlayers().get(i).getUsername()))
+                AddUserService.addUser(game.getPlayers().get(i));
+        }
+
+        ClientModelRoot.instance().setGames(games);
+    }
+
 
     public Result onClickRoutesChosen() {
         // do something with the routes chosen by the player
