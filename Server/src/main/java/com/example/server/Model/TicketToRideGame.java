@@ -45,7 +45,7 @@ public class TicketToRideGame {
 
     public TicketToRideGame(Player player) {
         players = new ArrayList<>();
-        players.add(player);
+        addPlayer(player);
         name = null;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
@@ -80,7 +80,7 @@ public class TicketToRideGame {
                             int gameID,
                             int maxNumPlayers) {
         players = new ArrayList<>();
-        players.add(player);
+        addPlayer(player);
         this.name = name;
         this.gameID = gameID;
         this.maxNumPlayers = maxNumPlayers;
