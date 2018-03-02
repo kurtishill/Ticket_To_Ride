@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import gui_facade.AddUserService;
 import gui_facade.DrawDestinationTicketsService;
 import gui_facade.SelectDestinationTicketsService;
 
@@ -20,18 +22,19 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     private ArrayList<DestinationCard> mSelectedRoutes;
     private ArrayList<DestinationCard> mDiscardedRoutes;
     private boolean mChange;
+    private int numRoutesSelected;
 
     public DestinationPickerPresenter(ArrayList<DestinationCard> routes) {
         mSelectedRoutes = routes;
         mSelectedRoutes = new ArrayList();
         mDiscardedRoutes = new ArrayList();
-
+        numRoutesSelected=0;
     }
     public DestinationPickerPresenter() {
         mSelectedRoutes = new ArrayList();
         mSelectedRoutes = new ArrayList();
         mDiscardedRoutes = new ArrayList();
-
+        numRoutesSelected=0;
     }
 
     public boolean routeSelected(String selectedRoute) {
@@ -40,17 +43,19 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
                 if (mSelectedRoutes.contains(mAllRoutes.get(i)))
                     mSelectedRoutes.remove(mAllRoutes.get(i));
-                mChange = false;
-                if (mSelectedRoutes.size() < 1)
+                else {
+                    mChange = true;
+                    mSelectedRoutes.add(mAllRoutes.get(i));
+
+                }
+                mChange = true;
+
+                if (mSelectedRoutes.size() < 2)
                     return false;
                 else
                     return true;
             }
-            else {
-                mChange = true;
-                mSelectedRoutes.add(mAllRoutes.get(i));
-                return true;
-            }
+
         }
 
         return false;
@@ -58,7 +63,7 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
     public Result drawThreeCards(){
         //draws the three cards for the user to pick from
         List<Object> data = new ArrayList<>();
-        data.add(ClientModelRoot.instance().getUser());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         return ServerProxy.getInstance()
                 .command("DrawDestinationTickets", data, null);
@@ -66,23 +71,51 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
     }
     public void postExecuteDrawCards(){
-        DrawDestinationTicketsService.drawCards();
+        //DrawDestinationTicketsService.drawCards();
     }
     public void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards){
-        SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
+        //SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
     }
+    public boolean canChoose(){
+        if(numRoutesSelected>1)
+            return true;
+        return false;
 
+    }
+    public boolean isRouteAlreadySelected(String route){
+        for(int i=0; i<mSelectedRoutes.size(); i++){
+            if(mSelectedRoutes.get(i).toString().equals(route))
+                return true;
+        }
+        return false;
+    }
     public void setAllRoutes(List<DestinationCard> allRoutes){ mAllRoutes = allRoutes;}
 
     public ArrayList<DestinationCard> getSelectedRoutes() {
         return mSelectedRoutes;
     }
 
+    public void updateGame(TicketToRideGame game){
+        List<TicketToRideGame> games = ClientModelRoot.instance().getGamesList();
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameID() == game.getGameID())
+                games.set(i, game);
+        }
+
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            if (ClientModelRoot.instance().getUser().getUsername().equals(game.getPlayers().get(i).getUsername()))
+                AddUserService.addUser(game.getPlayers().get(i));
+        }
+
+        ClientModelRoot.instance().setGames(games);
+    }
+
+
     public Result onClickRoutesChosen() {
         // do something with the routes chosen by the player
         determineDiscardedRoutes();
         List<Object> data = new ArrayList<>();
-        data.add(ClientModelRoot.instance().getUser());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         data.add(mSelectedRoutes);
         data.add(mDiscardedRoutes);
@@ -96,8 +129,9 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
                 mDiscardedRoutes.add(mAllRoutes.get(i));
         }
     }
-
+    public int getNumRoutesSelected(){return numRoutesSelected;}
     public boolean getRouteSelectionChange() {
         return mChange;
     }
 }
+

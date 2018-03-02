@@ -15,8 +15,13 @@ import java.util.List;
 
 public class DrawDestinationTicketsService {
 
-    public DrawDestinationTicketsResult draw(Player player, int gameId){
+    public DrawDestinationTicketsResult draw(String playerName, int gameId){
         TicketToRideGame game = ModelRoot.instance().getAllGames().get(gameId);
+        Player player;
+        for(int i=0; i<ModelRoot.instance().getAllGames().get(gameId).getPlayers().size(); i++){
+            if(ModelRoot.instance().getAllGames().get(gameId).getPlayers().get(i).getUsername().equals(playerName))
+                player = ModelRoot.instance().getAllGames().get(gameId).getPlayers().get(i);
+        }
         List<DestinationCard> drawnCards = new ArrayList<>();
         for(int i=0; i<3; i++) {
             if(game.getDeckDestinationCards().size()!=0)

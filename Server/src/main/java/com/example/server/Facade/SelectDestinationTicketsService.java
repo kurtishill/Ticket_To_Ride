@@ -6,6 +6,7 @@ import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.SelectDestinationTicketsResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,11 +14,17 @@ import java.util.List;
  */
 
 public class SelectDestinationTicketsService {
-    public SelectDestinationTicketsResult select(Player player, int gameId, List<DestinationCard> selectedRoutes, List<DestinationCard> discardedRoutes){
+    public SelectDestinationTicketsResult select(String player, Integer gameId, ArrayList<DestinationCard> selectedRoutes, ArrayList<DestinationCard> discardedRoutes){
         //add selected cards to player object
         TicketToRideGame game = ModelRoot.instance().getAllGames().get(gameId);
-        int playerInt = game.getPlayers().indexOf(player);
-        Player modelPlayer = game.getPlayers().get(playerInt);
+        Player modelPlayer = new Player();
+        //find the model's player object based on the given username String:player
+        for(int i=0; i<game.getPlayers().size(); i++){
+            if(game.getPlayers().get(i).getUsername().equals(player))
+                modelPlayer=game.getPlayers().get(i);
+        }
+
+
         //give the player the cards he selected
         for(int i=0; i<selectedRoutes.size(); i++)
             modelPlayer.addDestinationCard(selectedRoutes.get(i));
@@ -25,7 +32,7 @@ public class SelectDestinationTicketsService {
         for(int i=0; i<discardedRoutes.size(); i++){
             game.getDeckDestinationCards().add(discardedRoutes.get(i));
         }
-        return new SelectDestinationTicketsResult(true, null, null, null, selectedRoutes, discardedRoutes);
+        return new SelectDestinationTicketsResult(true, null, null, null, game);
         //todo surround in try catch in case of bad result somehow?
     }
 

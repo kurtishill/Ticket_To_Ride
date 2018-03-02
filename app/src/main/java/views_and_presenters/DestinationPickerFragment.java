@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
@@ -100,7 +101,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteOne.getText().toString()))
                     mRouteOne.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteOne.setBackgroundColor(0);
@@ -112,6 +113,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mRouteTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //select indicates if you can or can't press the select button
                 boolean select = mDestinationPickerPresenter.routeSelected(mRouteTwo.getText().toString());
                 if (!select) {
                     mChooseButton.setEnabled(false);
@@ -119,7 +121,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteTwo.getText().toString()))
                     mRouteTwo.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteTwo.setBackgroundColor(0);
@@ -138,14 +140,14 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else
                     mChooseButton.setEnabled(true);
 
-                if (mDestinationPickerPresenter.getRouteSelectionChange())
+                if (mDestinationPickerPresenter.isRouteAlreadySelected(mRouteThree.getText().toString()))
                     mRouteThree.setBackgroundColor(getResources().getColor(R.color.trans_light_blue));
                 else
                     mRouteThree.setBackgroundColor(0);
             }
         });
         //mDeckSize = (TextView) v.findViewById(R.id.destination_deck_size);
-        mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
+        //mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
 
         mChooseButton = (Button) v.findViewById(R.id.choose_button);
         mChooseButton.setOnClickListener(new View.OnClickListener() {
@@ -179,10 +181,25 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 DrawDestinationTicketsResult drawResult = (DrawDestinationTicketsResult) result;
                 List<DestinationCard> destinationCards = drawResult.getDestinationCards();
                 mDestinationPickerPresenter.setAllRoutes(destinationCards);
-                mRouteOne.setText(destinationCards.get(0).toString());
-                mRouteTwo.setText(destinationCards.get(1).toString());
-                mRouteThree.setText(destinationCards.get(2).toString());
-                mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
+                if(destinationCards.size()==3) {
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText(destinationCards.get(1).toString());
+                    mRouteThree.setText(destinationCards.get(2).toString());
+                }
+                else if(destinationCards.size()==2){
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText(destinationCards.get(1).toString());
+                    mRouteThree.setText("");
+                }
+                else if(destinationCards.size()==1){
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText("");
+                    mRouteThree.setText("");
+                }
+                else{
+                    closeFragment();
+                }
+                //mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
 
             }
         }
@@ -199,10 +216,13 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 displayErrorMessage(result.getErrorMessage());
             }
             else {
-                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
-                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
-                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
-                mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
+                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult)result;
+                TicketToRideGame game = selectResult.getGame();
+                mDestinationPickerPresenter.updateGame(game);
+//                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
+//                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
+//                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
+//                //mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
 
             }
         }

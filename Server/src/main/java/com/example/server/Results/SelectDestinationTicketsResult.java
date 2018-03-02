@@ -1,6 +1,7 @@
 package com.example.server.Results;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.TicketToRideGame;
 
 import java.util.List;
 
@@ -11,15 +12,12 @@ import sun.security.krb5.internal.crypto.Des;
  */
 
 public class SelectDestinationTicketsResult extends Result {
-    private List<DestinationCard> selectedDestinationCards;
-    private List<DestinationCard> discardedDestinationCards;
+   private TicketToRideGame game;
 
     public SelectDestinationTicketsResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands,
-                                        String errorType, List<DestinationCard> selectedCards, List<DestinationCard> discardedCards) {
+                                        String errorType, TicketToRideGame game) {
         super(isSuccess, errorMessage, clientCommands, errorType, "SelectDestinationTicketsResult");
-        selectedDestinationCards = selectedCards;
-        discardedDestinationCards = discardedCards;
+        this.game=game;
     }
-    public List<DestinationCard> getSelectedDestinationCards(){return selectedDestinationCards;}
-    public List<DestinationCard> getDiscardedDestinationCards(){return discardedDestinationCards;}
+    public TicketToRideGame getGame(){return game;}
 }

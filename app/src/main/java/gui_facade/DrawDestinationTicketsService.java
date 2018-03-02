@@ -8,7 +8,7 @@ import client_model.ClientModelRoot;
 
 public class DrawDestinationTicketsService {
 
-    public static void drawCards(){
+    public void drawCards(){
         for(int i=0; i<3; i++) {
             if (ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size() != 0)
                 ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().remove(0);
