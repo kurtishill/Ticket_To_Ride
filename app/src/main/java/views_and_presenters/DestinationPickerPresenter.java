@@ -97,7 +97,7 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
         // do something with the routes chosen by the player
         determineDiscardedRoutes();
         List<Object> data = new ArrayList<>();
-        data.add(ClientModelRoot.instance().getUser());
+        data.add(ClientModelRoot.instance().getUser().getUsername());
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         data.add(mSelectedRoutes);
         data.add(mDiscardedRoutes);

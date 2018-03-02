@@ -88,11 +88,11 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("SelectDestinationTickets")){
                         Double d = (Double) commandValues.get(2); //gameid
-                        List<DestinationCard> selectedCards = (ArrayList) commandValues.get(3);
-                        List<DestinationCard> discardedCards =(ArrayList) commandValues.get(4);
+                        ArrayList<DestinationCard> selectedCards = (ArrayList<DestinationCard>) commandValues.get(3);
+                        ArrayList<DestinationCard> discardedCards =(ArrayList<DestinationCard>) commandValues.get(4);
                         //FIXME idk what to do here so it creates a command correctly
                         command = CommandFactory.instance().SelectDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue(), selectedCards, discardedCards);
+                                (String) commandValues.get(1), d.intValue(), selectedCards, discardedCards);
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "SelectDestinationTickets");
                     }
                     else {

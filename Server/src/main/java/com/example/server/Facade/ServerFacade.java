@@ -12,6 +12,7 @@ import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.SelectDestinationTicketsResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,8 +57,8 @@ public class ServerFacade {
     public DrawDestinationTicketsResult DrawDestinationTickets(String player, Integer gameId){
         return drawDestinationTickets.draw(player, gameId);
     }
-    public SelectDestinationTicketsResult SelectDestinationTickets(Player player, Integer gameId, List<DestinationCard> selectedRoutes, List<DestinationCard> discardedRoutes){
-        return selectDestinationTickets.select(player, gameId, selectedRoutes, discardedRoutes);
+    public SelectDestinationTicketsResult SelectDestinationTickets(String playerName, Integer gameId, ArrayList<DestinationCard> selectedRoutes, ArrayList<DestinationCard> discardedRoutes){
+        return selectDestinationTickets.select(playerName, gameId, selectedRoutes, discardedRoutes);
     }
     public ChatResult UpdateChat(ChatMessage message, Integer gameId){
         return chatService.updateChat(message, gameId);

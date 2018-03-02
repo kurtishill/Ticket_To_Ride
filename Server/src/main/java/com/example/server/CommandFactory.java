@@ -5,6 +5,7 @@ import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
 import com.example.server.Results.GenericCommand;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,8 +60,8 @@ public class CommandFactory {
                 new Class<?>[]{String.class, Integer.class}, new Object[]{playerName,
                 gameId});
     }
-    public GenericCommand SelectDestinationTicekts(Player player, int gameId, List<DestinationCard> selectedCards, List<DestinationCard> discardedCards) {
+    public GenericCommand SelectDestinationTicekts(String playerName, int gameId, ArrayList<DestinationCard> selectedCards, ArrayList<DestinationCard> discardedCards) {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationTickets",
-                new Class<?>[]{Player.class, Integer.class, List.class, List.class}, new Object[]{player, gameId, selectedCards, discardedCards});
+                new Class<?>[]{String.class, Integer.class, ArrayList.class, ArrayList.class}, new Object[]{playerName, gameId, selectedCards, discardedCards});
     }
 }
