@@ -181,7 +181,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 mRouteOne.setText(destinationCards.get(0).toString());
                 mRouteTwo.setText(destinationCards.get(1).toString());
                 mRouteThree.setText(destinationCards.get(2).toString());
-                mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
+                //mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
 
             }
         }
@@ -201,7 +201,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
                 List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
                 List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
-                mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
+                //mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
 
             }
         }

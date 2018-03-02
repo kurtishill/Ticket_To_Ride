@@ -23,7 +23,9 @@ import java.util.List;
  */
 public class CommandHandler implements HttpHandler {
 
-    @Override
+    @Override​
+90
+
     public void handle(HttpExchange exchange) throws IOException {
         boolean success = false;
 
@@ -84,8 +86,8 @@ public class CommandHandler implements HttpHandler {
                         Double d = (Double) commandValues.get(2);
                         //THESE VALUES MIGHT BE WRONG
                         command = CommandFactory.instance().DrawDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue()); //fixme an error was thrown
-                        ClientCommandManager.instance().addCommand(authToken, "DrawDestinationTickets");
+                                (Player) commandValues.get(1), d.intValue());
+                        ClientCommandManager.instance().addGameCommand(d.intValue(), "DrawDestinationTickets");
                     }
                     else if (commandValues.get(0).equals("SelectDestinationTickets")){
                         Double d = (Double) commandValues.get(2);
@@ -94,7 +96,7 @@ public class CommandHandler implements HttpHandler {
                         //FIXME idk what to do here so it creates a command correctly
                         command = CommandFactory.instance().SelectDestinationTicekts(
                                 (Player) commandValues.get(1), d.intValue(), selectedCards, discardedCards);
-                        ClientCommandManager.instance().addCommand(authToken, "SelectDestinationTickets");
+                        ClientCommandManager.instance().addGameCommand(d.intValue(), "SelectDestinationTickets");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

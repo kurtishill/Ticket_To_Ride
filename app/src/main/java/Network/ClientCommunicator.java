@@ -8,6 +8,7 @@ import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
+import com.example.server.Results.SelectDestinationTicketsResult;
 import com.example.server.Serializer;
 
 import java.io.IOException;
@@ -83,6 +84,8 @@ public class ClientCommunicator {
                 return (Result)Serializer.decode(resp, ChatResult.class);
             else if (resp.contains("DrawDestinationTicketsResult"))
                 return (Result) Serializer.decode(resp, DrawDestinationTicketsResult.class);
+            else if (resp.contains("SelectDestinationTicketsResult"))
+                return (Result) Serializer.decode(resp, SelectDestinationTicketsResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();
