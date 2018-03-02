@@ -116,7 +116,7 @@ public class CommandHandler implements HttpHandler {
                             reconstructedSelectedCards.add(card);
                         }
                         for (int i = 0; i < discardedCards.size(); i++) {
-                            LinkedTreeMap discardedCard = (LinkedTreeMap) selectedCards.get(i);
+                            LinkedTreeMap discardedCard = (LinkedTreeMap) discardedCards.get(i);
                             //get city 1 and city 2
                             LinkedTreeMap city1Map = (LinkedTreeMap) discardedCard.get("city1");
                             LinkedTreeMap city2Map = (LinkedTreeMap) discardedCard.get("city2");
