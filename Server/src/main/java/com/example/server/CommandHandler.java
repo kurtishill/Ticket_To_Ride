@@ -2,8 +2,10 @@ package com.example.server;
 
 
 import com.example.server.Model.ChatMessage;
+import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
 import com.google.gson.internal.LinkedTreeMap;
@@ -17,6 +19,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
+import sun.security.krb5.internal.crypto.Des;
 
 /**
  * Created by ckingsbu on 1/29/18.
@@ -80,20 +84,59 @@ public class CommandHandler implements HttpHandler {
                         command = CommandFactory.instance().GetChat(d.intValue(), username);
                     }
                     else if (commandValues.get(0).equals("DrawDestinationTickets")){
-                        Double d = (Double) commandValues.get(2);
+                        Double d = (Double) commandValues.get(2); //gameID
                         //THESE VALUES MIGHT BE WRONG
-                        command = CommandFactory.instance().DrawDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue());
+                        command = CommandFactory.instance().DrawDestinationTickets(
+                                (String) commandValues.get(1), d.intValue());
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "DrawDestinationTickets");
                     }
-                    else if (commandValues.get(0).equals("SelectDestinationTickets")){
-                        Double d = (Double) commandValues.get(2);
-                        List<DestinationCard> selectedCards = (ArrayList) commandValues.get(3);
-                        List<DestinationCard> discardedCards =(ArrayList) commandValues.get(4);
+                    else if (commandValues.get(0).equals("SelectDestinationTickets")) {
+                        Double d = (Double) commandValues.get(2); //gameid
+                        ArrayList<Object> selectedCards = (ArrayList) commandValues.get(3);
+                        ArrayList<Object> discardedCards = (ArrayList) commandValues.get(4);
+
+                        ArrayList<DestinationCard> reconstructedSelectedCards = new ArrayList<>();
+                        ArrayList<DestinationCard> reconstructedDiscardedCards = new ArrayList<>();
+
+                        for (int i = 0; i < selectedCards.size(); i++) {
+                            LinkedTreeMap selectedCard = (LinkedTreeMap) selectedCards.get(i);
+                            //get city 1 and city 2
+                            LinkedTreeMap city1Map = (LinkedTreeMap) selectedCard.get("city1");
+                            LinkedTreeMap city2Map = (LinkedTreeMap) selectedCard.get("city2");
+                            Double pointValueDouble= (Double) selectedCard.get("pointValue");
+                            int pointValue = pointValueDouble.intValue();
+
+                            City city1 = new City((String) city1Map.get("name"),
+                                    ((Double) city1Map.get("x")).floatValue(),
+                                    ((Double)city1Map.get("y")).floatValue());
+                            City city2 = new City((String) city2Map.get("name"),
+                                    ((Double) city2Map.get("x")).floatValue(),
+                                    ((Double)city2Map.get("y")).floatValue());
+                            DestinationCard card = new DestinationCard(city1, city2, pointValue);
+                            reconstructedSelectedCards.add(card);
+                        }
+                        for (int i = 0; i < discardedCards.size(); i++) {
+                            LinkedTreeMap discardedCard = (LinkedTreeMap) selectedCards.get(i);
+                            //get city 1 and city 2
+                            LinkedTreeMap city1Map = (LinkedTreeMap) discardedCard.get("city1");
+                            LinkedTreeMap city2Map = (LinkedTreeMap) discardedCard.get("city2");
+                            Double pointValueDouble= (Double) discardedCard.get("pointValue");
+                            int pointValue = pointValueDouble.intValue();
+                            City city1 = new City((String) city1Map.get("name"),
+                                    ((Double) city1Map.get("x")).floatValue(),
+                                    ((Double)city1Map.get("y")).floatValue());
+                            City city2 = new City((String) city2Map.get("name"),
+                                    ((Double) city2Map.get("x")).floatValue(),
+                                    ((Double)city2Map.get("y")).floatValue());
+                            DestinationCard card = new DestinationCard(city1, city2, pointValue);
+                            reconstructedDiscardedCards.add(card);
+                        }
+
+
                         //FIXME idk what to do here so it creates a command correctly
-                        command = CommandFactory.instance().SelectDestinationTicekts(
-                                (Player) commandValues.get(1), d.intValue(), selectedCards, discardedCards);
-                        ClientCommandManager.instance().addGameCommand(d.intValue(), "SelectDestinationTickets");
+                        command = CommandFactory.instance().SelectDestinationTickets(
+                                (String) commandValues.get(1), d.intValue(), reconstructedSelectedCards, reconstructedDiscardedCards);
+                        ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);
