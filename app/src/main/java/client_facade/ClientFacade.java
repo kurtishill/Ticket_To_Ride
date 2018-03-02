@@ -1,6 +1,5 @@
 package client_facade;
 
-import com.example.server.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
 import com.example.server.Model.ChatMessage;

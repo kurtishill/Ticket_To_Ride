@@ -66,10 +66,10 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
     }
     public void postExecuteDrawCards(){
-        DrawDestinationTicketsService.drawCards();
+        //DrawDestinationTicketsService.drawCards();
     }
     public void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards){
-        SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
+        //SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
     }
 
     public void setAllRoutes(List<DestinationCard> allRoutes){ mAllRoutes = allRoutes;}
