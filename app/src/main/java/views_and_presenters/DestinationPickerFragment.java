@@ -180,9 +180,24 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 DrawDestinationTicketsResult drawResult = (DrawDestinationTicketsResult) result;
                 List<DestinationCard> destinationCards = drawResult.getDestinationCards();
                 mDestinationPickerPresenter.setAllRoutes(destinationCards);
-                mRouteOne.setText(destinationCards.get(0).toString());
-                mRouteTwo.setText(destinationCards.get(1).toString());
-                mRouteThree.setText(destinationCards.get(2).toString());
+                if(destinationCards.size()==3) {
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText(destinationCards.get(1).toString());
+                    mRouteThree.setText(destinationCards.get(2).toString());
+                }
+                else if(destinationCards.size()==2){
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText(destinationCards.get(1).toString());
+                    mRouteThree.setText("");
+                }
+                else if(destinationCards.size()==1){
+                    mRouteOne.setText(destinationCards.get(0).toString());
+                    mRouteTwo.setText("");
+                    mRouteThree.setText("");
+                }
+                else{
+                    closeFragment();
+                }
                 //mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
 
             }
