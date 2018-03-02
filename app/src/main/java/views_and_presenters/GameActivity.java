@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.GameHistory;
 import com.example.server.Model.Player;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             mPlaceTrainsButton,
             mDrawRoutesButton;
 
-    private MenuItem mTurnMenuItem,
+    private MenuItem mPlayerTurnMenuItem,
             mChatMenuItem,
             mGameHistoryMenuItem,
             mPlayerStatsMenuItem;
@@ -42,37 +43,51 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
     private PlayerStatsFragment mPlayerStatsFragment;
+    private GameHistoryFragment mGameHistoryFragment;
+    private ChatFragment mChatFragment;
 
     // from OnCloseFragmentListener interface
     @Override
     public void onClose() {
         toggleButtons(true);
-
+        toggleMenu(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        mPlayerTurnMenuItem = (MenuItem) menu.findItem(R.id.menu_turn);
+        mChatMenuItem = (MenuItem) menu.findItem(R.id.menu_chat);
+        mGameHistoryMenuItem = (MenuItem) menu.findItem(R.id.menu_history);
+        mPlayerStatsMenuItem = (MenuItem) menu.findItem(R.id.menu_stats);
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentManager fm = getSupportFragmentManager();
         switch(item.getItemId()) {
             case R.id.menu_stats:
                 toggleButtons(false);
+                toggleMenu(false);
                 mPlayerStatsFragment = new PlayerStatsFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
+                fm.beginTransaction().replace(R.id.stats_fragment_container, mPlayerStatsFragment)
                         .addToBackStack(null).commit();
                 return true;
             case R.id.menu_history:
-                //TODO: start fragment
+                toggleButtons(false);
+                toggleMenu(false);
+                mGameHistoryFragment = new GameHistoryFragment();
+                fm.beginTransaction().replace(R.id.game_history_fragment_container, mGameHistoryFragment)
+                        .addToBackStack(null).commit();
                 return true;
             case R.id.menu_chat:
                 toggleButtons(false);
-                ChatFragment mChatFragment = new ChatFragment();
-                FragmentManager fm = getSupportFragmentManager();
+                toggleMenu(false);
+                mChatFragment = new ChatFragment();
                 fm.beginTransaction().replace(R.id.chat_fragment_container, mChatFragment).addToBackStack(null).commit();
                 return true;
             case R.id.menu_turn:
@@ -100,11 +115,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
-        mTurnMenuItem = (MenuItem) findViewById(R.id.menu_turn);
-        mChatMenuItem = (MenuItem) findViewById(R.id.menu_chat);
-        mGameHistoryMenuItem = (MenuItem) findViewById(R.id.menu_history);
-        mPlayerStatsMenuItem = (MenuItem) findViewById(R.id.menu_stats);
-
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +132,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             @Override
             public void onClick(View view) {
                 //toggleButtons(false);
+
             }
         });
 
@@ -156,12 +167,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     }
 
     public void displayToast(final String toast) {
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        });
+        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
     }
 
     public void gameStarted(final String toast) {
@@ -177,9 +183,19 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     }
 
     public void toggleButtons(boolean toggle) {
+        // intercept and check to see if it's the users turn or not
+        if (toggle) {
+            toggle = mGamePresenter.isItUsersTurn();
+        }
         mDrawCardsButton.setEnabled(toggle);
         mPlaceTrainsButton.setEnabled(toggle);
         mDrawRoutesButton.setEnabled(toggle);
+    }
+
+    private void toggleMenu(boolean toggle) {
+        mPlayerStatsMenuItem.setEnabled(toggle);
+        mGameHistoryMenuItem.setEnabled(toggle);
+        mChatMenuItem.setEnabled(toggle);
     }
 
     public void displayPlayerTurn() {
@@ -191,6 +207,13 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 lp.setMargins(10, 0, 10, 10);
 
                 List<Player> players = mGamePresenter.getGame().getPlayers();
+
+                // if there are player textviews already in the layout
+                if (mPlayerTurnsLayout.getChildCount() - 2 > 0) {
+                    for (int i = mPlayerTurnsLayout.getChildCount() - 1; i > 1; i--) {
+                        mPlayerTurnsLayout.removeViewAt(i);
+                    }
+                }
 
                 // there are already two children in mPlayerTurnsLayout
                 for (int i = mPlayerTurnsLayout.getChildCount() - 2; i < players.size(); i++) {

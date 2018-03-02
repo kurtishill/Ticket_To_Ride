@@ -1,6 +1,7 @@
 package views_and_presenters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -10,7 +11,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Model.TrainCard;
+import com.example.server.Results.DrawFromBankResult;
+import com.example.server.Results.Result;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,6 +104,8 @@ public class BankFragment extends Fragment implements IBankView {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
                 mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -112,6 +118,8 @@ public class BankFragment extends Fragment implements IBankView {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
                 mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -124,6 +132,8 @@ public class BankFragment extends Fragment implements IBankView {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
                 mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -136,6 +146,8 @@ public class BankFragment extends Fragment implements IBankView {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
                 mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -148,6 +160,8 @@ public class BankFragment extends Fragment implements IBankView {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
                 mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -157,6 +171,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 mBankPresenter.deckCardSelected();
+                if (mBankPresenter.getSelectedCards().size() == 2)
+                    new selectCardsAsyncTask().execute();
             }
         });
 
@@ -167,12 +183,23 @@ public class BankFragment extends Fragment implements IBankView {
         Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
     }
 
-    public void close() {
-        mListener.onClose();
-        closeFragment();
-    }
-
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
+
+    private class selectCardsAsyncTask extends AsyncTask<Void, Void, Result> {
+        @Override
+        protected Result doInBackground(Void... params) {
+            return mBankPresenter.selectedTwoCards();
+        }
+
+        @Override
+        protected void onPostExecute(Result result) {
+            DrawFromBankResult drawFromBankResult = (DrawFromBankResult) result;
+            TicketToRideGame game = drawFromBankResult.getGame();
+            mBankPresenter.updateGame(game);
+
+            closeFragment();
+        }
     }
 }

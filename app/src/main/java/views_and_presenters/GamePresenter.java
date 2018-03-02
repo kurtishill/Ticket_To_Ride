@@ -38,18 +38,7 @@ public class GamePresenter implements IGamePresenter, Observer {
             // stuff for the game to be updated with
             mGameView.displayPlayerTurn();
 
-            int indexOfUser = 0;
-            for (int i = 0; i < mGame.getPlayers().size(); i++) {
-                if (mGame.getPlayers().get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())) {
-                    indexOfUser = i;
-                    break;
-                }
-            }
-            if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser) {
-                mGameView.toggleButtons(false);
-            }
-            else
-                mGameView.toggleButtons(true);
+            mGameView.toggleButtons(isItUsersTurn());
         }
     }
 
@@ -60,10 +49,26 @@ public class GamePresenter implements IGamePresenter, Observer {
     // for user
     public boolean didGameStart() {
         if (mGame.getMaxNumPlayers() == mGame.getPlayers().size()) {
-            //mGameView.gameStarted("Game " + mGameView.getGameStatus());
-            mGameView.gameStarted("Game started");
+            if (mGameView.getGameStatus() != null)
+                mGameView.gameStarted("Game " + mGameView.getGameStatus());
+            else
+                mGameView.gameStarted("Game started");
             return true;
         }
         return false;
+    }
+
+    public boolean isItUsersTurn() {
+        int indexOfUser = 0;
+        for (int i = 0; i < mGame.getPlayers().size(); i++) {
+            if (mGame.getPlayers().get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())) {
+                indexOfUser = i;
+                break;
+            }
+        }
+        if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser)
+            return false;
+        else
+            return true;
     }
 }

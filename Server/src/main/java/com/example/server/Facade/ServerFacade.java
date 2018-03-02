@@ -3,15 +3,18 @@ package com.example.server.Facade;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Model.TrainCard;
 import com.example.server.Results.ChatResult;
 import com.example.server.Results.CreateGameResult;
 import com.example.server.Results.DrawDestinationTicketsResult;
+import com.example.server.Results.DrawFromBankResult;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.SelectDestinationTicketsResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,6 +30,7 @@ public class ServerFacade {
     private DrawDestinationTicketsService drawDestinationTickets;
     private SelectDestinationTicketsService selectDestinationTickets;
     private ChatService chatService;
+    private DrawFromBankService drawFromBankService;
     public ServerFacade(){
         login = new LoginService();
         register = new RegisterService();
@@ -36,6 +40,7 @@ public class ServerFacade {
         drawDestinationTickets = new DrawDestinationTicketsService();
         selectDestinationTickets = new SelectDestinationTicketsService();
         chatService = new ChatService();
+        drawFromBankService = new DrawFromBankService();
     }
     public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken){
         return createGame.CreateGame(gameName, maxNumPlayers, playerColor, authToken);
@@ -64,5 +69,9 @@ public class ServerFacade {
     }
     public ChatResult GetChat(Integer gameId, String username){
         return chatService.getChat(gameId, username);
+    }
+    public DrawFromBankResult DrawFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
+                                           Integer gameId, String authToken) {
+        return drawFromBankService.draw(selectedCards, faceUpCards, trainCardDeck, gameId, authToken);
     }
 }

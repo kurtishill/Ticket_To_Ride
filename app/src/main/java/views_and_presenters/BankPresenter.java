@@ -3,10 +3,12 @@ package views_and_presenters;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Model.TrainCard;
+import com.example.server.Results.Result;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Network.ServerProxy;
 import client_model.ClientModelRoot;
 import gui_facade.AddUserService;
 
@@ -49,6 +51,10 @@ public class BankPresenter implements IBankPresenter {
         return mFaceUpTrainCards;
     }
 
+    public List<TrainCard> getSelectedCards() {
+        return mSelectedCards;
+    }
+
     public TrainCard faceUpCardSelected(int index) {
         mSelectedCards.add(mFaceUpTrainCards.get(index));
         if (mSelectedCards.size() == 1)
@@ -56,7 +62,7 @@ public class BankPresenter implements IBankPresenter {
         else if (mSelectedCards.size() == 2) {
 
             // I think this is temporary. We want a call to the server to this for us.
-            Player user = ClientModelRoot.instance().getUser();
+            /*Player user = ClientModelRoot.instance().getUser();
             user.addTrainCard(mSelectedCards.get(0));
             user.addTrainCard(mSelectedCards.get(1));
             mSelectedCards.clear();
@@ -66,9 +72,8 @@ public class BankPresenter implements IBankPresenter {
                 if (user.getUsername().equals(game.getPlayers().get(i).getUsername())) {
                     game.getPlayers().set(i, user);
                 }
-            }
-            ClientModelRoot.instance().changeTurn();
-            mBankView.close();
+            }*/
+            //ClientModelRoot.instance().changeTurn();
         }
 
         TrainCard newFaceUpCard = mTrainCardDeck.get(0);
@@ -84,7 +89,7 @@ public class BankPresenter implements IBankPresenter {
         else if (mSelectedCards.size() == 2) {
 
             // I think this is temporary. We want a call to the server to this for us.
-            Player user = ClientModelRoot.instance().getUser();
+            /*Player user = ClientModelRoot.instance().getUser();
             user.addTrainCard(mSelectedCards.get(0));
             user.addTrainCard(mSelectedCards.get(1));
             mSelectedCards.clear();
@@ -94,9 +99,33 @@ public class BankPresenter implements IBankPresenter {
                 if (user.getUsername().equals(game.getPlayers().get(i).getUsername())) {
                     game.getPlayers().set(i, user);
                 }
-            }
-            ClientModelRoot.instance().changeTurn();
-            mBankView.close();
+            }*/
+            //ClientModelRoot.instance().changeTurn();
         }
+    }
+
+    public Result selectedTwoCards() {
+        List<Object> data = new ArrayList<>();
+        data.add(mSelectedCards);
+        data.add(mFaceUpTrainCards);
+        data.add(mTrainCardDeck);
+        data.add(ClientModelRoot.instance().getCurrGame().getGameID());
+        return ServerProxy.getInstance().command("DrawTwoCardsFromBank", data,
+                ClientModelRoot.instance().getAuthToken());
+    }
+
+    public void updateGame(TicketToRideGame game) {
+        List<TicketToRideGame> games = ClientModelRoot.instance().getGamesList();
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameID() == game.getGameID())
+                games.set(i, game);
+        }
+
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            if (ClientModelRoot.instance().getUser().getUsername().equals(game.getPlayers().get(i).getUsername()))
+                AddUserService.addUser(game.getPlayers().get(i));
+        }
+
+        ClientModelRoot.instance().setGames(games);
     }
 }

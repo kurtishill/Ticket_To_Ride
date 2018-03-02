@@ -8,6 +8,4 @@ public interface IBankView {
 
     void displayToast(String toast);
 
-    void close();
-
 }

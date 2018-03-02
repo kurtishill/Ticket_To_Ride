@@ -103,11 +103,4 @@ public class ClientModelRoot extends Observable {
     public void addUserToCurrGame() {
         mCurrGame.getPlayers().add(mUser);
     }
-
-    public void changeTurn() {
-        mCurrGame.changeTurn();
-        setCurrGame(mCurrGame);
-        setChanged();
-        notifyObservers(mGamesList);
-    }
 }

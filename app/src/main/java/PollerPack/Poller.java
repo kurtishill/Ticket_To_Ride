@@ -60,6 +60,8 @@ public class Poller {
         }
     }
 
+    // this also grabs the updated game when a person draws from the bank
+    // so an additional poll for someone drawing from the bank isn't necessary
     private ICommand pollGameList() {
         List<Object> data = new ArrayList<>();
         data.add("GetGameList");

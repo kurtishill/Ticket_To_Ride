@@ -246,6 +246,14 @@ public class TicketToRideGame {
         }
     }
 
+    public void setFaceUpCards(List<TrainCard> faceUpCards) {
+        this.faceUpCards = faceUpCards;
+    }
+
+    public void setDeckTrainCards(List<TrainCard> deckTrainCards) {
+        this.deckTrainCards = deckTrainCards;
+    }
+
     public void shuffleTrainCards()
     {
         Collections.shuffle(deckTrainCards);
