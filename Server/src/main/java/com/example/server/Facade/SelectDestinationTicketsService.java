@@ -17,6 +17,7 @@ public class SelectDestinationTicketsService {
     public SelectDestinationTicketsResult select(String player, Integer gameId, ArrayList<DestinationCard> selectedRoutes, ArrayList<DestinationCard> discardedRoutes){
         //add selected cards to player object
         TicketToRideGame game = ModelRoot.instance().getAllGames().get(gameId);
+
         Player modelPlayer = new Player();
         //find the model's player object based on the given username String:player
         for(int i=0; i<game.getPlayers().size(); i++){
@@ -32,6 +33,7 @@ public class SelectDestinationTicketsService {
         for(int i=0; i<discardedRoutes.size(); i++){
             game.getDeckDestinationCards().add(discardedRoutes.get(i));
         }
+        game.changeTurn();
         return new SelectDestinationTicketsResult(true, null, null, null, game);
         //todo surround in try catch in case of bad result somehow?
     }

@@ -23,6 +23,7 @@ public class TicketToRideGame {
     private List<Route> availableRoutes;
     private List<GameHistory> gameHistoryList;
     private int turn;
+    private int round;
 
     public TicketToRideGame() {
         players = new ArrayList<>();
@@ -38,6 +39,7 @@ public class TicketToRideGame {
         availableRoutes = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
+        round = 0;
         onStartUp();
     }
 
@@ -54,6 +56,7 @@ public class TicketToRideGame {
         availableRoutes = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
+        round = 0;
         onStartUp();
     }
 
@@ -68,6 +71,7 @@ public class TicketToRideGame {
         availableRoutes = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
+        round = 0;
         onStartUp();
     }
 
@@ -266,8 +270,14 @@ public class TicketToRideGame {
 
     public void changeTurn() {
         turn++;
-        if (turn == players.size())
+        if (turn == players.size()) {
             turn = 0;
+            round++;
+        }
+    }
+
+    public int getRound() {
+        return round;
     }
 
     //hard coding in the cities and routes and cards

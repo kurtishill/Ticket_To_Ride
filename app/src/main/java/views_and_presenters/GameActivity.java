@@ -141,9 +141,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             @Override
             public void onClick(View view) {
                 toggleButtons(false);
-//                ArrayList<String> routes = new ArrayList<>();
-//                //TODO: add routes that the player can pick here
-
                 FragmentManager fm = getSupportFragmentManager();
                 mDestinationPickerFragment = DestinationPickerFragment.newInstance();
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
@@ -154,7 +151,14 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
         if (getIntent() != null ) {
             mGameStatus = getIntent().getStringExtra(GAME_START_STATUS);
-            mGamePresenter.didGameStart();
+            boolean gameStarted = mGamePresenter.didGameStart();
+            if (gameStarted && mGamePresenter.getGame().getRound() == 0) {
+                toggleButtons(false);
+                FragmentManager fm = getSupportFragmentManager();
+                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
+                        .addToBackStack(null).commit();
+            }
         }
     }
 
