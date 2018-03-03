@@ -28,6 +28,8 @@ public class Player {
 
     private List<Route> claimedRoutes;
 
+    private String state;
+
     public Player() {
         this.username = null;
         this.password = null;
@@ -38,6 +40,7 @@ public class Player {
         trainCards = new ArrayList<>();
         destinationCards = new ArrayList<>();
         claimedRoutes = new ArrayList<>();
+        state = "startup";
     }
 
     /**
@@ -57,6 +60,7 @@ public class Player {
         trainCards = new ArrayList<>();
         destinationCards = new ArrayList<>();
         claimedRoutes = new ArrayList<>();
+        state = "startup";
     }
 
     public String getUsername() {
@@ -153,5 +157,13 @@ public class Player {
 
     public List<DestinationCard> getDestinationCards() {
         return destinationCards;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

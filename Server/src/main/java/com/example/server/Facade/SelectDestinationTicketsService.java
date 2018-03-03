@@ -1,6 +1,7 @@
 package com.example.server.Facade;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.GameHistory;
 import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
@@ -33,8 +34,18 @@ public class SelectDestinationTicketsService {
         for(int i=0; i<discardedRoutes.size(); i++){
             game.getDeckDestinationCards().add(discardedRoutes.get(i));
         }
-        if (game.getRound() != 0)
+
+        //if (game.getRound() != 0)
+            //game.changeTurn();
+
+        if (modelPlayer.getState().equals("startup"))
+            modelPlayer.setState("notStartup");
+        else {
+            GameHistory gameHistory = new GameHistory(modelPlayer.getUsername(), modelPlayer.getColor(),
+                    "drew " + selectedRoutes.size() + " destination cards");
+            game.addGameHistoryList(gameHistory);
             game.changeTurn();
+        }
         return new SelectDestinationTicketsResult(true, null, null, null, game);
         //todo surround in try catch in case of bad result somehow?
     }

@@ -19,15 +19,16 @@ public class DrawFromBankService {
                                    int gameId, String authToken) {
         TicketToRideGame game = ModelRoot.instance().GameExists(gameId);
         Player user = ModelRoot.instance().UserExists(authToken);
-        user.addTrainCard(selectedCards.get(0));
-        user.addTrainCard(selectedCards.get(1));
+        for (int i = 0; i < selectedCards.size(); i++) {
+            user.addTrainCard(selectedCards.get(i));
+        }
         game.changeTurn();
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);
 
         List<GameHistory> gameHistoryList = game.getGameHistoryList();
         GameHistory historyItem = new GameHistory(user.getUsername(), user.getColor(),
-                "drew two cards from the bank");
+                "drew " + selectedCards.size() + " card(s) from the bank");
         gameHistoryList.add(historyItem);
         game.setGameHistoryList(gameHistoryList);
 

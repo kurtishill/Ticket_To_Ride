@@ -22,12 +22,14 @@ public class BankPresenter implements IBankPresenter {
     private List<TrainCard> mTrainCardDeck;
     private List<TrainCard> mFaceUpTrainCards;
     private List<TrainCard> mSelectedCards;
+    private boolean isDone;
 
     public BankPresenter(IBankView v) {
         mBankView = v;
         mTrainCardDeck = new ArrayList<>();
         mFaceUpTrainCards = new ArrayList<>();
         mSelectedCards = new ArrayList<>();
+        isDone = false;
         initDecks();
     }
 
@@ -55,11 +57,20 @@ public class BankPresenter implements IBankPresenter {
         return mSelectedCards;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
     public TrainCard faceUpCardSelected(int index) {
-        mSelectedCards.add(mFaceUpTrainCards.get(index));
-        if (mSelectedCards.size() == 1)
+        TrainCard selectedCard = mFaceUpTrainCards.get(index);
+        mSelectedCards.add(selectedCard);
+        if (selectedCard.getColor().equals("wild"))
+            isDone = true;
+
+        if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
+            isDone = true;
 
             // I think this is temporary. We want a call to the server to this for us.
             /*Player user = ClientModelRoot.instance().getUser();
@@ -82,11 +93,17 @@ public class BankPresenter implements IBankPresenter {
     }
 
     public void deckCardSelected() {
-        mSelectedCards.add(mTrainCardDeck.get(0));
+        TrainCard selectedCard = mTrainCardDeck.get(0);
+        if (selectedCard.getColor().equals("wild"))
+            isDone = true;
+
+        mSelectedCards.add(selectedCard);
         mTrainCardDeck.remove(0);
-        if (mSelectedCards.size() == 1)
+
+        if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
+            isDone = true;
 
             // I think this is temporary. We want a call to the server to this for us.
             /*Player user = ClientModelRoot.instance().getUser();
@@ -104,7 +121,7 @@ public class BankPresenter implements IBankPresenter {
         }
     }
 
-    public Result selectedTwoCards() {
+    public Result selectedCards() {
         List<Object> data = new ArrayList<>();
         data.add(mSelectedCards);
         data.add(mFaceUpTrainCards);

@@ -24,8 +24,10 @@ public interface IBankPresenter {
 
     void deckCardSelected();
 
-    Result selectedTwoCards();
+    Result selectedCards();
 
     void updateGame(TicketToRideGame game);
+
+    boolean isDone();
 
 }

@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 
 import java.util.Observable;
@@ -39,6 +40,9 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.displayPlayerTurn();
 
             mGameView.toggleButtons(isItUsersTurn());
+
+            if (getUser().getState().equals("startup"))
+                mGameView.onStartUp();
         }
     }
 
@@ -52,12 +56,13 @@ public class GamePresenter implements IGamePresenter, Observer {
             if (mGameView.getGameStatus() != null) {
                 mGameView.gameStarted("Game " + mGameView.getGameStatus());
                 if (mGameView.getGameStatus().equals("started"))
-                    mGameView.onStartUp();
+                    //mGameView.onStartUp();
+                    return true;
             }
             else
             {
                 mGameView.gameStarted("Game started");
-                mGameView.onStartUp();
+                //mGameView.onStartUp();
             }
             return true;
         }
@@ -76,5 +81,9 @@ public class GamePresenter implements IGamePresenter, Observer {
             return false;
         else
             return true;
+    }
+
+    public Player getUser() {
+        return ClientModelRoot.instance().getUser();
     }
 }
