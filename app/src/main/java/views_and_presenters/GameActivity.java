@@ -38,13 +38,15 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private MenuItem mPlayerTurnMenuItem,
             mChatMenuItem,
             mGameHistoryMenuItem,
-            mPlayerStatsMenuItem;
+            mPlayerStatsMenuItem,
+            mDestinationsMenuItem;
 
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
     private PlayerStatsFragment mPlayerStatsFragment;
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
+    private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
 
     // from OnCloseFragmentListener interface
     @Override
@@ -62,6 +64,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mChatMenuItem = (MenuItem) menu.findItem(R.id.menu_chat);
         mGameHistoryMenuItem = (MenuItem) menu.findItem(R.id.menu_history);
         mPlayerStatsMenuItem = (MenuItem) menu.findItem(R.id.menu_stats);
+        mDestinationsMenuItem = (MenuItem) menu.findItem(R.id.menu_destinations);
 
         return true;
     }
@@ -95,6 +98,14 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                     mPlayerTurnsLayout.setVisibility(View.INVISIBLE);
                 else
                     mPlayerTurnsLayout.setVisibility(View.VISIBLE);
+                return true;
+            case R.id.menu_destinations:
+                toggleButtons(false);
+                toggleMenu(false);
+                mDisplayDestinationCardsFragment = new DisplayDestinationCardsFragment();
+                fm.beginTransaction().replace(R.id.display_destination_cards_fragment_container, mDisplayDestinationCardsFragment)
+                        .addToBackStack(null).commit();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -152,13 +163,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         if (getIntent() != null ) {
             mGameStatus = getIntent().getStringExtra(GAME_START_STATUS);
             boolean gameStarted = mGamePresenter.didGameStart();
-//            if (mGamePresenter.getGame().getRound() == 0) {
-//                toggleButtons(false);
-//                FragmentManager fm = getSupportFragmentManager();
-//                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
-//                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
-//                        .addToBackStack(null).commit();
-//            }
             if (gameStarted)
                 toggleButtons(true);
         }
@@ -211,6 +215,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlayerStatsMenuItem.setEnabled(toggle);
         mGameHistoryMenuItem.setEnabled(toggle);
         mChatMenuItem.setEnabled(toggle);
+        mDestinationsMenuItem.setEnabled(toggle);
     }
 
     public void displayPlayerTurn() {

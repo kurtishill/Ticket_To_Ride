@@ -19,4 +19,6 @@
     <color name="trans_green">#E6009403</color>
     <color name="light_blue">#6AACFF</color>
     <color name="trans_light_blue">#E66AACFF</color>
+    <color name="brown">#4C2819</color>
+    <color name="trans_brown">#E64C2819</color>
 </resources>
