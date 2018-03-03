@@ -102,6 +102,16 @@
 
         </FrameLayout>
 
+        <TextView
+            android:id="@+id/game_activity_waiting_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Waiting For Lobby To Fill..."
+            android:background="@color/transparent_gray"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/black"/>
+
         <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/stats_fragment_container"
@@ -141,16 +151,6 @@
             android:layout_centerInParent="true">
 
         </FrameLayout>
-
-        <TextView
-            android:id="@+id/game_activity_waiting_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Waiting For Lobby To Fill..."
-            android:background="@color/transparent_gray"
-            android:textAppearance="@android:style/TextAppearance.Large"
-            android:textColor="@color/black"/>
 
     </RelativeLayout>
 

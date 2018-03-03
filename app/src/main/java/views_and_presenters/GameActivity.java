@@ -131,6 +131,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             @Override
             public void onClick(View view) {
                 toggleButtons(false);
+                toggleMenu(false);
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
@@ -152,6 +153,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             @Override
             public void onClick(View view) {
                 toggleButtons(false);
+                toggleMenu(false);
                 FragmentManager fm = getSupportFragmentManager();
                 mDestinationPickerFragment = DestinationPickerFragment.newInstance();
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
@@ -163,6 +165,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         if (getIntent() != null ) {
             mGameStatus = getIntent().getStringExtra(GAME_START_STATUS);
             boolean gameStarted = mGamePresenter.didGameStart();
+            if (mGamePresenter.getUser().getState().equals("startup") && gameStarted)
+                onStartUp();
             if (gameStarted)
                 toggleButtons(true);
         }
@@ -203,8 +207,11 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
     public void toggleButtons(boolean toggle) {
         // intercept and check to see if it's the users turn or not
+        // and to check if the player is in the start up state
         if (toggle) {
             toggle = mGamePresenter.isItUsersTurn();
+            if (mGamePresenter.getUser().getState().equals("startup"))
+                toggle = false;
         }
         mDrawCardsButton.setEnabled(toggle);
         mPlaceTrainsButton.setEnabled(toggle);
