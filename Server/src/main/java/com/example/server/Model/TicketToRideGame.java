@@ -26,6 +26,11 @@ public class TicketToRideGame {
     private int round;
 
     public TicketToRideGame() {
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
+        onStartUp();
         players = new ArrayList<>();
         name = null;
         gameID = 0;
@@ -33,52 +38,52 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
+        turn = 0;
+        round = 0;
+    }
+
+    public TicketToRideGame(Player player) {
         deckTrainCards = new ArrayList<>();
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
-        gameHistoryList = new ArrayList<>();
-        turn = 0;
-        round = 0;
         onStartUp();
-    }
-
-    public TicketToRideGame(Player player) {
         players = new ArrayList<>();
         addPlayer(player);
         name = null;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
+        gameHistoryList = new ArrayList<>();
+        turn = 0;
+        round = 0;
+    }
+
+    public TicketToRideGame(List<Player> players) {
         deckTrainCards = new ArrayList<>();
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
-        gameHistoryList = new ArrayList<>();
-        turn = 0;
-        round = 0;
         onStartUp();
-    }
-
-    public TicketToRideGame(List<Player> players) {
         this.players = players;
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
-        deckTrainCards = new ArrayList<>();
-        deckDestinationCards = new ArrayList<>();
-        faceUpCards = new ArrayList<>();
-        availableRoutes = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
         round = 0;
-        onStartUp();
     }
 
     public TicketToRideGame(Player player,
                             String name,
                             int gameID,
                             int maxNumPlayers) {
+        deckTrainCards = new ArrayList<>();
+        deckDestinationCards = new ArrayList<>();
+        faceUpCards = new ArrayList<>();
+        availableRoutes = new ArrayList<>();
+        onStartUp();
         players = new ArrayList<>();
         addPlayer(player);
         this.name = name;
@@ -87,13 +92,9 @@ public class TicketToRideGame {
         availableColors = new ArrayList<>();
         availableColors.addAll(Arrays.asList("red", "blue", "yellow", "green", "black"));
         chat = new ArrayList<>();
-        deckTrainCards = new ArrayList<>();
-        deckDestinationCards = new ArrayList<>();
-        faceUpCards = new ArrayList<>();
-        availableRoutes = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
-        onStartUp();
+        round = 0;
     }
 
     public List<Player> getPlayers() {
