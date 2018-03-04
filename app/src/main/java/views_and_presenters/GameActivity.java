@@ -155,7 +155,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 // Todo
                 // temporary
                 DrawLine drawLine = new DrawLine();
-                drawLine.drawClaimedRoute(100, 200, 300, 500, "red");
+                drawLine.drawClaimedRoute(1020.46875f, 261.41748f, 1646.7773f, 395.5276f, "red");
             }
         });
 
