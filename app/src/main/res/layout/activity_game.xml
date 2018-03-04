@@ -5,8 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ttrmap"
     android:id="@+id/game_map_layout">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ttrmap"
+        android:id="@+id/game_map_image_view"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

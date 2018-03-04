@@ -1,5 +1,8 @@
 package views_and_presenters;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -8,12 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
-import com.example.server.Model.GameHistory;
 import com.example.server.Model.Player;
 
 import java.util.List;
@@ -28,6 +31,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private IGamePresenter mGamePresenter;
 
     private TextView mWaitingTextView;
+
+    private ImageView mGameMapImageView;
 
     private LinearLayout mPlayerTurnsLayout;
 
@@ -123,6 +128,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
 
+        mGameMapImageView = (ImageView) findViewById(R.id.game_map_image_view);
+
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
@@ -145,6 +152,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             public void onClick(View view) {
                 //toggleButtons(false);
 
+                // Todo
+                // temporary
+                DrawLine drawLine = new DrawLine();
+                drawLine.drawClaimedRoute(100, 200, 300, 500, "red");
             }
         });
 
@@ -256,5 +267,24 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 }
             }
         });
+    }
+
+    private class DrawLine {
+
+        public DrawLine() {
+
+        }
+
+        public void drawClaimedRoute(float startX, float startY, float stopX, float stopY, String playerColor) {
+            Bitmap bitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
+                    mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            Paint paint = new Paint();
+            paint.setColor(GameResources.getLineColors().get(playerColor));
+            paint.setStrokeWidth(10);
+
+            canvas.drawLine(startX, startY, stopX, stopY, paint);
+            mGameMapImageView.setImageBitmap(bitmap);
+        }
     }
 }
