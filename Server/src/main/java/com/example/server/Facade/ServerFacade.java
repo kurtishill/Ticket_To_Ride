@@ -71,7 +71,7 @@ public class ServerFacade {
         return chatService.getChat(gameId, username);
     }
     public DrawFromBankResult DrawFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
-                                           Integer gameId, String authToken) {
-        return drawFromBankService.draw(selectedCards, faceUpCards, trainCardDeck, gameId, authToken);
+                                           ArrayList<TrainCard> discardPile, Integer gameId, String authToken) {
+        return drawFromBankService.draw(selectedCards, faceUpCards, trainCardDeck, discardPile, gameId, authToken);
     }
 }

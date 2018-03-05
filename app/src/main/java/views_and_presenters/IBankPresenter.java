@@ -29,5 +29,4 @@ public interface IBankPresenter {
     void updateGame(TicketToRideGame game);
 
     boolean isDone();
-
 }

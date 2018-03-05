@@ -20,6 +20,7 @@ public class TicketToRideGame {
     private List<TrainCard> deckTrainCards;
     private List<DestinationCard> deckDestinationCards;
     private List<TrainCard> faceUpCards;
+    private List<TrainCard> discardPile;
     private List<Route> availableRoutes;
     private List<GameHistory> gameHistoryList;
     private int turn;
@@ -30,6 +31,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        discardPile = new ArrayList<>();
         onStartUp();
         players = new ArrayList<>();
         name = null;
@@ -48,6 +50,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        discardPile = new ArrayList<>();
         onStartUp();
         players = new ArrayList<>();
         addPlayer(player);
@@ -65,6 +68,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        discardPile = new ArrayList<>();
         onStartUp();
         this.players = players;
         availableColors = new ArrayList<>();
@@ -83,6 +87,7 @@ public class TicketToRideGame {
         deckDestinationCards = new ArrayList<>();
         faceUpCards = new ArrayList<>();
         availableRoutes = new ArrayList<>();
+        discardPile = new ArrayList<>();
         onStartUp();
         players = new ArrayList<>();
         addPlayer(player);
@@ -240,6 +245,18 @@ public class TicketToRideGame {
                 break;
             }
         }
+    }
+
+    public List<TrainCard> getDiscardPile() {
+        return discardPile;
+    }
+
+    public void setDiscardPile(List<TrainCard> discardPile) {
+        this.discardPile = discardPile;
+    }
+
+    public void addToDiscardPile(List<TrainCard> cards) {
+        discardPile.addAll(cards);
     }
 
     public List<Route> getAvailableRoutes() {
@@ -611,6 +628,13 @@ public class TicketToRideGame {
         // added by Kurt
         shuffleTrainCards();
         shuffleDestinationCards();
+
+        for (int i = 0; i < 5; i++) {
+            faceUpCards.add(deckTrainCards.get(i));
+        }
+        for (int i = 0; i < 5; i++) {
+            deckTrainCards.remove(i);
+        }
     }
 
 

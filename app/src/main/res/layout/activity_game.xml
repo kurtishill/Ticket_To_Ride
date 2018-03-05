@@ -61,7 +61,7 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:background="@color/transparent_gray"
+            android:background="@drawable/trans_gray_rectangle"
             android:layout_margin="5dp"
             android:gravity="center"
             android:id="@+id/player_turn_layout">

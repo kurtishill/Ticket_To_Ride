@@ -52,6 +52,7 @@
     <string name="choose_button">Choose</string>
 
     <string name="close_button">Close</string>
+    <string name="close_out_button">X</string>
 
     <string name="stats_player">Player</string>
     <string name="stats_points">Points</string>

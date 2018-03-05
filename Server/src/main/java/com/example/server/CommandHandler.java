@@ -136,14 +136,16 @@ public class CommandHandler implements HttpHandler {
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("DrawTwoCardsFromBank")) {
-                        Double gameId = (Double) commandValues.get(4);
+                        Double gameId = (Double) commandValues.get(5);
                         ArrayList<Object> selectedCards = (ArrayList) commandValues.get(1);
                         ArrayList<Object> faceUpCards = (ArrayList) commandValues.get(2);
                         ArrayList<Object> trainCardDeck = (ArrayList) commandValues.get(3);
+                        ArrayList<Object> discardPile = (ArrayList) commandValues.get(4);
 
                         ArrayList<TrainCard> reconstructedSelectedCards = new ArrayList<>();
                         ArrayList<TrainCard> reconstructedFaceUpCards = new ArrayList<>();
                         ArrayList<TrainCard> reconstructedTrainCardDeck = new ArrayList<>();
+                        ArrayList<TrainCard> reconstructedDiscardPile = new ArrayList<>();
 
                         // this is really ugly, but I think necessary because of how Gson treats generic types (e.g. ArrayList)
                         for (int i = 0; i < selectedCards.size(); i++) {
@@ -161,9 +163,15 @@ public class CommandHandler implements HttpHandler {
                             TrainCard card = new TrainCard(deckCard.get("color"));
                             reconstructedTrainCardDeck.add(card);
                         }
+                        for (int i = 0; i < discardPile.size(); i++) {
+                            LinkedTreeMap<String, String> discardCard = (LinkedTreeMap) discardPile.get(i);
+                            TrainCard card = new TrainCard(discardCard.get("color"));
+                            reconstructedDiscardPile.add(card);
+                        }
 
-                        command = CommandFactory.instance().DrawTwoCardsFromBank(reconstructedSelectedCards,
-                                reconstructedFaceUpCards, reconstructedTrainCardDeck, gameId.intValue(), authToken);
+                        command = CommandFactory.instance().DrawCardsFromBank(reconstructedSelectedCards,
+                                reconstructedFaceUpCards, reconstructedTrainCardDeck, reconstructedDiscardPile,
+                                gameId.intValue(), authToken);
 
                         ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
                     }
