@@ -8,6 +8,7 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
@@ -41,6 +42,8 @@ public class BankFragment extends Fragment implements IBankView {
             mFaceUpCardFour,
             mFaceUpCardFive,
             mTrainCarCardDeck;
+
+    private Button mCloseButton;
 
     private OnCloseFragmentListener mListener;
 
@@ -101,6 +104,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
                 mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -115,6 +119,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
                 mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -129,6 +134,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
                 mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -143,6 +149,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
                 mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -157,6 +164,7 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
                 mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -170,9 +178,19 @@ public class BankFragment extends Fragment implements IBankView {
         mTrainCarCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mCloseButton.setEnabled(false);
                 mBankPresenter.deckCardSelected();
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
+            }
+        });
+
+        mCloseButton = (Button) v.findViewById(R.id.bank_close_button);
+        mCloseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClose();
+                closeFragment();
             }
         });
 
@@ -181,6 +199,19 @@ public class BankFragment extends Fragment implements IBankView {
 
     public void displayToast(final String toast) {
         Toast.makeText(getActivity(), toast, Toast.LENGTH_SHORT).show();
+    }
+
+    public void resetFaceUpDeck() {
+        mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(0).getColor()));
+        mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(1).getColor()));
+        mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(2).getColor()));
+        mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(3).getColor()));
+        mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
+                .get(mBankPresenter.getFaceUpTrainCards().get(4).getColor()));
     }
 
     private void closeFragment() {

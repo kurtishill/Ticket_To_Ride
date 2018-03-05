@@ -65,10 +65,10 @@ public class CommandFactory {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "SelectDestinationTickets",
                 new Class<?>[]{String.class, Integer.class, ArrayList.class, ArrayList.class}, new Object[]{playerName, gameId, selectedCards, discardedCards});
     }
-    public GenericCommand DrawTwoCardsFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
-                                               Integer gameId, String authToken) {
+    public GenericCommand DrawCardsFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
+                                               ArrayList<TrainCard> discardPile, Integer gameId, String authToken) {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawFromBank",
-                new Class<?>[]{ArrayList.class, ArrayList.class, ArrayList.class, Integer.class, String.class}, new Object[]{selectedCards,
-                faceUpCards, trainCardDeck, gameId, authToken});
+                new Class<?>[]{ArrayList.class, ArrayList.class, ArrayList.class, ArrayList.class, Integer.class, String.class},
+                new Object[]{selectedCards, faceUpCards, trainCardDeck, discardPile, gameId, authToken});
     }
 }
