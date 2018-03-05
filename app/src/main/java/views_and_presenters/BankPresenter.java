@@ -36,7 +36,6 @@ public class BankPresenter implements IBankPresenter {
 
     private void initDecks() {
         mTrainCardDeck = ClientModelRoot.instance().getCurrGame().getDeckTrainCards();
-        mTrainCardDeck.set(0, new TrainCard("wild"));
         mFaceUpTrainCards = ClientModelRoot.instance().getCurrGame().getFaceUpCards();
         mDiscardPile = ClientModelRoot.instance().getCurrGame().getDiscardPile();
     }
