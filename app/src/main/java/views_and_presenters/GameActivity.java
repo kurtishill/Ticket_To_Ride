@@ -17,9 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.City;
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 
 import java.util.List;
+
+import client_model.ClientModelRoot;
 
 public class GameActivity extends AppCompatActivity implements IGameView,
         OnCloseFragmentListener {
@@ -155,7 +159,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 // Todo
                 // temporary
                 DrawLine drawLine = new DrawLine();
-                drawLine.drawClaimedRoute(1020.46875f, 261.41748f, 1646.7773f, 395.5276f, "red");
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(0), ClientModelRoot.instance().getUser());
+                //TODO end turn here
             }
         });
 
@@ -275,15 +280,34 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
         }
 
-        public void drawClaimedRoute(float startX, float startY, float stopX, float stopY, String playerColor) {
+        public void drawClaimedRoute(Route route, Player player) {
             Bitmap bitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
                     mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             Paint paint = new Paint();
-            paint.setColor(GameResources.getLineColors().get(playerColor));
+            paint.setColor(GameResources.getLineColors().get(player.getColor()));
             paint.setStrokeWidth(10);
 
-            canvas.drawLine(startX, startY, stopX, stopY, paint);
+            canvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
+            route.setOccupied(true);
+            player.addRoute(route);
+            player.subtractTrains(route.getLength());
+            for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++) {
+                if(player.getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID())) {
+                    ClientModelRoot.instance().getCurrGame().getPlayers().set(i, player);
+                    break;
+                }
+            }
+
+            for(int i = 0; i < ClientModelRoot.instance().getGamesList().size(); i++) {
+                if(ClientModelRoot.instance().getCurrGame().getGameID() == ClientModelRoot.instance().getGamesList().get(i).getGameID()) {
+                    ClientModelRoot.instance().getGamesList().set(i, ClientModelRoot.instance().getCurrGame());
+                    break;
+                }
+            }
+            ClientModelRoot.instance().setGames(ClientModelRoot.instance().getGamesList());
+
+            //TODO add functionality to remove cards from hand
             mGameMapImageView.setImageBitmap(bitmap);
         }
     }
