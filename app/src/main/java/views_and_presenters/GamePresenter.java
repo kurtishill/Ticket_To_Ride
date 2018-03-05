@@ -57,8 +57,7 @@ public class GamePresenter implements IGamePresenter, Observer {
                 if (mGameView.getGameStatus().equals("started"))
                     return true;
             }
-            else
-            {
+            else {
                 mGameView.gameStarted("Game started");
             }
             return true;

@@ -10,4 +10,6 @@ public interface IBankView {
 
     void resetFaceUpDeck();
 
+    void disableCloseButton();
+
 }

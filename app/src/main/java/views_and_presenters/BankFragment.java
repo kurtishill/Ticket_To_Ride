@@ -104,7 +104,6 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
                 mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -119,7 +118,6 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
                 mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -134,7 +132,6 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
                 mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -149,7 +146,6 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
                 mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -164,7 +160,6 @@ public class BankFragment extends Fragment implements IBankView {
         mFaceUpCardFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
                 mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
                         .get(newCard.getColor()));
@@ -178,7 +173,6 @@ public class BankFragment extends Fragment implements IBankView {
         mTrainCarCardDeck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCloseButton.setEnabled(false);
                 mBankPresenter.deckCardSelected();
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
@@ -212,6 +206,10 @@ public class BankFragment extends Fragment implements IBankView {
                 .get(mBankPresenter.getFaceUpTrainCards().get(3).getColor()));
         mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
                 .get(mBankPresenter.getFaceUpTrainCards().get(4).getColor()));
+    }
+
+    public void disableCloseButton() {
+        mCloseButton.setEnabled(false);
     }
 
     private void closeFragment() {
