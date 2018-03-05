@@ -67,6 +67,7 @@ public class BankPresenter implements IBankPresenter {
             return selectedCard;
         }
 
+        mBankView.disableCloseButton();
         mSelectedCards.add(selectedCard);
         if (selectedCard.getColor().equals("wild"))
             isDone = true;
@@ -127,6 +128,7 @@ public class BankPresenter implements IBankPresenter {
     }
 
     public void deckCardSelected() {
+        mBankView.disableCloseButton();
         TrainCard selectedCard = mTrainCardDeck.get(0);
         mSelectedCards.add(selectedCard);
         mTrainCardDeck.remove(0);
