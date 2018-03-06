@@ -17,9 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
+import com.example.server.Model.City;
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 
 import java.util.List;
+
+import client_model.ClientModelRoot;
 
 public class GameActivity extends AppCompatActivity implements IGameView,
         OnCloseFragmentListener {
@@ -33,6 +37,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private TextView mWaitingTextView;
 
     private ImageView mGameMapImageView;
+    private Bitmap mBitmap;
+    private Canvas mCanvas;
 
     private LinearLayout mPlayerTurnsLayout;
 
@@ -52,6 +58,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
     private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
+
+
 
     // from OnCloseFragmentListener interface
     @Override
@@ -124,6 +132,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle("Ticket To Ride");
 
+
         mGamePresenter = new GamePresenter(this);
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
@@ -133,7 +142,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
+
+
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
+
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +167,12 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 // Todo
                 // temporary
                 DrawLine drawLine = new DrawLine();
-                drawLine.drawClaimedRoute(1020.46875f, 261.41748f, 1646.7773f, 395.5276f, "red");
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(0), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(4), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(8), ClientModelRoot.instance().getCurrGame().getPlayers().get(1));
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
+                //TODO end turn here
+                toggleButtons(true);
             }
         });
 
@@ -224,9 +241,23 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
-        mDrawCardsButton.setEnabled(toggle);
-        mPlaceTrainsButton.setEnabled(toggle);
-        mDrawRoutesButton.setEnabled(toggle);
+
+        final boolean threadToggle = toggle;
+        try {
+            mDrawCardsButton.setEnabled(toggle);
+            mPlaceTrainsButton.setEnabled(toggle);
+            mDrawRoutesButton.setEnabled(toggle);
+        }
+        catch (Exception e) {
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDrawCardsButton.setEnabled(threadToggle);
+                    mPlaceTrainsButton.setEnabled(threadToggle);
+                    mDrawRoutesButton.setEnabled(threadToggle);
+                }
+            });
+        }
     }
 
     private void toggleMenu(boolean toggle) {
@@ -275,16 +306,61 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
         }
 
-        public void drawClaimedRoute(float startX, float startY, float stopX, float stopY, String playerColor) {
-            Bitmap bitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
-                    mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
+        public void drawClaimedRoute(Route route, Player player) {
+            if (mBitmap == null) {
+                mBitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
+                        mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
+            }
+            if (mCanvas == null)
+                mCanvas = new Canvas(mBitmap);
+
             Paint paint = new Paint();
-            paint.setColor(GameResources.getLineColors().get(playerColor));
+            paint.setColor(GameResources.getLineColors().get(player.getColor()));
             paint.setStrokeWidth(10);
 
-            canvas.drawLine(startX, startY, stopX, stopY, paint);
-            mGameMapImageView.setImageBitmap(bitmap);
+            //canvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
+            mCanvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
+            route.setOccupied(true);
+//            player.addRoute(route);
+//            player.subtractTrains(route.getLength());
+            route.setOwner(player);
+            player.addRoute(route);
+            player.subtractTrains(route.getLength());
+            ClientModelRoot.instance();
+//            for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++) {
+//                if(player.getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID())) {
+//                    ClientModelRoot.instance().getCurrGame().getPlayers().set(i, player);
+//                    break;
+//                }
+//            }
+//
+//            for(int i = 0; i < ClientModelRoot.instance().getGamesList().size(); i++) {
+//                if(ClientModelRoot.instance().getCurrGame().getGameID() == ClientModelRoot.instance().getGamesList().get(i).getGameID()) {
+//                    ClientModelRoot.instance().getGamesList().set(i, ClientModelRoot.instance().getCurrGame());
+//                    break;
+//                }
+//            }
+//            ClientModelRoot.instance().setGames(ClientModelRoot.instance().getGamesList());
+
+
+            //TODO add functionality to remove cards from hand
+            ifClaimedRoutesExist();
+            mGameMapImageView.setImageBitmap(mBitmap);
         }
+    }
+
+    private void ifClaimedRoutesExist() {
+        Paint paint = new Paint();
+        paint.setStrokeWidth(10);
+        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            List<Route> claimedRoutes = players.get(i).getClaimedRoutes();
+            paint.setColor(GameResources.getLineColors().get(players.get(i).getColor()));
+            for (int j = 0; j < claimedRoutes.size(); j++) {
+                mCanvas.drawLine(claimedRoutes.get(j).getCity1().getX(), claimedRoutes.get(j).getCity1().getY(),
+                        claimedRoutes.get(j).getCity2().getX(), claimedRoutes.get(j).getCity2().getY(), paint);
+            }
+        }
+        mGameMapImageView.setImageBitmap(mBitmap);
     }
 }

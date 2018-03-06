@@ -119,6 +119,10 @@ public class Player {
         trainCards.add(card);
     }
 
+    public void subtractTrains(int num) {
+        numTrainCars -= num;
+    }
+
     public void removeTrainCard(TrainCard card) {
         for(int i = 0; i < trainCards.size(); i++) {
             if(trainCards.get(i).getColor().equals(card.getColor()))
@@ -149,6 +153,7 @@ public class Player {
 
     public void addRoute(Route route) {
         claimedRoutes.add(route);
+        numPoints+=route.getPointValue();
     }
 
     public List<TrainCard> getTrainCards() {
