@@ -241,9 +241,23 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
-        mDrawCardsButton.setEnabled(toggle);
-        mPlaceTrainsButton.setEnabled(toggle);
-        mDrawRoutesButton.setEnabled(toggle);
+
+        final boolean threadToggle = toggle;
+        try {
+            mDrawCardsButton.setEnabled(toggle);
+            mPlaceTrainsButton.setEnabled(toggle);
+            mDrawRoutesButton.setEnabled(toggle);
+        }
+        catch (Exception e) {
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDrawCardsButton.setEnabled(threadToggle);
+                    mPlaceTrainsButton.setEnabled(threadToggle);
+                    mDrawRoutesButton.setEnabled(threadToggle);
+                }
+            });
+        }
     }
 
     private void toggleMenu(boolean toggle) {
