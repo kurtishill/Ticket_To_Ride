@@ -153,6 +153,7 @@ public class Player {
 
     public void addRoute(Route route) {
         claimedRoutes.add(route);
+        numPoints+=route.getPointValue();
     }
 
     public List<TrainCard> getTrainCards() {
