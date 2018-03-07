@@ -1,11 +1,15 @@
 package Network;
 
+import com.example.server.Results.ChatResult;
 import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.DrawDestinationTicketsResult;
+import com.example.server.Results.DrawFromBankResult;
 import com.example.server.Results.GetGameListResult;
 import com.example.server.Results.JoinGameResult;
 import com.example.server.Results.LoginResult;
 import com.example.server.Results.RegisterResult;
 import com.example.server.Results.Result;
+import com.example.server.Results.SelectDestinationTicketsResult;
 import com.example.server.Serializer;
 
 import java.io.IOException;
@@ -24,13 +28,12 @@ public class ClientCommunicator {
     private static ClientCommunicator _instance;
 
     public static ClientCommunicator instance() {
-        if (_instance == null)
+        if (_instance == null)            
             _instance = new ClientCommunicator();
         return _instance;
     }
 
     private ClientCommunicator() {}
-
 
 
     public Result send(String handlerContext, List<Object> data, String authToken)
@@ -75,6 +78,16 @@ public class ClientCommunicator {
                 return (Result) Serializer.decode(resp, JoinGameResult.class);
             else if (resp.contains("CreateGameResult"))
                 return (Result) Serializer.decode(resp, CreateGameResult.class);
+            else if (resp.contains("ChatResult"))
+                return (Result)Serializer.decode(resp, ChatResult.class);
+            else if (resp.contains("GetChat"))
+                return (Result)Serializer.decode(resp, ChatResult.class);
+            else if (resp.contains("DrawDestinationTicketsResult"))
+                return (Result) Serializer.decode(resp, DrawDestinationTicketsResult.class);
+            else if (resp.contains("SelectDestinationTicketsResult"))
+                return (Result) Serializer.decode(resp, SelectDestinationTicketsResult.class);
+            else if (resp.contains("DrawFromBankResult"))
+                return (Result) Serializer.decode(resp, DrawFromBankResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package gui_facade;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import client_model.ClientModelRoot;
 public class JoinGameService {
 
     public static void joinGame(TicketToRideGame game) {
+        Player user = game.getPlayers().get(game.getPlayers().size() - 1);
+        AddUserService.addUser(user);
         ClientModelRoot.instance().setCurrGame(game);
         List<TicketToRideGame> games = ClientModelRoot.instance().getGamesList();
         for (int i = 0; i < games.size(); i++) {
@@ -20,9 +23,5 @@ public class JoinGameService {
                 games.set(i, game);
         }
         ClientModelRoot.instance().setGames(games);
-        /*Map<String, Player> players = ClientModelRoot.instance().getPlayers();
-        players.put(game.getPlayers().get(game.getPlayers().size() - 1).getID(),
-                game.getPlayers().get(game.getPlayers().size() - 1));
-        ClientModelRoot.instance().setPlayers(players);*/
     }
 }

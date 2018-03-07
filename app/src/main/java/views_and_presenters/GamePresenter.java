@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 
 import java.util.Observable;
@@ -24,19 +25,61 @@ public class GamePresenter implements IGamePresenter, Observer {
         EditObserversInModel.addObserverToModel(this);
     }
 
+    // for other clients
     public void update(Observable obs, Object obj) {
-        if (obs == ClientModelRoot.instance()) {
+        if (obj.equals(ClientModelRoot.instance().getGamesList())) {
             ClientModelRoot.instance().updateCurrentGame();
+            TicketToRideGame checkGame = mGame;
             mGame = ClientModelRoot.instance().getCurrGame();
-            if (GetGamesService.getCurrGame().getPlayers().size() ==
-                    GetGamesService.getCurrGame().getMaxNumPlayers()) {
-                mGameView.changeTitle("Game Started");
-                mGameView.displayToast("Game started");
+            if (mGame.getPlayers().size() == mGame.getMaxNumPlayers() &&
+                    checkGame.getPlayers().size() < mGame.getPlayers().size()) {
+                didGameStart();
             }
+
+            // stuff for the game to be updated with
+            mGameView.displayPlayerTurn();
+
+            mGameView.toggleButtons(isItUsersTurn());
         }
     }
 
     public TicketToRideGame getGame() {
         return mGame;
+    }
+
+    // for user
+    public boolean didGameStart() {
+        if (mGame.getMaxNumPlayers() == mGame.getPlayers().size()) {
+            if (getUser().getState().equals("startup"))
+                mGameView.onStartUp();
+            if (mGameView.getGameStatus() != null) {
+                mGameView.gameStarted("Game " + mGameView.getGameStatus());
+                if (mGameView.getGameStatus().equals("started"))
+                    return true;
+            }
+            else {
+                mGameView.gameStarted("Game started");
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isItUsersTurn() {
+        int indexOfUser = 0;
+        for (int i = 0; i < mGame.getPlayers().size(); i++) {
+            if (mGame.getPlayers().get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())) {
+                indexOfUser = i;
+                break;
+            }
+        }
+        if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser)
+            return false;
+        else
+            return true;
+    }
+
+    public Player getUser() {
+        return ClientModelRoot.instance().getUser();
     }
 }

@@ -36,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_of_game_title"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                />
 
             <EditText
                 android:layout_width="100dp"

@@ -14,12 +14,12 @@ public interface IGameWaitingLobbyPresenter {
     Result joinGame(int gameId);
 
     void callJoinGameService(TicketToRideGame game);
-    void callSetPlayerColorService(String color);
-    void callSetPlayerColorService();
 
     List<TicketToRideGame> getAllGamesList();
 
     void setAllGamesList(List<TicketToRideGame> list);
 
     boolean gameSelected();
+
+    void setCurrGame(TicketToRideGame game);
 }

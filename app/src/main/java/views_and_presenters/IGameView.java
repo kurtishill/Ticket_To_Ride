@@ -9,4 +9,14 @@ public interface IGameView {
     void displayToast(String toast);
 
     void changeTitle(String title);
+
+    String getGameStatus();
+
+    void toggleButtons(boolean toggle);
+
+    void gameStarted(final String toast);
+
+    void displayPlayerTurn();
+
+    void onStartUp();
 }

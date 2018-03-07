@@ -1,12 +1,18 @@
 package com.example.server;
 
+import com.example.server.Model.ChatMessage;
 import com.example.server.Model.ModelRoot;
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.ClientCommand;
 import com.example.server.Results.GenericCommand;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by HillcollegeMac on 2/9/18.
@@ -15,7 +21,7 @@ import java.util.List;
 public class ClientCommandManager {
 
     private static ClientCommandManager _instance;
-    private List<String> commands;
+    private Map<String, Set<String>> commands;
 
     public static ClientCommandManager instance() {
         if (_instance == null)
@@ -24,31 +30,53 @@ public class ClientCommandManager {
     }
 
     private ClientCommandManager() {
-        commands = new ArrayList<>();
+
     }
 
-    public void setCommands(List<String> list) {
-        commands = list;
+    {
+        commands = new HashMap<>();
+        Set<String> initSet = new HashSet<>();
+        initSet.add("UpdateGameList");
+        commands.put("sign-in", initSet);
     }
 
-    public void addCommand(String command) {
-        commands.add(command);
+    public void setCommands(Map<String, Set<String>> commands) {
+        this.commands = commands;
     }
 
-    public List<String> getCommandList() {
-        return commands;
-    }
+    public void addCommand(String authToken, String command) {
+        Player player = ModelRoot.instance().getAllPlayers().get(authToken);
+        Set<String> set;
+        for (Map.Entry<String, Player> entry : ModelRoot.instance().getAllPlayers().entrySet()) {
+            if (!entry.getValue().getUsername().equals(player.getUsername())) {
+                if (commands.get(entry.getValue().getUsername()) == null)
+                    set = new HashSet<>();
+                else
+                    set = commands.get(entry.getValue().getUsername());
 
-    public ClientCommand makeClientCommandList(String typeOfCommand) {
-        ClientCommand clientCommand = new ClientCommand("UpdateGameList");
-        if (typeOfCommand.equals("UpdateGameList")) {
-            clientCommand.addData((ModelRoot.instance().getListGames()));
-            return clientCommand;
+                set.add(command);
+                commands.put(entry.getValue().getUsername(), set);
+            }
         }
-        return null;
     }
-    public GenericCommand GetGameList(List<TicketToRideGame> list) {
-        return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
-                new Class<?>[]{ArrayList.class}, new Object[]{list});
+    public void addGameCommand(int gameID, String command) {
+        TicketToRideGame game = ModelRoot.instance().getAllGames().get(gameID);
+        List<Player> players =  game.getPlayers();
+        Set<String> set;
+        for (int i = 0; i < players.size(); i++) {
+
+            if (commands.get(players.get(i).getUsername()) == null)
+                set = new HashSet<>();
+            else
+                set = commands.get(players.get(i).getUsername());
+
+            set.add(command);
+            commands.put(players.get(i).getUsername(), set);
+
+        }
+    }
+
+    public Map<String, Set<String>> getCommands() {
+        return commands;
     }
 }

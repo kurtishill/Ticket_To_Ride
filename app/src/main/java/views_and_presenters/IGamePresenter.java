@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 
 /**
@@ -9,4 +10,10 @@ import com.example.server.Model.TicketToRideGame;
 public interface IGamePresenter {
 
     TicketToRideGame getGame();
+
+    boolean didGameStart();
+
+    boolean isItUsersTurn();
+
+    Player getUser();
 }

@@ -1,5 +1,7 @@
 package com.example.server.Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -20,6 +22,14 @@ public class Player {
 
     private String id;
 
+    private List<TrainCard> trainCards;
+
+    private List<DestinationCard> destinationCards;
+
+    private List<Route> claimedRoutes;
+
+    private String state;
+
     public Player() {
         this.username = null;
         this.password = null;
@@ -27,6 +37,10 @@ public class Player {
         numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
+        trainCards = new ArrayList<>();
+        destinationCards = new ArrayList<>();
+        claimedRoutes = new ArrayList<>();
+        state = "startup";
     }
 
     /**
@@ -43,6 +57,10 @@ public class Player {
         numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
+        trainCards = new ArrayList<>();
+        destinationCards = new ArrayList<>();
+        claimedRoutes = new ArrayList<>();
+        state = "startup";
     }
 
     public String getUsername() {
@@ -95,5 +113,62 @@ public class Player {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void addTrainCard(TrainCard card) {
+        trainCards.add(card);
+    }
+
+    public void subtractTrains(int num) {
+        numTrainCars -= num;
+    }
+
+    public void removeTrainCard(TrainCard card) {
+        for(int i = 0; i < trainCards.size(); i++) {
+            if(trainCards.get(i).getColor().equals(card.getColor()))
+            {
+                trainCards.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void addDestinationCard(DestinationCard card) {
+        destinationCards.add(card);
+    }
+
+    public void removeDestinationCard(DestinationCard card) {
+        for(int i = 0; i < destinationCards.size(); i++) {
+            if(destinationCards.get(i).equals(card))
+            {
+                destinationCards.remove(i);
+                break;
+            }
+        }
+    }
+
+    public List<Route> getClaimedRoutes() {
+        return claimedRoutes;
+    }
+
+    public void addRoute(Route route) {
+        claimedRoutes.add(route);
+        numPoints+=route.getPointValue();
+    }
+
+    public List<TrainCard> getTrainCards() {
+        return trainCards;
+    }
+
+    public List<DestinationCard> getDestinationCards() {
+        return destinationCards;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
