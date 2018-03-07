@@ -35,9 +35,6 @@ public class SelectDestinationTicketsService {
             game.getDeckDestinationCards().add(discardedRoutes.get(i));
         }
 
-        //if (game.getRound() != 0)
-            //game.changeTurn();
-
         if (modelPlayer.getState().equals("startup"))
             modelPlayer.setState("notStartup");
         else {

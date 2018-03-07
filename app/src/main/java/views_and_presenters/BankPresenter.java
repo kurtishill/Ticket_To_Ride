@@ -76,20 +76,6 @@ public class BankPresenter implements IBankPresenter {
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
             isDone = true;
-
-            // I think this is temporary. We want a call to the server to this for us.
-            /*Player user = ClientModelRoot.instance().getUser();
-            user.addTrainCard(mSelectedCards.get(0));
-            user.addTrainCard(mSelectedCards.get(1));
-            mSelectedCards.clear();
-            AddUserService.addUser(user);
-            TicketToRideGame game = ClientModelRoot.instance().getCurrGame();
-            for (int i = 0; i < game.getPlayers().size(); i++) {
-                if (user.getUsername().equals(game.getPlayers().get(i).getUsername())) {
-                    game.getPlayers().set(i, user);
-                }
-            }*/
-            //ClientModelRoot.instance().changeTurn();
         }
 
         TrainCard newFaceUpCard = mTrainCardDeck.get(0);
@@ -137,20 +123,6 @@ public class BankPresenter implements IBankPresenter {
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
             isDone = true;
-
-            // I think this is temporary. We want a call to the server to this for us.
-            /*Player user = ClientModelRoot.instance().getUser();
-            user.addTrainCard(mSelectedCards.get(0));
-            user.addTrainCard(mSelectedCards.get(1));
-            mSelectedCards.clear();
-            AddUserService.addUser(user);
-            TicketToRideGame game = ClientModelRoot.instance().getCurrGame();
-            for (int i = 0; i < game.getPlayers().size(); i++) {
-                if (user.getUsername().equals(game.getPlayers().get(i).getUsername())) {
-                    game.getPlayers().set(i, user);
-                }
-            }*/
-            //ClientModelRoot.instance().changeTurn();
         }
     }
 
