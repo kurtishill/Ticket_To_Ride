@@ -15,17 +15,12 @@ public interface IDestinationPickerPresenter {
 
     boolean routeSelected(String selectedRoute);
 
-    ArrayList<DestinationCard> getSelectedRoutes();
-
     Result onClickRoutesChosen();
 
     Result drawThreeCards();
 
-    void postExecuteDrawCards();
-    void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards);
     void setAllRoutes(List<DestinationCard> allRoutes);
     void updateGame(TicketToRideGame game);
-    boolean canChoose();
     boolean isRouteAlreadySelected(String route);
     boolean getRouteSelectionChange();
 }

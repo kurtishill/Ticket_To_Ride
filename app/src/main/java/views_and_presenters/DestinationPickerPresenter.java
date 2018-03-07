@@ -70,18 +70,7 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
 
 
     }
-    public void postExecuteDrawCards(){
-        //DrawDestinationTicketsService.drawCards();
-    }
-    public void postExecuteSelectCards(List<DestinationCard> selectedCards, List<DestinationCard> discardedCards){
-        //SelectDestinationTicketsService.selectCards(selectedCards, discardedCards);
-    }
-    public boolean canChoose(){
-        if(numRoutesSelected>1)
-            return true;
-        return false;
 
-    }
     public boolean isRouteAlreadySelected(String route){
         for(int i=0; i<mSelectedRoutes.size(); i++){
             if(mSelectedRoutes.get(i).toString().equals(route))
@@ -129,7 +118,7 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
                 mDiscardedRoutes.add(mAllRoutes.get(i));
         }
     }
-    public int getNumRoutesSelected(){return numRoutesSelected;}
+
     public boolean getRouteSelectionChange() {
         return mChange;
     }

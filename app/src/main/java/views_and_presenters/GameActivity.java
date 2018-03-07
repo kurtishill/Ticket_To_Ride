@@ -318,29 +318,12 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             paint.setColor(GameResources.getLineColors().get(player.getColor()));
             paint.setStrokeWidth(10);
 
-            //canvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
             mCanvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
             route.setOccupied(true);
-//            player.addRoute(route);
-//            player.subtractTrains(route.getLength());
             route.setOwner(player);
             player.addRoute(route);
             player.subtractTrains(route.getLength());
             ClientModelRoot.instance();
-//            for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++) {
-//                if(player.getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID())) {
-//                    ClientModelRoot.instance().getCurrGame().getPlayers().set(i, player);
-//                    break;
-//                }
-//            }
-//
-//            for(int i = 0; i < ClientModelRoot.instance().getGamesList().size(); i++) {
-//                if(ClientModelRoot.instance().getCurrGame().getGameID() == ClientModelRoot.instance().getGamesList().get(i).getGameID()) {
-//                    ClientModelRoot.instance().getGamesList().set(i, ClientModelRoot.instance().getCurrGame());
-//                    break;
-//                }
-//            }
-//            ClientModelRoot.instance().setGames(ClientModelRoot.instance().getGamesList());
 
 
             //TODO add functionality to remove cards from hand

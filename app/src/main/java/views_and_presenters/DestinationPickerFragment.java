@@ -69,13 +69,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            Object routes = getArguments().get(ROUTES);
-//            ArrayList<String> pickableRoutes = new ArrayList<>();
-//            if (routes instanceof ArrayList) {
-//                pickableRoutes = (ArrayList) routes;
-//            }
-//            //mDestinationPickerPresenter = new DestinationPickerPresenter(pickableRoutes); we won't be declaring this here
 //
 //        }
         mDestinationPickerPresenter = new DestinationPickerPresenter();
@@ -90,7 +83,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         new DrawDestinationTicketsAsyncTask().execute(); //we want to draw the cards when the view is opened.
 
         mRouteOne = (TextView) v.findViewById(R.id.destination_one_text_view);
-        //mRouteOne.setText(mDestinationPickerPresenter.getSelectedRoutes().get(0));
         mRouteOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +101,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         });
 
         mRouteTwo = (TextView) v.findViewById(R.id.destination_two_text_view);
-        //mRouteTwo.setText(mDestinationPickerPresenter.getSelectedRoutes().get(1));
         mRouteTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +120,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         });
 
         mRouteThree = (TextView) v.findViewById(R.id.destination_three_text_view);
-        //mRouteThree.setText(mDestinationPickerPresenter.getSelectedRoutes().get(2));
         mRouteThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,8 +136,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                     mRouteThree.setBackgroundColor(0);
             }
         });
-        //mDeckSize = (TextView) v.findViewById(R.id.destination_deck_size);
-        //mDeckSize.setText(ClientModelRoot.instance().getCurrGame().getDeckDestinationCards().size());
 
         mChooseButton = (Button) v.findViewById(R.id.choose_button);
         mChooseButton.setOnClickListener(new View.OnClickListener() {
@@ -199,8 +187,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 else{
                     closeFragment();
                 }
-                //mDestinationPickerPresenter.postExecuteDrawCards(); //is this necessary or does the observer take care of this?
-
             }
         }
     }
@@ -219,11 +205,6 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult)result;
                 TicketToRideGame game = selectResult.getGame();
                 mDestinationPickerPresenter.updateGame(game);
-//                SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult) result;
-//                List<DestinationCard> selectedCards = selectResult.getSelectedDestinationCards();
-//                List<DestinationCard> discardedCards = selectResult.getDiscardedDestinationCards();
-//                //mDestinationPickerPresenter.postExecuteSelectCards(selectedCards, discardedCards); //is this necessary or does the observer take care of this
-
             }
         }
     }
