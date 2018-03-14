@@ -175,6 +175,11 @@ public class CommandHandler implements HttpHandler {
 
                         ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
                     }
+                    else if (commandValues.get(0).equals("DeleteGame")) {
+                        Double gameId = (Double) commandValues.get(1);
+                        command = CommandFactory.instance().DeleteGame(gameId.intValue());
+                        ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
+                    }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);
 

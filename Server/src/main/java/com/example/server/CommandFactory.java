@@ -71,4 +71,8 @@ public class CommandFactory {
                 new Class<?>[]{ArrayList.class, ArrayList.class, ArrayList.class, ArrayList.class, Integer.class, String.class},
                 new Object[]{selectedCards, faceUpCards, trainCardDeck, discardPile, gameId, authToken});
     }
+    public GenericCommand DeleteGame(Integer gameId) {
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "DeleteGame",
+                new Class<?>[]{Integer.class}, new Object[]{gameId});
+    }
 }
