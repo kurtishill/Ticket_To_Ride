@@ -84,9 +84,9 @@ public class Route
 
         if(this.length == r.getLength())
         {
-            if(this.color == r.getColor())
+            if(this.color.equals(r.getColor()))
             {
-                if(this.city1 == r.getCity1() && this.city2 == r.getCity2())
+                if(this.city1.equals(r.getCity1()) && this.city2.equals(r.getCity2()))
                     return true;
             }
         }

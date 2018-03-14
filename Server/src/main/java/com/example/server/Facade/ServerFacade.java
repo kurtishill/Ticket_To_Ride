@@ -3,8 +3,10 @@ package com.example.server.Facade;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.ChatResult;
+import com.example.server.Results.ClaimRouteResult;
 import com.example.server.Results.CreateGameResult;
 import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.DrawFromBankResult;
@@ -31,6 +33,7 @@ public class ServerFacade {
     private SelectDestinationTicketsService selectDestinationTickets;
     private ChatService chatService;
     private DrawFromBankService drawFromBankService;
+    private ClaimRouteService claimRouteService;
     public ServerFacade(){
         login = new LoginService();
         register = new RegisterService();
@@ -41,6 +44,7 @@ public class ServerFacade {
         selectDestinationTickets = new SelectDestinationTicketsService();
         chatService = new ChatService();
         drawFromBankService = new DrawFromBankService();
+        claimRouteService = new ClaimRouteService();
     }
     public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken){
         return createGame.CreateGame(gameName, maxNumPlayers, playerColor, authToken);
@@ -73,5 +77,8 @@ public class ServerFacade {
     public DrawFromBankResult DrawFromBank(ArrayList<TrainCard> selectedCards, ArrayList<TrainCard> faceUpCards, ArrayList<TrainCard> trainCardDeck,
                                            ArrayList<TrainCard> discardPile, Integer gameId, String authToken) {
         return drawFromBankService.draw(selectedCards, faceUpCards, trainCardDeck, discardPile, gameId, authToken);
+    }
+    public ClaimRouteResult ClaimRoute(String playerName, Integer gameID, Route route){
+        return claimRouteService.claimRoute(playerName, gameID, route);
     }
 }

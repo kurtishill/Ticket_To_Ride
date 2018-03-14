@@ -4,6 +4,7 @@ package com.example.server;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
@@ -130,7 +131,7 @@ public class CommandHandler implements HttpHandler {
                         }
 
 
-                        //FIXME idk what to do here so it creates a command correctly
+
                         command = CommandFactory.instance().SelectDestinationTickets(
                                 (String) commandValues.get(1), d.intValue(), reconstructedSelectedCards, reconstructedDiscardedCards);
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
@@ -174,6 +175,15 @@ public class CommandHandler implements HttpHandler {
                                 gameId.intValue(), authToken);
 
                         ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
+                    }
+                    else if (commandValues.get(0).equals("ClaimRoute")) {
+                        String playerName = (String) commandValues.get(1);
+                        Double gameID = (Double) commandValues.get(2);
+                        //TODO: "route" will likely be decoded as a weird tree map. so it needs to be pieced together rather than directly assigned, like the examples above
+                        Route route = (Route) commandValues.get(3);
+
+                        command = CommandFactory.instance().ClaimRoute(playerName,gameID.intValue(),route);
+                        ClientCommandManager.instance().addGameCommand(gameID.intValue(), "UpdateGameList");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);
