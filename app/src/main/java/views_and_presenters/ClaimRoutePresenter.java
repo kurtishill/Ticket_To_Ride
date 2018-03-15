@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.City;
 import com.example.server.Model.Player;
 import com.example.server.Model.Route;
 import com.example.server.Results.Result;
@@ -43,6 +44,20 @@ public class ClaimRoutePresenter implements IClaimRoutePresenter {
         if(numAppropriatePlayerTrains>=length)
             return true;
         else return false;
+    }
+    //Same player cannot build on both routes of a double route, so this method returns true if
+    //a player already owns one of the two, and therefore should not be allowed to claim the second
+    public boolean alreadyOwnsIdenticalRoute(Route route){
+        Player currentPlayer = GetPlayersService.getCurrentPlayer();
+        City city1 = route.getCity1();
+        City city2 = route.getCity2();
+        for(int i=0; i<currentPlayer.getClaimedRoutes().size(); i++){
+            City ownedCity1 = currentPlayer.getClaimedRoutes().get(i).getCity1();
+            City ownedCity2 = currentPlayer.getClaimedRoutes().get(i).getCity2();
+            if(city1.equals(ownedCity1) && city2.equals(ownedCity2))
+                return true;
+        }
+        return false;
     }
 
     @Override
