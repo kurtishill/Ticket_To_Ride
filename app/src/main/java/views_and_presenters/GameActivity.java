@@ -223,7 +223,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             }
         });
     }
-
+    public void drawRouteLine(Route route, Player player){
+        DrawLine drawLine = new DrawLine();
+        drawLine.drawClaimedRoute(route,player);
+    }
     public void onStartUp()
     {
         toggleButtons(false);

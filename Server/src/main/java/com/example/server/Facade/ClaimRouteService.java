@@ -54,6 +54,7 @@ public class ClaimRouteService {
             }
         }
         currentGame.getDiscardPile().addAll(spentCards);
+        currentGame.changeTurn();
 
         return new ClaimRouteResult(true,null,null, null, currentGame);
 
