@@ -10,12 +10,13 @@
         android:orientation="horizontal"
         android:padding="5dp"
         android:layout_margin="5dp"
-        android:background="@color/transparent_gray">
+        android:id="@+id/claim_route_list_item_layout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="0"
+            android:textSize="12sp"
             android:textColor="@color/white"
             android:id="@+id/claim_route_num_text_view"/>
 

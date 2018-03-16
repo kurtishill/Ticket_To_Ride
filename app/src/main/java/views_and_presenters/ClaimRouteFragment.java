@@ -41,6 +41,7 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
     private IClaimRoutePresenter mClaimRoutePresenter;
 
     private RecyclerView mRouteRecyclerView;
+    private LinearLayout mRouteListItemLayout;
     private TextView mRouteNumTextView;
     private TextView mRouteTextView;
     private RouteAdapter mAdapater;
@@ -101,6 +102,7 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
         private RouteHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_claim_routes, parent, false));
 
+            mRouteListItemLayout = (LinearLayout) itemView.findViewById(R.id.claim_route_list_item_layout);
             mRouteNumTextView = (TextView) itemView.findViewById(R.id.claim_route_num_text_view);
             mRouteTextView = (TextView) itemView.findViewById(R.id.routes_list_item_text_view);
 
@@ -122,11 +124,16 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
 
         private void bind(Route route) {
             mRoute = route;
+            mRouteListItemLayout.setBackgroundResource(GameResources.getBackgroundColors().get(mRoute.getColor()));
             String numText = String.valueOf(getAdapterPosition() + 1) + ")";
+            if (mRoute.getColor().equals("white")) {
+                mRouteNumTextView.setTextColor(getResources().getColor(R.color.black));
+                mRouteTextView.setTextColor(getResources().getColor(R.color.black));
+            }
+            else
+                mRouteTextView.setTextColor(getResources().getColor(R.color.white));
             mRouteNumTextView.setText(numText);
-            String routeString = mRoute.toString() + " - Color: " + mRoute.getColor();
-            mRouteTextView.setText(routeString);
-            mRouteTextView.setTextColor(getResources().getColor(R.color.white));
+            mRouteTextView.setText(mRoute.toString());
         }
     }
 
