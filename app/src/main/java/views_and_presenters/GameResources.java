@@ -33,6 +33,7 @@ public class GameResources {
         mBackgroundColors.put("yellow", R.color.trans_yellow);
         mBackgroundColors.put("green", R.color.trans_green);
         mBackgroundColors.put("black", R.color.trans_black);
+        mBackgroundColors.put("gray",R.color.transparent_gray);
 
         mCardBackgrounds = new HashMap<>();
         mCardBackgrounds.put("red", R.drawable.red_card);

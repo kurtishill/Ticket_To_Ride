@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
+    private ClaimRouteFragment mClaimRouteFragment;
     private PlayerStatsFragment mPlayerStatsFragment;
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
@@ -166,13 +167,18 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 // Todo
                 // temporary
-                DrawLine drawLine = new DrawLine();
+                /*DrawLine drawLine = new DrawLine();
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(0), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(4), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(8), ClientModelRoot.instance().getCurrGame().getPlayers().get(1));
-                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
+                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));*/
                 //TODO end turn here
-                toggleButtons(true);
+                //toggleButtons(true);
+
+                FragmentManager fm = getSupportFragmentManager();
+                mClaimRouteFragment = new ClaimRouteFragment();
+                fm.beginTransaction().replace(R.id.claim_route_fragment_container, mClaimRouteFragment)
+                        .addToBackStack(null).commit();
             }
         });
 
