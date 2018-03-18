@@ -24,6 +24,12 @@ import com.example.server.Model.Route;
 import java.util.List;
 
 import client_model.ClientModelRoot;
+import client_model.GameOverState;
+import client_model.LastTurnState;
+import client_model.NotYourTurnState;
+import client_model.StartUpState;
+import client_model.State;
+import client_model.YourTurnState;
 
 public class GameActivity extends AppCompatActivity implements IGameView,
         OnCloseFragmentListener {
@@ -59,7 +65,15 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private ChatFragment mChatFragment;
     private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
 
+    private State state;
 
+    public State getState() {
+        return state;
+    }
+
+    public void changeState(State state) {
+        this.state = state;
+    }
 
     // from OnCloseFragmentListener interface
     @Override
@@ -142,19 +156,25 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
-
-
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
-
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 toggleButtons(false);
                 toggleMenu(false);
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
                         .addToBackStack(null).commit();
+                if(state.toString().equals("lastTurn")){
+                    changeState(new GameOverState());
+                    changeToGameOver();
+                }
+                if(checkForGameOver())
+                {
+                    //TODO add fragment for game over here
+                }
             }
         });
 
@@ -164,15 +184,22 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             public void onClick(View view) {
                 //toggleButtons(false);
 
-                // Todo
-                // temporary
                 DrawLine drawLine = new DrawLine();
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(0), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(4), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(8), ClientModelRoot.instance().getCurrGame().getPlayers().get(1));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
-                //TODO end turn here
-                toggleButtons(true);
+
+                checkForLastTurn();
+                toggleButtons(false);
+                if(state.toString().equals("lastTurn")){
+                    changeState(new GameOverState());
+                    changeToGameOver();
+                }
+                if(checkForGameOver())
+                {
+                    //TODO add fragment for game over here
+                }
             }
         });
 
@@ -183,10 +210,17 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 toggleButtons(false);
                 toggleMenu(false);
                 FragmentManager fm = getSupportFragmentManager();
-                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+                mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                         .addToBackStack(null).commit();
-
+                if(state.toString().equals("lastTurn")){
+                    changeState(new GameOverState());
+                    changeToGameOver();
+                }
+                if(checkForGameOver())
+                {
+                    //TODO add fragment for game over here
+                }
             }
         });
 
@@ -197,6 +231,41 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 onStartUp();
             if (gameStarted)
                 toggleButtons(true);
+        }
+    }
+
+    public void checkForLastTurn()
+    {
+        //Checking to see if any player has less than two train cards. If so, make it last turn state.
+        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+        {
+            if(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getNumTrainCars() <= 2)
+            {
+                changeState(new LastTurnState());
+                ClientModelRoot.instance().getCurrGame().getPlayers().get(i).setState("lastTurn");
+                displayToast("Last Turn");
+            }
+        }
+    }
+
+    public boolean checkForGameOver()
+    {
+        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+        {
+            if(!ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState().equals("gameOver"))
+                return false;
+        }
+        return true;
+    }
+
+    public void changeToGameOver()
+    {
+        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+        {
+            if(ClientModelRoot.instance().getUser().getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID()))
+            {
+                ClientModelRoot.instance().getCurrGame().getPlayers().get(i).setState("gameOver");
+            }
         }
     }
 
@@ -227,8 +296,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public void onStartUp()
     {
         toggleButtons(false);
+        changeState(new StartUpState());
         FragmentManager fm = getSupportFragmentManager();
-        mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+        mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
         fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                 .addToBackStack(null).commit();
     }
@@ -238,9 +308,13 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         // and to check if the player is in the start up state
         if (toggle) {
             toggle = mGamePresenter.isItUsersTurn();
+            if(!state.toString().equals("lastTurn"))
+                changeState(new YourTurnState());
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
+        else
+            changeState(new NotYourTurnState());
 
         final boolean threadToggle = toggle;
         try {

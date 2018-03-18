@@ -650,7 +650,6 @@ public class TicketToRideGame {
         TicketToRideGame other = (TicketToRideGame) o;
 
         return other.getGameID() == this.getGameID();
-
     }
 
     @Override

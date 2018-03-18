@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import client_model.ClientModelRoot;
+import client_model.LastTurnState;
+import client_model.StartUpState;
+import client_model.State;
+import client_model.YourTurnState;
 
 public class DestinationPickerFragment extends Fragment implements IDestinationPickerView {
 
@@ -36,15 +40,15 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             mDeckSize;
 
     private Button mChooseButton;
-
+    private State state;
 
     private IDestinationPickerPresenter mDestinationPickerPresenter;
 
     OnCloseFragmentListener mListener;
 
-    public static DestinationPickerFragment newInstance() {
+    public static DestinationPickerFragment newInstance(State state) {
         Bundle args = new Bundle();
-
+        args.putString("state", state.toString());
 
         DestinationPickerFragment fragment = new DestinationPickerFragment();
         fragment.setArguments(args);
@@ -69,8 +73,14 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        }
+        String stringState = savedInstanceState.getString("state");
+        switch(stringState)
+        {
+            case("startup"): this.state = new StartUpState();
+            case("yourTurn"): this.state = new YourTurnState();
+            case("lastTurn"): this.state = new LastTurnState();
+        }
+
         mDestinationPickerPresenter = new DestinationPickerPresenter();
     }
 
@@ -86,7 +96,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mRouteOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean select = mDestinationPickerPresenter.routeSelected(mRouteOne.getText().toString());
+                boolean select = mDestinationPickerPresenter.routeSelected(mRouteOne.getText().toString(),state);
                 if (!select) {
                     mChooseButton.setEnabled(false);
                 }
@@ -105,7 +115,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
             @Override
             public void onClick(View v) {
                 //select indicates if you can or can't press the select button
-                boolean select = mDestinationPickerPresenter.routeSelected(mRouteTwo.getText().toString());
+                boolean select = mDestinationPickerPresenter.routeSelected(mRouteTwo.getText().toString(), state);
                 if (!select) {
                     mChooseButton.setEnabled(false);
                 }
@@ -123,7 +133,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mRouteThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean select = mDestinationPickerPresenter.routeSelected(mRouteThree.getText().toString());
+                boolean select = mDestinationPickerPresenter.routeSelected(mRouteThree.getText().toString(), state);
                 if (!select) {
                     mChooseButton.setEnabled(false);
                 }

@@ -7,6 +7,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import client_model.ClientModelRoot;
+import client_model.StartUpState;
+import client_model.State;
 import gui_facade.EditObserversInModel;
 import gui_facade.GetGamesService;
 
@@ -24,6 +26,7 @@ public class GamePresenter implements IGamePresenter, Observer {
         mGame = GetGamesService.getCurrGame();
         EditObserversInModel.addObserverToModel(this);
     }
+
 
     // for other clients
     public void update(Observable obs, Object obj) {
@@ -73,6 +76,9 @@ public class GamePresenter implements IGamePresenter, Observer {
                 break;
             }
         }
+
+        mGameView.checkForLastTurn();
+
         if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser)
             return false;
         else

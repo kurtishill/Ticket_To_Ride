@@ -19,4 +19,10 @@ public interface IGameView {
     void displayPlayerTurn();
 
     void onStartUp();
+
+    void checkForLastTurn();
+
+    boolean checkForGameOver();
+
+    void changeToGameOver();
 }
