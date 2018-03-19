@@ -75,12 +75,13 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         super.onCreate(savedInstanceState);
         Bundle b = getArguments();
         String stringState = b.getString("state");
-        switch(stringState)
-        {
-            case("startup"): this.state = new StartUpState();
-            case("yourTurn"): this.state = new YourTurnState();
-            case("lastTurn"): this.state = new LastTurnState();
-        }
+
+        if(stringState.equals("startup"))
+            this.state = new StartUpState();
+        else if(stringState.equals("yourTurn"))
+            this.state = new YourTurnState();
+        else if(stringState.equals("lastTurn"))
+            this.state = new LastTurnState();
 
         mDestinationPickerPresenter = new DestinationPickerPresenter();
     }
@@ -152,6 +153,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
         mChooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //switch to not your turn state
+
                 new SelectDestinationTicketsAsyncTask().execute();
                 mListener.onClose();
                 closeFragment();
@@ -213,6 +216,7 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
                 displayErrorMessage(result.getErrorMessage());
             }
             else {
+                //change state to not your turn state
                 SelectDestinationTicketsResult selectResult = (SelectDestinationTicketsResult)result;
                 TicketToRideGame game = selectResult.getGame();
                 mDestinationPickerPresenter.updateGame(game);

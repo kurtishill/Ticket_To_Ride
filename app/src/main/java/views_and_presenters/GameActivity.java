@@ -167,6 +167,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
                         .addToBackStack(null).commit();
+                changeState(new NotYourTurnState());
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
@@ -192,6 +193,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 checkForLastTurn();
                 toggleButtons(false);
+                changeState(new NotYourTurnState());
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
@@ -213,6 +215,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                         .addToBackStack(null).commit();
+                changeState(new NotYourTurnState());
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
@@ -313,8 +316,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
-        else
-            changeState(new NotYourTurnState());
+//        else
+//            changeState(new NotYourTurnState());
 
         final boolean threadToggle = toggle;
         try {
