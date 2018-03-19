@@ -167,14 +167,23 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
                         .addToBackStack(null).commit();
-                changeState(new NotYourTurnState());
+
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
+                else
+                {
+                    checkForLastTurn();
+                    toggleButtons(false);
+                    if(!state.toString().equals("lastTurn"))
+                        changeState(new NotYourTurnState());
+                }
+
                 if(checkForGameOver())
                 {
                     //TODO add fragment for game over here
+                    displayToast("Game Over");
                 }
             }
         });
@@ -191,17 +200,26 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(8), ClientModelRoot.instance().getCurrGame().getPlayers().get(1));
                 drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
 
-                checkForLastTurn();
-                toggleButtons(false);
-                changeState(new NotYourTurnState());
+                ClientModelRoot.instance().getCurrGame().getPlayers().get(0).setNumTrainCars(1);
+
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
+                else
+                {
+                    checkForLastTurn();
+                    toggleButtons(false);
+                    if(!state.toString().equals("lastTurn"))
+                        changeState(new NotYourTurnState());
+                }
+
                 if(checkForGameOver())
                 {
                     //TODO add fragment for game over here
+                    displayToast("Game Over");
                 }
+
             }
         });
 
@@ -215,14 +233,23 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
                 fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                         .addToBackStack(null).commit();
-                changeState(new NotYourTurnState());
+
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
+                else
+                {
+                    checkForLastTurn();
+                    toggleButtons(false);
+                    if(!state.toString().equals("lastTurn"))
+                        changeState(new NotYourTurnState());
+                }
+
                 if(checkForGameOver())
                 {
                     //TODO add fragment for game over here
+                    displayToast("Game Over");
                 }
             }
         });
