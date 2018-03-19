@@ -344,7 +344,11 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 toggle = false;
         }
 //        else
-//            changeState(new NotYourTurnState());
+//        {
+//            if(!state.toString().equals("lastTurn"))
+//                changeState(new NotYourTurnState());
+//        }
+
 
         final boolean threadToggle = toggle;
         try {
