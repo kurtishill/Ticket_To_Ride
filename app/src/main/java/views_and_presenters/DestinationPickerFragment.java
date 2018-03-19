@@ -73,7 +73,8 @@ public class DestinationPickerFragment extends Fragment implements IDestinationP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String stringState = savedInstanceState.getString("state");
+        Bundle b = getArguments();
+        String stringState = b.getString("state");
         switch(stringState)
         {
             case("startup"): this.state = new StartUpState();
