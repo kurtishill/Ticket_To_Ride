@@ -180,7 +180,26 @@ public class CommandHandler implements HttpHandler {
                         String playerName = (String) commandValues.get(1);
                         Double gameID = (Double) commandValues.get(2);
                         //TODO: "route" will likely be decoded as a weird tree map. so it needs to be pieced together rather than directly assigned, like the examples above
-                        Route route = (Route) commandValues.get(3);
+                        ArrayList<Object> routeList = (ArrayList) commandValues.get(3);
+                        LinkedTreeMap routeMap = (LinkedTreeMap) routeList.get(0);
+                        LinkedTreeMap city1Map = (LinkedTreeMap) routeMap.get("city1");
+                        String city1Name = (String) city1Map.get("name");
+                        float city1x = ((Double)city1Map.get("x")).floatValue();
+                        float city1y = ((Double)city1Map.get("y")).floatValue();
+                        City city1 = new City(city1Name, city1x,city1y);
+
+                        LinkedTreeMap city2Map = (LinkedTreeMap) routeMap.get("city2");
+                        String city2Name = (String) city2Map.get("name");
+                        float city2x = ((Double)city2Map.get("x")).floatValue();
+                        float city2y = ((Double)city2Map.get("y")).floatValue();
+                        City city2 = new City(city2Name, city2x,city2y);
+
+                        String color = (String) routeMap.get("color");
+                        int length = ((Double) routeMap.get("length")).intValue();
+                        boolean occupied = (Boolean) routeMap.get("occupied");
+                        int pointValue = ((Double) routeMap.get("pointValue")).intValue();
+
+                        Route route = new Route(length,pointValue,color,city1,city2);
 
                         command = CommandFactory.instance().ClaimRoute(playerName,gameID.intValue(),route);
                         ClientCommandManager.instance().addGameCommand(gameID.intValue(), "UpdateGameList");
