@@ -179,9 +179,8 @@ public class CommandHandler implements HttpHandler {
                     else if (commandValues.get(0).equals("ClaimRoute")) {
                         String playerName = (String) commandValues.get(1);
                         Double gameID = (Double) commandValues.get(2);
-                        //TODO: "route" will likely be decoded as a weird tree map. so it needs to be pieced together rather than directly assigned, like the examples above
-                        ArrayList<Object> routeList = (ArrayList) commandValues.get(3);
-                        LinkedTreeMap routeMap = (LinkedTreeMap) routeList.get(0);
+
+                        LinkedTreeMap routeMap = (LinkedTreeMap) commandValues.get(3);
                         LinkedTreeMap city1Map = (LinkedTreeMap) routeMap.get("city1");
                         String city1Name = (String) city1Map.get("name");
                         float city1x = ((Double)city1Map.get("x")).floatValue();

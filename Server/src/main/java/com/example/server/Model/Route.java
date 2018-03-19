@@ -84,7 +84,7 @@ public class Route
 
         if(this.length == r.getLength())
         {
-            if(this.color.equals(r.getColor()))
+            if(this.color.equals(r.getColor()) || this.color.equals("wild"))
             {
                 if(this.city1.equals(r.getCity1()) && this.city2.equals(r.getCity2()))
                     return true;

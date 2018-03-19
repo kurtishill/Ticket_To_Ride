@@ -13,7 +13,7 @@ public class ClaimRouteResult extends Result {
 
     public ClaimRouteResult(boolean isSuccess, String errorMessage, List<ClientCommand> clientCommands,
                                           String errorType, TicketToRideGame game) {
-        super(isSuccess, errorMessage, clientCommands, errorType, "SelectDestinationTicketsResult");
+        super(isSuccess, errorMessage, clientCommands, errorType, "ClaimRouteResult");
         this.game=game;
     }
     public TicketToRideGame getGame(){return game;}
