@@ -6,6 +6,7 @@ import com.example.server.Model.Route;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.ClaimRouteResult;
+import com.example.server.Results.DrawFromBankResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ClaimRouteService {
         //claim route for the player, remove the route from available routes, pay with train cards
 
         route.setOccupied(true);
-        route.setOwner(currentPlayer);
+        route.setOwner(currentPlayer.getUsername());
         currentPlayer.addRoute(route);
         currentGame.removeRoute(route); //maybe need to iterate through to find the route instead???
 

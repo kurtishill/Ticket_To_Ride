@@ -23,6 +23,8 @@ import com.example.server.Model.TrainCard;
 import java.util.ArrayList;
 import java.util.List;
 
+import client_model.ClientModelRoot;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -102,7 +104,12 @@ public class PlayerStatsFragment extends Fragment implements IPlayerStatsView {
             mRoute = route;
             mRouteTextView.setText(mRoute.toString());
             mRouteTextView.setTextColor(getResources().getColor(R.color.white));
-            mRouteTextView.setBackgroundResource(GameResources.getBackgroundColors().get(mRoute.getOwner().getColor()));
+            Player ownerPlayer = new Player();
+            for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
+                if(mRoute.getOwner().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getUsername()))
+                    ownerPlayer = ClientModelRoot.instance().getCurrGame().getPlayers().get(i);
+            }
+            mRouteTextView.setBackgroundResource(GameResources.getBackgroundColors().get(ownerPlayer.getColor()));
         }
     }
 
