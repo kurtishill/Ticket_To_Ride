@@ -30,6 +30,7 @@ public class ClaimRouteService {
         route.setOccupied(true);
         route.setOwner(currentPlayer.getUsername());
         currentPlayer.addRoute(route);
+        currentPlayer.setNumTrainCars(currentPlayer.getNumTrainCars()-route.getLength());
         currentGame.removeRoute(route); //maybe need to iterate through to find the route instead???
 
         List<TrainCard> spentCards = new ArrayList<>();
