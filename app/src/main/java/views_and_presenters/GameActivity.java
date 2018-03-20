@@ -328,15 +328,15 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             paint.setStrokeWidth(10);
 
             mCanvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
-            route.setOccupied(true);
-            route.setOwner(player.getUsername());
-            player.addRoute(route);
-            player.subtractTrains(route.getLength());
-            ClientModelRoot.instance();
-
-
-            //TODO add functionality to remove cards from hand
-            ifClaimedRoutesExist();
+//            route.setOccupied(true);
+//            route.setOwner(player.getUsername());
+//            player.addRoute(route);
+//            player.subtractTrains(route.getLength());
+//            ClientModelRoot.instance();
+//
+//
+//            //TODO add functionality to remove cards from hand
+//            ifClaimedRoutesExist();
             mGameMapImageView.setImageBitmap(mBitmap);
         }
     }
