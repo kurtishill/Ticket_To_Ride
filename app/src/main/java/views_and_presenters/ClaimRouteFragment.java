@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.hillcollegemac.tickettoride.R;
 import com.example.server.Model.Route;
+import com.example.server.Results.ClaimRouteResult;
 import com.example.server.Results.Result;
 
 import java.util.List;
@@ -419,7 +420,8 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
         @Override
         protected void onPostExecute(Result result) {
             if (result.isSuccess()) {
-                // Todo probably do other stuff here
+                ClaimRouteResult claimRouteResult = (ClaimRouteResult) result;
+                mClaimRoutePresenter.updateGame(claimRouteResult.getGame());
                 displayToast("Congratulations! You claimed a route!");
                 closeFragment();
                 mListener.onClose();

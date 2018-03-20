@@ -1,5 +1,6 @@
 package com.example.server.Facade;
 
+import com.example.server.Model.GameHistory;
 import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.Route;
@@ -55,8 +56,15 @@ public class ClaimRouteService {
                 numCardsStillOwed--;
             }
         }
+
         currentGame.getDiscardPile().addAll(spentCards);
         currentGame.changeTurn();
+
+        List<GameHistory> gameHistoryList = currentGame.getGameHistoryList();
+        GameHistory historyItem = new GameHistory(currentPlayer.getUsername(), currentPlayer.getColor(),
+                "claimed a route!");
+        gameHistoryList.add(historyItem);
+        currentGame.setGameHistoryList(gameHistoryList);
 
         return new ClaimRouteResult(true,null,null, null, currentGame);
 

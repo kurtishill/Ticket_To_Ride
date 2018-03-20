@@ -3,6 +3,7 @@ package views_and_presenters;
 import com.example.server.Model.City;
 import com.example.server.Model.Player;
 import com.example.server.Model.Route;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.Result;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import gui_facade.AddUserService;
 import gui_facade.GetPlayersService;
 
 /**
@@ -139,6 +141,21 @@ public class ClaimRoutePresenter implements IClaimRoutePresenter {
         data.add(mSelectedRoute);
         return ServerProxy.getInstance()
                 .command("ClaimRoute",data,null);
+    }
+
+    public void updateGame(TicketToRideGame game) {
+        List<TicketToRideGame> games = ClientModelRoot.instance().getGamesList();
+        for (int i = 0; i < games.size(); i++) {
+            if (games.get(i).getGameID() == game.getGameID())
+                games.set(i, game);
+        }
+
+        for (int i = 0; i < game.getPlayers().size(); i++) {
+            if (ClientModelRoot.instance().getUser().getUsername().equals(game.getPlayers().get(i).getUsername()))
+                AddUserService.addUser(game.getPlayers().get(i));
+        }
+
+        ClientModelRoot.instance().setGames(games);
     }
 
     /**

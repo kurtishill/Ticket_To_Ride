@@ -2,6 +2,7 @@ package views_and_presenters;
 
 import com.example.server.Model.Player;
 import com.example.server.Model.Route;
+import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface IClaimRoutePresenter {
     boolean anyCardsSelected();
 
     Result claimRoute();
+
+    void updateGame(TicketToRideGame game);
 
     boolean selectRoute(Route selectedRoute, int pos);
 
