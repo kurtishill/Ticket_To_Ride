@@ -230,9 +230,14 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         });
     }
 
-    public void drawRouteLine(Route route, Player player){
-        DrawLine drawLine = new DrawLine();
-        drawLine.drawClaimedRoute(route,player);
+    public void drawRouteLine(final Route route, final Player player) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DrawLine drawLine = new DrawLine();
+                drawLine.drawClaimedRoute(route, player);
+            }
+        });
     }
 
     public void onStartUp()

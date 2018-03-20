@@ -32,7 +32,7 @@ public class ClaimRouteService {
         route.setOwner(currentPlayer.getUsername());
         currentPlayer.addRoute(route);
         currentPlayer.setNumTrainCars(currentPlayer.getNumTrainCars()-route.getLength());
-        currentGame.removeRoute(route); //maybe need to iterate through to find the route instead???
+        currentGame.removeRoute(route);
 
         List<TrainCard> spentCards = new ArrayList<>();
         int numCardsStillOwed = route.getLength();
@@ -44,15 +44,17 @@ public class ClaimRouteService {
             if(currentPlayer.getTrainCards().get(i).getColor().equals(route.getColor())){
                 spentCards.add(currentPlayer.getTrainCards().get(i));
                 currentPlayer.getTrainCards().remove(i);
+                i--;
                 numCardsStillOwed--;
             }
-
         }
+
         for(int i=0; i<currentPlayer.getTrainCards().size(); i++){
             if(numCardsStillOwed==0) break;
             if(currentPlayer.getTrainCards().get(i).getColor().equals("wild")){
                 spentCards.add(currentPlayer.getTrainCards().get(i));
                 currentPlayer.getTrainCards().remove(i);
+                i--;
                 numCardsStillOwed--;
             }
         }
