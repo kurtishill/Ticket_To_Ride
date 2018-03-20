@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GitHub-Ticket_To_Ride.iml" filepath="$PROJECT_DIR$/GitHub-Ticket_To_Ride.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
-      <module fileurl="file://C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />
       <module fileurl="file://C:\Users\Clayton Kings\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\Clayton Kings\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />
+      <module fileurl="file://C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />
       <module fileurl="file://C:\Users\fryti\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\fryti\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ticket_To_Ride.iml" filepath="$PROJECT_DIR$/Ticket_To_Ride.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Server/Ticket_To_Ride-Server.iml" filepath="$PROJECT_DIR$/Server/Ticket_To_Ride-Server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/Ticket_To_Ride-app.iml" filepath="$PROJECT_DIR$/app/Ticket_To_Ride-app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gson-2.8.2/Ticket_To_Ride-gson-2.8.2.iml" filepath="$PROJECT_DIR$/gson-2.8.2/Ticket_To_Ride-gson-2.8.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" filepath="$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" />
     </modules>

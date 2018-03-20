@@ -26,7 +26,7 @@ public class DestinationCardCalc {
                 start = i;
                 break;
             }
-            //depending on the routes being one way or two ways
+            //depending on the routes being one way or  two ways
         }
         for(int i = 0; i < routes.size(); i++){
             if (routes.get(i).getCity2().equals(card.getCity2())){
