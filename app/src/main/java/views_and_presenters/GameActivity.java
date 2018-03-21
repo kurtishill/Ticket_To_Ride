@@ -156,6 +156,8 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
+        state = new StartUpState();
+
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
