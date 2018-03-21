@@ -51,7 +51,7 @@ public class City
 
         City c = (City)o;
 
-        if(this.name == c.getName())
+        if(this.name.equals(c.getName()))
         {
             if(this.x == c.getX())
             {

@@ -64,11 +64,6 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         mGame = null;
     }
 
-    @Override
-    public void callSetPlayerColorService(String color) {
-        SetPlayerColorService.setPlayerColor(color);
-    }
-
     public Result confirmCreateGame() {
         String gameName = mCreateNewGameView.getGameName();
         Integer maxNumPlayers = mCreateNewGameView.getMaxNumPlayers();

@@ -64,6 +64,7 @@
     <string name="destination_cards_title">Destination Cards</string>
     <string name="game_history_title">Game History</string>
 
+
     <string name="game_over">Game Over!</string>
     <string name="player_wins">"Player" Wins!</string>
     <string name="player_game_overview">\n\nPlayer</string>
