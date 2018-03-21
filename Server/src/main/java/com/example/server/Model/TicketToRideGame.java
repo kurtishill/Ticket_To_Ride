@@ -393,7 +393,7 @@ public class TicketToRideGame {
         Route torontoSaultStMarie = new Route(2, 2, "wild", toronto, saultStMarie);
         Route torontoDuluth = new Route(6, 15, "purple", toronto, duluth);
         Route montrealSaultStMarie = new Route(5, 10, "black", montreal, saultStMarie);
-        Route saultStMarieWinnipeg = new Route(6, 16, "wild", saultStMarie, winnipeg);
+        Route saultStMarieWinnipeg = new Route(6, 15, "wild", saultStMarie, winnipeg);
         Route saultStMarieDuluth = new Route(3, 4, "wild", saultStMarie, duluth);
         Route chicagoDuluth = new Route(3, 4, "red", chicago, duluth);
         Route chicagoOmaha = new Route(4, 7, "blue", chicago, omaha);
