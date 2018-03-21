@@ -345,12 +345,14 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
-        else
-        {
-            if(!state.toString().equals("lastTurn") && !state.toString().equals("startup"))
-                changeState(new NotYourTurnState());
-        }
+//        else
+//        {
+//            if(!state.toString().equals("lastTurn") && !state.toString().equals("startup"))
+//                changeState(new NotYourTurnState());
+//        }
 
+        if(!mGamePresenter.isItUsersTurn() && !state.toString().equals("lastTurn"))
+            changeState(new NotYourTurnState());
 
         final boolean threadToggle = toggle;
         try {
