@@ -4,6 +4,7 @@ package com.example.server;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
@@ -130,7 +131,7 @@ public class CommandHandler implements HttpHandler {
                         }
 
 
-                        //FIXME idk what to do here so it creates a command correctly
+
                         command = CommandFactory.instance().SelectDestinationTickets(
                                 (String) commandValues.get(1), d.intValue(), reconstructedSelectedCards, reconstructedDiscardedCards);
                         ClientCommandManager.instance().addGameCommand(d.intValue(), "UpdateGameList");
@@ -174,6 +175,33 @@ public class CommandHandler implements HttpHandler {
                                 gameId.intValue(), authToken);
 
                         ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
+                    }
+                    else if (commandValues.get(0).equals("ClaimRoute")) {
+                        String playerName = (String) commandValues.get(1);
+                        Double gameID = (Double) commandValues.get(2);
+
+                        LinkedTreeMap routeMap = (LinkedTreeMap) commandValues.get(3);
+                        LinkedTreeMap city1Map = (LinkedTreeMap) routeMap.get("city1");
+                        String city1Name = (String) city1Map.get("name");
+                        float city1x = ((Double)city1Map.get("x")).floatValue();
+                        float city1y = ((Double)city1Map.get("y")).floatValue();
+                        City city1 = new City(city1Name, city1x,city1y);
+
+                        LinkedTreeMap city2Map = (LinkedTreeMap) routeMap.get("city2");
+                        String city2Name = (String) city2Map.get("name");
+                        float city2x = ((Double)city2Map.get("x")).floatValue();
+                        float city2y = ((Double)city2Map.get("y")).floatValue();
+                        City city2 = new City(city2Name, city2x,city2y);
+
+                        String color = (String) routeMap.get("color");
+                        int length = ((Double) routeMap.get("length")).intValue();
+                        boolean occupied = (Boolean) routeMap.get("occupied");
+                        int pointValue = ((Double) routeMap.get("pointValue")).intValue();
+
+                        Route route = new Route(length,pointValue,color,city1,city2);
+
+                        command = CommandFactory.instance().ClaimRoute(playerName,gameID.intValue(),route);
+                        ClientCommandManager.instance().addGameCommand(gameID.intValue(), "UpdateGameList");
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

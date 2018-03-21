@@ -3,6 +3,7 @@ package com.example.server;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
 import com.example.server.Results.GenericCommand;
 
@@ -70,5 +71,10 @@ public class CommandFactory {
         return new GenericCommand("com.example.server.Facade.ServerFacade", "DrawFromBank",
                 new Class<?>[]{ArrayList.class, ArrayList.class, ArrayList.class, ArrayList.class, Integer.class, String.class},
                 new Object[]{selectedCards, faceUpCards, trainCardDeck, discardPile, gameId, authToken});
+    }
+    public GenericCommand ClaimRoute(String playerName, int gameId, Route route){
+        return new GenericCommand("com.example.server.Facade.ServerFacade", "ClaimRoute",
+                new Class<?>[]{String.class, Integer.class, Route.class}, new Object[]{playerName,
+                gameId, route});
     }
 }

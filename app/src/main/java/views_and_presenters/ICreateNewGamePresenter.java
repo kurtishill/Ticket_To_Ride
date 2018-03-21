@@ -18,7 +18,6 @@ public interface ICreateNewGamePresenter {
     void cancel();
 
     Result confirmCreateGame();
-    void callSetPlayerColorService(String color);
 
     boolean gameNameChanged();
 
