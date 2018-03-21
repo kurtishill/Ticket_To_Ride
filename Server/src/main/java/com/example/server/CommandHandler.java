@@ -176,6 +176,13 @@ public class CommandHandler implements HttpHandler {
 
                         ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
                     }
+
+                    else if (commandValues.get(0).equals("DeleteGame")) {
+                        Double gameId = (Double) commandValues.get(1);
+                        command = CommandFactory.instance().DeleteGame(gameId.intValue());
+                        ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
+                    }
+
                     else if (commandValues.get(0).equals("ClaimRoute")) {
                         String playerName = (String) commandValues.get(1);
                         Double gameID = (Double) commandValues.get(2);
@@ -202,6 +209,7 @@ public class CommandHandler implements HttpHandler {
 
                         command = CommandFactory.instance().ClaimRoute(playerName,gameID.intValue(),route);
                         ClientCommandManager.instance().addGameCommand(gameID.intValue(), "UpdateGameList");
+
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);

@@ -100,6 +100,11 @@ public class ClientModelRoot extends Observable {
         }
     }
 
+    public void deleteGame() {
+        mGamesList.remove(mCurrGame);
+        mCurrGame = null;
+    }
+
     public void addUserToCurrGame() {
         mCurrGame.getPlayers().add(mUser);
     }

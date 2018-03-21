@@ -64,4 +64,15 @@
     <string name="destination_cards_title">Destination Cards</string>
     <string name="game_history_title">Game History</string>
 
+
+    <string name="game_over">Game Over!</string>
+    <string name="player_wins">"Player" Wins!</string>
+    <string name="player_game_overview">\n\nPlayer</string>
+    <string name="claimed_route_points">Claimed Route Points</string>
+    <string name="longest_route_points">Longest Route Points</string>
+    <string name="reached_destination_points">Reached Destination Points</string>
+    <string name="unreached_destination_points">Unreached Destination Points</string>
+    <string name="total_number_points">Total Number Points</string>
+    <string name="quit_game">Quit Game</string>
+
 </resources>
