@@ -105,8 +105,13 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
-                mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
-                        .get(newCard.getColor()));
+                if (newCard == null) {
+                    mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground().get("null"));
+                }
+                else {
+                    mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground()
+                            .get(newCard.getColor()));
+                }
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
             }
@@ -119,8 +124,13 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
-                mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
-                        .get(newCard.getColor()));
+                if (newCard == null) {
+                    mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground().get("null"));
+                }
+                else {
+                    mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground()
+                            .get(newCard.getColor()));
+                }
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
             }
@@ -133,8 +143,13 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
-                mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
-                        .get(newCard.getColor()));
+                if (newCard == null) {
+                    mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground().get("null"));
+                }
+                else {
+                    mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground()
+                            .get(newCard.getColor()));
+                }
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
             }
@@ -147,8 +162,13 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
-                mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
-                        .get(newCard.getColor()));
+                if (newCard == null) {
+                    mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground().get("null"));
+                }
+                else {
+                    mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground()
+                            .get(newCard.getColor()));
+                }
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
             }
@@ -161,8 +181,13 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
-                mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
-                        .get(newCard.getColor()));
+                if (newCard == null) {
+                    mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground().get("null"));
+                }
+                else {
+                    mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground()
+                            .get(newCard.getColor()));
+                }
                 if (mBankPresenter.isDone())
                     new selectCardsAsyncTask().execute();
             }

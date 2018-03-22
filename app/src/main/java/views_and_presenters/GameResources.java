@@ -49,6 +49,7 @@ public class GameResources {
         mCardBackgrounds.put("purple", R.drawable.purple_card);
         mCardBackgrounds.put("white", R.drawable.white_card);
         mCardBackgrounds.put("wild", R.drawable.wild_card);
+        mCardBackgrounds.put("null", R.drawable.rectangle);
 
         mChatBackgrounds = new HashMap<>();
         mChatBackgrounds.put("red", R.drawable.rounded_rectangle_red);

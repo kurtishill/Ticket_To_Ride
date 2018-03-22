@@ -156,6 +156,11 @@ public class BankPresenter implements IBankPresenter {
      */
     public TrainCard faceUpCardSelected(int index) {
         TrainCard selectedCard = mFaceUpTrainCards.get(index);
+        if (selectedCard == null) {
+            mBankView.displayToast("There's nothing there! Select another card.");
+            return null;
+        }
+
         if (selectedCard.getColor().equals("wild") && mSelectedCards.size() == 1) {
             mBankView.displayToast("You cannot select a wild card after drawing another card");
             return selectedCard;
@@ -172,9 +177,15 @@ public class BankPresenter implements IBankPresenter {
             isDone = true;
         }
 
-        TrainCard newFaceUpCard = mTrainCardDeck.get(0);
+        TrainCard newFaceUpCard;
+        if (mTrainCardDeck.size() > 0) {
+            newFaceUpCard = mTrainCardDeck.get(0);
+            mTrainCardDeck.remove(0);
+        }
+        else
+            newFaceUpCard = null;
+
         mFaceUpTrainCards.set(index, newFaceUpCard);
-        mTrainCardDeck.remove(0);
         ClientModelRoot.instance().getCurrGame().setDeckTrainCards(mTrainCardDeck);
         boolean threeWildsInFaceUpDeck = true;
         boolean resetFaceUpDeck = false;
