@@ -105,7 +105,7 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(0);
-                if (newCard == null) {
+                if (newCard.getColor().equals("null")) {
                     mFaceUpCardOne.setBackgroundResource(GameResources.getCardBackground().get("null"));
                 }
                 else {
@@ -124,7 +124,7 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(1);
-                if (newCard == null) {
+                if (newCard.getColor().equals("null")) {
                     mFaceUpCardTwo.setBackgroundResource(GameResources.getCardBackground().get("null"));
                 }
                 else {
@@ -143,7 +143,7 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(2);
-                if (newCard == null) {
+                if (newCard.getColor().equals("null")) {
                     mFaceUpCardThree.setBackgroundResource(GameResources.getCardBackground().get("null"));
                 }
                 else {
@@ -162,7 +162,7 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(3);
-                if (newCard == null) {
+                if (newCard.getColor().equals("null")) {
                     mFaceUpCardFour.setBackgroundResource(GameResources.getCardBackground().get("null"));
                 }
                 else {
@@ -181,7 +181,7 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 TrainCard newCard = mBankPresenter.faceUpCardSelected(4);
-                if (newCard == null) {
+                if (newCard.getColor().equals("null")) {
                     mFaceUpCardFive.setBackgroundResource(GameResources.getCardBackground().get("null"));
                 }
                 else {

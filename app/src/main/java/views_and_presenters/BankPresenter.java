@@ -183,7 +183,7 @@ public class BankPresenter implements IBankPresenter {
             mTrainCardDeck.remove(0);
         }
         else
-            newFaceUpCard = null;
+            newFaceUpCard = new TrainCard("null");
 
         mFaceUpTrainCards.set(index, newFaceUpCard);
         ClientModelRoot.instance().getCurrGame().setDeckTrainCards(mTrainCardDeck);
