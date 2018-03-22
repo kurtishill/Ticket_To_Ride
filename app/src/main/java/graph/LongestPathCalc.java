@@ -123,12 +123,38 @@ public class LongestPathCalc {
                     }
                 }
             }
-            tempLargest = Search(graph, start, true);
+            tempLargest = SearchGraph(graph, start, graph.get(start).getCity2())
+                    + SearchGraph(graph, start, graph.get(start).getCity1()) - graph.get(start).getLength();
             if (tempLargest > largest){
                 largest = tempLargest;
             }
         }
         return largest;
 
+    }
+    public int SearchGraph(List<Route> graph, int start, City cStart){
+        if(!NotAllvisited(graph)){
+            return 0;
+        }
+        boolean connected = false;
+        Route tempRoute = graph.get(start);
+        tempRoute.Visit();
+        int tempLength = 0;
+        int largest = tempRoute.getLength();
+        for (int i = 0; i < graph.size(); i++){
+            tempLength = 0;
+            if (!graph.get(i).IsVisited()) {
+                if (graph.get(i).getCity1().equals(cStart)) {
+                    tempLength = tempRoute.getLength() + SearchGraph(graph, i, graph.get(i).getCity2());
+                } else if (graph.get(i).getCity2().equals(cStart)) {
+                    tempLength = tempRoute.getLength() + SearchGraph(graph, i, graph.get(i).getCity1());
+                }
+            }
+            if(tempLength > largest){
+                largest = tempLength;
+            }
+        }
+
+        return largest;
     }
 }
