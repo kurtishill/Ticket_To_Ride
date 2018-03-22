@@ -158,7 +158,7 @@ public class BankPresenter implements IBankPresenter {
         TrainCard selectedCard = mFaceUpTrainCards.get(index);
         if (selectedCard.getColor().equals("null")) {
             mBankView.displayToast("There's nothing there! Select another card.");
-            return null;
+            return selectedCard;
         }
 
         if (selectedCard.getColor().equals("wild") && mSelectedCards.size() == 1) {
@@ -228,6 +228,11 @@ public class BankPresenter implements IBankPresenter {
      * {@post TrainCardDeck newSize will be one less than oldSize}
      */
     public void deckCardSelected() {
+        if (mTrainCardDeck.size() == 0) {
+            mBankView.displayToast("There's nothing there! Please select a face up card if available.");
+            return;
+        }
+
         mBankView.disableCloseButton();
         TrainCard selectedCard = mTrainCardDeck.get(0);
         mSelectedCards.add(selectedCard);
