@@ -156,6 +156,11 @@ public class BankPresenter implements IBankPresenter {
      */
     public TrainCard faceUpCardSelected(int index) {
         TrainCard selectedCard = mFaceUpTrainCards.get(index);
+        if (selectedCard.getColor().equals("null")) {
+            mBankView.displayToast("There's nothing there! Select another card.");
+            return selectedCard;
+        }
+
         if (selectedCard.getColor().equals("wild") && mSelectedCards.size() == 1) {
             mBankView.displayToast("You cannot select a wild card after drawing another card");
             return selectedCard;
@@ -172,9 +177,15 @@ public class BankPresenter implements IBankPresenter {
             isDone = true;
         }
 
-        TrainCard newFaceUpCard = mTrainCardDeck.get(0);
+        TrainCard newFaceUpCard;
+        if (mTrainCardDeck.size() > 0) {
+            newFaceUpCard = mTrainCardDeck.get(0);
+            mTrainCardDeck.remove(0);
+        }
+        else
+            newFaceUpCard = new TrainCard("null");
+
         mFaceUpTrainCards.set(index, newFaceUpCard);
-        mTrainCardDeck.remove(0);
         ClientModelRoot.instance().getCurrGame().setDeckTrainCards(mTrainCardDeck);
         boolean threeWildsInFaceUpDeck = true;
         boolean resetFaceUpDeck = false;
@@ -217,6 +228,11 @@ public class BankPresenter implements IBankPresenter {
      * {@post TrainCardDeck newSize will be one less than oldSize}
      */
     public void deckCardSelected() {
+        if (mTrainCardDeck.size() == 0) {
+            mBankView.displayToast("There's nothing there! Please select a face up card if available.");
+            return;
+        }
+
         mBankView.disableCloseButton();
         TrainCard selectedCard = mTrainCardDeck.get(0);
         mSelectedCards.add(selectedCard);
