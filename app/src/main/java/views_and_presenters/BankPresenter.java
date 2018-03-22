@@ -156,7 +156,7 @@ public class BankPresenter implements IBankPresenter {
      */
     public TrainCard faceUpCardSelected(int index) {
         TrainCard selectedCard = mFaceUpTrainCards.get(index);
-        if (selectedCard == null) {
+        if (selectedCard.getColor().equals("null")) {
             mBankView.displayToast("There's nothing there! Select another card.");
             return null;
         }
