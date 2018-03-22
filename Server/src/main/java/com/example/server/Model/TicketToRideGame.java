@@ -299,11 +299,14 @@ public class TicketToRideGame {
         if (deckTrainCards.size() == 0 && discardPile.size() > 0) {
             Collections.shuffle(discardPile);
             deckTrainCards = discardPile;
+            discardPile.clear();
             int count = 0;
-            for (int i = 0; i < faceUpCards.size(); i++) {
+            int deckSize = deckTrainCards.size();
+            for (int i = 0; i < faceUpCards.size() && deckSize > 0; i++) {
                 if (faceUpCards.get(i).getColor().equals("null")) {
                     faceUpCards.set(i, deckTrainCards.get(0));
                     count++;
+                    deckSize--;
                 }
             }
 
