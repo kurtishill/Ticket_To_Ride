@@ -168,14 +168,6 @@ public class BankPresenter implements IBankPresenter {
 
         mBankView.disableCloseButton();
         mSelectedCards.add(selectedCard);
-        if (selectedCard.getColor().equals("wild"))
-            isDone = true;
-
-        if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
-            mBankView.displayToast("Please select one more card");
-        else if (mSelectedCards.size() == 2) {
-            isDone = true;
-        }
 
         TrainCard newFaceUpCard;
         if (mTrainCardDeck.size() > 0) {
@@ -186,6 +178,31 @@ public class BankPresenter implements IBankPresenter {
             newFaceUpCard = new TrainCard("null");
 
         mFaceUpTrainCards.set(index, newFaceUpCard);
+
+        boolean faceUpCardsAreNull = false;
+        for (int i = 0; i < mFaceUpTrainCards.size(); i++) {
+            if (mFaceUpTrainCards.get(i).getColor().equals("null")) {
+                faceUpCardsAreNull = true;
+                break;
+            }
+        }
+
+        if (faceUpCardsAreNull) {
+            isDone = true;
+            return mFaceUpTrainCards.get(index);
+        }
+
+        if (selectedCard.getColor().equals("wild"))
+            isDone = true;
+
+
+        if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
+            mBankView.displayToast("Please select one more card");
+        else if (mSelectedCards.size() == 2) {
+            isDone = true;
+        }
+
+
         ClientModelRoot.instance().getCurrGame().setDeckTrainCards(mTrainCardDeck);
         boolean threeWildsInFaceUpDeck = true;
         boolean resetFaceUpDeck = false;
