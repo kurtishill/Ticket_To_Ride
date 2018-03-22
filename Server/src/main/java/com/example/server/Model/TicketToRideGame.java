@@ -621,7 +621,7 @@ public class TicketToRideGame {
         deckDestinationCards.add(dallasNewYork);
         deckDestinationCards.add(bostonMiami);
 
-        for(int i = 0; i < 3; i++) // todo change back to 12
+        for(int i = 0; i < 12; i++)
         {
             deckTrainCards.add(new TrainCard("purple"));
             deckTrainCards.add(new TrainCard("white"));
@@ -633,10 +633,10 @@ public class TicketToRideGame {
             deckTrainCards.add(new TrainCard("green"));
         }
 
-        /*for(int i = 0; i < 14; i++) // todo uncomment this section
+        for(int i = 0; i < 14; i++)
         {
             deckTrainCards.add(new TrainCard("wild"));
-        }*/
+        }
 
         shuffleTrainCards();
         shuffleDestinationCards();
