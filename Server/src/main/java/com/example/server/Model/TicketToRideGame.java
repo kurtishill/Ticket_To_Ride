@@ -298,7 +298,8 @@ public class TicketToRideGame {
     public void recycleTrainCardDeck() {
         if (deckTrainCards.size() == 0 && discardPile.size() > 0) {
             Collections.shuffle(discardPile);
-            deckTrainCards = discardPile;
+            deckTrainCards = new ArrayList<>();
+            deckTrainCards.addAll(discardPile);
             discardPile.clear();
             int count = 0;
             int deckSize = deckTrainCards.size();
