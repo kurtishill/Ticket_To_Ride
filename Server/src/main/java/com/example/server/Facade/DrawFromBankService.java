@@ -8,6 +8,7 @@ import com.example.server.Model.TrainCard;
 import com.example.server.Results.DrawFromBankResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,10 +21,18 @@ public class DrawFromBankService {
                                    ArrayList<TrainCard> discardPile, int gameId, String authToken) {
         TicketToRideGame game = ModelRoot.instance().GameExists(gameId);
         Player user = ModelRoot.instance().UserExists(authToken);
+
         for (int i = 0; i < selectedCards.size(); i++) {
             user.addTrainCard(selectedCards.get(i));
         }
+
         game.changeTurn();
+
+        if (trainCardDeck.size() == 0 && discardPile.size() > 0) {
+            Collections.shuffle(discardPile);
+            trainCardDeck = discardPile;
+        }
+
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);
         game.setDiscardPile(discardPile);
