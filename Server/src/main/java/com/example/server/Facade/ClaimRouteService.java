@@ -60,6 +60,7 @@ public class ClaimRouteService {
         }
 
         currentGame.getDiscardPile().addAll(spentCards);
+        currentGame.recycleTrainCardDeck();
         currentGame.changeTurn();
 
         List<GameHistory> gameHistoryList = currentGame.getGameHistoryList();

@@ -28,10 +28,7 @@ public class DrawFromBankService {
 
         game.changeTurn();
 
-        if (trainCardDeck.size() == 0 && discardPile.size() > 0) {
-            Collections.shuffle(discardPile);
-            trainCardDeck = discardPile;
-        }
+        game.recycleTrainCardDeck();
 
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);

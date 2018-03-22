@@ -24,7 +24,6 @@ public class TicketToRideGame {
     private List<Route> availableRoutes;
     private List<GameHistory> gameHistoryList;
     private int turn;
-    private int round;
 
     public TicketToRideGame() {
         deckTrainCards = new ArrayList<>();
@@ -42,7 +41,6 @@ public class TicketToRideGame {
         chat = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
-        round = 0;
     }
 
     public TicketToRideGame(Player player) {
@@ -60,7 +58,6 @@ public class TicketToRideGame {
         chat = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
-        round = 0;
     }
 
     public TicketToRideGame(List<Player> players) {
@@ -76,7 +73,6 @@ public class TicketToRideGame {
         chat = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
-        round = 0;
     }
 
     public TicketToRideGame(Player player,
@@ -99,7 +95,6 @@ public class TicketToRideGame {
         chat = new ArrayList<>();
         gameHistoryList = new ArrayList<>();
         turn = 0;
-        round = 0;
     }
 
     public List<Player> getPlayers() {
@@ -297,12 +292,25 @@ public class TicketToRideGame {
         turn++;
         if (turn == players.size()) {
             turn = 0;
-            round++;
         }
     }
 
-    public int getRound() {
-        return round;
+    public void recycleTrainCardDeck() {
+        if (deckTrainCards.size() == 0 && discardPile.size() > 0) {
+            Collections.shuffle(discardPile);
+            deckTrainCards = discardPile;
+            int count = 0;
+            for (int i = 0; i < faceUpCards.size(); i++) {
+                if (faceUpCards.get(i).getColor().equals("null")) {
+                    faceUpCards.set(i, deckTrainCards.get(0));
+                    count++;
+                }
+            }
+
+            for (int i = 0; i < count; i++) {
+                deckTrainCards.remove(0);
+            }
+        }
     }
 
     //hard coding in the cities and routes and cards
