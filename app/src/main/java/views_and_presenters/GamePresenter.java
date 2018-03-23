@@ -1,7 +1,9 @@
 package views_and_presenters;
 
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.ClientCommand;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -47,6 +49,14 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.checkForLastTurn();
             mGameView.checkForGameOver();
             //if true start game over fragment??
+        }
+        //Draw all claimed routes on the map, iterating through players who possess claimed routes
+        for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
+            for(int j=0; j<ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getClaimedRoutes().size(); j++){
+                Player thisPlayer = ClientModelRoot.instance().getCurrGame().getPlayers().get(i);
+                Route thisRoute = ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getClaimedRoutes().get(j);
+                mGameView.drawRouteLine(thisRoute, thisPlayer);
+            }
         }
     }
 
