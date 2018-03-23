@@ -287,7 +287,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public void endGame()
     {
         FragmentManager fm = getSupportFragmentManager();
-        fm = getSupportFragmentManager();
         mGameOverviewFragment = new GameOverviewFragment();
         fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
                 .addToBackStack(null).commit();
