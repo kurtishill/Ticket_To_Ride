@@ -45,6 +45,8 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.displayPlayerTurn();
 
             mGameView.toggleButtons(isItUsersTurn());
+            if(mGameView.checkForGameOver())
+                mGameView.endGame();
         }
         //Draw all claimed routes on the map, iterating through players who possess claimed routes
         for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
