@@ -24,6 +24,8 @@ import com.example.server.Results.Result;
 
 import java.util.List;
 
+import gui_facade.GetPlayersService;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ClaimRouteFragment#newInstance} factory method to
@@ -423,7 +425,7 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
                 ClaimRouteResult claimRouteResult = (ClaimRouteResult) result;
                 mClaimRoutePresenter.updateGame(claimRouteResult.getGame());
                 displayToast("Congratulations! You claimed a route!");
-                if (mClaimRoutePresenter.getUser().getState().equals("lastTurn"))
+                if (GetPlayersService.getCurrentPlayer().getState().equals("lastTurn"))
                     displayToast("Last Turn");
                 closeFragment();
                 mListener.onClose();
