@@ -1,5 +1,7 @@
 package views_and_presenters;
 
+import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
@@ -8,6 +10,8 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import graph.DestCardResult;
+import graph.DestinationCardCalc;
 import gui_facade.QuitGameService;
 
 /**
@@ -39,5 +43,29 @@ public class GameOverviewPresenter implements IGameOverviewPresenter {
 
     public void quitGameOnPostExecute() {
         QuitGameService.quitGame();
+    }
+
+    public int DestinationCardCalc(){
+        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
+        Player currPlayer = null;
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())){
+                currPlayer = players.get(i);
+                break;
+            }
+        }
+        List<DestinationCard> cards = currPlayer.getDestinationCards();
+        int totalPoints = 0;
+        DestinationCardCalc cardCalc = new DestinationCardCalc();
+        for (int i = 0; i < cards.size(); i++){
+            DestCardResult result = cardCalc.Calc(cards.get(i));
+            if(result.exists){
+                totalPoints += result.pointValue;
+            }
+            else if(!result.exists){
+                totalPoints -= result.pointValue;
+            }
+        }
+        return totalPoints;
     }
 }
