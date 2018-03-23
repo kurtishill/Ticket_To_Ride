@@ -11,8 +11,8 @@ import java.util.List;
 
 public class ServerProxy  {
     private static ServerProxy instance = null;
-    private static String serverHost;
-    private static String serverPort;
+    private String serverHost;
+    private String serverPort;
 
     private ServerProxy() {
         serverHost = null;
@@ -34,15 +34,15 @@ public class ServerProxy  {
         return ClientCommunicator.instance().send("/command", commandValues, authToken);
     }
 
-    public static String getServerPort() {
+    public String getServerPort() {
         return serverPort;
     }
 
-    public static String getServerHost() {
+    public String getServerHost() {
         return serverHost;
     }
 
-    public static void setServerHost(String host) {
+    public void setServerHost(String host) {
         serverHost = host;
     }
 }
