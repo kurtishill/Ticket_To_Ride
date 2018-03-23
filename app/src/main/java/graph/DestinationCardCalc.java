@@ -77,7 +77,7 @@ public class DestinationCardCalc {
             //return null;
         }
         else{
-            return new DestCardResult(false, 0);
+            return new DestCardResult(false, card.getPointValue());
         }
     }
 }
