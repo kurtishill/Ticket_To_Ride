@@ -23,6 +23,8 @@ public class ClientModelRoot extends Observable {
     private String mAuthToken;
     private TicketToRideGame mCurrGame;
 
+
+
     public static ClientModelRoot instance() {
         if (_instance == null)
             _instance = new ClientModelRoot();
