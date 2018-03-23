@@ -43,6 +43,10 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.displayPlayerTurn();
 
             mGameView.toggleButtons(isItUsersTurn());
+
+            mGameView.checkForLastTurn();
+            mGameView.checkForGameOver();
+            //if true start game over fragment??
         }
     }
 

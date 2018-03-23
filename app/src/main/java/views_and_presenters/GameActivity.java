@@ -165,12 +165,22 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 toggleButtons(false);
                 toggleMenu(false);
+                ClientModelRoot.instance().getCurrGame().getPlayers().get(0).setNumTrainCars(1);
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
                         .addToBackStack(null).commit();
 
-                if(state.toString().equals("lastTurn")){
+                String s = "";
+                for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+                {
+                    if (ClientModelRoot.instance().getUser().getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID()))
+                    {
+                        s = ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState();
+                    }
+                }
+
+                if(s.equals("lastTurn") || state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
@@ -273,9 +283,13 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         {
             if(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getNumTrainCars() <= 2)
             {
-                changeState(new LastTurnState());
-                ClientModelRoot.instance().getCurrGame().getPlayers().get(i).setState("lastTurn");
-                displayToast("Last Turn");
+                for(int k = 0; k < ClientModelRoot.instance().getCurrGame().getPlayers().size(); k++)
+                {
+                    changeState(new LastTurnState());
+                    ClientModelRoot.instance().getCurrGame().getPlayers().get(k).setState("lastTurn");
+                    displayToast("Last Turn");
+                }
+                break;
             }
         }
     }
