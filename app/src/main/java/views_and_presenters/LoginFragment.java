@@ -29,7 +29,8 @@ public class LoginFragment extends Fragment implements ILoginView {
             mLoginPasswordEditText,
             mRegisterUsernameEditText,
             mRegisterPasswordEditText,
-            mRegisterConfirmPasswordEditText;
+            mRegisterConfirmPasswordEditText,
+            mIpAddressEditText;
     private Button mLoginButton,
             mRegisterButton;
 
@@ -67,7 +68,8 @@ public class LoginFragment extends Fragment implements ILoginView {
             if (mLoginPresenter != null) {
                 boolean b = mLoginPresenter.registerPasswordChanged() &&
                         mLoginPresenter.confirmPasswordChanged() &&
-                        mLoginPresenter.registerUsernameChanged();
+                        mLoginPresenter.registerUsernameChanged() &&
+                        mLoginPresenter.ipAddressChanged();
 
                 enableRegister(b);
             }
@@ -89,7 +91,8 @@ public class LoginFragment extends Fragment implements ILoginView {
         public void afterTextChanged(Editable editable) {
             if (mLoginPresenter != null) {
                 boolean b = mLoginPresenter.loginPasswordChanged() &&
-                        mLoginPresenter.loginUsernameChanged();
+                        mLoginPresenter.loginUsernameChanged() &&
+                        mLoginPresenter.ipAddressChanged();
 
                 enableLogin(b);
             }
@@ -112,6 +115,8 @@ public class LoginFragment extends Fragment implements ILoginView {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         mLoginPresenter = new LoginPresenter(this);
+
+        mIpAddressEditText = (EditText) v.findViewById(R.id.ip_address_edit_text);
 
         mLoginUsernameEditText = (EditText) v.findViewById(R.id.login_username_edit_text);
         mLoginUsernameEditText.addTextChangedListener(mLoginTextWatcher);
@@ -173,6 +178,10 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public String getConfirmPassword() {
         return mRegisterConfirmPasswordEditText.getText().toString();
+    }
+
+    public String getIpAddress() {
+        return mIpAddressEditText.getText().toString();
     }
 
     public void displayErrorMessage(String s) {

@@ -5,10 +5,25 @@
     android:orientation="vertical"
     android:id="@+id/login_fragment">
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="135dp"
-        android:src="@drawable/header"/>
+        android:orientation="horizontal"
+        android:background="@drawable/header">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:text="IP ADDRESS: "/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ip_address_edit_text"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

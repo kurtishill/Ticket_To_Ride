@@ -19,11 +19,7 @@ public interface ILoginPresenter {
 
     boolean registerUsernameChanged();
 
-    // returns auth token
-    /*String login();
-
-    // returns auth token
-    String register();*/
+    boolean ipAddressChanged();
 
     Result login();
 
