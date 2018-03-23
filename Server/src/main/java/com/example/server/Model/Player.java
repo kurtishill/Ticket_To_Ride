@@ -155,6 +155,16 @@ public class Player {
         claimedRoutes.add(route);
         numPoints+=route.getPointValue();
     }
+    //after a player finishes a game, this will reset points, trains, etc, to the appropriate values
+    public void resetPlayer(){
+        this.setNumTrainCars(45);
+        this.setNumPoints(0);
+        this.setState("startup");
+        this.getClaimedRoutes().clear();
+        this.getDestinationCards().clear();
+        this.getTrainCards().clear();
+
+    }
 
     public List<TrainCard> getTrainCards() {
         return trainCards;

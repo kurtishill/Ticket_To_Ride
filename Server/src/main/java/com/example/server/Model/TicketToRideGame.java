@@ -97,6 +97,7 @@ public class TicketToRideGame {
         turn = 0;
     }
 
+
     public List<Player> getPlayers() {
         return players;
     }

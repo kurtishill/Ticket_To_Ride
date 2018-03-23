@@ -113,5 +113,8 @@ public class Route
     public String toString() {
         return "Points: " + pointValue + " - " + city1.getName() + " to " + city2.getName();
     }
+    public String toStringShowLength(){
+        return "Length: " + length + " - " + city1.getName() + " to " + city2.getName();
+    }
 
 }

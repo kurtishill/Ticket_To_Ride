@@ -134,7 +134,7 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
             else
                 mRouteTextView.setTextColor(getResources().getColor(R.color.white));
             mRouteNumTextView.setText(numText);
-            mRouteTextView.setText(mRoute.toString());
+            mRouteTextView.setText(mRoute.toStringShowLength());
         }
     }
 
