@@ -208,12 +208,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    fm = getSupportFragmentManager();
-                    mGameOverviewFragment = new GameOverviewFragment();
-                    fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
-                            .addToBackStack(null).commit();
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -242,8 +237,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -275,8 +269,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -289,6 +282,16 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (gameStarted)
                 toggleButtons(true);
         }
+    }
+
+    public void endGame()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
+        mGameOverviewFragment = new GameOverviewFragment();
+        fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
+                .addToBackStack(null).commit();
+        displayToast("Game Over");
     }
 
     public boolean checkForGameOver()

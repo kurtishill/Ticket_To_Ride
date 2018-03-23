@@ -26,4 +26,6 @@ public interface IGameView {
     void onStartUp();
 
     boolean checkForGameOver();
+
+    void endGame();
 }
