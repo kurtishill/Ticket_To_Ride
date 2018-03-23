@@ -28,6 +28,4 @@ public interface IGameView {
     void checkForLastTurn();
 
     boolean checkForGameOver();
-
-    void changeToGameOver();
 }

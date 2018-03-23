@@ -194,7 +194,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(s.equals("lastTurn") || state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -212,7 +211,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                     //TODO add fragment for game over here
                     fm = getSupportFragmentManager();
                     mGameOverviewFragment = new GameOverviewFragment();
-                    fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameHistoryFragment)
+                    fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
                             .addToBackStack(null).commit();
                     displayToast("Game Over");
                 }
@@ -233,7 +232,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
               
               if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
                 else
                 {
@@ -264,7 +262,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -324,17 +321,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 return false;
         }
         return true;
-    }
-
-    public void changeToGameOver()
-    {
-        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
-        {
-            if(ClientModelRoot.instance().getUser().getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID()))
-            {
-                ClientModelRoot.instance().getCurrGame().getPlayers().get(i).setState("gameOver");
-            }
-        }
     }
 
     public String getGameStatus() {
