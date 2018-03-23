@@ -11,8 +11,21 @@ public class Route
     private boolean occupied;
     private City city1;
     private City city2;
+    private boolean visited = false;
+
     private String owner;
 
+
+    public boolean IsVisited(){
+        return visited;
+    }
+
+    public void Reset(){
+        visited = false;
+    }
+     public void Visit(){
+        visited = true;
+     }
     //call this constructor when initializing a game. Without player occupying route
     public Route(int length, int pointValue, String color, City city1, City city2)
     {
