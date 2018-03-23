@@ -62,6 +62,12 @@ public class ClaimRouteService {
         currentGame.getDiscardPile().addAll(spentCards);
         currentGame.recycleTrainCardDeck();
         currentGame.changeTurn();
+        if(currentPlayer.getState().equals("lastTurn")){
+            currentPlayer.setState("gameOver");
+        }
+        if(currentPlayer.getNumTrainCars()<=2 && !currentPlayer.getState().equals("gameOver")){
+            currentPlayer.setState("lastTurn");
+        }
 
         List<GameHistory> gameHistoryList = currentGame.getGameHistoryList();
         GameHistory historyItem = new GameHistory(currentPlayer.getUsername(), currentPlayer.getColor(),

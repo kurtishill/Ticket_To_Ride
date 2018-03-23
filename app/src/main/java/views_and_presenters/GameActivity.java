@@ -176,7 +176,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 toggleButtons(false);
                 toggleMenu(false);
-                ClientModelRoot.instance().getCurrGame().getPlayers().get(0).setNumTrainCars(1);
+
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
