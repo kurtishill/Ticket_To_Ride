@@ -7,13 +7,15 @@ import com.example.server.Results.Result;
 import java.util.ArrayList;
 import java.util.List;
 
+import client_model.State;
+
 /**
  * Created by HillcollegeMac on 2/15/18.
  */
 
 public interface IDestinationPickerPresenter {
 
-    boolean routeSelected(String selectedRoute);
+    boolean routeSelected(String selectedRoute, State state);
 
     Result onClickRoutesChosen();
 

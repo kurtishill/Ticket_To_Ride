@@ -458,16 +458,37 @@ public class TicketToRideGame {
         Route losAngelesSanFrancisco1 = new Route(3, 4, "purple", losAngeles, sanFrancisco);
         Route losAngelesSanFrancisco2 = new Route(3, 4, "yellow", losAngeles, sanFrancisco);
 
-        availableRoutes.add(losAngelesSanFrancisco2);
+        if(maxNumPlayers > 3)
+        {
+            availableRoutes.add(losAngelesSanFrancisco2);
+            availableRoutes.add(sanFranciscoPortland2);
+            availableRoutes.add(saltLakeCitySanFrancisco2);
+            availableRoutes.add(seattlePortland2);
+            availableRoutes.add(vanCouverSeattle2);
+            availableRoutes.add(denverSaltLakeCity2);
+            availableRoutes.add(atlantaRaleigh2);
+            availableRoutes.add(atlantaNewOrleans2);
+            availableRoutes.add(houstonDallas2);
+            availableRoutes.add(dallasOklahomaCity2);
+            availableRoutes.add(raleighWashington2);
+            availableRoutes.add(washingtonNewYork2);
+            availableRoutes.add(bostonMontreal2);
+            availableRoutes.add(newYorkBoston2);
+            availableRoutes.add(pittsburgNewYork2);
+            availableRoutes.add(pittsburgChicago2);
+            availableRoutes.add(chicagoSaintLouis2);
+            availableRoutes.add(saintLoiusKansasCity2);
+            availableRoutes.add(kansasCityOmaha2);
+            availableRoutes.add(kansasCityDenver2);
+            availableRoutes.add(kansasCityOklahomaCity2);
+            availableRoutes.add(duluthOmaha2);
+        }
+
         availableRoutes.add(losAngelesSanFrancisco1);
-        availableRoutes.add(sanFranciscoPortland2);
         availableRoutes.add(sanFranciscoPortland1);
-        availableRoutes.add(saltLakeCitySanFrancisco2);
         availableRoutes.add(saltLakeCitySanFrancisco1);
         availableRoutes.add(portlandSaltLakeCity);
-        availableRoutes.add(seattlePortland2);
         availableRoutes.add(seattlePortland1);
-        availableRoutes.add(vanCouverSeattle2);
         availableRoutes.add(vanCouverSeattle1);
         availableRoutes.add(calgarySeattle);
         availableRoutes.add(calgaryVancouver);
@@ -475,7 +496,6 @@ public class TicketToRideGame {
         availableRoutes.add(losAngelesLasVegas);
         availableRoutes.add(phoenixLosAngeles);
         availableRoutes.add(denverPhoenix);
-        availableRoutes.add(denverSaltLakeCity2);
         availableRoutes.add(denverSaltLakeCity1);
         availableRoutes.add(helenaSaltLakeCity);
         availableRoutes.add(miamiNewOrleans);
@@ -484,44 +504,34 @@ public class TicketToRideGame {
         availableRoutes.add(charlestonAtlanta);
         availableRoutes.add(charlestonRaleigh);
         availableRoutes.add(atlantaRaleigh1);
-        availableRoutes.add(atlantaRaleigh2);
         availableRoutes.add(atlantaNashville);
         availableRoutes.add(atlantaNewOrleans1);
-        availableRoutes.add(atlantaNewOrleans2);
         availableRoutes.add(newOrleansHouston);
         availableRoutes.add(newOrleansLittleRock);
         availableRoutes.add(littleRockNashville);
         availableRoutes.add(houstonDallas1);
-        availableRoutes.add(houstonDallas2);
         availableRoutes.add(houstonElPaso);
         availableRoutes.add(elPasoDallas);
         availableRoutes.add(elPasoOklahomaCity);
         availableRoutes.add(dallasLittleRock);
         availableRoutes.add(dallasOklahomaCity1);
-        availableRoutes.add(dallasOklahomaCity2);
         availableRoutes.add(oklahomaCityLittleRock);
         availableRoutes.add(littleRockSaintLouis);
         availableRoutes.add(saintLouisNashville);
         availableRoutes.add(nashvilleRaleigh);
-        availableRoutes.add(raleighWashington2);
         availableRoutes.add(raleighWashington1);
         availableRoutes.add(raleighPittsburg);
         availableRoutes.add(washingtonPittsburg);
         availableRoutes.add(washingtonNewYork1);
-        availableRoutes.add(washingtonNewYork2);
         availableRoutes.add(newYorkBoston1);
-        availableRoutes.add(newYorkBoston2);
         availableRoutes.add(pittsburgNewYork1);
-        availableRoutes.add(pittsburgNewYork2);
         availableRoutes.add(bostonMontreal1);
-        availableRoutes.add(bostonMontreal2);
         availableRoutes.add(newYorkMontreal);
         availableRoutes.add(montrealToronto);
         availableRoutes.add(torontoPittsburg);
         availableRoutes.add(pittsburgNashville);
         availableRoutes.add(pittsburgSaintLouis);
         availableRoutes.add(pittsburgChicago1);
-        availableRoutes.add(pittsburgChicago2);
         availableRoutes.add(torontoChicago);
         availableRoutes.add(torontoSaultStMarie);
         availableRoutes.add(torontoDuluth);
@@ -531,17 +541,11 @@ public class TicketToRideGame {
         availableRoutes.add(chicagoDuluth);
         availableRoutes.add(chicagoOmaha);
         availableRoutes.add(chicagoSaintLouis1);
-        availableRoutes.add(chicagoSaintLouis2);
         availableRoutes.add(saintLoiusKansasCity1);
-        availableRoutes.add(saintLoiusKansasCity2);
         availableRoutes.add(kansasCityOmaha1);
-        availableRoutes.add(kansasCityOmaha2);
         availableRoutes.add(kansasCityOklahomaCity1);
-        availableRoutes.add(kansasCityOklahomaCity2);
         availableRoutes.add(kansasCityDenver1);
-        availableRoutes.add(kansasCityDenver2);
         availableRoutes.add(duluthOmaha1);
-        availableRoutes.add(duluthOmaha2);
         availableRoutes.add(omahaDenver);
         availableRoutes.add(omahaHelena);
         availableRoutes.add(duluthWinnipeg);
@@ -663,7 +667,6 @@ public class TicketToRideGame {
         TicketToRideGame other = (TicketToRideGame) o;
 
         return other.getGameID() == this.getGameID();
-
     }
 
     @Override
