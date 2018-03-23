@@ -235,7 +235,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 }
                 else
                 {
-                    checkForLastTurn();
                     toggleButtons(false);
                     if(!state.toString().equals("lastTurn"))
                         changeState(new NotYourTurnState());
@@ -289,27 +288,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 onStartUp();
             if (gameStarted)
                 toggleButtons(true);
-        }
-    }
-
-    public void checkForLastTurn()
-    {
-        //Checking to see if any player has less than two train cards. If so, make it last turn state.
-        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
-        {
-            if(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getNumTrainCars() <= 2)
-            {
-                for(int k = 0; k < ClientModelRoot.instance().getCurrGame().getPlayers().size(); k++)
-                {
-                    if(!ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState().equals("gameOver"))
-                    {
-                        changeState(new LastTurnState());
-                        ClientModelRoot.instance().getCurrGame().getPlayers().get(k).setState("lastTurn");
-                        displayToast("Last Turn");
-                    }
-                }
-                break;
-            }
         }
     }
 

@@ -25,7 +25,5 @@ public interface IGameView {
 
     void onStartUp();
 
-    void checkForLastTurn();
-
     boolean checkForGameOver();
 }
