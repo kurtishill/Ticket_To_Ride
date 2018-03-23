@@ -11,8 +11,10 @@ public class Route
     private boolean occupied;
     private City city1;
     private City city2;
-    private Player owner;
     private boolean visited = false;
+
+    private String owner;
+
 
     public boolean IsVisited(){
         return visited;
@@ -35,6 +37,17 @@ public class Route
         this.occupied = false;
         this.owner = null;
     }
+    public Route(int length, int pointValue, String color, City city1, City city2, boolean occupied)
+    {
+        this.length = length;
+        this.pointValue = pointValue;
+        this.color = color;
+        this.city1 = city1;
+        this.city2 = city2;
+        this.occupied = occupied;
+        this.owner = null;
+    }
+
 
     public int getLength() {
         return length;
@@ -76,12 +89,12 @@ public class Route
         return city2;
     }
 
-    public Player getOwner() {
+    public String getOwner() {
         return owner;
     }
 
-    public void setOwner(Player owner) {
-        this.owner = owner;
+    public void setOwner(String ownerName) {
+        this.owner = ownerName;
     }
 
     @Override
@@ -95,9 +108,9 @@ public class Route
 
         if(this.length == r.getLength())
         {
-            if(this.color == r.getColor())
+            if(this.color.equals(r.getColor()) || this.color.equals("wild"))
             {
-                if(this.city1 == r.getCity1() && this.city2 == r.getCity2())
+                if(this.city1.equals(r.getCity1()) && this.city2.equals(r.getCity2()))
                     return true;
             }
         }
@@ -112,6 +125,9 @@ public class Route
     @Override
     public String toString() {
         return "Points: " + pointValue + " - " + city1.getName() + " to " + city2.getName();
+    }
+    public String toStringShowLength(){
+        return "Length: " + length + " - " + city1.getName() + " to " + city2.getName();
     }
 
 }

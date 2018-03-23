@@ -50,6 +50,19 @@ public class ModelRoot {
         }
     }
 
+    public void deleteGame(int gameId) {
+        TicketToRideGame game = GameExists(gameId);
+        if (game != null) {
+
+            for(int i=0; i<game.getPlayers().size(); i++){
+                game.getPlayers().get(i).resetPlayer();
+            }
+
+            listGames.remove(game);
+            allGames.remove(gameId);
+        }
+    }
+
     public void allPlayer(String authToken, Player player) {
         allPlayers.put(authToken, player);
     }

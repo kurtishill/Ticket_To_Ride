@@ -43,6 +43,12 @@ public class SelectDestinationTicketsService {
             game.addGameHistoryList(gameHistory);
             game.changeTurn();
         }
+
+        //added by Nelson for state pattern
+        if(modelPlayer.getState().equals("lastTurn"))
+            modelPlayer.setState("gameOver");
+
+
         return new SelectDestinationTicketsResult(true, null, null, null, game);
         //todo surround in try catch in case of bad result somehow?
     }

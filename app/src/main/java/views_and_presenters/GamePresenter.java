@@ -1,12 +1,16 @@
 package views_and_presenters;
 
 import com.example.server.Model.Player;
+import com.example.server.Model.Route;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.Results.ClientCommand;
 
 import java.util.Observable;
 import java.util.Observer;
 
 import client_model.ClientModelRoot;
+import client_model.StartUpState;
+import client_model.State;
 import gui_facade.EditObserversInModel;
 import gui_facade.GetGamesService;
 
@@ -25,6 +29,7 @@ public class GamePresenter implements IGamePresenter, Observer {
         EditObserversInModel.addObserverToModel(this);
     }
 
+
     // for other clients
     public void update(Observable obs, Object obj) {
         if (obj.equals(ClientModelRoot.instance().getGamesList())) {
@@ -40,6 +45,16 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.displayPlayerTurn();
 
             mGameView.toggleButtons(isItUsersTurn());
+            if(mGameView.checkForGameOver())
+                mGameView.endGame();
+        }
+        //Draw all claimed routes on the map, iterating through players who possess claimed routes
+        for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
+            for(int j=0; j<ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getClaimedRoutes().size(); j++){
+                Player thisPlayer = ClientModelRoot.instance().getCurrGame().getPlayers().get(i);
+                Route thisRoute = ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getClaimedRoutes().get(j);
+                mGameView.drawRouteLine(thisRoute, thisPlayer);
+            }
         }
     }
 
@@ -73,6 +88,7 @@ public class GamePresenter implements IGamePresenter, Observer {
                 break;
             }
         }
+
         if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser)
             return false;
         else
