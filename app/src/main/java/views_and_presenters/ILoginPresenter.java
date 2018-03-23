@@ -19,8 +19,6 @@ public interface ILoginPresenter {
 
     boolean registerUsernameChanged();
 
-    boolean ipAddressChanged();
-
     Result login();
 
     Result register();

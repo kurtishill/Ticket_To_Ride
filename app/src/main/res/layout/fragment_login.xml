@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
+            android:background="@color/light_blue"
             android:text="IP ADDRESS: "/>
 
         <EditText

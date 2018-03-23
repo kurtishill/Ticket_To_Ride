@@ -68,8 +68,7 @@ public class LoginFragment extends Fragment implements ILoginView {
             if (mLoginPresenter != null) {
                 boolean b = mLoginPresenter.registerPasswordChanged() &&
                         mLoginPresenter.confirmPasswordChanged() &&
-                        mLoginPresenter.registerUsernameChanged() &&
-                        mLoginPresenter.ipAddressChanged();
+                        mLoginPresenter.registerUsernameChanged();
 
                 enableRegister(b);
             }
@@ -91,8 +90,7 @@ public class LoginFragment extends Fragment implements ILoginView {
         public void afterTextChanged(Editable editable) {
             if (mLoginPresenter != null) {
                 boolean b = mLoginPresenter.loginPasswordChanged() &&
-                        mLoginPresenter.loginUsernameChanged() &&
-                        mLoginPresenter.ipAddressChanged();
+                        mLoginPresenter.loginUsernameChanged();
 
                 enableLogin(b);
             }
