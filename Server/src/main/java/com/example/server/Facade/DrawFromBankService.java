@@ -34,6 +34,11 @@ public class DrawFromBankService {
         game.setDeckTrainCards(trainCardDeck);
         game.setDiscardPile(discardPile);
 
+        //added by Nelson for state pattern
+        if(user.getState().equals("lastTurn")){
+            user.setState("gameOver");
+        }
+
         List<GameHistory> gameHistoryList = game.getGameHistoryList();
         GameHistory historyItem = new GameHistory(user.getUsername(), user.getColor(),
                 "drew " + selectedCards.size() + " card(s) from the bank");

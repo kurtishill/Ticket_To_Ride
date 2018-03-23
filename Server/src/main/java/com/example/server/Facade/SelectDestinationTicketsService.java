@@ -37,6 +37,11 @@ public class SelectDestinationTicketsService {
 
         if (modelPlayer.getState().equals("startup"))
             modelPlayer.setState("notStartup");
+
+        //added by Nelson for state pattern
+        if(modelPlayer.getState().equals("lastTurn"))
+            modelPlayer.setState("gameOver");
+
         else {
             GameHistory gameHistory = new GameHistory(modelPlayer.getUsername(), modelPlayer.getColor(),
                     "drew " + selectedRoutes.size() + " destination cards");

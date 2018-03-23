@@ -195,13 +195,16 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
-                else
-                {
-                    checkForLastTurn();
-                    toggleButtons(false);
-                    if(!state.toString().equals("lastTurn"))
-                        changeState(new NotYourTurnState());
-                }
+
+                if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
+                    changeState(new NotYourTurnState());
+//                else
+//                {
+//                    checkForLastTurn();
+//                    toggleButtons(false);
+//                    if(!state.toString().equals("lastTurn"))
+//                        changeState(new NotYourTurnState());
+//                }
 
                 if(checkForGameOver())
                 {
@@ -258,13 +261,16 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                     changeState(new GameOverState());
                     changeToGameOver();
                 }
-                else
-                {
-                    checkForLastTurn();
-                    toggleButtons(false);
-                    if(!state.toString().equals("lastTurn"))
-                        changeState(new NotYourTurnState());
-                }
+
+                if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
+                    changeState(new NotYourTurnState());
+//                else
+//                {
+//                    checkForLastTurn();
+//                    toggleButtons(false);
+//                    if(!state.toString().equals("lastTurn"))
+//                        changeState(new NotYourTurnState());
+//                }
 
                 if(checkForGameOver())
                 {

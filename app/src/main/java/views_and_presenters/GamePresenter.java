@@ -47,7 +47,6 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.toggleButtons(isItUsersTurn());
 
             mGameView.checkForLastTurn();
-            mGameView.checkForGameOver();
             //if true start game over fragment??
         }
         //Draw all claimed routes on the map, iterating through players who possess claimed routes
