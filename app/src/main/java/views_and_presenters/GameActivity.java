@@ -293,9 +293,12 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             {
                 for(int k = 0; k < ClientModelRoot.instance().getCurrGame().getPlayers().size(); k++)
                 {
-                    changeState(new LastTurnState());
-                    ClientModelRoot.instance().getCurrGame().getPlayers().get(k).setState("lastTurn");
-                    displayToast("Last Turn");
+                    if(!ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState().equals("gameOver"))
+                    {
+                        changeState(new LastTurnState());
+                        ClientModelRoot.instance().getCurrGame().getPlayers().get(k).setState("lastTurn");
+                        displayToast("Last Turn");
+                    }
                 }
                 break;
             }
