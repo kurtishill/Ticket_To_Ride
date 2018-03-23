@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
     private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
+    private GameOverviewFragment mGameOverviewFragment;
 
     private State state;
 
@@ -209,6 +210,10 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 if(checkForGameOver())
                 {
                     //TODO add fragment for game over here
+                    fm = getSupportFragmentManager();
+                    mGameOverviewFragment = new GameOverviewFragment();
+                    fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameHistoryFragment)
+                            .addToBackStack(null).commit();
                     displayToast("Game Over");
                 }
             }
