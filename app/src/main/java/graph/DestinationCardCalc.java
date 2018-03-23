@@ -2,6 +2,7 @@ package graph;
 
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Player;
 import com.example.server.Model.Route;
 
 import java.util.ArrayList;
@@ -20,7 +21,15 @@ public class DestinationCardCalc {
         }
     }
     public DestCardResult Calc(DestinationCard card){
-        List<Route> routes = ClientModelRoot.instance().getUser().getClaimedRoutes();
+        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
+        Player currPlayer = null;
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())){
+                currPlayer = players.get(i);
+                break;
+            }
+        }
+        List<Route> routes = currPlayer.getClaimedRoutes();
         reset(routes);
         boolean oneExists = false;
         boolean twoExists = false;
