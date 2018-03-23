@@ -423,6 +423,8 @@ public class ClaimRouteFragment extends Fragment implements IClaimRouteView {
                 ClaimRouteResult claimRouteResult = (ClaimRouteResult) result;
                 mClaimRoutePresenter.updateGame(claimRouteResult.getGame());
                 displayToast("Congratulations! You claimed a route!");
+                if (mClaimRoutePresenter.getUser().getState().equals("lastTurn"))
+                    displayToast("Last Turn");
                 closeFragment();
                 mListener.onClose();
             }

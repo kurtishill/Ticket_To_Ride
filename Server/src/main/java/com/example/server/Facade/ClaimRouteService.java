@@ -66,7 +66,9 @@ public class ClaimRouteService {
             currentPlayer.setState("gameOver");
         }
         if(currentPlayer.getNumTrainCars()<=2 && !currentPlayer.getState().equals("gameOver")){
-            currentPlayer.setState("lastTurn");
+            for (int i = 0; i < currentGame.getPlayers().size(); i++) {
+                currentGame.getPlayers().get(i).setState("lastTurn");
+            }
         }
 
         List<GameHistory> gameHistoryList = currentGame.getGameHistoryList();

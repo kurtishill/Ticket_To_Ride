@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
     private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
+    private GameOverviewFragment mGameOverviewFragment;
 
     private State state;
 
@@ -193,7 +194,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(s.equals("lastTurn") || state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -208,8 +208,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -228,11 +227,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
               
               if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
                 else
                 {
-                    checkForLastTurn();
                     toggleButtons(false);
                     if(!state.toString().equals("lastTurn"))
                         changeState(new NotYourTurnState());
@@ -240,8 +237,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -259,7 +255,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
-                    changeToGameOver();
                 }
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -274,8 +269,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(checkForGameOver())
                 {
-                    //TODO add fragment for game over here
-                    displayToast("Game Over");
+                    endGame();
                 }
             }
         });
@@ -290,25 +284,14 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         }
     }
 
-    public void checkForLastTurn()
+    public void endGame()
     {
-        //Checking to see if any player has less than two train cards. If so, make it last turn state.
-        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
-        {
-            if(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getNumTrainCars() <= 2)
-            {
-                for(int k = 0; k < ClientModelRoot.instance().getCurrGame().getPlayers().size(); k++)
-                {
-                    if(!ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState().equals("gameOver"))
-                    {
-                        changeState(new LastTurnState());
-                        ClientModelRoot.instance().getCurrGame().getPlayers().get(k).setState("lastTurn");
-                        displayToast("Last Turn");
-                    }
-                }
-                break;
-            }
-        }
+        FragmentManager fm = getSupportFragmentManager();
+        fm = getSupportFragmentManager();
+        mGameOverviewFragment = new GameOverviewFragment();
+        fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
+                .addToBackStack(null).commit();
+        displayToast("Game Over");
     }
 
     public boolean checkForGameOver()
@@ -319,17 +302,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
                 return false;
         }
         return true;
-    }
-
-    public void changeToGameOver()
-    {
-        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
-        {
-            if(ClientModelRoot.instance().getUser().getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID()))
-            {
-                ClientModelRoot.instance().getCurrGame().getPlayers().get(i).setState("gameOver");
-            }
-        }
     }
 
     public String getGameStatus() {

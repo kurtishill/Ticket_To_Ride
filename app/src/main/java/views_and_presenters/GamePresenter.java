@@ -45,9 +45,8 @@ public class GamePresenter implements IGamePresenter, Observer {
             mGameView.displayPlayerTurn();
 
             mGameView.toggleButtons(isItUsersTurn());
-
-            mGameView.checkForLastTurn();
-            //if true start game over fragment??
+            if(mGameView.checkForGameOver())
+                mGameView.endGame();
         }
         //Draw all claimed routes on the map, iterating through players who possess claimed routes
         for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
@@ -89,8 +88,6 @@ public class GamePresenter implements IGamePresenter, Observer {
                 break;
             }
         }
-
-        mGameView.checkForLastTurn();
 
         if (ClientModelRoot.instance().getCurrGame().getTurn() != indexOfUser)
             return false;
