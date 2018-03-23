@@ -140,7 +140,7 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             mPlayerNameColumnLayout.addView(playerTextView, lp);
 
             TextView claimedRoutePointsTextView = new TextView(getActivity());
-            // todo calc points for claimed routes and replace value in commented section below
+
             claimedRoutePointsTextView.setText(String.valueOf(player.getNumPoints()));
             claimedRoutePointsTextView.setTextColor(getResources().getColor(R.color.white));
             mClaimedRoutesPointsLayout.addView(claimedRoutePointsTextView, lp);
@@ -153,7 +153,7 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
 
             TextView reachedDestinationPointsTextView = new TextView(getActivity());
             // todo calc points for reached destinations and replace value in commented section below
-            //reachedDestinationPointsTextView.setText(String.valueOf(player.getTrainCards().size()));
+            reachedDestinationPointsTextView.setText(String.valueOf(mGameOverviewPresenter.DestinationCardCalc()));
             reachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mReachedDestinationPointsLayout.addView(reachedDestinationPointsTextView, lp);
 

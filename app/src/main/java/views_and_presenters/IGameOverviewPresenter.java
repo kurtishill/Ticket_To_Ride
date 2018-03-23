@@ -14,4 +14,5 @@ public interface IGameOverviewPresenter {
     Result quitGame();
 
     void quitGameOnPostExecute();
+    int DestinationCardCalc();
 }
