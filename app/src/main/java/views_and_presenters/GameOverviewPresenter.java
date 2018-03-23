@@ -12,6 +12,7 @@ import Network.ServerProxy;
 import client_model.ClientModelRoot;
 import graph.DestCardResult;
 import graph.DestinationCardCalc;
+import graph.LongestPathCalc;
 import gui_facade.QuitGameService;
 
 /**
@@ -67,5 +68,26 @@ public class GameOverviewPresenter implements IGameOverviewPresenter {
             }
         }
         return totalPoints;
+    }
+    public int LongestPath(){
+        LongestPathCalc pathCalc = new LongestPathCalc();
+        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
+        int currPlayer = 0;
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setLongestPathLength(pathCalc.LongestPath(players.get(i).getClaimedRoutes()));
+            if (players.get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())){
+                currPlayer = i;
+            }
+        }
+        int index = 0;
+        int largest = 0;
+        for (int i = 0; i < players.size(); i++){
+            if( largest < players.get(i).getLongestPathLength()){
+                index = i;
+                largest = players.get(i).getLongestPathLength();
+            }
+        }
+        players.get(index).setHasLongestPath(10);
+        return players.get(index).getHasLongestPath();
     }
 }
