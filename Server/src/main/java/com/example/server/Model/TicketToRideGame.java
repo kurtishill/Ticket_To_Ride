@@ -325,7 +325,7 @@ public class TicketToRideGame {
         City washington = new City("Washington", 1646.7773f, 395.5276f);
         City winnipeg = new City("Winnipeg", 814.39453f, 95.27124f);
         City pittsburg = new City("Pittsburg", 1475.6836f, 327.4673f);
-        City newOrleans = new City("New Orleans", 1249.5703f, 7628.85547f);
+        City newOrleans = new City("New Orleans", 1249.5703f, 762.88554f);
         City chicago = new City("Chicago", 1242.5977f, 349.4839f);
         City miami = new City("Miami", 1648.7695f, 806.92163f);
         City newYork = new City("New York", 1631.7773f, 268.43774f);
@@ -459,8 +459,7 @@ public class TicketToRideGame {
         Route losAngelesSanFrancisco1 = new Route(3, 4, "purple", losAngeles, sanFrancisco);
         Route losAngelesSanFrancisco2 = new Route(3, 4, "yellow", losAngeles, sanFrancisco);
 
-        if(maxNumPlayers > 3)
-        {
+
             availableRoutes.add(losAngelesSanFrancisco2);
             availableRoutes.add(sanFranciscoPortland2);
             availableRoutes.add(saltLakeCitySanFrancisco2);
@@ -483,7 +482,7 @@ public class TicketToRideGame {
             availableRoutes.add(kansasCityDenver2);
             availableRoutes.add(kansasCityOklahomaCity2);
             availableRoutes.add(duluthOmaha2);
-        }
+
 
         availableRoutes.add(losAngelesSanFrancisco1);
         availableRoutes.add(sanFranciscoPortland1);
@@ -626,7 +625,7 @@ public class TicketToRideGame {
         deckDestinationCards.add(dallasNewYork);
         deckDestinationCards.add(bostonMiami);
 
-        for(int i = 0; i < 12; i++)
+        for(int i = 0; i < 3; i++) // change to 12
         {
             deckTrainCards.add(new TrainCard("purple"));
             deckTrainCards.add(new TrainCard("white"));
@@ -638,7 +637,7 @@ public class TicketToRideGame {
             deckTrainCards.add(new TrainCard("green"));
         }
 
-        for(int i = 0; i < 14; i++)
+        for(int i = 0; i < 1; i++) // change to 14
         {
             deckTrainCards.add(new TrainCard("wild"));
         }

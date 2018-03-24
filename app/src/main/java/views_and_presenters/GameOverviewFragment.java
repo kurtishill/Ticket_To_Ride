@@ -128,9 +128,12 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
     }
 
     public void displayInformation() {
+        int indexWinner = 0;
+        int largestPlayer = 0;
         List<Player> players = mGameOverviewPresenter.getGame().getPlayers();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
+        mGameOverviewPresenter.LongestPath();
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             TextView playerTextView = new TextView(getActivity());
@@ -138,36 +141,48 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             playerTextView.setTextColor(getResources().getColor(GameResources.getTextColors().get(player.getColor())));
             playerTextView.setTypeface(Typeface.DEFAULT_BOLD);
             mPlayerNameColumnLayout.addView(playerTextView, lp);
-
+            int totalPoints = 0;
             TextView claimedRoutePointsTextView = new TextView(getActivity());
-            // todo calc points for claimed routes and replace value in commented section below
-            //pointsTextView.setText(String.valueOf(player.getNumPoints()));
+
+            totalPoints += player.getNumPoints();
+            claimedRoutePointsTextView.setText(String.valueOf(player.getNumPoints()));
             claimedRoutePointsTextView.setTextColor(getResources().getColor(R.color.white));
             mClaimedRoutesPointsLayout.addView(claimedRoutePointsTextView, lp);
 
+            int longestPath = player.getHasLongestPath();
+            totalPoints += longestPath;
             TextView longestRoutePointsTextView = new TextView(getActivity());
-            // todo calc points for longest route and replace value in commented section below
-            //longestRoutePointsTextView.setText(String.valueOf(player.getNumTrainCars()));
+            longestRoutePointsTextView.setText(String.valueOf(longestPath));
             longestRoutePointsTextView.setTextColor(getResources().getColor(R.color.white));
             mLongestRoutePointsLayout.addView(longestRoutePointsTextView, lp);
 
+            int destPoints = mGameOverviewPresenter.DestinationCardCalc(player);
+            totalPoints += destPoints;
             TextView reachedDestinationPointsTextView = new TextView(getActivity());
-            // todo calc points for reached destinations and replace value in commented section below
-            //reachedDestinationPointsTextView.setText(String.valueOf(player.getTrainCards().size()));
+            reachedDestinationPointsTextView.setText(String.valueOf(destPoints));
             reachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mReachedDestinationPointsLayout.addView(reachedDestinationPointsTextView, lp);
 
+            int unreachPoints = mGameOverviewPresenter.UnreachedDestinationCardCalc(player);
+            totalPoints += unreachPoints;
             TextView unreachedDestinationPointsTextView = new TextView(getActivity());
-            // todo calc points for unreached destinations and replace value in commented section below
-            //unreachedDestinationPointsTextView.setText(String.valueOf(player.getDestinationCards().size()));
+            unreachedDestinationPointsTextView.setText(String.valueOf(unreachPoints));
             unreachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mUnreachedDestinationPointsLayout.addView(unreachedDestinationPointsTextView, lp);
 
             TextView totalNumPointsTextView = new TextView(getActivity());
-            totalNumPointsTextView.setText(String.valueOf(player.getNumPoints()));
+            totalNumPointsTextView.setText(String.valueOf(totalPoints));
             totalNumPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mTotalPointsLayout.addView(totalNumPointsTextView, lp);
+            if (largestPlayer < totalPoints){
+                largestPlayer = totalPoints;
+                indexWinner = i;
+            }
         }
+        String winner = players.get(indexWinner).getUsername() + " Wins!";
+
+        mPlayerNameTextView.setText(winner);
+
     }
 
     private class DeleteGameAsyncTask extends AsyncTask<Void, Void, Result> {
@@ -181,6 +196,7 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             if (result.isSuccess()) {
                 mGameOverviewPresenter.quitGameOnPostExecute();
                 startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
             }
             else {
                 Toast.makeText(getActivity(), result.getErrorMessage() + " Please try again.", Toast.LENGTH_SHORT).show();

@@ -30,11 +30,30 @@ public class Player {
 
     private String state;
 
+    private int longestPathLength;
+
+    private int hasLongestPath = 0;
+
+    public void setLongestPathLength(int path){
+        longestPathLength = path;
+    }
+
+    public int getLongestPathLength(){
+        return longestPathLength;
+    }
+
+    public int getHasLongestPath(){
+        return hasLongestPath;
+    }
+    public void setHasLongestPath(int path){
+        hasLongestPath = path;
+    }
+
     public Player() {
         this.username = null;
         this.password = null;
         numPoints = 0;
-        numTrainCars = 3;
+        numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
         trainCards = new ArrayList<>();
@@ -54,7 +73,7 @@ public class Player {
         this.username = username;
         this.password = password;
         numPoints = 0;
-        numTrainCars = 3;
+        numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
         trainCards = new ArrayList<>();

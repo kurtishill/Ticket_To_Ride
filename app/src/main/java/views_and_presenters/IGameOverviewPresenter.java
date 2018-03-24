@@ -1,5 +1,6 @@
 package views_and_presenters;
 
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
@@ -14,4 +15,7 @@ public interface IGameOverviewPresenter {
     Result quitGame();
 
     void quitGameOnPostExecute();
+    int DestinationCardCalc(Player currPlayer);
+    int LongestPath();
+    int UnreachedDestinationCardCalc(Player currPlayer);
 }
