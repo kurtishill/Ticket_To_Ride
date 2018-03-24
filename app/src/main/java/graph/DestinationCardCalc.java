@@ -21,6 +21,7 @@ public class DestinationCardCalc {
         }
     }
     public DestCardResult Calc(DestinationCard card, Player currPlayer){
+
         List<Route> routes = currPlayer.getClaimedRoutes();
         reset(routes);
         boolean oneExists = false;
