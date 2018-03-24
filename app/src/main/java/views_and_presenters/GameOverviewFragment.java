@@ -128,6 +128,8 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
     }
 
     public void displayInformation() {
+        int indexWinner = 0;
+        int largestPlayer = 0;
         List<Player> players = mGameOverviewPresenter.getGame().getPlayers();
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT, 1f);
@@ -176,7 +178,15 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             totalNumPointsTextView.setText(String.valueOf(totalPoints));
             totalNumPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mTotalPointsLayout.addView(totalNumPointsTextView, lp);
+            if (largestPlayer < totalPoints){
+                largestPlayer = totalPoints;
+                indexWinner = i;
+            }
         }
+        String winner = players.get(indexWinner).getUsername() + " Wins!";
+
+        mPlayerNameTextView.setText(winner);
+
     }
 
     private class DeleteGameAsyncTask extends AsyncTask<Void, Void, Result> {
