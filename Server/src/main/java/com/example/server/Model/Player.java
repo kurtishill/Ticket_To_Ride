@@ -53,7 +53,7 @@ public class Player {
         this.username = null;
         this.password = null;
         numPoints = 0;
-        numTrainCars = 10;
+        numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
         trainCards = new ArrayList<>();
@@ -73,7 +73,7 @@ public class Player {
         this.username = username;
         this.password = password;
         numPoints = 0;
-        numTrainCars = 3;
+        numTrainCars = 45;
         color = null;
         id = UUID.randomUUID().toString();
         trainCards = new ArrayList<>();
