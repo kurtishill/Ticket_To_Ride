@@ -116,7 +116,11 @@ public class Route
         }
         return false;
     }
-
+    public boolean hasSameCities(Route r2){
+         if(this.city1.equals(r2.city1) && this.city2.equals(r2.city2))
+             return true;
+         return false;
+    }
     @Override
     public int hashCode() {
         return 31 * owner.hashCode() + color.hashCode();
