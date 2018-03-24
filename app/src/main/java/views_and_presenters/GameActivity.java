@@ -198,13 +198,6 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
                     changeState(new NotYourTurnState());
-//                else
-//                {
-//                    checkForLastTurn();
-//                    toggleButtons(false);
-//                    if(!state.toString().equals("lastTurn"))
-//                        changeState(new NotYourTurnState());
-//                }
 
                 if(checkForGameOver())
                 {
@@ -246,30 +239,26 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mDrawRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleButtons(false);
-                toggleMenu(false);
-                FragmentManager fm = getSupportFragmentManager();
-                mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
-                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
-                        .addToBackStack(null).commit();
+                if (mGamePresenter.getGame().getDeckDestinationCards().size() == 0)
+                    displayToast("Destination Ticket Deck is empty!");
+                else {
+                    toggleButtons(false);
+                    toggleMenu(false);
+                    FragmentManager fm = getSupportFragmentManager();
+                    mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
+                    fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
+                            .addToBackStack(null).commit();
 
-                if(state.toString().equals("lastTurn")){
-                    changeState(new GameOverState());
-                }
+                    if (state.toString().equals("lastTurn")) {
+                        changeState(new GameOverState());
+                    }
 
-                if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
-                    changeState(new NotYourTurnState());
-//                else
-//                {
-//                    checkForLastTurn();
-//                    toggleButtons(false);
-//                    if(!state.toString().equals("lastTurn"))
-//                        changeState(new NotYourTurnState());
-//                }
+                    if (!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
+                        changeState(new NotYourTurnState());
 
-                if(checkForGameOver())
-                {
-                    endGame();
+                    if (checkForGameOver()) {
+                        endGame();
+                    }
                 }
             }
         });
