@@ -459,8 +459,7 @@ public class TicketToRideGame {
         Route losAngelesSanFrancisco1 = new Route(3, 4, "purple", losAngeles, sanFrancisco);
         Route losAngelesSanFrancisco2 = new Route(3, 4, "yellow", losAngeles, sanFrancisco);
 
-        if(maxNumPlayers > 3)
-        {
+
             availableRoutes.add(losAngelesSanFrancisco2);
             availableRoutes.add(sanFranciscoPortland2);
             availableRoutes.add(saltLakeCitySanFrancisco2);
@@ -483,7 +482,7 @@ public class TicketToRideGame {
             availableRoutes.add(kansasCityDenver2);
             availableRoutes.add(kansasCityOklahomaCity2);
             availableRoutes.add(duluthOmaha2);
-        }
+
 
         availableRoutes.add(losAngelesSanFrancisco1);
         availableRoutes.add(sanFranciscoPortland1);
