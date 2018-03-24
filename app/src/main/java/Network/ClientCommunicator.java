@@ -41,8 +41,8 @@ public class ClientCommunicator {
     public Result send(String handlerContext, List<Object> data, String authToken)
     {
         try {
-            String wholeUrl = "http://" + ServerProxy.getServerHost() + ":" +
-                    ServerProxy.getServerPort() + handlerContext;
+            String wholeUrl = "http://" + ServerProxy.getInstance().getServerHost() + ":" +
+                    ServerProxy.getInstance().getServerPort() + handlerContext;
             URL url = new URL(wholeUrl);
 
             HttpURLConnection http = (HttpURLConnection)url.openConnection();

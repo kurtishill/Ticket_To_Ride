@@ -29,7 +29,8 @@ public class LoginFragment extends Fragment implements ILoginView {
             mLoginPasswordEditText,
             mRegisterUsernameEditText,
             mRegisterPasswordEditText,
-            mRegisterConfirmPasswordEditText;
+            mRegisterConfirmPasswordEditText,
+            mIpAddressEditText;
     private Button mLoginButton,
             mRegisterButton;
 
@@ -113,6 +114,8 @@ public class LoginFragment extends Fragment implements ILoginView {
 
         mLoginPresenter = new LoginPresenter(this);
 
+        mIpAddressEditText = (EditText) v.findViewById(R.id.ip_address_edit_text);
+
         mLoginUsernameEditText = (EditText) v.findViewById(R.id.login_username_edit_text);
         mLoginUsernameEditText.addTextChangedListener(mLoginTextWatcher);
 
@@ -173,6 +176,10 @@ public class LoginFragment extends Fragment implements ILoginView {
 
     public String getConfirmPassword() {
         return mRegisterConfirmPasswordEditText.getText().toString();
+    }
+
+    public String getIpAddress() {
+        return mIpAddressEditText.getText().toString();
     }
 
     public void displayErrorMessage(String s) {
