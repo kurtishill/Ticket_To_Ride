@@ -190,6 +190,7 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             if (result.isSuccess()) {
                 mGameOverviewPresenter.quitGameOnPostExecute();
                 startActivity(new Intent(getActivity(), MainActivity.class));
+                getActivity().finish();
             }
             else {
                 Toast.makeText(getActivity(), result.getErrorMessage() + " Please try again.", Toast.LENGTH_SHORT).show();
