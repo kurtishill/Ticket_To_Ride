@@ -20,15 +20,8 @@ public class DestinationCardCalc {
             graph.get(i).Reset();
         }
     }
-    public DestCardResult Calc(DestinationCard card){
-        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
-        Player currPlayer = null;
-        for (int i = 0; i < players.size(); i++){
-            if(players.get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())){
-                currPlayer = players.get(i);
-                break;
-            }
-        }
+    public DestCardResult Calc(DestinationCard card, Player currPlayer){
+
         List<Route> routes = currPlayer.getClaimedRoutes();
         reset(routes);
         boolean oneExists = false;

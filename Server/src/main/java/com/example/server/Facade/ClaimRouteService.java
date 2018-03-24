@@ -33,6 +33,8 @@ public class ClaimRouteService {
         currentPlayer.addRoute(route);
         currentPlayer.setNumTrainCars(currentPlayer.getNumTrainCars()-route.getLength());
         currentGame.removeRoute(route);
+        if(currentGame.getMaxNumPlayers()<=3)
+            removeDoubleRoute(route, currentGame);
 
         List<TrainCard> spentCards = new ArrayList<>();
         int numCardsStillOwed = route.getLength();
@@ -79,5 +81,13 @@ public class ClaimRouteService {
 
         return new ClaimRouteResult(true,null,null, null, currentGame);
 
+    }
+    //finds double routes and removes the second
+    private void removeDoubleRoute(Route route, TicketToRideGame game){
+        for(int i=0; i<game.getAvailableRoutes().size(); i++){
+            Route route2 = game.getAvailableRoutes().get(i);
+            if(route.hasSameCities(route2))
+                game.getAvailableRoutes().remove(i);
+        }
     }
 }

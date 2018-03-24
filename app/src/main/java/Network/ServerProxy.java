@@ -16,6 +16,7 @@ public class ServerProxy  {
 
     private ServerProxy() {
         serverHost = null;
+       
         serverPort = "8080";
     }
 

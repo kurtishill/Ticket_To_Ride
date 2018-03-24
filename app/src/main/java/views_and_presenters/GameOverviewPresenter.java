@@ -1,5 +1,7 @@
 package views_and_presenters;
 
+import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.Result;
 
@@ -8,6 +10,9 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import graph.DestCardResult;
+import graph.DestinationCardCalc;
+import graph.LongestPathCalc;
 import gui_facade.QuitGameService;
 
 /**
@@ -39,5 +44,51 @@ public class GameOverviewPresenter implements IGameOverviewPresenter {
 
     public void quitGameOnPostExecute() {
         QuitGameService.quitGame();
+    }
+
+    public int DestinationCardCalc(Player currPlayer){
+        List<DestinationCard> cards = currPlayer.getDestinationCards();
+        int totalPoints = 0;
+        DestinationCardCalc cardCalc = new DestinationCardCalc();
+        for (int i = 0; i < cards.size(); i++){
+            DestCardResult result = cardCalc.Calc(cards.get(i), currPlayer);
+            if(result.exists) {
+                totalPoints += result.pointValue;
+            }
+        }
+        return totalPoints;
+    }
+    public int UnreachedDestinationCardCalc(Player currPlayer){
+        List<DestinationCard> cards = currPlayer.getDestinationCards();
+        int totalPoints = 0;
+        DestinationCardCalc cardCalc = new DestinationCardCalc();
+        for (int i = 0; i < cards.size(); i++){
+            DestCardResult result = cardCalc.Calc(cards.get(i), currPlayer);
+            if(!result.exists){
+                totalPoints -= result.pointValue;
+            }
+        }
+        return totalPoints;
+    }
+    public int LongestPath(){
+        LongestPathCalc pathCalc = new LongestPathCalc();
+        List<Player> players = ClientModelRoot.instance().getCurrGame().getPlayers();
+        int currPlayer = 0;
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).setLongestPathLength(pathCalc.LongestPath(players.get(i).getClaimedRoutes()));
+            if (players.get(i).getUsername().equals(ClientModelRoot.instance().getUser().getUsername())){
+                currPlayer = i;
+            }
+        }
+        int index = 0;
+        int largest = 0;
+        for (int i = 0; i < players.size(); i++){
+            if( largest < players.get(i).getLongestPathLength()){
+                index = i;
+                largest = players.get(i).getLongestPathLength();
+            }
+        }
+        players.get(index).setHasLongestPath(10);
+        return players.get(index).getHasLongestPath();
     }
 }

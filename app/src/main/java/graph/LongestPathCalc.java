@@ -26,6 +26,9 @@ public class LongestPathCalc {
         int tempLargest = 0;
         int largest = 0;
         int start = 0;
+        if (graph.size() == 1){
+            return graph.get(0).getLength();
+        }
         while(NotAllvisited(graph)) {
             tempLargest = 0;
             for (int i = 0; i < graph.size(); i++) {
@@ -37,7 +40,7 @@ public class LongestPathCalc {
                 }
             }
             tempLargest = SearchGraph(graph, start, graph.get(start).getCity2())
-                    + SearchGraph(graph, start, graph.get(start).getCity1()) - graph.get(start).getLength();
+                    + SearchGraph(graph, start, graph.get(start).getCity1()) - graph.get(start).getLength(); // check if its onl one route long
             if (tempLargest > largest){
                 largest = tempLargest;
             }
