@@ -152,7 +152,6 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             int longestPath = player.getHasLongestPath();
             totalPoints += longestPath;
             TextView longestRoutePointsTextView = new TextView(getActivity());
-            // todo calc points for longest route and replace value in commented section below
             longestRoutePointsTextView.setText(String.valueOf(longestPath));
             longestRoutePointsTextView.setTextColor(getResources().getColor(R.color.white));
             mLongestRoutePointsLayout.addView(longestRoutePointsTextView, lp);
@@ -160,7 +159,6 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             int destPoints = mGameOverviewPresenter.DestinationCardCalc(player);
             totalPoints += destPoints;
             TextView reachedDestinationPointsTextView = new TextView(getActivity());
-            // todo calc points for reached destinations and replace value in commented section below
             reachedDestinationPointsTextView.setText(String.valueOf(destPoints));
             reachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mReachedDestinationPointsLayout.addView(reachedDestinationPointsTextView, lp);
@@ -168,13 +166,12 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             int unreachPoints = mGameOverviewPresenter.UnreachedDestinationCardCalc(player);
             totalPoints += unreachPoints;
             TextView unreachedDestinationPointsTextView = new TextView(getActivity());
-            // todo calc points for unreached destinations and replace value in commented section below
+
             unreachedDestinationPointsTextView.setText(String.valueOf(unreachPoints));
             unreachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mUnreachedDestinationPointsLayout.addView(unreachedDestinationPointsTextView, lp);
 
             TextView totalNumPointsTextView = new TextView(getActivity());
-            // todo calc total points and replace value in commented section below
             totalNumPointsTextView.setText(String.valueOf(totalPoints));
             totalNumPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mTotalPointsLayout.addView(totalNumPointsTextView, lp);
