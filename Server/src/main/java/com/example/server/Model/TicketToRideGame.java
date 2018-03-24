@@ -325,7 +325,7 @@ public class TicketToRideGame {
         City washington = new City("Washington", 1646.7773f, 395.5276f);
         City winnipeg = new City("Winnipeg", 814.39453f, 95.27124f);
         City pittsburg = new City("Pittsburg", 1475.6836f, 327.4673f);
-        City newOrleans = new City("New Orleans", 1249.5703f, 7628.85547f);
+        City newOrleans = new City("New Orleans", 1249.5703f, 762.88554f);
         City chicago = new City("Chicago", 1242.5977f, 349.4839f);
         City miami = new City("Miami", 1648.7695f, 806.92163f);
         City newYork = new City("New York", 1631.7773f, 268.43774f);
