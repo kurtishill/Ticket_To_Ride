@@ -187,7 +187,13 @@ public class BankPresenter implements IBankPresenter {
             }
         }
 
-        if (faceUpCardsAreNull) {
+        boolean isThereAWild = false;
+        for (int i = 0; i < mFaceUpTrainCards.size(); i++) {
+            if (mFaceUpTrainCards.get(i).getColor().equals("wild"))
+                isThereAWild = true;
+        }
+
+        if (faceUpCardsAreNull && mFaceUpTrainCards.size() == 1 && isThereAWild) {
             isDone = true;
             return mFaceUpTrainCards.get(index);
         }

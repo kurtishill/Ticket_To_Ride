@@ -166,7 +166,6 @@ public class GameOverviewFragment extends Fragment implements IGameOverviewView 
             int unreachPoints = mGameOverviewPresenter.UnreachedDestinationCardCalc(player);
             totalPoints += unreachPoints;
             TextView unreachedDestinationPointsTextView = new TextView(getActivity());
-
             unreachedDestinationPointsTextView.setText(String.valueOf(unreachPoints));
             unreachedDestinationPointsTextView.setTextColor(getResources().getColor(R.color.white));
             mUnreachedDestinationPointsLayout.addView(unreachedDestinationPointsTextView, lp);
