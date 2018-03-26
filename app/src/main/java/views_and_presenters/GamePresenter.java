@@ -59,6 +59,10 @@ public class GamePresenter implements IGamePresenter, Observer {
                 mGameView.drawRouteLine(thisRoute, thisPlayer);
             }
         }
+
+        if (isLastTurn())
+            mGameView.setLastTurnVisible();
+
     }
 
     public TicketToRideGame getGame() {
@@ -100,5 +104,14 @@ public class GamePresenter implements IGamePresenter, Observer {
 
     public Player getUser() {
         return ClientModelRoot.instance().getUser();
+    }
+
+    public boolean isLastTurn() {
+        for (int i = 0; i < mGame.getPlayers().size(); i++) {
+            if (mGame.getPlayers().get(i).getState().equals("lastTurn")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

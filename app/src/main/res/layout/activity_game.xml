@@ -95,7 +95,7 @@
             android:layout_margin="5dp"
             android:padding="2dp"
             android:textColor="@color/white"
-            android:background="@color/dark_red"
+            android:background="@color/trans_dark_red"
             android:text="@string/last_turn"
             android:visibility="invisible"
             android:id="@+id/last_turn_display_text_view"/>

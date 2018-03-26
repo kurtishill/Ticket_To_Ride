@@ -17,4 +17,6 @@ public interface IGamePresenter {
     boolean isItUsersTurn();
 
     Player getUser();
+
+    boolean isLastTurn();
 }
