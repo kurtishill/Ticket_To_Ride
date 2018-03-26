@@ -237,6 +237,14 @@ public class BankFragment extends Fragment implements IBankView {
         mCloseButton.setEnabled(false);
     }
 
+    public void disableCards() {
+        mFaceUpCardOne.setEnabled(false);
+        mFaceUpCardTwo.setEnabled(false);
+        mFaceUpCardThree.setEnabled(false);
+        mFaceUpCardFour.setEnabled(false);
+        mFaceUpCardFive.setEnabled(false);
+    }
+
     private void closeFragment() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }

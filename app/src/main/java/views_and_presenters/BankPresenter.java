@@ -194,17 +194,21 @@ public class BankPresenter implements IBankPresenter {
 
         if (faceUpCardsAreNull && mFaceUpTrainCards.size()==1 && isThereAWild) {
             isDone = true;
+            mBankView.disableCards();
             return mFaceUpTrainCards.get(index);
         }
 
-        if (selectedCard.getColor().equals("wild"))
+        if (selectedCard.getColor().equals("wild")) {
             isDone = true;
+            mBankView.disableCards();
+        }
 
 
         if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
             isDone = true;
+            mBankView.disableCards();
         }
 
 
