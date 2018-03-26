@@ -13,6 +13,7 @@ import client_model.StartUpState;
 import client_model.State;
 import gui_facade.EditObserversInModel;
 import gui_facade.GetGamesService;
+import gui_facade.GetPlayersService;
 
 /**
  * Created by HillcollegeMac on 2/7/18.
