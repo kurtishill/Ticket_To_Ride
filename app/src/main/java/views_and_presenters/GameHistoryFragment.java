@@ -101,6 +101,7 @@ public class GameHistoryFragment extends Fragment implements IGameHistoryView {
         @Override
         public void onBindViewHolder(final GameHistoryHolder holder, int position) {
             GameHistory gameHistory = mGameHistoryList.get(position);
+            holder.setIsRecyclable(false);
             holder.bind(gameHistory);
         }
 

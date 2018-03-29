@@ -180,10 +180,11 @@ public class BankPresenter implements IBankPresenter {
         mFaceUpTrainCards.set(index, newFaceUpCard);
 
         boolean faceUpCardsAreNull = false;
+        int nullCounter = 0;
         for (int i = 0; i < mFaceUpTrainCards.size(); i++) {
             if (mFaceUpTrainCards.get(i).getColor().equals("null")) {
                 faceUpCardsAreNull = true;
-                break;
+                nullCounter++;
             }
         }
         boolean isThereAWild = false;
@@ -192,19 +193,28 @@ public class BankPresenter implements IBankPresenter {
                 isThereAWild=true;
         }
 
-        if (faceUpCardsAreNull && mFaceUpTrainCards.size()==1 && isThereAWild) {
+        if (faceUpCardsAreNull && nullCounter == 4 && isThereAWild) {
+            isDone = true;
+            mBankView.disableCards();
+            return mFaceUpTrainCards.get(index);
+        }
+
+        if (faceUpCardsAreNull && nullCounter == 5) {
             isDone = true;
             return mFaceUpTrainCards.get(index);
         }
 
-        if (selectedCard.getColor().equals("wild"))
+        if (selectedCard.getColor().equals("wild")) {
             isDone = true;
+            mBankView.disableCards();
+        }
 
 
         if (mSelectedCards.size() == 1 && !selectedCard.getColor().equals("wild"))
             mBankView.displayToast("Please select one more card");
         else if (mSelectedCards.size() == 2) {
             isDone = true;
+            mBankView.disableCards();
         }
 
 

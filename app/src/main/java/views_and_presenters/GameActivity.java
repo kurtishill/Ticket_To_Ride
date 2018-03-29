@@ -41,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private IGamePresenter mGamePresenter;
 
     private TextView mWaitingTextView;
+    private TextView mLastTurnTextView;
 
     private ImageView mGameMapImageView;
     private Bitmap mBitmap;
@@ -152,6 +153,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mGamePresenter = new GamePresenter(this);
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
+        mLastTurnTextView = (TextView) findViewById(R.id.last_turn_display_text_view);
+        if (mGamePresenter.isLastTurn())
+            mLastTurnTextView.setVisibility(View.VISIBLE);
 
         mGameMapImageView = (ImageView) findViewById(R.id.game_map_image_view);
         mGameMapImageView.post( new Runnable() {
@@ -194,6 +198,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                 if(s.equals("lastTurn") || state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
+                    //mLastTurnTextView.setVisibility(View.VISIBLE);
                 }
 
                 if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -220,6 +225,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
               
               if(state.toString().equals("lastTurn")){
                     changeState(new GameOverState());
+                    //mLastTurnTextView.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -251,6 +257,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
                     if (state.toString().equals("lastTurn")) {
                         changeState(new GameOverState());
+                        //mLastTurnTextView.setVisibility(View.VISIBLE);
                     }
 
                     if (!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
@@ -443,5 +450,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             }
         }
         mGameMapImageView.setImageBitmap(mBitmap);
+    }
+
+    public void setLastTurnVisible() {
+        mLastTurnTextView.setVisibility(View.VISIBLE);
     }
 }
