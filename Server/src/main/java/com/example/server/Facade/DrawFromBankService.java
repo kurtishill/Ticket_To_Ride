@@ -28,11 +28,12 @@ public class DrawFromBankService {
 
         game.changeTurn();
 
-        game.recycleTrainCardDeck();
-
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);
-        game.setDiscardPile(discardPile);
+        //game.setDiscardPile(discardPile);
+        //game.getDiscardPile().addAll(discardPile);
+
+        game.recycleTrainCardDeck();
 
         //added by Nelson for state pattern
         if(user.getState().equals("lastTurn")){
