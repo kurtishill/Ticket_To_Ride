@@ -625,7 +625,7 @@ public class TicketToRideGame {
         deckDestinationCards.add(dallasNewYork);
         deckDestinationCards.add(bostonMiami);
 
-        for(int i = 0; i < 3; i++) // change to 12
+        for(int i = 0; i < 12; i++) // change to 12
         {
             deckTrainCards.add(new TrainCard("purple"));
             deckTrainCards.add(new TrainCard("white"));
@@ -637,7 +637,7 @@ public class TicketToRideGame {
             deckTrainCards.add(new TrainCard("green"));
         }
 
-        for(int i = 0; i < 1; i++) // change to 14
+        for(int i = 0; i < 14; i++) // change to 14
         {
             deckTrainCards.add(new TrainCard("wild"));
         }
