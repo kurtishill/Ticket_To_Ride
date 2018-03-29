@@ -30,8 +30,6 @@ public class DrawFromBankService {
 
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);
-        //game.setDiscardPile(discardPile);
-        //game.getDiscardPile().addAll(discardPile);
 
         game.recycleTrainCardDeck();
 
