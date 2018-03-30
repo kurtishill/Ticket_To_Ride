@@ -75,4 +75,6 @@
     <string name="total_number_points">Total Number Points</string>
     <string name="quit_game">Quit Game</string>
 
+    <string name="last_turn">Last Turn</string>
+
 </resources>
