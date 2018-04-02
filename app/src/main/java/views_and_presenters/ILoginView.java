@@ -20,5 +20,7 @@ public interface ILoginView {
 
     String getConfirmPassword();
 
+    String getIpAddress();
+
     void displayErrorMessage(String s);
 }

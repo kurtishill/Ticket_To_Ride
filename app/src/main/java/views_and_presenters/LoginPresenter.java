@@ -43,6 +43,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     public Result login() {
         List<Object> data = new ArrayList<>();
+        ServerProxy.getInstance().setServerHost(mLoginView.getIpAddress());
         data.add(mLoginView.getLoginUsername());
         data.add(mLoginView.getLoginPassword());
         return ServerProxy.getInstance()
@@ -52,6 +53,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     public Result register() {
         List<Object> data = new ArrayList<>();
+        ServerProxy.getInstance().setServerHost(mLoginView.getIpAddress());
         data.add(mLoginView.getRegisterUsername());
         data.add(mLoginView.getRegisterPassword());
         return ServerProxy.getInstance()

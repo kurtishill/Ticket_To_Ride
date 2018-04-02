@@ -19,12 +19,6 @@ public interface ILoginPresenter {
 
     boolean registerUsernameChanged();
 
-    // returns auth token
-    /*String login();
-
-    // returns auth token
-    String register();*/
-
     Result login();
 
     Result register();

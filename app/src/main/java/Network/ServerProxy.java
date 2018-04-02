@@ -11,11 +11,12 @@ import java.util.List;
 
 public class ServerProxy  {
     private static ServerProxy instance = null;
-    private static String serverHost;
-    private static String serverPort;
+    private String serverHost;
+    private String serverPort;
 
     private ServerProxy() {
-        serverHost = "10.14.177.239";
+        serverHost = null;
+       
         serverPort = "8080";
     }
 
@@ -34,11 +35,15 @@ public class ServerProxy  {
         return ClientCommunicator.instance().send("/command", commandValues, authToken);
     }
 
-    public static String getServerPort() {
+    public String getServerPort() {
         return serverPort;
     }
 
-    public static String getServerHost() {
+    public String getServerHost() {
         return serverHost;
+    }
+
+    public void setServerHost(String host) {
+        serverHost = host;
     }
 }

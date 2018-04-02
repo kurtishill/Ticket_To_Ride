@@ -24,6 +24,12 @@ import com.example.server.Model.Route;
 import java.util.List;
 
 import client_model.ClientModelRoot;
+import client_model.GameOverState;
+import client_model.LastTurnState;
+import client_model.NotYourTurnState;
+import client_model.StartUpState;
+import client_model.State;
+import client_model.YourTurnState;
 
 public class GameActivity extends AppCompatActivity implements IGameView,
         OnCloseFragmentListener {
@@ -35,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     private IGamePresenter mGamePresenter;
 
     private TextView mWaitingTextView;
+    private TextView mLastTurnTextView;
 
     private ImageView mGameMapImageView;
     private Bitmap mBitmap;
@@ -54,12 +61,22 @@ public class GameActivity extends AppCompatActivity implements IGameView,
 
     private DestinationPickerFragment mDestinationPickerFragment;
     private BankFragment mBankFragment;
+    private ClaimRouteFragment mClaimRouteFragment;
     private PlayerStatsFragment mPlayerStatsFragment;
     private GameHistoryFragment mGameHistoryFragment;
     private ChatFragment mChatFragment;
     private DisplayDestinationCardsFragment mDisplayDestinationCardsFragment;
+    private GameOverviewFragment mGameOverviewFragment;
 
+    private State state;
 
+    public State getState() {
+        return state;
+    }
+
+    public void changeState(State state) {
+        this.state = state;
+    }
 
     // from OnCloseFragmentListener interface
     @Override
@@ -136,25 +153,61 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mGamePresenter = new GamePresenter(this);
 
         mWaitingTextView = (TextView) findViewById(R.id.game_activity_waiting_text_view);
+        mLastTurnTextView = (TextView) findViewById(R.id.last_turn_display_text_view);
+        if (mGamePresenter.isLastTurn())
+            mLastTurnTextView.setVisibility(View.VISIBLE);
 
         mGameMapImageView = (ImageView) findViewById(R.id.game_map_image_view);
+        mGameMapImageView.post( new Runnable() {
+            @Override
+            public void run() {
+                mBitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
+                        mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
+
+                mCanvas = new Canvas(mBitmap);
+                ifClaimedRoutesExist();
+            }
+        });
 
         mPlayerTurnsLayout = (LinearLayout) findViewById(R.id.player_turn_layout);
         displayPlayerTurn();
 
-
+        state = new StartUpState();
 
         mDrawCardsButton = (Button) findViewById(R.id.draw_cards_button);
-
         mDrawCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 toggleButtons(false);
                 toggleMenu(false);
+
                 FragmentManager fm = getSupportFragmentManager();
                 mBankFragment = new BankFragment();
                 fm.beginTransaction().replace(R.id.bank_fragment_container, mBankFragment)
                         .addToBackStack(null).commit();
+
+                String s = "";
+                for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+                {
+                    if (ClientModelRoot.instance().getUser().getID().equals(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getID()))
+                    {
+                        s = ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState();
+                    }
+                }
+
+                if(s.equals("lastTurn") || state.toString().equals("lastTurn")){
+                    changeState(new GameOverState());
+                    //mLastTurnTextView.setVisibility(View.VISIBLE);
+                }
+
+                if(!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
+                    changeState(new NotYourTurnState());
+
+                if(checkForGameOver())
+                {
+                    endGame();
+                }
             }
         });
 
@@ -162,17 +215,29 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mPlaceTrainsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //toggleButtons(false);
 
-                // Todo
-                // temporary
-                DrawLine drawLine = new DrawLine();
-                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(0), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
-                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(4), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
-                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(8), ClientModelRoot.instance().getCurrGame().getPlayers().get(1));
-                drawLine.drawClaimedRoute(ClientModelRoot.instance().getCurrGame().getAvailableRoutes().get(12), ClientModelRoot.instance().getCurrGame().getPlayers().get(0));
-                //TODO end turn here
-                toggleButtons(true);
+                toggleButtons(false);
+                toggleMenu(false);
+                FragmentManager fm = getSupportFragmentManager();
+                mClaimRouteFragment = new ClaimRouteFragment();
+                fm.beginTransaction().replace(R.id.claim_route_fragment_container, mClaimRouteFragment)
+                        .addToBackStack(null).commit();
+              
+              if(state.toString().equals("lastTurn")){
+                    changeState(new GameOverState());
+                    //mLastTurnTextView.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    toggleButtons(false);
+                    if(!state.toString().equals("lastTurn"))
+                        changeState(new NotYourTurnState());
+                }
+
+                if(checkForGameOver())
+                {
+                    endGame();
+                }
             }
         });
 
@@ -180,13 +245,28 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         mDrawRoutesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleButtons(false);
-                toggleMenu(false);
-                FragmentManager fm = getSupportFragmentManager();
-                mDestinationPickerFragment = DestinationPickerFragment.newInstance();
-                fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
-                        .addToBackStack(null).commit();
+                if (mGamePresenter.getGame().getDeckDestinationCards().size() == 0)
+                    displayToast("Destination Ticket Deck is empty!");
+                else {
+                    toggleButtons(false);
+                    toggleMenu(false);
+                    FragmentManager fm = getSupportFragmentManager();
+                    mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
+                    fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
+                            .addToBackStack(null).commit();
 
+                    if (state.toString().equals("lastTurn")) {
+                        changeState(new GameOverState());
+                        //mLastTurnTextView.setVisibility(View.VISIBLE);
+                    }
+
+                    if (!state.toString().equals("lastTurn") && !state.toString().equals("gameOver"))
+                        changeState(new NotYourTurnState());
+
+                    if (checkForGameOver()) {
+                        endGame();
+                    }
+                }
             }
         });
 
@@ -198,6 +278,25 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             if (gameStarted)
                 toggleButtons(true);
         }
+    }
+
+    public void endGame()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        mGameOverviewFragment = new GameOverviewFragment();
+        fm.beginTransaction().replace(R.id.game_overview_fragment_container, mGameOverviewFragment)
+                .addToBackStack(null).commit();
+        displayToast("Game Over");
+    }
+
+    public boolean checkForGameOver()
+    {
+        for(int i = 0; i < ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++)
+        {
+            if(!ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getState().equals("gameOver"))
+                return false;
+        }
+        return true;
     }
 
     public String getGameStatus() {
@@ -224,11 +323,22 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         });
     }
 
+    public void drawRouteLine(final Route route, final Player player) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DrawLine drawLine = new DrawLine();
+                drawLine.drawClaimedRoute(route, player);
+            }
+        });
+    }
+
     public void onStartUp()
     {
         toggleButtons(false);
+        changeState(new StartUpState());
         FragmentManager fm = getSupportFragmentManager();
-        mDestinationPickerFragment = DestinationPickerFragment.newInstance();
+        mDestinationPickerFragment = DestinationPickerFragment.newInstance(state);
         fm.beginTransaction().replace(R.id.destination_picker_fragment_container, mDestinationPickerFragment)
                 .addToBackStack(null).commit();
     }
@@ -238,9 +348,19 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         // and to check if the player is in the start up state
         if (toggle) {
             toggle = mGamePresenter.isItUsersTurn();
+            if(!state.toString().equals("lastTurn"))
+                changeState(new YourTurnState());
             if (mGamePresenter.getUser().getState().equals("startup"))
                 toggle = false;
         }
+//        else
+//        {
+//            if(!state.toString().equals("lastTurn") && !state.toString().equals("startup"))
+//                changeState(new NotYourTurnState());
+//        }
+
+        if(!mGamePresenter.isItUsersTurn() && !state.toString().equals("lastTurn"))
+            changeState(new NotYourTurnState());
 
         final boolean threadToggle = toggle;
         try {
@@ -307,27 +427,12 @@ public class GameActivity extends AppCompatActivity implements IGameView,
         }
 
         public void drawClaimedRoute(Route route, Player player) {
-            if (mBitmap == null) {
-                mBitmap = Bitmap.createBitmap(mGameMapImageView.getWidth(),
-                        mGameMapImageView.getHeight(), Bitmap.Config.ARGB_8888);
-            }
-            if (mCanvas == null)
-                mCanvas = new Canvas(mBitmap);
-
             Paint paint = new Paint();
             paint.setColor(GameResources.getLineColors().get(player.getColor()));
             paint.setStrokeWidth(10);
 
             mCanvas.drawLine(route.getCity1().getX(), route.getCity1().getY(), route.getCity2().getX(), route.getCity2().getY(), paint);
-            route.setOccupied(true);
-            route.setOwner(player);
-            player.addRoute(route);
-            player.subtractTrains(route.getLength());
-            ClientModelRoot.instance();
 
-
-            //TODO add functionality to remove cards from hand
-            ifClaimedRoutesExist();
             mGameMapImageView.setImageBitmap(mBitmap);
         }
     }
@@ -345,5 +450,9 @@ public class GameActivity extends AppCompatActivity implements IGameView,
             }
         }
         mGameMapImageView.setImageBitmap(mBitmap);
+    }
+
+    public void setLastTurnVisible() {
+        mLastTurnTextView.setVisibility(View.VISIBLE);
     }
 }

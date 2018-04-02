@@ -8,6 +8,7 @@ import com.example.server.Model.TrainCard;
 import com.example.server.Results.DrawFromBankResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,13 +21,22 @@ public class DrawFromBankService {
                                    ArrayList<TrainCard> discardPile, int gameId, String authToken) {
         TicketToRideGame game = ModelRoot.instance().GameExists(gameId);
         Player user = ModelRoot.instance().UserExists(authToken);
+
         for (int i = 0; i < selectedCards.size(); i++) {
             user.addTrainCard(selectedCards.get(i));
         }
+
         game.changeTurn();
+
         game.setFaceUpCards(faceUpCards);
         game.setDeckTrainCards(trainCardDeck);
-        game.setDiscardPile(discardPile);
+
+        game.recycleTrainCardDeck();
+
+        //added by Nelson for state pattern
+        if(user.getState().equals("lastTurn")){
+            user.setState("gameOver");
+        }
 
         List<GameHistory> gameHistoryList = game.getGameHistoryList();
         GameHistory historyItem = new GameHistory(user.getUsername(), user.getColor(),

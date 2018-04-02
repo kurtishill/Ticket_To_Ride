@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="dark_red">#7F0300</color>
-    <color name="white">#fff</color>
+    <color name="trans_dark_red">#E67F0300</color>
+    <color name="white">#ffffff</color>
+    <color name="trans_white">#E6ffffff</color>
     <color name="black">#000000</color>
     <color name="trans_black">#E6000000</color>
     <color name="transparent_gray">#E63B3B3A</color>
@@ -13,12 +15,16 @@
     <color name="trans_red">#E6E83D0C</color>
     <color name="blue">#0700BF</color>
     <color name="trans_blue">#E60700BF</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="trans_yellow">#E6FFFF00</color>
+    <color name="yellow">#FFC500</color>
+    <color name="trans_yellow">#E6FFC500</color>
     <color name="green">#009403</color>
     <color name="trans_green">#E6009403</color>
     <color name="light_blue">#6AACFF</color>
     <color name="trans_light_blue">#E66AACFF</color>
     <color name="brown">#4C2819</color>
     <color name="trans_brown">#E64C2819</color>
+    <color name="orange">#E86A0C</color>
+    <color name="trans_orange">#E6E86A0C</color>
+    <color name="purple">#6E0791</color>
+    <color name="trans_purple">#E66E0791</color>
 </resources>

@@ -20,7 +20,9 @@ public class CreateGameService {
                 gameNameDoesNotExist = false;
         }
         if (gameNameDoesNotExist) {
+
             TicketToRideGame game = new TicketToRideGame(currentPlayer);
+
             game.setName(gameName);
             game.setMaxNumPlayers(maxNumPlayers);
             game.setGameID(ModelRoot.instance().getListGames().size() + 1);

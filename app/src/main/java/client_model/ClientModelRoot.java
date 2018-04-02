@@ -23,6 +23,8 @@ public class ClientModelRoot extends Observable {
     private String mAuthToken;
     private TicketToRideGame mCurrGame;
 
+
+
     public static ClientModelRoot instance() {
         if (_instance == null)
             _instance = new ClientModelRoot();
@@ -98,6 +100,11 @@ public class ClientModelRoot extends Observable {
                 mGamesList.set(i, mCurrGame);
             }
         }
+    }
+
+    public void deleteGame() {
+        mGamesList.remove(mCurrGame);
+        mCurrGame = null;
     }
 
     public void addUserToCurrGame() {

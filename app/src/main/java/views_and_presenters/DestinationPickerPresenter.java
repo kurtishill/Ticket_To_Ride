@@ -9,6 +9,7 @@ import java.util.List;
 
 import Network.ServerProxy;
 import client_model.ClientModelRoot;
+import client_model.State;
 import gui_facade.AddUserService;
 import gui_facade.DrawDestinationTicketsService;
 import gui_facade.SelectDestinationTicketsService;
@@ -37,28 +38,27 @@ public class DestinationPickerPresenter implements IDestinationPickerPresenter {
         numRoutesSelected=0;
     }
 
-    public boolean routeSelected(String selectedRoute) {
-        for(int i=0; i<mAllRoutes.size(); i++) {
-            if (mAllRoutes.get(i).toString().equals(selectedRoute)) {
+    public boolean routeSelected(String selectedRoute, State state) {
+        //here call the state pattern method
 
-                if (mSelectedRoutes.contains(mAllRoutes.get(i)))
-                    mSelectedRoutes.remove(mAllRoutes.get(i));
-                else {
-                    mChange = true;
-                    mSelectedRoutes.add(mAllRoutes.get(i));
-
-                }
-                mChange = true;
-
-                if (mSelectedRoutes.size() < 2)
-                    return false;
-                else
-                    return true;
-            }
-
-        }
-
-        return false;
+        return state.routeSelected(null, selectedRoute, mAllRoutes, mSelectedRoutes);
+//        for(int i=0; i<mAllRoutes.size(); i++) {
+//            if (mAllRoutes.get(i).toString().equals(selectedRoute)) {
+//
+//                if (mSelectedRoutes.contains(mAllRoutes.get(i)))
+//                    mSelectedRoutes.remove(mAllRoutes.get(i));
+//                else {
+//                    mChange = true;
+//                    mSelectedRoutes.add(mAllRoutes.get(i));
+//                }
+//                mChange = true;
+//                if (mSelectedRoutes.size() < 2)
+//                    return false;
+//                else
+//                    return true;
+//            }
+//        }
+//        return false;
     }
     public Result drawThreeCards(){
         //draws the three cards for the user to pick from

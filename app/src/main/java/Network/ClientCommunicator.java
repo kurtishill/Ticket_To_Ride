@@ -1,7 +1,9 @@
 package Network;
 
 import com.example.server.Results.ChatResult;
+import com.example.server.Results.ClaimRouteResult;
 import com.example.server.Results.CreateGameResult;
+import com.example.server.Results.DeleteGameResult;
 import com.example.server.Results.DrawDestinationTicketsResult;
 import com.example.server.Results.DrawFromBankResult;
 import com.example.server.Results.GetGameListResult;
@@ -39,8 +41,8 @@ public class ClientCommunicator {
     public Result send(String handlerContext, List<Object> data, String authToken)
     {
         try {
-            String wholeUrl = "http://" + ServerProxy.getServerHost() + ":" +
-                    ServerProxy.getServerPort() + handlerContext;
+            String wholeUrl = "http://" + ServerProxy.getInstance().getServerHost() + ":" +
+                    ServerProxy.getInstance().getServerPort() + handlerContext;
             URL url = new URL(wholeUrl);
 
             HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -88,6 +90,10 @@ public class ClientCommunicator {
                 return (Result) Serializer.decode(resp, SelectDestinationTicketsResult.class);
             else if (resp.contains("DrawFromBankResult"))
                 return (Result) Serializer.decode(resp, DrawFromBankResult.class);
+            else if (resp.contains("DeleteGameResult"))
+                return (Result) Serializer.decode(resp, DeleteGameResult.class);
+            else if (resp.contains("ClaimRouteResult"))
+                return (Result) Serializer.decode(resp, ClaimRouteResult.class);
         }
         catch (IOException e) {
             e.printStackTrace();

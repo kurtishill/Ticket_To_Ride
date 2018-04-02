@@ -30,6 +30,25 @@ public class Player {
 
     private String state;
 
+    private int longestPathLength;
+
+    private int hasLongestPath = 0;
+
+    public void setLongestPathLength(int path){
+        longestPathLength = path;
+    }
+
+    public int getLongestPathLength(){
+        return longestPathLength;
+    }
+
+    public int getHasLongestPath(){
+        return hasLongestPath;
+    }
+    public void setHasLongestPath(int path){
+        hasLongestPath = path;
+    }
+
     public Player() {
         this.username = null;
         this.password = null;
@@ -155,6 +174,16 @@ public class Player {
         claimedRoutes.add(route);
         numPoints+=route.getPointValue();
     }
+    //after a player finishes a game, this will reset points, trains, etc, to the appropriate values
+    public void resetPlayer(){
+        this.setNumTrainCars(45);
+        this.setNumPoints(0);
+        this.setState("startup");
+        this.getClaimedRoutes().clear();
+        this.getDestinationCards().clear();
+        this.getTrainCards().clear();
+
+    }
 
     public List<TrainCard> getTrainCards() {
         return trainCards;
@@ -171,4 +200,6 @@ public class Player {
     public void setState(String state) {
         this.state = state;
     }
+
+
 }

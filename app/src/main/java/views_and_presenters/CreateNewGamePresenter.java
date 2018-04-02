@@ -64,11 +64,6 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
         mGame = null;
     }
 
-    @Override
-    public void callSetPlayerColorService(String color) {
-        SetPlayerColorService.setPlayerColor(color);
-    }
-
     public Result confirmCreateGame() {
         String gameName = mCreateNewGameView.getGameName();
         Integer maxNumPlayers = mCreateNewGameView.getMaxNumPlayers();
@@ -83,7 +78,7 @@ public class CreateNewGamePresenter implements ICreateNewGamePresenter {
     }
 
     public void addGame(TicketToRideGame game) {
-        Player user = GetUserService.getUser();
+        Player user = game.getPlayers().get(0);
         user.setColor(game.getPlayers().get(0).getColor());
         AddUserService.addUser(user);
         SetCurrGame.setCurrGame(game);

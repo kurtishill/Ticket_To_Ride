@@ -15,4 +15,12 @@ public class GetPlayersService {
     public static Map<String, Player> getPlayers() {
         return ClientModelRoot.instance().getPlayers();
     }
+    public static Player getCurrentPlayer(){
+        Player currentPlayer = new Player();
+        for(int i=0; i<ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++) {
+            if(ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getUsername().equals( ClientModelRoot.instance().getUser().getUsername()))
+                currentPlayer = ClientModelRoot.instance().getCurrGame().getPlayers().get(i);
+        }
+        return currentPlayer;
+    }
 }

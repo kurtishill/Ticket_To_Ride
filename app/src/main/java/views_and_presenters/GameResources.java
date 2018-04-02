@@ -33,6 +33,11 @@ public class GameResources {
         mBackgroundColors.put("yellow", R.color.trans_yellow);
         mBackgroundColors.put("green", R.color.trans_green);
         mBackgroundColors.put("black", R.color.trans_black);
+        mBackgroundColors.put("orange", R.color.trans_orange);
+        mBackgroundColors.put("purple", R.color.trans_purple);
+        mBackgroundColors.put("white", R.color.trans_white);
+        mBackgroundColors.put("wild", R.color.transparent_gray);
+
 
         mCardBackgrounds = new HashMap<>();
         mCardBackgrounds.put("red", R.drawable.red_card);
@@ -44,6 +49,7 @@ public class GameResources {
         mCardBackgrounds.put("purple", R.drawable.purple_card);
         mCardBackgrounds.put("white", R.drawable.white_card);
         mCardBackgrounds.put("wild", R.drawable.wild_card);
+        mCardBackgrounds.put("null", R.drawable.rectangle);
 
         mChatBackgrounds = new HashMap<>();
         mChatBackgrounds.put("red", R.drawable.rounded_rectangle_red);
@@ -55,7 +61,7 @@ public class GameResources {
         mLineColors = new HashMap<>();
         mLineColors.put("red", Color.rgb(232, 61, 12));
         mLineColors.put("blue", Color.rgb(7, 0, 191));
-        mLineColors.put("yellow", Color.rgb(255, 255, 0));
+        mLineColors.put("yellow", Color.rgb(255, 197, 0));
         mLineColors.put("green", Color.rgb(0, 148, 3));
         mLineColors.put("black", Color.rgb(0, 0, 0));
     }
