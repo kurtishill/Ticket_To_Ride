@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import Network.ClientCommunicator;
+import client_facade.ToggleGUIUsability;
 import client_model.ClientModelRoot;
 
 //import client_facade.ClientFacade;
@@ -26,11 +27,13 @@ public class Poller {
     private Timer timer;
     private List<ICommand> commands;
     private String key;
+    private boolean isServerDown;
 
     public Poller(String key) {
         timer = new Timer();
         commands = new ArrayList<>();
         this.key = key;
+        isServerDown = false;
     }
 
     public void poll(){
@@ -58,6 +61,7 @@ public class Poller {
             if (commands.get(i) != null)
                 commands.get(i).execute();
         }
+        commands.clear();
     }
 
     // this also grabs the updated game when a person draws from the bank
@@ -66,7 +70,23 @@ public class Poller {
         List<Object> data = new ArrayList<>();
         data.add("GetGameList");
         Result result = ClientCommunicator.instance().send("/command", data, key);
-        GetGameListResult getGameListResult = (GetGameListResult) result;
+        GetGameListResult getGameListResult;
+        if (result.isSuccess()) {
+            getGameListResult = (GetGameListResult) result;
+            if (isServerDown) {
+                ToggleGUIUsability.toggle(false);
+            }
+            isServerDown = false;
+        }
+        else {
+            if (result.getErrorMessage().equals("Can't connect to server")) {
+                if (!isServerDown) {
+                    ToggleGUIUsability.toggle(true);
+                }
+                isServerDown = true;
+            }
+            return null;
+        }
         List<TicketToRideGame> games = getGameListResult.getGames();
         if (games != null) {
             return new GenericCommand("client_facade.ClientFacade", "UpdateGameList",
@@ -84,7 +104,23 @@ public class Poller {
         data.add(ClientModelRoot.instance().getCurrGame().getGameID());
         data.add(ClientModelRoot.instance().getUser().getUsername());
         Result result = ClientCommunicator.instance().send("/command", data, key);
-        ChatResult chatResult = (ChatResult) result;
+        ChatResult chatResult;
+        if (result.isSuccess()) {
+            chatResult = (ChatResult) result;
+            if (isServerDown) {
+                ToggleGUIUsability.toggle(false);
+            }
+            isServerDown = false;
+        }
+        else {
+            if (result.getErrorMessage().equals("Can't connect to server")) {
+                if (!isServerDown) {
+                    ToggleGUIUsability.toggle(true);
+                }
+                isServerDown = true;
+            }
+            return null;
+        }
         List<ChatMessage> chat = chatResult.getChat();
         if (chat != null) {
             return new GenericCommand("client_facade.ClientFacade", "UpdateGameChat",

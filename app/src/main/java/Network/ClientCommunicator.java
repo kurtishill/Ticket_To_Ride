@@ -97,6 +97,7 @@ public class ClientCommunicator {
         }
         catch (IOException e) {
             e.printStackTrace();
+            return new Result(false, "Can't connect to server", null, "IOException", null);
         }
         return new Result(false, "Error", null, "IOException", null);
     }
