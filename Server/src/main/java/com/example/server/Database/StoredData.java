@@ -58,6 +58,7 @@ public class StoredData {
                     }
                 }
             }
+            //todo delete all the commands, should we create a method for this or just do it manually
 
         }
         else{
