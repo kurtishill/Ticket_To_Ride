@@ -1,6 +1,7 @@
 package com.example.server.dto;
 
 import com.example.server.Model.DestinationCard;
+import com.example.server.Model.Player;
 import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
 
@@ -53,6 +54,22 @@ public class PlayerDTO {
         this.state = state;
         this.longestPathLength = longestPathLength;
         this.hasLongestPath = hasLongestPath;
+    }
+
+    // for convenience
+    public PlayerDTO(Player player) {
+        id = player.getID();
+        username = player.getUsername();
+        password = player.getPassword();
+        numPoints = player.getNumPoints();
+        numTrainCars = player.getNumTrainCars();
+        color = player.getColor();
+        trainCards = player.getTrainCards();
+        destinationCards = player.getDestinationCards();
+        claimedRoutes = player.getClaimedRoutes();
+        state = player.getState();
+        longestPathLength = player.getLongestPathLength();
+        hasLongestPath = player.getHasLongestPath();
     }
 
     public String getId() {
