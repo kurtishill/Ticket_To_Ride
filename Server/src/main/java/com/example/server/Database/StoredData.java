@@ -1,5 +1,6 @@
 package com.example.server.Database;
 
+import com.example.server.Plugin.IPlugin;
 import com.example.server.Results.GenericCommand;
 
 /**
@@ -14,6 +15,7 @@ public class StoredData {
         if (counter >= N){
             counter = 0;
             // todo store all model data
+            // todo I dont think it is possible to make a interface singleton
         }
         else{
             //todo store command
