@@ -1,6 +1,7 @@
 package com.example.server;
 
 
+import com.example.server.Database.StoredData;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
@@ -215,7 +216,7 @@ public class CommandHandler implements HttpHandler {
                             command = CommandFactory.instance().GetGameList(authToken);
 
                     }
-
+                    StoredData.instance().Store(command);
                     Result result = (Result) command.execute();
 
                     String respData = Serializer.encode(result);
