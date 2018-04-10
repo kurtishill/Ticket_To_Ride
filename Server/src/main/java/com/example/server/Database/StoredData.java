@@ -6,6 +6,7 @@ import com.example.server.Model.TicketToRideGame;
 import com.example.server.Plugin.IPlugin;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
+import com.example.server.dto.CommandDTO;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class StoredData {
         return _instance;
     }
     private int counter = 0;
-    public void Store(ICommand command){
+    public void Store(ICommand command, int gameId){
         counter += 1;
         int N = 10;
         if (counter >= N){
@@ -58,11 +59,15 @@ public class StoredData {
                     }
                 }
             }
+            List<Integer> ids = ModelRoot.instance().getCommandIds();
             //todo delete all the commands, should we create a method for this or just do it manually
 
         }
         else{
-            plugin.getCommandDao().create(command);//todo store command
+            int id = ModelRoot.instance().getId();
+            plugin.getCommandDao().create(new CommandDTO(id, command, gameId));//todo store command
+
+
         }
     }
 }

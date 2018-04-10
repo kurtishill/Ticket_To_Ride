@@ -1,6 +1,7 @@
 package com.example.server.Plugin;
 
 import com.example.server.Model.Player;
+import com.example.server.dto.PlayerDTO;
 
 import java.util.List;
 
@@ -9,8 +10,8 @@ import java.util.List;
  */
 
 public interface IUserDao {
-    List<Player> read();
-    void create(Player user);//todo should we return a database access result or something to see if theres an error?
-    void update(Player user);
+    List<PlayerDTO> read();
+    void create(PlayerDTO user);//todo should we return a database access result or something to see if theres an error?
+    void update(PlayerDTO user);
     void delete(int Id);
 }

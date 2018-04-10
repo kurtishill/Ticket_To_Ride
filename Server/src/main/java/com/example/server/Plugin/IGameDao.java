@@ -2,6 +2,7 @@ package com.example.server.Plugin;
 
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
+import com.example.server.dto.GameDTO;
 
 import java.util.List;
 
@@ -10,8 +11,8 @@ import java.util.List;
  */
 
 public interface IGameDao {
-    List<TicketToRideGame> read();
-    void create(TicketToRideGame game);//todo should we return a database access result or something to see if theres an error?
-    void update(TicketToRideGame game);
+    List<GameDTO> read();
+    void create(GameDTO game);//todo should we return a database access result or something to see if theres an error?
+    void update(GameDTO game);
     void delete(int Id);
 }
