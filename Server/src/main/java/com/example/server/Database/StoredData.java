@@ -7,6 +7,8 @@ import com.example.server.Plugin.IPlugin;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.dto.CommandDTO;
+import com.example.server.dto.GameDTO;
+import com.example.server.dto.PlayerDTO;
 
 import java.util.List;
 import java.util.Set;
@@ -25,6 +27,7 @@ public class StoredData {
     }
     private int counter = 0;
     public void Store(ICommand command, int gameId){
+        plugin = plugin.instance(); // get the instance of the plugin
         counter += 1;
         int N = 10;
         if (counter >= N){
@@ -34,11 +37,11 @@ public class StoredData {
             Set<String> users = ModelRoot.instance().getAllPlayers().keySet();
             for (String id : users){
                 try{
-                    plugin.getUserDao().create(ModelRoot.instance().getAllPlayers().get(id));
+                    plugin.getUserDao().create(new PlayerDTO(ModelRoot.instance().getAllPlayers().get(id)));
                 }
                 catch(Exception e){
                     try{
-                        plugin.getUserDao().update(ModelRoot.instance().getAllPlayers().get(id));
+                        plugin.getUserDao().update(new PlayerDTO( ModelRoot.instance().getAllPlayers().get(id)));
                     }
                     catch (Exception E){
                         System.out.println(E.getMessage());
@@ -47,12 +50,13 @@ public class StoredData {
             }
             List<TicketToRideGame> games = ModelRoot.instance().getListGames();
             for (int i = 0; i < games.size(); i++){
+                GameDTO game = new GameDTO(games.get(i).getGameID(),games.get(i));
                 try{
-                    plugin.getGameDao().create(games.get(i));
+                    plugin.getGameDao().create(game);
                 }
                 catch (Exception e){
                     try{
-                        plugin.getGameDao().update(games.get(i));
+                        plugin.getGameDao().update(game);
                     }
                     catch (Exception E){
                         System.out.println(E.getMessage());
@@ -60,8 +64,10 @@ public class StoredData {
                 }
             }
             List<Integer> ids = ModelRoot.instance().getCommandIds();
-            //todo delete all the commands, should we create a method for this or just do it manually
-
+            for (int i = 0; i < ids.size(); i++) {//todo delete all the commands, should we create a method for this or just do it manually
+                plugin.getCommandDao().delete(ids.get(i));
+            }
+            ModelRoot.instance().getCommandIds().clear(); // dont know if this will actually clear the list
         }
         else{
             int id = ModelRoot.instance().getId();
