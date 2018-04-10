@@ -455,4 +455,31 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     public void setLastTurnVisible() {
         mLastTurnTextView.setVisibility(View.VISIBLE);
     }
+
+    public void toggleGUIUsability(final boolean toggle) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (toggle) {
+                    mWaitingTextView.setBackgroundColor(getResources().getColor(R.color.transparent_gray));
+                    mWaitingTextView.setText(R.string.server_down);
+                }
+                else {
+                    mWaitingTextView.setBackgroundColor(0);
+                    mWaitingTextView.setText("");
+                }
+
+                mWaitingTextView.setClickable(toggle);
+                mPlayerTurnMenuItem.setEnabled(!toggle);
+                mChatMenuItem.setEnabled(!toggle);
+                mGameHistoryMenuItem.setEnabled(!toggle);
+                mPlayerStatsMenuItem.setEnabled(!toggle);
+                mDestinationsMenuItem.setEnabled(!toggle);
+
+                mDrawCardsButton.setEnabled(!toggle);
+                mPlaceTrainsButton.setEnabled(!toggle);
+                mDrawRoutesButton.setEnabled(!toggle);
+            }
+        });
+    }
 }

@@ -50,6 +50,10 @@ public class GameWaitingLobbyPresenter implements IGameWaitingLobbyPresenter, Ob
             mAllGamesList = GetGamesService.getGamesList();
             mGameWaitingLobbyView.displayGameList();
         }
+        else if (obj instanceof Boolean) {
+            boolean isServerDown = (boolean) obj;
+            mGameWaitingLobbyView.toggleGUIUsability(isServerDown);
+        }
     }
 
     public List<TicketToRideGame> getAllGamesList() {
