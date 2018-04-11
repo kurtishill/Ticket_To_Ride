@@ -1,5 +1,7 @@
 package com.example.server;
 
+import com.example.server.Database.StoredData;
+import com.example.server.Plugin.IPlugin;
 import com.example.server.PluginRegistry.PluginDescriptor;
 import com.example.server.PluginRegistry.PluginRegistry;
 import com.google.gson.Gson;
@@ -78,6 +80,7 @@ public class server {
         String portNumber = args[0];
         String persistenceType = args[1];
         int numCommandsBetweenCheckpoints = Integer.parseInt(args[2]);
+        StoredData.instance().SetCount(numCommandsBetweenCheckpoints);
         PluginRegistry registry = new PluginRegistry();
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
