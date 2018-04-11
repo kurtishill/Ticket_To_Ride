@@ -1,17 +1,13 @@
 package com.example.server;
 
 import com.example.server.Database.StoredData;
-import com.example.server.Plugin.IPlugin;
-import com.example.server.Plugin.PluginWrapper;
-import com.example.server.PluginRegistry.PluginDescriptor;
+import Plugin.IPlugin;
+import Plugin.PluginWrapper;
+
 import com.example.server.PluginRegistry.PluginRegistry;
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**

@@ -1,12 +1,13 @@
 package com.example.server.Results;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 
 /**
  * Created by fryti on 1/29/2018.
  */
 
-public class GenericCommand implements ICommand {
+public class GenericCommand implements ICommand, Serializable {
     private String _className;
     private String _methodName;
     private Class<?>[] _paramTypes;

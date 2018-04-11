@@ -1,9 +1,6 @@
-package com.example.server.Plugin;
+package Plugin;
 
-import com.example.server.Model.Player;
-import com.example.server.Results.GenericCommand;
-import com.example.server.Results.ICommand;
-import com.example.server.dto.CommandDTO;
+import dto.CommandDTO;
 
 
 import java.util.List;

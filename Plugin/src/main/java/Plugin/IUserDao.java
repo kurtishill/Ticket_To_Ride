@@ -1,7 +1,6 @@
-package com.example.server.Plugin;
+package Plugin;
 
-import com.example.server.Model.Player;
-import com.example.server.dto.PlayerDTO;
+import dto.PlayerDTO;
 
 import java.util.List;
 

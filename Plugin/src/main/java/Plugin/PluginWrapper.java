@@ -1,6 +1,5 @@
-package com.example.server.Plugin;
+package Plugin;
 
-import com.example.server.Database.StoredData;
 
 /**
  * Created by claytonkingsbury on 4/11/18.

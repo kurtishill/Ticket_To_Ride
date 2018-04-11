@@ -1,11 +1,4 @@
-package com.example.server.dto;
-
-import com.example.server.Model.DestinationCard;
-import com.example.server.Model.Player;
-import com.example.server.Model.Route;
-import com.example.server.Model.TrainCard;
-
-import java.util.List;
+package dto;
 
 /**
  * Created by kurtishill on 4/9/18.
@@ -27,14 +20,6 @@ public class PlayerDTO {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.gameId = gameId;
-    }
-
-    // for convenience
-    public PlayerDTO(Player player, int gameId) {
-        id = player.getID();
-        username = player.getUsername();
-        password = player.getPassword();
         this.gameId = gameId;
     }
 

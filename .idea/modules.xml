@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Plugin/Plugin.iml" filepath="$PROJECT_DIR$/Plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
       <module fileurl="file://C:\Users\tnels\AndroidStudioProjects\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\tnels\AndroidStudioProjects\Ticket_To_Ride\TicketToRide.iml" />
       <module fileurl="file://C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" filepath="C:\Users\tnels\Documents\GitHub\Ticket_To_Ride\TicketToRide.iml" />

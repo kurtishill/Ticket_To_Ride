@@ -1,6 +1,6 @@
 package com.example.server.Database;
 
-import com.example.server.Plugin.IPlugin;
+import Plugin.IPlugin;
 
 /**
  * Created by claytonkingsbury on 4/10/18.

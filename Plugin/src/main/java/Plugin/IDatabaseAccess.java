@@ -1,4 +1,4 @@
-package com.example.server.Plugin;
+package Plugin;
 
 /**
  * Created by claytonkingsbury on 4/8/18.

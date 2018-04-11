@@ -3,14 +3,16 @@ package com.example.server.Database;
 import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
-import com.example.server.Plugin.IPlugin;
-import com.example.server.Plugin.PluginWrapper;
-import com.example.server.Results.GenericCommand;
+import Plugin.IPlugin;
+import Plugin.PluginWrapper;
 import com.example.server.Results.ICommand;
-import com.example.server.dto.CommandDTO;
-import com.example.server.dto.GameDTO;
-import com.example.server.dto.PlayerDTO;
+import com.example.server.Serializer;
 
+import dto.CommandDTO;
+import dto.GameDTO;
+import dto.PlayerDTO;
+
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -36,12 +38,16 @@ public class StoredData {
             // todo I dont think it is possible to make a interface singleton
             Set<String> users = ModelRoot.instance().getAllPlayers().keySet();
             for (String id : users){
+                Player player = ModelRoot.instance().getAllPlayers().get(id);
+                String playerId = player.getID();
+                String username = player.getUsername();
+                String password = player.getPassword();
                 try{
-                    plugin.getUserDao().create(new PlayerDTO(ModelRoot.instance().getAllPlayers().get(id), gameId));
+                    plugin.getUserDao().create(new PlayerDTO(playerId, username, password, gameId));
                 }
                 catch(Exception e){
                     try{
-                        plugin.getUserDao().update(new PlayerDTO( ModelRoot.instance().getAllPlayers().get(id), gameId));
+                        plugin.getUserDao().update(new PlayerDTO(playerId, username, password, gameId));
                     }
                     catch (Exception E){
                         System.out.println(E.getMessage());
@@ -50,13 +56,14 @@ public class StoredData {
             }
             List<TicketToRideGame> games = ModelRoot.instance().getListGames();
             for (int i = 0; i < games.size(); i++){
-                GameDTO game = new GameDTO(games.get(i).getGameID(),games.get(i));
+                String game = Serializer.encode(games.get(i));
+                GameDTO gameDTO = new GameDTO(games.get(i).getGameID(), game);
                 try{
-                    plugin.getGameDao().create(game);
+                    plugin.getGameDao().create(gameDTO);
                 }
                 catch (Exception e){
                     try{
-                        plugin.getGameDao().update(game);
+                        plugin.getGameDao().update(gameDTO);
                     }
                     catch (Exception E){
                         System.out.println(E.getMessage());
@@ -71,6 +78,7 @@ public class StoredData {
         }
         else{
             int id = ModelRoot.instance().getId();
+            //todo make "command" a serialized string (gson doesn't work)
             plugin.getCommandDao().create(new CommandDTO(id, command, gameId));//todo store command
 
 
