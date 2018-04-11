@@ -14,4 +14,7 @@ public class PluginWrapper {
             _instance = new PluginWrapper();
         return _instance;
     }
+    public void InstallPlugin(IPlugin plugin){
+        this.plugin = plugin;
+    }
 }
