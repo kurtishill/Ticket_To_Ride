@@ -29,7 +29,6 @@ public class StoredData {
     public void Store(ICommand command, int gameId){
         plugin = plugin.instance(); // get the instance of the plugin
         counter += 1;
-        int N = 10;
         if (counter >= N){
             counter = 0;
             // todo store all model data
@@ -75,5 +74,9 @@ public class StoredData {
 
 
         }
+    }
+    private int N = 0;
+    public void SetCount(int n){
+        N = n;
     }
 }
