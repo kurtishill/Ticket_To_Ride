@@ -1,7 +1,12 @@
 package com.example.server;
 
+import com.example.server.PluginRegistry.PluginDescriptor;
+import com.example.server.PluginRegistry.PluginRegistry;
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -71,6 +76,14 @@ public class server {
     // on which the server should accept incoming client connections.
     public static void main(String[] args) {
         String portNumber = args[0];
+        String persistenceType = args[1];
+        int numCommandsBetweenCheckpoints = Integer.parseInt(args[2]);
+        PluginRegistry registry = new PluginRegistry();
+        registry.loadConfiguration(persistenceType);
+        IPlugin plugin = (IPlugin) registry.register();
+
+        //create server wrapper class?
+
         new server().run(portNumber);
     }
 }
