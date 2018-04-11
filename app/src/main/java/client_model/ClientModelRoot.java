@@ -22,6 +22,7 @@ public class ClientModelRoot extends Observable {
     private Player mUser;
     private String mAuthToken;
     private TicketToRideGame mCurrGame;
+    private boolean isServerDown;
 
 
 
@@ -37,6 +38,7 @@ public class ClientModelRoot extends Observable {
         mUser = null;
         mAuthToken = null;
         mCurrGame = null;
+        isServerDown = false;
     }
 
     public List<TicketToRideGame> getGamesList() {
@@ -109,5 +111,12 @@ public class ClientModelRoot extends Observable {
 
     public void addUserToCurrGame() {
         mCurrGame.getPlayers().add(mUser);
+    }
+
+    public void setServerDown(Boolean b) {
+        isServerDown = b;
+        setChanged();
+        notifyObservers(b);
+        clearChanged();
     }
 }

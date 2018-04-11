@@ -8,9 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,9 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
 
     private IGameWaitingLobbyPresenter mGameWaitingLobbyPresenter;
     private ICreateNewGameView mCreateNewGameView;
+
+    private TextView mServerDownTextView;
+    private RelativeLayout mGameWaitingLobbyLayout;
 
     private String mParam1;
     private String mParam2;
@@ -180,6 +185,9 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
 
         mSelectedGameTextView = (TextView) v.findViewById(R.id.game_selected_text_view);
 
+        mServerDownTextView = (TextView) v.findViewById(R.id.server_down_text_view_game_lobby);
+        mGameWaitingLobbyLayout = (RelativeLayout) v.findViewById(R.id.game_waiting_lobby_fragment);
+
         return v;
     }
 
@@ -239,5 +247,19 @@ public class GameWaitingLobbyFragment extends Fragment implements IGameWaitingLo
         for (int i = 0; i < mGameListRecyclerView.getChildCount(); i++) {
             mGameListRecyclerView.getChildAt(i).setEnabled(toggle);
         }
+    }
+
+    public void toggleGUIUsability(final boolean toggle) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (toggle) {
+                    mServerDownTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    mServerDownTextView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 }

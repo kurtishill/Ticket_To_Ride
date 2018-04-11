@@ -77,4 +77,6 @@
 
     <string name="last_turn">Last Turn</string>
 
+    <string name="server_down">The server is currently down. It will come back up shortly.</string>
+
 </resources>
