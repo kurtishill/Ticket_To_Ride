@@ -37,11 +37,11 @@ public class StoredData {
             Set<String> users = ModelRoot.instance().getAllPlayers().keySet();
             for (String id : users){
                 try{
-                    plugin.getUserDao().create(new PlayerDTO(ModelRoot.instance().getAllPlayers().get(id)));
+                    plugin.getUserDao().create(new PlayerDTO(ModelRoot.instance().getAllPlayers().get(id), gameId));
                 }
                 catch(Exception e){
                     try{
-                        plugin.getUserDao().update(new PlayerDTO( ModelRoot.instance().getAllPlayers().get(id)));
+                        plugin.getUserDao().update(new PlayerDTO( ModelRoot.instance().getAllPlayers().get(id), gameId));
                     }
                     catch (Exception E){
                         System.out.println(E.getMessage());
