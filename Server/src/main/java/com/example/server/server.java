@@ -2,6 +2,7 @@ package com.example.server;
 
 import com.example.server.Database.StoredData;
 import com.example.server.Plugin.IPlugin;
+import com.example.server.Plugin.PluginWrapper;
 import com.example.server.PluginRegistry.PluginDescriptor;
 import com.example.server.PluginRegistry.PluginRegistry;
 import com.google.gson.Gson;
@@ -84,7 +85,7 @@ public class server {
         PluginRegistry registry = new PluginRegistry();
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
-
+        PluginWrapper.instance().InstallPlugin(plugin);
         //create server wrapper class?
 
         new server().run(portNumber);

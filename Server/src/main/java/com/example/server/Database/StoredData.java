@@ -4,6 +4,7 @@ import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Plugin.IPlugin;
+import com.example.server.Plugin.PluginWrapper;
 import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.dto.CommandDTO;
@@ -27,7 +28,7 @@ public class StoredData {
     }
     private int counter = 0;
     public void Store(ICommand command, int gameId){
-        plugin = plugin.instance(); // get the instance of the plugin
+        plugin = PluginWrapper.instance().getPlugin(); // get the instance of the plugin
         counter += 1;
         if (counter >= N){
             counter = 0;

@@ -17,4 +17,8 @@ public class PluginWrapper {
     public void InstallPlugin(IPlugin plugin){
         this.plugin = plugin;
     }
+
+    public IPlugin getPlugin() {
+        return plugin;
+    }
 }
