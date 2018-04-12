@@ -20,7 +20,41 @@ import Plugin.IDatabaseAccess;
 public class RelDatabaseAccess implements IDatabaseAccess {
     private Connection conn;
     @Override
-    public Object access(Object object) { // create function?
+    public Object create(Object object) { // create function?
+        try {
+            openConnection();
+            PreparedStatement pstmt = null;
+            List<Object> info = (ArrayList) object;
+            String sql = (String) info.get(0);
+            try {
+                pstmt = conn.prepareStatement(sql);
+                List<String> storeInfo = (ArrayList) info.get(1);
+                for (int i = 0; i < storeInfo.size(); i++){
+                    pstmt.setString(i+1, storeInfo.get(i));
+                }
+                if (pstmt.executeUpdate() != 1) {
+                    throw new DatabaseException("Error in create", new SQLException());
+                }
+                return (Object) true;
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
+        try {
+            closeConnection(true);
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Object read(Object object) {
         try {
             openConnection();
             PreparedStatement pstmt = null;
@@ -49,6 +83,16 @@ public class RelDatabaseAccess implements IDatabaseAccess {
         catch(DatabaseException e){
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public Object delete(Object object) {
+        return null;
+    }
+
+    @Override
+    public Object update(Object object) {
         return null;
     }
 
