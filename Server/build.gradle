@@ -5,6 +5,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     //implementation project(':gson-2.8.2')
     compile project(path: ':Plugin')
+    compile 'org.apache.commons:commons-lang3:3.5'
 }
 task deleteJar(type: Delete) {
     delete 'libs/server.jar'
