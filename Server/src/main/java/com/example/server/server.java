@@ -82,7 +82,6 @@ public class server {
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
         PluginWrapper.instance().InstallPlugin(plugin);
-        //create server wrapper class?
 
         new server().run(portNumber);
     }

@@ -37,4 +37,9 @@ public class RelPlugin implements IPlugin {
     public ICommandDao getCommandDao() {
         return commandDao;
     }
+
+    @Override
+    public void test() {
+        System.out.println("hey");
+    }
 }

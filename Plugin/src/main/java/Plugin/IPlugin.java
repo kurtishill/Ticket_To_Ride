@@ -9,4 +9,5 @@ public interface IPlugin {
      IGameDao getGameDao();
      IUserDao getUserDao();
      ICommandDao getCommandDao();
+     void test();
 }

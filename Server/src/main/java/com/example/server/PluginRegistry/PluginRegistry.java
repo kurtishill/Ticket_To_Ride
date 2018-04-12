@@ -57,7 +57,7 @@ public class PluginRegistry {
     public void loadConfiguration(String persistenceType){
         Gson gson = new Gson();
         try {
-            PluginDescriptor[] descriptors = gson.fromJson(new FileReader("com.Server.config.json"), PluginDescriptor[].class);
+            PluginDescriptor[] descriptors = gson.fromJson(new FileReader("Server/config.json"), PluginDescriptor[].class);
             if(descriptors[0].getName().equals(persistenceType))
                 this.descriptor = descriptors[0];
             else this.descriptor = descriptors[1];
