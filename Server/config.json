@@ -1,0 +1,8 @@
+[
+  {"name":"sqlite",
+   "className": "com.example.server.Plugins.SQLPlugin",
+   "filePath": "file/path/wherever"},
+  {"name":"json",
+    "className": "com.example.server.Plugins.JSONPlugin",
+    "filePath": "file/path/wherever"}
+]

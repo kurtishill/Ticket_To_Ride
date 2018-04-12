@@ -1,6 +1,8 @@
 package com.example.server;
 
 
+import com.example.server.Database.DeleteGameData;
+import com.example.server.Database.StoredData;
 import com.example.server.Model.ChatMessage;
 import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
@@ -48,6 +50,7 @@ public class CommandHandler implements HttpHandler {
                     List<Object> commandValues = (ArrayList) Serializer.decode(reqBody, ArrayList.class);
 
                     ICommand command;
+                    int gameID = 0;
                     if (commandValues.get(0).equals("Login")) {
                         command = CommandFactory.instance().Login(commandValues.get(1).toString(),
                                 commandValues.get(2).toString());
@@ -58,18 +61,21 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("JoinGame")) {
                         Double d = (Double) commandValues.get(1);
+                        gameID = d.intValue();
                         command = CommandFactory.instance().JoinGame(d.intValue(), authToken);
                         ClientCommandManager.instance().addCommand(authToken,
                                     "UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("CreateGame")) {
                         Double d = (Double) commandValues.get(2);
+                        gameID = d.intValue();
                         command = CommandFactory.instance().CreateGame(commandValues.get(1).toString(),
                                 d.intValue(), commandValues.get(3).toString(), authToken);
                         ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
                     }
                     else if (commandValues.get(0).equals("UpdateChat")) {
                         Double gameId = (Double) commandValues.get(4);
+                        gameID = gameId.intValue();
                         ChatMessage message = new ChatMessage(commandValues.get(1).toString(),
                                 commandValues.get(2).toString(), commandValues.get(3).toString());
                         command = CommandFactory.instance().UpdateChat(message, gameId.intValue());
@@ -78,11 +84,13 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("GetChat")) {
                         Double d = (Double) commandValues.get(1);
+                        gameID = d.intValue();
                         String username = (String) commandValues.get(2);
                         command = CommandFactory.instance().GetChat(d.intValue(), username);
                     }
                     else if (commandValues.get(0).equals("DrawDestinationTickets")){
                         Double d = (Double) commandValues.get(2); //gameID
+                        gameID = d.intValue();
                         //THESE VALUES MIGHT BE WRONG
                         command = CommandFactory.instance().DrawDestinationTickets(
                                 (String) commandValues.get(1), d.intValue());
@@ -90,6 +98,7 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("SelectDestinationTickets")) {
                         Double d = (Double) commandValues.get(2); //gameid
+                        gameID = d.intValue();
                         ArrayList<Object> selectedCards = (ArrayList) commandValues.get(3);
                         ArrayList<Object> discardedCards = (ArrayList) commandValues.get(4);
 
@@ -138,6 +147,7 @@ public class CommandHandler implements HttpHandler {
                     }
                     else if (commandValues.get(0).equals("DrawTwoCardsFromBank")) {
                         Double gameId = (Double) commandValues.get(5);
+                        gameID = gameId.intValue();
                         ArrayList<Object> selectedCards = (ArrayList) commandValues.get(1);
                         ArrayList<Object> faceUpCards = (ArrayList) commandValues.get(2);
                         ArrayList<Object> trainCardDeck = (ArrayList) commandValues.get(3);
@@ -179,14 +189,16 @@ public class CommandHandler implements HttpHandler {
 
                     else if (commandValues.get(0).equals("DeleteGame")) {
                         Double gameId = (Double) commandValues.get(1);
+                        gameID = gameId.intValue();
                         command = CommandFactory.instance().DeleteGame(gameId.intValue());
+                        DeleteGameData.instance().DeleteGame(gameID); //call plugin and delete the game
                         ClientCommandManager.instance().addCommand(authToken, "UpdateGameList");
                     }
 
                     else if (commandValues.get(0).equals("ClaimRoute")) {
                         String playerName = (String) commandValues.get(1);
-                        Double gameID = (Double) commandValues.get(2);
-
+                        Double gameId = (Double) commandValues.get(2);
+                        gameID = gameId.intValue();
                         LinkedTreeMap routeMap = (LinkedTreeMap) commandValues.get(3);
                         LinkedTreeMap city1Map = (LinkedTreeMap) routeMap.get("city1");
                         String city1Name = (String) city1Map.get("name");
@@ -207,15 +219,15 @@ public class CommandHandler implements HttpHandler {
 
                         Route route = new Route(length,pointValue,color,city1,city2);
 
-                        command = CommandFactory.instance().ClaimRoute(playerName,gameID.intValue(),route);
-                        ClientCommandManager.instance().addGameCommand(gameID.intValue(), "UpdateGameList");
+                        command = CommandFactory.instance().ClaimRoute(playerName,gameId.intValue(),route);
+                        ClientCommandManager.instance().addGameCommand(gameId.intValue(), "UpdateGameList");
 
                     }
                     else {
                             command = CommandFactory.instance().GetGameList(authToken);
 
                     }
-
+                    StoredData.instance().Store(command, gameID);
                     Result result = (Result) command.execute();
 
                     String respData = Serializer.encode(result);

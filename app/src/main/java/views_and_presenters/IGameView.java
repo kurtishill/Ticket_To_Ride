@@ -30,4 +30,6 @@ public interface IGameView {
     void endGame();
 
     void setLastTurnVisible();
+
+    void toggleGUIUsability(boolean b);
 }

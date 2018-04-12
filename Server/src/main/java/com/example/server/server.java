@@ -1,9 +1,13 @@
 package com.example.server;
 
+import com.example.server.Database.StoredData;
+import Plugin.IPlugin;
+import Plugin.PluginWrapper;
+
+import com.example.server.PluginRegistry.PluginRegistry;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**
@@ -59,6 +63,7 @@ public class server {
         }
 
 
+
         server.start();
 
         // Log message indicating that the server has successfully started.
@@ -70,6 +75,15 @@ public class server {
     // on which the server should accept incoming client connections.
     public static void main(String[] args) {
         String portNumber = args[0];
+        String persistenceType = args[1];
+        int numCommandsBetweenCheckpoints = Integer.parseInt(args[2]);
+        StoredData.instance().SetCount(numCommandsBetweenCheckpoints);
+        PluginRegistry registry = new PluginRegistry();
+        registry.loadConfiguration(persistenceType);
+        IPlugin plugin = (IPlugin) registry.register();
+        PluginWrapper.instance().InstallPlugin(plugin);
+        //create server wrapper class?
+
         new server().run(portNumber);
     }
 }
