@@ -82,7 +82,7 @@ public class server {
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
         PluginWrapper.instance().InstallPlugin(plugin);
-
+        PluginWrapper.instance().getPlugin().test();
         new server().run(portNumber);
     }
 }
