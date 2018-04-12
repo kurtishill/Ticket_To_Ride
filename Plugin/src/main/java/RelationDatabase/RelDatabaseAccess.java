@@ -66,6 +66,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 
     @Override
     public Object read(Object object) {
+        ResultSet rs = null;
         try {
             openConnection();
             PreparedStatement pstmt = null;
@@ -77,16 +78,34 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 for (int i = 0; i < storeInfo.size(); i++){
                     pstmt.setString(i+1, storeInfo.get(i));
                 }
-                ResultSet rs = pstmt.executeQuery();
+                rs = pstmt.executeQuery();
                 int size = (Integer) info.get(2);
                 List<Object> found = new ArrayList<>();
-                for (int i = 0; i < size; i++){
-
+//                for (int i = 0; i < size; i++){
+//
+//                }
+                while(rs.next()){
+                    found.add(rs.getByte(1)); // dont know if this will work
                 }
+                return found;
             }
             catch (SQLException e){
                 e.printStackTrace();
             }
+            finally{
+                try {
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                    if (rs != null) {
+                        rs.close();
+                    }
+                }
+                catch (SQLException e){
+                    return null;
+                }
+            }
+
         }
         catch(DatabaseException e){
             e.printStackTrace();
