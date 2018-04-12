@@ -1,5 +1,6 @@
 package RelationDatabase;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -40,6 +41,16 @@ public class RelDatabaseAccess implements IDatabaseAccess {
             catch (SQLException e){
                 e.printStackTrace();
             }
+            finally{
+                try {
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                }
+                catch (SQLException e){
+                    return null;
+                }
+            }
         }
         catch(DatabaseException e){
             e.printStackTrace();
@@ -66,8 +77,11 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 for (int i = 0; i < storeInfo.size(); i++){
                     pstmt.setString(i+1, storeInfo.get(i));
                 }
-                if (pstmt.executeUpdate() != 1) {
-                    throw new DatabaseException("Error in create", new SQLException());
+                ResultSet rs = pstmt.executeQuery();
+                int size = (Integer) info.get(2);
+                List<Object> found = new ArrayList<>();
+                for (int i = 0; i < size; i++){
+
                 }
             }
             catch (SQLException e){
