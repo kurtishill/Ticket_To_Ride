@@ -30,7 +30,7 @@ public class RelCommandDao implements ICommandDao {
     @Override
     public void create(CommandDTO command) {
         String sql = "INSERT INTO GameCommands(commandId, gameId, command) VALUES(?,?,?)";
-        List<String> info = new ArrayList<>();
+        List<Object> info = new ArrayList<>();
         info.add(Integer.toString(command.getId()));
         info.add(command.getCommand());
         info.add(Integer.toString(command.getGameId()));
