@@ -1,0 +1,22 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `User` (
+	`userId`	TEXT NOT NULL UNIQUE,
+	`username`	TEXT NOT NULL UNIQUE,
+	`currentGame`	INTEGER,
+	`password`	TEXT NOT NULL,
+	PRIMARY KEY(`userId`),
+	FOREIGN KEY(`currentGame`) REFERENCES `Game`(`gameId`)
+);
+CREATE TABLE IF NOT EXISTS `GameCommands` (
+	`commandId`	INTEGER NOT NULL,
+	`gameId`	INTEGER NOT NULL,
+	`command`	BLOB NOT NULL UNIQUE,
+	FOREIGN KEY(`gameId`) REFERENCES `Game`(`gameId`),
+	PRIMARY KEY(`commandId`)
+);
+CREATE TABLE IF NOT EXISTS `Game` (
+	`gameId`	INTEGER NOT NULL UNIQUE,
+	`gameInfo`	BLOB NOT NULL UNIQUE,
+	PRIMARY KEY(`gameId`)
+);
+COMMIT;
