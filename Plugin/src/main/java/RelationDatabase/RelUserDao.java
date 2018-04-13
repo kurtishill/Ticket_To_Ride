@@ -25,7 +25,7 @@ public class RelUserDao implements IUserDao {
         List<List<Object>> des = (List<List<Object>>)ret;
         List<PlayerDTO> list = new ArrayList<>();
         for (int i = 0; i < des.size(); i++){
-            list.add(new PlayerDTO((String)des.get(i).get(2), (String)des.get(i).get(0), (String)des.get(i).get(1),(Integer)des.get(i).get(3)));
+            list.add(new PlayerDTO((String)des.get(i).get(2), (String)des.get(i).get(0), (String)des.get(i).get(1),Integer.parseInt((String)des.get(i).get(3))));
         }
         // todo deserialize and return
         return list;
@@ -70,6 +70,10 @@ public class RelUserDao implements IUserDao {
 
     @Override
     public void clear() {
-
+//        String sql = "DELETE FROM User WHERE currentGame = ?";
+//        List<Object> deleteRow = new ArrayList<>();
+//        deleteRow.add(sql);
+//        deleteRow.add(Integer.toString(Id));
+//        database.delete(deleteRow);
     }
 }

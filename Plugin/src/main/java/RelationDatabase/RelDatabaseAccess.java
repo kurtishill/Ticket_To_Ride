@@ -37,6 +37,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
                 }
+
                 return (Object) true;
             }
             catch (SQLException e){
@@ -51,17 +52,18 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 catch (SQLException e){
                     return null;
                 }
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
             }
         }
         catch(DatabaseException e){
             e.printStackTrace();
         }
-        try {
-            closeConnection(true);
-        }
-        catch(DatabaseException e){
-            e.printStackTrace();
-        }
+
 
         return null;
     }
@@ -95,6 +97,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                     }
                     found.add(retInfo); // dont know if this will work //todo fix this
                 }
+
                 return found;
             }
             catch (SQLException e){
@@ -111,6 +114,12 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 }
                 catch (SQLException e){
                     return null;
+                }
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
                 }
             }
 
@@ -136,8 +145,13 @@ public class RelDatabaseAccess implements IDatabaseAccess {
             String sql = (String) info.get(0);
             try {
                 pstmt = conn.prepareStatement(sql);
+                try{
                 Integer id = (Integer) info.get(1);
                 pstmt.setString(1, id.toString()); // might need to check type
+                }
+                catch(Exception e){
+                    //do nothing
+                }
 
                 pstmt.executeUpdate();
                 return (Object) true;
@@ -153,6 +167,12 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 }
                 catch (SQLException e){
                     return null;
+                }
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
                 }
             }
         }
@@ -184,6 +204,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
                 }
+
                 return (Object) true;
             }
             catch (SQLException e){
@@ -197,6 +218,12 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 }
                 catch (SQLException e){
                     return null;
+                }
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
                 }
             }
         }

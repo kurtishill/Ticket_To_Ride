@@ -61,6 +61,9 @@ public class RelCommandDao implements ICommandDao {
 
     @Override
     public void clear() {
-
+        String sql = "DELETE FROM GameCommands";
+        List<Object> deleteRow = new ArrayList<>();
+        deleteRow.add(sql);
+        databaseAccess.delete(deleteRow);
     }
 }
