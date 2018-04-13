@@ -29,4 +29,9 @@ public class RelCommandDao implements ICommandDao {
     public void delete(int Id) {
 
     }
+
+    @Override
+    public void clear() {
+
+    }
 }

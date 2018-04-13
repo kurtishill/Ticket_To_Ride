@@ -18,11 +18,12 @@ import dto.PlayerDTO;
  */
 
 public class JSONUserDao implements IUserDao {
+
     @Override
     public List<PlayerDTO> read() {
         List<PlayerDTO> playerList = null;
         try {
-            FileInputStream fileInputStream = new FileInputStream("/users/guest/f/frytime/Ticket_To_Ride/Server/users.ser");
+            FileInputStream fileInputStream = new FileInputStream("users.ser");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             playerList = (List<PlayerDTO>) objectInputStream.readObject();
             fileInputStream.close();
@@ -45,7 +46,7 @@ public class JSONUserDao implements IUserDao {
 
         playerList.add(user);
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("/users/guest/f/frytime/Ticket_To_Ride/Server/users.ser");
+            FileOutputStream fileOutputStream = new FileOutputStream("users.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(playerList); //change to list of users
             objectOutputStream.close();
@@ -69,7 +70,7 @@ public class JSONUserDao implements IUserDao {
                 playerList.set(i,user);
         }
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("/users/guest/f/frytime/Ticket_To_Ride/Server/users.ser");
+            FileOutputStream fileOutputStream = new FileOutputStream("users.ser");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(playerList); //change to list of users
             objectOutputStream.close();
@@ -90,7 +91,7 @@ public class JSONUserDao implements IUserDao {
     @Override
     public void clear() {
 
-        File file = new File("/users/guest/f/frytime/Ticket_To_Ride/Server/users.ser");
+        File file = new File("users.ser");
         file.delete();
     }
 
@@ -104,7 +105,6 @@ public class JSONUserDao implements IUserDao {
             e.printStackTrace();
         }
         dao.clear();
-
     }
 }
 
