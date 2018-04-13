@@ -42,7 +42,7 @@ public class JSONGameDao implements IGameDao {
     public void create(GameDTO game) {
         List<GameDTO> gameList = read();
         if(gameList==null)
-            gameList = new ArrayList();
+            gameList = new ArrayList<>();
 
         gameList.add(game);
         try {

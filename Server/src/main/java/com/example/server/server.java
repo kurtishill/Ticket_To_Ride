@@ -84,5 +84,6 @@ public class server {
         PluginWrapper.instance().InstallPlugin(plugin);
         PluginWrapper.instance().getPlugin().test();
         new server().run(portNumber);
+        // todo method to restore the server model with information stored in the database
     }
 }

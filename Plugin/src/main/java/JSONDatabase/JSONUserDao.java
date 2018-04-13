@@ -42,7 +42,7 @@ public class JSONUserDao implements IUserDao {
     public void create(PlayerDTO user) {
         List<PlayerDTO> playerList = read();
         if(playerList==null)
-            playerList = new ArrayList();
+            playerList = new ArrayList<>();
 
         playerList.add(user);
         try {

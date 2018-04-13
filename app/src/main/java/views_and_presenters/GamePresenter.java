@@ -54,6 +54,9 @@ public class GamePresenter implements IGamePresenter, Observer {
         else if (obj instanceof Boolean) {
             boolean isServerDown = (boolean) obj;
             mGameView.toggleGUIUsability(isServerDown);
+            if (!isServerDown) {
+                mGameView.displayToast("The server is on. We apologize for the inconvenience.");
+            }
         }
         
         //Draw all claimed routes on the map, iterating through players who possess claimed routes

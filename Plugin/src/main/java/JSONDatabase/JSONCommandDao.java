@@ -1,7 +1,5 @@
 package JSONDatabase;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -43,7 +41,7 @@ public class JSONCommandDao implements ICommandDao {
     public void create(CommandDTO command) {
         List<CommandDTO> commandList = read();
         if(commandList==null)
-            commandList = new ArrayList();
+            commandList = new ArrayList<>();
 
         commandList.add(command);
         try {
