@@ -1,7 +1,6 @@
-package com.example.server.Plugin;
+package Plugin;
 
-import com.example.server.Model.Player;
-import com.example.server.dto.PlayerDTO;
+import dto.PlayerDTO;
 
 import java.util.List;
 
@@ -12,6 +11,7 @@ import java.util.List;
 public interface IUserDao {
     List<PlayerDTO> read();
     void create(PlayerDTO user);//todo should we return a database access result or something to see if theres an error?
-    void update(PlayerDTO user);
+    void update(PlayerDTO user) throws Exception;
     void delete(int Id);
+    void clear();
 }

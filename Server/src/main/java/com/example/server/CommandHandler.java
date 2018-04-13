@@ -8,6 +8,7 @@ import com.example.server.Model.City;
 import com.example.server.Model.DestinationCard;
 import com.example.server.Model.Route;
 import com.example.server.Model.TrainCard;
+import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Results.Result;
 import com.google.gson.internal.LinkedTreeMap;
@@ -227,7 +228,10 @@ public class CommandHandler implements HttpHandler {
                             command = CommandFactory.instance().GetGameList(authToken);
 
                     }
-                    StoredData.instance().Store(command, gameID);
+
+                    if (!commandValues.get(0).equals("GetGameList") || !commandValues.get(0).equals("GetChat"))
+                        StoredData.instance().Store((GenericCommand) command, gameID);
+
                     Result result = (Result) command.execute();
 
                     String respData = Serializer.encode(result);

@@ -17,7 +17,7 @@ public class LoginService {
             if(player.getPassword().equals(password)) {
                 ModelRoot.instance().getAllPlayers().remove(player.getID());
                 player.setId();
-                ModelRoot.instance().allPlayer(player.getID(), player);
+                ModelRoot.instance().addPlayer(player.getID(), player);
                 return new LoginResult(true, null, null, null, player);
             }
             else {

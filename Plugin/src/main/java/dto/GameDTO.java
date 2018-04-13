@@ -1,20 +1,20 @@
-package com.example.server.dto;
+package dto;
 
-import com.example.server.Model.TicketToRideGame;
+import java.io.Serializable;
 
 /**
  * Created by kurtishill on 4/9/18.
  */
 
-public class GameDTO {
+public class GameDTO implements Serializable {
 
     private int id;
 
-    private TicketToRideGame game;
+    private String game;
 
     public GameDTO() {}
 
-    public GameDTO(int id, TicketToRideGame game) {
+    public GameDTO(int id, String game) {
         this.id = id;
         this.game = game;
     }
@@ -23,7 +23,7 @@ public class GameDTO {
         return id;
     }
 
-    public TicketToRideGame getGame() {
+    public String getGame() {
         return game;
     }
 
@@ -31,7 +31,7 @@ public class GameDTO {
         this.id = id;
     }
 
-    public void setGame(TicketToRideGame game) {
+    public void setGame(String game) {
         this.game = game;
     }
 }

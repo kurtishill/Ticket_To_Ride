@@ -19,7 +19,7 @@ public class RegisterService {
     public RegisterResult Register(String username, String password) throws UserExistsException {
         if(!ModelRoot.instance().UserNameExists(username)){
             Player player = new Player(username, password);
-            ModelRoot.instance().allPlayer(player.getID(), player);
+            ModelRoot.instance().addPlayer(player.getID(), player);
             return new RegisterResult(true, null ,null, null, ModelRoot.instance().UserExists(player.getID()) );
         }
         else {
