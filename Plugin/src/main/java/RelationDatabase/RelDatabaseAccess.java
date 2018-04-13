@@ -215,9 +215,6 @@ public class RelDatabaseAccess implements IDatabaseAccess {
     }
 
 
-    public RelDatabaseAccess()throws DatabaseException{
-        openConnection();
-    }
     public void openConnection() throws DatabaseException {
         try {
             final String CONNECTION_URL = "jdbc:sqlite:fmsDatabase.db"; // todo what is the name of our database
