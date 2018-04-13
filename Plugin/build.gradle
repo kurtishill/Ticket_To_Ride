@@ -1,8 +1,9 @@
 apply plugin: 'java-library'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'junit:junit:4.12'
+    implementation files('/Users/claytonkingsbury/Documents/GitHub/Ticket_To_Ride/Server/build/libs/sqlite-jdbc-3.8.10.1.jar')
 }
 
 sourceCompatibility = "1.7"
