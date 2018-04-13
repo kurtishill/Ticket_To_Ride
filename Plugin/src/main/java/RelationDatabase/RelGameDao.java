@@ -24,8 +24,13 @@ public class RelGameDao implements IGameDao {
         createTable.add(sql);
         createTable.add(2);
         Object ret = databaseAccess.read(createTable);
+        List<List<Object>> des = (List<List<Object>>)ret;
+        List<GameDTO> list = new ArrayList<>();
+        for (int i = 0; i < des.size(); i++){
+            list.add(new GameDTO((Integer) des.get(i).get(0), (String)des.get(i).get(1)));
+        }
         // todo deserialize and return
-        return (List<GameDTO>) ret;
+        return list;
     }
 
     @Override
