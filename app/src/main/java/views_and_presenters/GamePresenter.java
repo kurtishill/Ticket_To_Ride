@@ -51,6 +51,7 @@ public class GamePresenter implements IGamePresenter, Observer {
                 mGameView.endGame();
             }
         }
+
         else if (obj instanceof Boolean) {
             boolean isServerDown = (boolean) obj;
             mGameView.toggleGUIUsability(isServerDown);

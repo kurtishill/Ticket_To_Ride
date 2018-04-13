@@ -75,7 +75,7 @@ public class ModelRoot {
         }
     }
 
-    public void allPlayer(String authToken, Player player) {
+    public void addPlayer(String authToken, Player player) {
         allPlayers.put(authToken, player);
     }
 

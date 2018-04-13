@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.server.Database.RestoreServer;
 import com.example.server.Database.StoredData;
 import Plugin.IPlugin;
 import Plugin.PluginWrapper;
@@ -62,7 +63,7 @@ public class server {
 
         }
 
-
+        RestoreServer.restore();
 
         server.start();
 
@@ -84,6 +85,5 @@ public class server {
         PluginWrapper.instance().InstallPlugin(plugin);
         PluginWrapper.instance().getPlugin().test();
         new server().run(portNumber);
-        // todo method to restore the server model with information stored in the database
     }
 }

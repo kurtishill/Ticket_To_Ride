@@ -13,7 +13,7 @@ public class CreateGameService {
     public CreateGameResult CreateGame(String gameName, Integer maxNumPlayers, String playerColor, String authToken) {
         Player currentPlayer = ModelRoot.instance().UserExists(authToken);
         currentPlayer.setColor(playerColor);
-        ModelRoot.instance().allPlayer(authToken, currentPlayer);
+        ModelRoot.instance().addPlayer(authToken, currentPlayer);
         boolean gameNameDoesNotExist = true;
         for (int i = 0; i < ModelRoot.instance().getListGames().size(); i++) {
             if (gameName.equals(ModelRoot.instance().getListGames().get(i).getName()))
