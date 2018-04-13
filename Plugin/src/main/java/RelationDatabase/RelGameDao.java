@@ -29,4 +29,9 @@ public class RelGameDao implements IGameDao {
     public void delete(int Id) {
 
     }
+
+    @Override
+    public void clear() {
+
+    }
 }
