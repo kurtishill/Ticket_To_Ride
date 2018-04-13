@@ -32,7 +32,7 @@ public class RelCommandDao implements ICommandDao {
         String sql = "INSERT INTO GameCommands(commandId, gameId, command) VALUES(?,?,?)";
         List<String> info = new ArrayList<>();
         info.add(Integer.toString(command.getId()));
-        info.add(command.getCommand());
+        //info.add(command.getCommand());
         info.add(Integer.toString(command.getGameId()));
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
