@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.server.Database.RestoreServer;
 import com.example.server.Database.StoredData;
 import Plugin.IPlugin;
 import Plugin.PluginWrapper;
@@ -62,7 +63,7 @@ public class server {
 
         }
 
-
+        RestoreServer.restore();
 
         server.start();
 
@@ -82,8 +83,7 @@ public class server {
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
         PluginWrapper.instance().InstallPlugin(plugin);
-        //create server wrapper class?
-
+        PluginWrapper.instance().getPlugin().test();
         new server().run(portNumber);
     }
 }

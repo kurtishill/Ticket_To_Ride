@@ -5,13 +5,21 @@ import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import Plugin.IPlugin;
 import Plugin.PluginWrapper;
+
+import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
+
+import org.apache.commons.lang3.SerializationUtils;
 
 import dto.CommandDTO;
 import dto.GameDTO;
 import dto.PlayerDTO;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +37,7 @@ public class StoredData {
         return _instance;
     }
     private int counter = 0;
-    public void Store(ICommand command, int gameId){
+    public void Store(GenericCommand command, int gameId){
         plugin = PluginWrapper.instance().getPlugin(); // get the instance of the plugin
         counter += 1;
         if (counter >= N){
@@ -78,8 +86,16 @@ public class StoredData {
         }
         else{
             int id = ModelRoot.instance().getId();
-            //todo make "command" a serialized string (gson doesn't work)
-            plugin.getCommandDao().create(new CommandDTO(id, command, gameId));//todo store command
+            byte[] commandByteArray = {};
+            try {
+                commandByteArray = SerializationUtils.serialize(command);
+            }
+            catch (Exception ex) {
+                System.out.println("Error while serializing command");
+                ex.printStackTrace();
+            }
+
+            plugin.getCommandDao().create(new CommandDTO(id, commandByteArray, gameId));//todo store command
 
 
         }

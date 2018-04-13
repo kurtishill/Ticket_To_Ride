@@ -19,6 +19,7 @@ import Plugin.IDatabaseAccess;
  */
 
 public class RelDatabaseAccess implements IDatabaseAccess {
+
     private Connection conn;
     @Override
     public Object create(Object object) { // create function?
@@ -61,6 +62,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
         catch(DatabaseException e){
             e.printStackTrace();
         }
+
         return null;
     }
 

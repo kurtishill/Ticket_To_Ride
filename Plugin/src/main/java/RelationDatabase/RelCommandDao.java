@@ -53,4 +53,9 @@ public class RelCommandDao implements ICommandDao {
         deleteRow.add(Integer.toString(Id));
         databaseAccess.delete(deleteRow);
     }
+
+    @Override
+    public void clear() {
+
+    }
 }

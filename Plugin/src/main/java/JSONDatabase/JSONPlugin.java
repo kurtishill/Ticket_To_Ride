@@ -1,23 +1,27 @@
-package RelationDatabase;
+package JSONDatabase;
 
 import Plugin.ICommandDao;
 import Plugin.IGameDao;
 import Plugin.IPlugin;
 import Plugin.IUserDao;
+import RelationDatabase.RelCommandDao;
+import RelationDatabase.RelGameDao;
+import RelationDatabase.RelUserDao;
 
 /**
- * Created by claytonkingsbury on 4/11/18.
+ * Created by frytime on 4/12/18.
  */
 
-public class RelPlugin implements IPlugin {
+public class JSONPlugin implements IPlugin {
     IGameDao gameDao;
     IUserDao userDao;
     ICommandDao commandDao;
-    public RelPlugin(){
-        gameDao = new RelGameDao();
-        userDao = new RelUserDao();
-        commandDao = new RelCommandDao();
+    public JSONPlugin(){
+        gameDao = new JSONGameDao();
+        userDao = new JSONUserDao();
+        commandDao = new JSONCommandDao();
     }
+
     @Override
     public IPlugin instance() {
         return this;
@@ -40,6 +44,6 @@ public class RelPlugin implements IPlugin {
 
     @Override
     public void test() {
-        System.out.println("hey");
+        System.out.println("JSON");
     }
 }

@@ -1,20 +1,22 @@
 package dto;
 
+import java.io.Serializable;
+
 /**
  * Created by kurtishill on 4/9/18.
  */
 
-public class CommandDTO {
+public class CommandDTO implements Serializable {
 
     private int id;
 
-    private String command;
+    private byte[] command;
 
     private int gameId;
 
     public CommandDTO() {}
 
-    public CommandDTO(int id, String command, int gameId) {
+    public CommandDTO(int id, byte[] command, int gameId) {
         this.id = id;
         this.command = command;
         this.gameId = gameId;
@@ -24,7 +26,7 @@ public class CommandDTO {
         return id;
     }
 
-    public String getCommand() {
+    public byte[] getCommand() {
         return command;
     }
 
@@ -36,7 +38,7 @@ public class CommandDTO {
         this.id = id;
     }
 
-    public void setCommand(String command) {
+    public void setCommand(byte[] command) {
         this.command = command;
     }
 

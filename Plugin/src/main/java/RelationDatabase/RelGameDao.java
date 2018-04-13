@@ -60,4 +60,9 @@ public class RelGameDao implements IGameDao {
         deleteRow.add(Integer.toString(Id));
         databaseAccess.delete(deleteRow);
     }
+
+    @Override
+    public void clear() {
+
+    }
 }

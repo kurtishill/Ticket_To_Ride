@@ -62,4 +62,9 @@ public class RelUserDao implements IUserDao {
         deleteRow.add(Integer.toString(Id));
         database.delete(deleteRow);
     }
+
+    @Override
+    public void clear() {
+
+    }
 }
