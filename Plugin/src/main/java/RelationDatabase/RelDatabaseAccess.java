@@ -31,7 +31,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 pstmt = conn.prepareStatement(sql);
                 List<String> storeInfo = (ArrayList) info.get(1);
                 for (int i = 0; i < storeInfo.size(); i++){
-                    pstmt.setString(i+1, storeInfo.get(i));
+                    pstmt.setString(i+1, storeInfo.get(i)); // might need to check type
                 }
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
@@ -121,11 +121,86 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 
     @Override
     public Object delete(Object object) {
+        try {
+            openConnection();
+            PreparedStatement pstmt = null;
+            List<Object> info = (ArrayList) object;
+            String sql = (String) info.get(0);
+            try {
+                pstmt = conn.prepareStatement(sql);
+                Integer id = (Integer) info.get(1);
+                pstmt.setString(1, id.toString()); // might need to check type
+
+                pstmt.executeUpdate();
+                return (Object) true;
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+            finally{
+                try {
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                }
+                catch (SQLException e){
+                    return null;
+                }
+            }
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
+        try {
+            closeConnection(true);
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public Object update(Object object) {
+        try {
+            openConnection();
+            PreparedStatement pstmt = null;
+            List<Object> info = (ArrayList) object;
+            String sql = (String) info.get(0);
+            try {
+                pstmt = conn.prepareStatement(sql);
+                List<String> storeInfo = (ArrayList) info.get(1);
+                for (int i = 0; i < storeInfo.size(); i++){
+                    pstmt.setString(i+1, storeInfo.get(i)); // might need to check type
+                }
+                if (pstmt.executeUpdate() != 1) {
+                    throw new DatabaseException("Error in create", new SQLException());
+                }
+                return (Object) true;
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+            finally{
+                try {
+                    if (pstmt != null) {
+                        pstmt.close();
+                    }
+                }
+                catch (SQLException e){
+                    return null;
+                }
+            }
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
+        try {
+            closeConnection(true);
+        }
+        catch(DatabaseException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
