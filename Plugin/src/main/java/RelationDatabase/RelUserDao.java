@@ -22,6 +22,7 @@ public class RelUserDao implements IUserDao {
         createTable.add(sql);
         createTable.add(4);
         Object ret = database.read(createTable);
+        List<List<Object>> des = (List<List<Object>>)ret;
         // todo deserialize and return
         return (List<PlayerDTO>) ret;
     }

@@ -1,5 +1,7 @@
 package RelationDatabase;
 
+import java.util.List;
+
 import dto.PlayerDTO;
 
 import static org.junit.Assert.*;
@@ -10,6 +12,12 @@ import static org.junit.Assert.*;
 public class RelUserDaoTest {
     @org.junit.Test
     public void read() throws Exception {
+        RelUserDao userDao = new RelUserDao();
+        PlayerDTO playerDTO = new PlayerDTO("test", "username", "password", 1);
+        userDao.create(playerDTO);
+        List<PlayerDTO> list = userDao.read();
+        assertEquals(list.size(), 1);
+        userDao.delete(1);
     }
 
     @org.junit.Test
@@ -32,6 +40,12 @@ public class RelUserDaoTest {
 
     @org.junit.Test
     public void delete() throws Exception {
+        RelUserDao userDao = new RelUserDao();
+        PlayerDTO playerDTO = new PlayerDTO("test", "username", "password", 1);
+        userDao.create(playerDTO);
+        userDao.delete(1);
+        List<PlayerDTO> list = userDao.read();
+        assertEquals(list.size(), 0);
     }
 
     @org.junit.Test
