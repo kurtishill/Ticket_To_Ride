@@ -7,6 +7,6 @@ package Plugin;
 public interface IDatabaseAccess {
     Object create(Object object);
     Object read(Object object);
-    Object update(Object object);
     Object delete(Object object);
+    Object update(Object object);
 }
