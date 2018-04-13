@@ -23,8 +23,11 @@ import dto.PlayerDTO;
 public class RestoreServer {
 
     public static void restore() {
-        List<PlayerDTO> players = PluginWrapper.instance().getPlugin().getUserDao().read();
+        //List<PlayerDTO> players = PluginWrapper.instance().getPlugin().getUserDao().read();
         List<GameDTO> games = PluginWrapper.instance().getPlugin().getGameDao().read();
+        if (games == null)
+            return;
+
         List<CommandDTO> commandDTOs = PluginWrapper.instance().getPlugin().getCommandDao().read();
 
         for (int i = 0; i < games.size(); i++) {
@@ -39,6 +42,9 @@ public class RestoreServer {
                 ModelRoot.instance().addPlayer(player.getID(), player);
             }
         }
+
+        if (commandDTOs == null)
+            return;
 
         List<ICommand> commands = new ArrayList<>();
         for (int i = 0; i < commandDTOs.size(); i++) {

@@ -42,8 +42,7 @@ public class StoredData {
         counter += 1;
         if (counter >= N){
             counter = 0;
-            // todo store all model data
-            // todo I dont think it is possible to make a interface singleton
+
             Set<String> users = ModelRoot.instance().getAllPlayers().keySet();
             for (String id : users){
                 Player player = ModelRoot.instance().getAllPlayers().get(id);
@@ -79,7 +78,7 @@ public class StoredData {
                 }
             }
             List<Integer> ids = ModelRoot.instance().getCommandIds();
-            for (int i = 0; i < ids.size(); i++) {//todo delete all the commands, should we create a method for this or just do it manually
+            for (int i = 0; i < ids.size(); i++) {
                 plugin.getCommandDao().delete(ids.get(i));
             }
             ModelRoot.instance().getCommandIds().clear(); // dont know if this will actually clear the list
