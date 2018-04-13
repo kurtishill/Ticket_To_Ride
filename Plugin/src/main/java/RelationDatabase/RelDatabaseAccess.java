@@ -74,18 +74,18 @@ public class RelDatabaseAccess implements IDatabaseAccess {
             String sql = (String) info.get(0);
             try {
                 pstmt = conn.prepareStatement(sql);
-                List<String> storeInfo = (ArrayList) info.get(1);
-                for (int i = 0; i < storeInfo.size(); i++){
-                    pstmt.setString(i+1, storeInfo.get(i));
-                }
+//                List<String> storeInfo = (ArrayList) info.get(1);
+//                for (int i = 0; i < storeInfo.size(); i++){
+//                    pstmt.setString(i+1, storeInfo.get(i));
+//                }
                 rs = pstmt.executeQuery();
-                int size = (Integer) info.get(2);
+               // int size = (Integer) info.get(2);
                 List<Object> found = new ArrayList<>();
 //                for (int i = 0; i < size; i++){
 //
 //                }
                 while(rs.next()){
-                    found.add(rs.getByte(1)); // dont know if this will work
+                    found.add(rs.getString(1)); // dont know if this will work //todo fix this
                 }
                 return found;
             }
