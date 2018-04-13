@@ -29,4 +29,9 @@ public class RelUserDao implements IUserDao {
     public void delete(int Id) {
 
     }
+
+    @Override
+    public void clear() {
+
+    }
 }

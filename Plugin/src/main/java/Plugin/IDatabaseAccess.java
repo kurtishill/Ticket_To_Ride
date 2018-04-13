@@ -5,5 +5,8 @@ package Plugin;
  */
 
 public interface IDatabaseAccess {
-    Object access(Object object);
+    Object create(Object object);
+    Object read(Object object);
+    Object update(Object object);
+    Object delete(Object object);
 }
