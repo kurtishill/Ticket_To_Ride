@@ -20,6 +20,7 @@ public class RelUserDao implements IUserDao {
         String sql = "SELECT username, password, userId, currentGame FROM User";
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
+        createTable.add(4);
         Object ret = database.read(createTable);
         // todo deserialize and return
         return (List<PlayerDTO>) ret;

@@ -21,6 +21,7 @@ public class RelCommandDao implements ICommandDao {
         String sql = "SELECT commandId, command, gameId FROM GameCommands";
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
+        createTable.add(3);
         Object ret = databaseAccess.read(createTable);
         // todo deserialize and return
         return (List<CommandDTO>) ret;

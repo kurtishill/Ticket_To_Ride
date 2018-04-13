@@ -22,6 +22,7 @@ public class RelGameDao implements IGameDao {
         String sql = "SELECT gameId, gameInfo FROM Game";
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
+        createTable.add(2);
         Object ret = databaseAccess.read(createTable);
         // todo deserialize and return
         return (List<GameDTO>) ret;

@@ -84,8 +84,14 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 //                for (int i = 0; i < size; i++){
 //
 //                }
+
+                int size = (Integer)info.get(0);
                 while(rs.next()){
-                    found.add(rs.getString(1)); // dont know if this will work //todo fix this
+                    List<String> retInfo = new ArrayList<>();
+                    for (int i = 0; i < size; i++){
+                        retInfo.add(rs.getString(i+1));
+                    }
+                    found.add(retInfo); // dont know if this will work //todo fix this
                 }
                 return found;
             }
