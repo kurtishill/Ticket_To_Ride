@@ -10,7 +10,7 @@ import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
 
-import org.apache.commons.lang3.SerializationUtils;
+import org.apache.commons.lang.SerializationUtils;
 
 import dto.CommandDTO;
 import dto.GameDTO;
@@ -86,13 +86,29 @@ public class StoredData {
         else{
             int id = ModelRoot.instance().getId();
             byte[] commandByteArray = {};
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutput out = null;
             try {
+                out = new ObjectOutputStream(bos);
+                out.writeObject(command);
+                out.flush();
+                commandByteArray = bos.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bos.close();
+                } catch (IOException ex) {
+                    // ignore close exception
+                }
+            }
+            /*try {
                 commandByteArray = SerializationUtils.serialize(command);
             }
             catch (Exception ex) {
                 System.out.println("Error while serializing command");
                 ex.printStackTrace();
-            }
+            }*/
 
             plugin.getCommandDao().create(new CommandDTO(id, commandByteArray, gameId));//todo store command
 
