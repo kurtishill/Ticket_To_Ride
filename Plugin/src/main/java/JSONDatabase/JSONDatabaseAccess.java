@@ -7,8 +7,24 @@ import Plugin.IDatabaseAccess;
  */
 
 public class JSONDatabaseAccess implements IDatabaseAccess {
+
     @Override
-    public Object access(Object object) {
+    public Object create(Object object) {
+        return null;
+    }
+
+    @Override
+    public Object read(Object object) {
+        return null;
+    }
+
+    @Override
+    public Object update(Object object) {
+        return null;
+    }
+
+    @Override
+    public Object delete(Object object) {
         return null;
     }
 }
