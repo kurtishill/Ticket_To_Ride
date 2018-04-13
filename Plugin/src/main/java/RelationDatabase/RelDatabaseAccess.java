@@ -87,7 +87,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 //
 //                }
 
-                int size = (Integer)info.get(0);
+                int size = (Integer)info.get(1);
                 while(rs.next()){
                     List<String> retInfo = new ArrayList<>();
                     for (int i = 0; i < size; i++){
