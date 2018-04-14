@@ -24,9 +24,12 @@ public class RelUserDao implements IUserDao {
         Object ret = database.read(createTable);
         List<List<Object>> des = (List<List<Object>>)ret;
         List<PlayerDTO> list = new ArrayList<>();
-        for (int i = 0; i < des.size(); i++){
-            list.add(new PlayerDTO((String)des.get(i).get(2), (String)des.get(i).get(0), (String)des.get(i).get(1),Integer.parseInt((String)des.get(i).get(3))));
+        try {
+            for (int i = 0; i < des.size(); i++) {
+                list.add(new PlayerDTO((String) des.get(i).get(2), (String) des.get(i).get(0), (String) des.get(i).get(1), Integer.parseInt((String) des.get(i).get(3))));
+            }
         }
+        catch (Exception e){}
         // todo deserialize and return
         return list;
     }

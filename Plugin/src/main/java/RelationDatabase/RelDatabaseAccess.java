@@ -37,10 +37,21 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
                 }
-
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 return (Object) true;
             }
             catch (SQLException e){
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 e.printStackTrace();
             }
             finally{
@@ -51,12 +62,6 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 }
                 catch (SQLException e){
                     return null;
-                }
-                try {
-                    closeConnection(true);
-                }
-                catch(DatabaseException b){
-                    b.printStackTrace();
                 }
             }
         }
@@ -97,10 +102,21 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                     }
                     found.add(retInfo); // dont know if this will work //todo fix this
                 }
-
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 return found;
             }
             catch (SQLException e){
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 e.printStackTrace();
             }
             finally{
@@ -115,20 +131,8 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 catch (SQLException e){
                     return null;
                 }
-                try {
-                    closeConnection(true);
-                }
-                catch(DatabaseException b){
-                    b.printStackTrace();
-                }
             }
 
-        }
-        catch(DatabaseException e){
-            e.printStackTrace();
-        }
-        try {
-            closeConnection(true);
         }
         catch(DatabaseException e){
             e.printStackTrace();
@@ -154,9 +158,21 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 }
 
                 pstmt.executeUpdate();
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 return (Object) true;
             }
             catch (SQLException e){
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 e.printStackTrace();
             }
             finally{
@@ -168,21 +184,9 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 catch (SQLException e){
                     return null;
                 }
-                try {
-                    closeConnection(true);
-                }
-                catch(DatabaseException b){
-                    b.printStackTrace();
-                }
             }
         }
-        catch(DatabaseException e){
-            e.printStackTrace();
-        }
-        try {
-            closeConnection(true);
-        }
-        catch(DatabaseException e){
+        catch(DatabaseException e) {
             e.printStackTrace();
         }
         return null;
@@ -204,10 +208,21 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
                 }
-
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 return (Object) true;
             }
             catch (SQLException e){
+                try {
+                    closeConnection(true);
+                }
+                catch(DatabaseException b){
+                    b.printStackTrace();
+                }
                 e.printStackTrace();
             }
             finally{
@@ -219,19 +234,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
                 catch (SQLException e){
                     return null;
                 }
-                try {
-                    closeConnection(true);
-                }
-                catch(DatabaseException b){
-                    b.printStackTrace();
-                }
             }
-        }
-        catch(DatabaseException e){
-            e.printStackTrace();
-        }
-        try {
-            closeConnection(true);
         }
         catch(DatabaseException e){
             e.printStackTrace();

@@ -35,6 +35,8 @@ public class RelUserDaoTest {
         userDao.create(playerDTO);
         playerDTO.setGameId(2);
         userDao.update(playerDTO);
+        List<PlayerDTO> list = userDao.read();
+        assertEquals(list.get(0).getGameId(), 2);
         userDao.delete(2);
     }
 
