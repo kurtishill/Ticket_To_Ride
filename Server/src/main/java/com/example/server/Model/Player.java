@@ -1,5 +1,6 @@
 package com.example.server.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -8,7 +9,7 @@ import java.util.UUID;
  * Created by tnels on 1/29/2018.
  */
 
-public class Player {
+public class Player implements Serializable {
 
     private String username;
 

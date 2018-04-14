@@ -83,6 +83,7 @@ public class StoredData {
         }
         else{
             int id = ModelRoot.instance().getId();
+            ModelRoot.instance().addId(id);
             byte[] commandByteArray = {};
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutput out = null;

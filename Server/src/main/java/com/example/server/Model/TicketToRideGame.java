@@ -10,7 +10,7 @@ import java.util.List;
  * Created by tnels on 1/29/2018.
  */
 
-public class TicketToRideGame {
+public class TicketToRideGame implements Serializable {
 
     private List<Player> players;
     private String name;

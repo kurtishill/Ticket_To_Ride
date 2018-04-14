@@ -51,7 +51,7 @@ public class RestoreServer {
         }
 
         for (int i = 0; i < ModelRoot.instance().getListGames().size(); i++) {
-            for (int j = 0; j < ModelRoot.instance().getListGames().get(i).getPlayers().size(); i++) {
+            for (int j = 0; j < ModelRoot.instance().getListGames().get(i).getPlayers().size(); j++) {
                 Player player = ModelRoot.instance().getListGames().get(i).getPlayers().get(j);
                 ModelRoot.instance().addPlayer(player.getID(), player);
             }
