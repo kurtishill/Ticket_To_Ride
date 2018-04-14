@@ -26,7 +26,9 @@ public class RelCommandDao implements ICommandDao {
         List<List<Object>> des = (List<List<Object>>)ret;
         List<CommandDTO> list = new ArrayList<>();
         for (int i = 0; i < des.size(); i++){
-            list.add(new CommandDTO((Integer)des.get(i).get(0), (byte[])des.get(i).get(0), (Integer) des.get(i).get(2)));
+            list.add(new CommandDTO(Integer.parseInt((String)des.get(i).get(0)),
+                    (byte[])des.get(i).get(1),
+                    Integer.parseInt((String) des.get(i).get(2))));
         }
         // todo deserialize and return
         return list;

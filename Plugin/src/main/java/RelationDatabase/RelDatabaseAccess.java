@@ -1,6 +1,7 @@
 package RelationDatabase;
 
 import java.sql.Array;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import Plugin.IDatabaseAccess;
+import sun.security.util.Cache;
 
 /**
  * Created by claytonkingsbury on 4/11/18.
@@ -30,9 +32,15 @@ public class RelDatabaseAccess implements IDatabaseAccess {
             String sql = (String) info.get(0);
             try {
                 pstmt = conn.prepareStatement(sql);
-                List<String> storeInfo = (ArrayList) info.get(1);
+                List<Object> storeInfo = (ArrayList) info.get(1);
+                //List<Class> classes = (ArrayList) info.get(2);
                 for (int i = 0; i < storeInfo.size(); i++){
-                    pstmt.setString(i+1, storeInfo.get(i)); // might need to check type
+                    try {
+                        pstmt.setString(i + 1, (String)storeInfo.get(i)); // might need to check type
+                    }
+                    catch (Exception e){
+                        pstmt.setBytes(i + 1, (byte[])storeInfo.get(i));
+                    }
                 }
                 if (pstmt.executeUpdate() != 1) {
                     throw new DatabaseException("Error in create", new SQLException());
@@ -96,9 +104,15 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 
                 int size = (Integer)info.get(1);
                 while(rs.next()){
-                    List<String> retInfo = new ArrayList<>();
+                    List<Object> retInfo = new ArrayList<>();
                     for (int i = 0; i < size; i++){
-                        retInfo.add(rs.getString(i+1));
+                        if(size == 3 && i == 1){
+                            retInfo.add(rs.getBytes(i+1));
+                        }
+                        else {
+                            retInfo.add(rs.getString(i + 1));
+                        }
+
                     }
                     found.add(retInfo); // dont know if this will work //todo fix this
                 }
@@ -149,13 +163,13 @@ public class RelDatabaseAccess implements IDatabaseAccess {
             String sql = (String) info.get(0);
             try {
                 pstmt = conn.prepareStatement(sql);
-                //try{
-                String id = (String) info.get(1);
-                pstmt.setString(1, id); // might need to check type
-//                }
-//                catch(Exception e){
-//                    //do nothing
-//                }
+                try{
+                    String id = (String) info.get(1);
+                    pstmt.setString(1, id); // might need to check type
+               }
+                catch(Exception e){
+                    //do nothing
+                }
 
                 pstmt.executeUpdate();
                 try {
@@ -255,7 +269,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 
     public void openConnection() throws DatabaseException {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:ticket_to_ride.db"; // todo what is the name of our database
+            final String CONNECTION_URL = "jdbc:sqlite:/Users/claytonkingsbury/Documents/GitHub/Ticket_To_Ride/ticket_to_ride.db"; //todo have to put the absolute path here
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);

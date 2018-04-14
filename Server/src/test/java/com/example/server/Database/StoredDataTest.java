@@ -3,6 +3,7 @@ package com.example.server.Database;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.GenericCommand;
+import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
 
 import org.apache.commons.lang3.SerializationUtils;
@@ -12,8 +13,10 @@ import java.util.List;
 
 import RelationDatabase.RelCommandDao;
 import RelationDatabase.RelGameDao;
+import RelationDatabase.RelUserDao;
 import dto.CommandDTO;
 import dto.GameDTO;
+import dto.PlayerDTO;
 
 import static org.junit.Assert.*;
 
@@ -41,7 +44,8 @@ public class StoredDataTest {
         commandDao.create(commandDTO);
         List<CommandDTO> list = commandDao.read();
         assertEquals(list.size(), 1);
-        assertEquals(commandByteArray, list.get(0).getCommand());
+        Object obj = SerializationUtils.deserialize(list.get(0).getCommand());
+        ICommand commandRet = ((ICommand) obj);
         commandDao.delete(1);
     }
 
@@ -152,9 +156,17 @@ public class StoredDataTest {
         gameDao.create(dto);
         gameDao.delete(1);
         List<GameDTO> gameDTOS = gameDao.read();
-        assertEquals(0, gameDTOS);
+        assertEquals(0, gameDTOS.size());
     }
-
+    @org.junit.Test
+    public void read() throws Exception {
+        RelUserDao userDao = new RelUserDao();
+        PlayerDTO playerDTO = new PlayerDTO("test", "username", "password", 1);
+        userDao.create(playerDTO);
+        List<PlayerDTO> list = userDao.read();
+        assertEquals(list.size(), 1);
+        userDao.delete(1);
+    }
     @Test
     public void clearGame() {
     }
