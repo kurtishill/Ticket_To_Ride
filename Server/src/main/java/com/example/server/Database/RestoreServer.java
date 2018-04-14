@@ -1,12 +1,11 @@
 package com.example.server.Database;
 
+import com.example.server.ClientCommandManager;
 import com.example.server.Model.ModelRoot;
 import com.example.server.Model.Player;
 import com.example.server.Model.TicketToRideGame;
 import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
-
-import org.apache.commons.lang.SerializationUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -63,7 +62,6 @@ public class RestoreServer {
 
         List<ICommand> commands = new ArrayList<>();
         for (int i = 0; i < commandDTOs.size(); i++) {
-            //Object obj = SerializationUtils.deserialize(commandDTOs.get(i).getCommand());
             ByteArrayInputStream bis = new ByteArrayInputStream(commandDTOs.get(i).getCommand());
             ObjectInput in = null;
             Object obj = null;
@@ -84,6 +82,7 @@ public class RestoreServer {
                 }
             }
             commands.add((ICommand) obj);
+            ClientCommandManager.instance().addGameCommand(commandDTOs.get(i).getGameId(), "UpdateGameList");
         }
 
         for (int i = 0; i < commands.size(); i++) {
