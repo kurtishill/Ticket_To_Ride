@@ -50,7 +50,7 @@ public class RelUserDao implements IUserDao {
 
     @Override
     public void update(PlayerDTO user) {
-        String sql = "UPDATE User SET currentGame = ? WHERE username = ?, password = ?, userId = ?";
+        String sql = "UPDATE User SET currentGame = ? WHERE userId = ? and username = ? and password = ?"; //WHERE username = ?, password = ?, userId = ?"
         List<String> info = new ArrayList<>();
         info.add((Integer.toString(user.getGameId())));
         info.add(user.getUsername());
