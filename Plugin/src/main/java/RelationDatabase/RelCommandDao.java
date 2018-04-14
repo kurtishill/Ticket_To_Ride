@@ -66,4 +66,5 @@ public class RelCommandDao implements ICommandDao {
         deleteRow.add(sql);
         databaseAccess.delete(deleteRow);
     }
+
 }
