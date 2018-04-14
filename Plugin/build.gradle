@@ -5,6 +5,7 @@ dependencies {
     compile 'junit:junit:4.12'
     implementation project(':sqlite-jdbc-3.8.10.1')
     implementation files('/Users/claytonkingsbury/Documents/GitHub/Ticket_To_Ride/sqlite-jdbc-3.8.10.1/sqlite-jdbc-3.8.10.1.jar')
+    implementation 'org.apache.commons:commons-lang3:3.5'
 }
 
 sourceCompatibility = "1.7"

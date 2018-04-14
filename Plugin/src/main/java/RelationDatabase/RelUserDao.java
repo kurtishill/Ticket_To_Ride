@@ -53,9 +53,9 @@ public class RelUserDao implements IUserDao {
         String sql = "UPDATE User SET currentGame = ? WHERE userId = ? and username = ? and password = ?"; //WHERE username = ?, password = ?, userId = ?"
         List<String> info = new ArrayList<>();
         info.add((Integer.toString(user.getGameId())));
+        info.add(user.getId());
         info.add(user.getUsername());
         info.add(user.getPassword());
-        info.add(user.getId());
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
         createTable.add(info);
