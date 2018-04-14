@@ -29,7 +29,7 @@ public class RelUserDaoTest {
     }
 
     @org.junit.Test
-    public void update() throws Exception {
+    public void update() throws Exception { // theres an error here
         RelUserDao userDao = new RelUserDao();
         PlayerDTO playerDTO = new PlayerDTO("test", "username", "password", 1);
         userDao.create(playerDTO);
