@@ -76,9 +76,10 @@ public class StoredData {
                 }
             }
             List<Integer> ids = ModelRoot.instance().getCommandIds();
-            for (int i = 0; i < ids.size(); i++) {
+            /*for (int i = 0; i < ids.size(); i++) {
                 plugin.getCommandDao().delete(ids.get(i));
-            }
+            }*/ //todo use clear instead of deleting one by one
+            PluginWrapper.instance().getPlugin().getCommandDao().clear(); // <------
             ModelRoot.instance().getCommandIds().clear(); // dont know if this will actually clear the list
         }
         else{

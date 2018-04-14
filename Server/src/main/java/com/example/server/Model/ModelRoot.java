@@ -51,6 +51,10 @@ public class ModelRoot {
 
     public void addGame(int gameID, TicketToRideGame game) {
         allGames.put(gameID, game);
+        for (int i = 0; i < listGames.size(); i++) {
+            if (gameID == listGames.get(i).getGameID())
+                return;
+        }
         listGames.add(game);
     }
 
