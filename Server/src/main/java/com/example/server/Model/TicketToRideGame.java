@@ -1,5 +1,6 @@
 package com.example.server.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,7 +10,7 @@ import java.util.List;
  * Created by tnels on 1/29/2018.
  */
 
-public class TicketToRideGame {
+public class TicketToRideGame implements Serializable {
 
     private List<Player> players;
     private String name;

@@ -1,9 +1,14 @@
 package com.example.server;
 
+import com.example.server.Database.RestoreServer;
+import com.example.server.Database.StoredData;
+import Plugin.IPlugin;
+import Plugin.PluginWrapper;
+
+import com.example.server.PluginRegistry.PluginRegistry;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**
@@ -58,6 +63,7 @@ public class server {
 
         }
 
+        RestoreServer.restore();
 
         server.start();
 
@@ -70,6 +76,21 @@ public class server {
     // on which the server should accept incoming client connections.
     public static void main(String[] args) {
         String portNumber = args[0];
+        String persistenceType = args[1];
+        int numCommandsBetweenCheckpoints = Integer.parseInt(args[2]);
+        StoredData.instance().SetCount(numCommandsBetweenCheckpoints);
+        PluginRegistry registry = new PluginRegistry();
+        registry.loadConfiguration(persistenceType);
+        IPlugin plugin = (IPlugin) registry.register();
+        PluginWrapper.instance().InstallPlugin(plugin);
+        PluginWrapper.instance().getPlugin().test();
+        if (args.length == 4) {
+            if (args[3].equals("clear")) {
+                plugin.getUserDao().clear();
+                plugin.getGameDao().clear();
+                plugin.getCommandDao().clear();
+            }
+        }
         new server().run(portNumber);
     }
 }

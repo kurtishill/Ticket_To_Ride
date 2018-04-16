@@ -15,11 +15,13 @@ public class ModelRoot {
     private Map<Integer, TicketToRideGame> allGames;
     private List<TicketToRideGame> listGames;
     private Map<String, Player> allPlayers;
+    private List<Integer> commandIds;
 
     private ModelRoot() {
         allGames = new HashMap<>();
         listGames = new ArrayList<>();
         allPlayers = new HashMap<>();
+        commandIds = new ArrayList<>();
     }
 
     public TicketToRideGame GameExists(int gameId){
@@ -30,6 +32,16 @@ public class ModelRoot {
             return null;
         }
     }
+    public Integer getId(){
+        return commandIds.size() + 1;
+    }
+    public void addId(Integer id){
+        commandIds.add(id);
+    }
+
+    public List<Integer> getCommandIds() {
+        return commandIds;
+    }
 
     public static ModelRoot instance() {
         if(_ModelRoot_Instance == null)
@@ -39,6 +51,10 @@ public class ModelRoot {
 
     public void addGame(int gameID, TicketToRideGame game) {
         allGames.put(gameID, game);
+        for (int i = 0; i < listGames.size(); i++) {
+            if (gameID == listGames.get(i).getGameID())
+                return;
+        }
         listGames.add(game);
     }
 
@@ -63,7 +79,7 @@ public class ModelRoot {
         }
     }
 
-    public void allPlayer(String authToken, Player player) {
+    public void addPlayer(String authToken, Player player) {
         allPlayers.put(authToken, player);
     }
 

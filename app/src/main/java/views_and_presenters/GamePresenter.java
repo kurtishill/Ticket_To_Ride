@@ -51,6 +51,15 @@ public class GamePresenter implements IGamePresenter, Observer {
                 mGameView.endGame();
             }
         }
+
+        else if (obj instanceof Boolean) {
+            boolean isServerDown = (boolean) obj;
+            mGameView.toggleGUIUsability(isServerDown);
+            if (!isServerDown) {
+                mGameView.displayToast("The server is back on. We apologize for the inconvenience.");
+            }
+        }
+        
         //Draw all claimed routes on the map, iterating through players who possess claimed routes
         for(int i=0; i< ClientModelRoot.instance().getCurrGame().getPlayers().size(); i++){
             for(int j=0; j<ClientModelRoot.instance().getCurrGame().getPlayers().get(i).getClaimedRoutes().size(); j++){

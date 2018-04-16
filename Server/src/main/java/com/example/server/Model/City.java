@@ -1,9 +1,11 @@
 package com.example.server.Model;
 
+import java.io.Serializable;
+
 /**
  Created by tnels on Feb 24 2018
  **/
-public class City
+public class City implements Serializable
 {
 
     private String name;
