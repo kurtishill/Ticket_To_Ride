@@ -23,17 +23,25 @@ public class RelCommandDao implements ICommandDao {
         createTable.add(sql);
         createTable.add(3);
         Object ret = databaseAccess.read(createTable);
+        List<List<Object>> des = (List<List<Object>>)ret;
+        List<CommandDTO> list = new ArrayList<>();
+        for (int i = 0; i < des.size(); i++){
+            list.add(new CommandDTO(Integer.parseInt((String)des.get(i).get(0)),
+                    (byte[])des.get(i).get(1),
+                    Integer.parseInt((String) des.get(i).get(2))));
+        }
         // todo deserialize and return
-        return (List<CommandDTO>) ret;
+        return list;
     }
 
     @Override
     public void create(CommandDTO command) {
         String sql = "INSERT INTO GameCommands(commandId, gameId, command) VALUES(?,?,?)";
-        List<String> info = new ArrayList<>();
+        List<Object> info = new ArrayList<>();
         info.add(Integer.toString(command.getId()));
-        //info.add(command.getCommand());
+    
         info.add(Integer.toString(command.getGameId()));
+        info.add(command.getCommand());
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
         createTable.add(info);
@@ -56,6 +64,10 @@ public class RelCommandDao implements ICommandDao {
 
     @Override
     public void clear() {
-
+        String sql = "DELETE FROM GameCommands";
+        List<Object> deleteRow = new ArrayList<>();
+        deleteRow.add(sql);
+        databaseAccess.delete(deleteRow);
     }
+
 }

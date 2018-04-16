@@ -4,9 +4,14 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Plugin/Plugin.iml" filepath="$PROJECT_DIR$/Plugin/Plugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/Server/Server.iml" filepath="$PROJECT_DIR$/Server/Server.iml" />
+
+      <module fileurl="file://C:/Users/fryti/Documents/GitHub/Ticket_To_Ride/TicketToRide.iml" filepath="C:/Users/fryti/Documents/GitHub/Ticket_To_Ride/TicketToRide.iml" />
+      <module fileurl="file://C:/Users/tnels/Documents/GitHub/Ticket_To_Ride/TicketToRide.iml" filepath="C:/Users/tnels/Documents/GitHub/Ticket_To_Ride/TicketToRide.iml" />
+      <module fileurl="file://C:/Users/tnels/AndroidStudioProjects/Ticket_To_Ride/TicketToRide.iml" filepath="C:/Users/tnels/AndroidStudioProjects/Ticket_To_Ride/TicketToRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ticket_To_Ride.iml" filepath="$PROJECT_DIR$/Ticket_To_Ride.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" filepath="$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.8.10.1/sqlite-jdbc-3.8.10.1.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.8.10.1/sqlite-jdbc-3.8.10.1.iml" />
     </modules>
   </component>
 </project>

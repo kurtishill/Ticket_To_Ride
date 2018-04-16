@@ -22,8 +22,16 @@ public class RelUserDao implements IUserDao {
         createTable.add(sql);
         createTable.add(4);
         Object ret = database.read(createTable);
+        List<List<Object>> des = (List<List<Object>>)ret;
+        List<PlayerDTO> list = new ArrayList<>();
+        try {
+            for (int i = 0; i < des.size(); i++) {
+                list.add(new PlayerDTO((String) des.get(i).get(2), (String) des.get(i).get(0), (String) des.get(i).get(1), Integer.parseInt((String) des.get(i).get(3))));
+            }
+        }
+        catch (Exception e){}
         // todo deserialize and return
-        return (List<PlayerDTO>) ret;
+        return list;
     }
 
     @Override
@@ -42,12 +50,12 @@ public class RelUserDao implements IUserDao {
 
     @Override
     public void update(PlayerDTO user) {
-        String sql = "UPDATE User SET currentGame = ? WHERE username = ?, password = ?, userId = ?";
+        String sql = "UPDATE User SET currentGame = ? WHERE userId = ? and username = ? and password = ?"; //WHERE username = ?, password = ?, userId = ?"
         List<String> info = new ArrayList<>();
         info.add((Integer.toString(user.getGameId())));
+        info.add(user.getId());
         info.add(user.getUsername());
         info.add(user.getPassword());
-        info.add(user.getId());
         List<Object> createTable = new ArrayList<>();
         createTable.add(sql);
         createTable.add(info);
@@ -65,6 +73,10 @@ public class RelUserDao implements IUserDao {
 
     @Override
     public void clear() {
-
+//        String sql = "DELETE FROM User WHERE currentGame = ?";
+//        List<Object> deleteRow = new ArrayList<>();
+//        deleteRow.add(sql);
+//        deleteRow.add(Integer.toString(Id));
+//        database.delete(deleteRow);
     }
 }
