@@ -229,8 +229,11 @@ public class CommandHandler implements HttpHandler {
 
                     }
 
-                    if (!commandValues.get(0).equals("GetGameList") || !commandValues.get(0).equals("GetChat"))
+                    if (!commandValues.get(0).equals("GetGameList") && !commandValues.get(0).equals("GetChat")
+                            && !commandValues.get(0).equals("Register") && !commandValues.get(0).equals("Login")
+                            && !commandValues.get(0).equals("CreateGame")) {
                         StoredData.instance().Store((GenericCommand) command, gameID);
+                    }
 
 
                     Result result = (Result) command.execute();

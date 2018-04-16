@@ -1,10 +1,12 @@
 package com.example.server.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by kurtis on 3/1/18.
  */
 
-public class GameHistory {
+public class GameHistory implements Serializable {
 
     private String username;
     private String color;

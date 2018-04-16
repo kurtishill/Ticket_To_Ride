@@ -2,11 +2,13 @@ package com.example.server.Model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by Clayton Kings on 2/17/2018.
  */
 
-public class ChatMessage {
+public class ChatMessage implements Serializable {
 
     private String message;
     private String username;

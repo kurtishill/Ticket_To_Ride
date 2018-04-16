@@ -10,8 +10,6 @@ import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
 
-import org.apache.commons.lang3.SerializationUtils;
-
 import dto.CommandDTO;
 import dto.GameDTO;
 import dto.PlayerDTO;
@@ -42,8 +40,7 @@ public class StoredData {
         counter += 1;
         if (counter >= N){
             counter = 0;
-            // todo store all model data
-            // todo I dont think it is possible to make a interface singleton
+
             Set<String> users = ModelRoot.instance().getAllPlayers().keySet();
             for (String id : users){
                 Player player = ModelRoot.instance().getAllPlayers().get(id);
@@ -79,23 +76,34 @@ public class StoredData {
                 }
             }
             List<Integer> ids = ModelRoot.instance().getCommandIds();
-            for (int i = 0; i < ids.size(); i++) {//todo delete all the commands, should we create a method for this or just do it manually
+            /*for (int i = 0; i < ids.size(); i++) {
                 plugin.getCommandDao().delete(ids.get(i));
-            }
+            }*/ //todo use clear instead of deleting one by one
+            PluginWrapper.instance().getPlugin().getCommandDao().clear(); // <------
             ModelRoot.instance().getCommandIds().clear(); // dont know if this will actually clear the list
         }
         else{
             int id = ModelRoot.instance().getId();
+            ModelRoot.instance().addId(id);
             byte[] commandByteArray = {};
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutput out = null;
             try {
-                commandByteArray = SerializationUtils.serialize(command);
-            }
-            catch (Exception ex) {
-                System.out.println("Error while serializing command");
-                ex.printStackTrace();
+                out = new ObjectOutputStream(bos);
+                out.writeObject(command);
+                out.flush();
+                commandByteArray = bos.toByteArray();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    bos.close();
+                } catch (IOException ex) {
+                    // ignore close exception
+                }
             }
 
-            plugin.getCommandDao().create(new CommandDTO(id, commandByteArray, gameId));//todo store command
+            plugin.getCommandDao().create(new CommandDTO(id, commandByteArray, gameId));
 
 
         }

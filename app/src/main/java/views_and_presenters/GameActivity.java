@@ -308,7 +308,12 @@ public class GameActivity extends AppCompatActivity implements IGameView,
     }
 
     public void displayToast(final String toast) {
-        Toast.makeText(this, toast, Toast.LENGTH_SHORT).show();
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(GameActivity.this, toast, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void gameStarted(final String toast) {
