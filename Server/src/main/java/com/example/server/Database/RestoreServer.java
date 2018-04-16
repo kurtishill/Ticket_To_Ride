@@ -11,8 +11,11 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jws.WebParam;
 
 import Plugin.PluginWrapper;
 import dto.CommandDTO;
@@ -87,6 +90,17 @@ public class RestoreServer {
 
         for (int i = 0; i < commands.size(); i++) {
             commands.get(i).execute();
+        }
+
+        for (int i = 0; i < ModelRoot.instance().getListGames().size(); i++) {
+            String game = Serializer.encode(ModelRoot.instance().getListGames().get(i));
+            GameDTO dto = new GameDTO(ModelRoot.instance().getListGames().get(i).getGameID(), game);
+            try {
+                PluginWrapper.instance().getPlugin().getGameDao().update(dto);
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
 
         PluginWrapper.instance().getPlugin().getCommandDao().clear();

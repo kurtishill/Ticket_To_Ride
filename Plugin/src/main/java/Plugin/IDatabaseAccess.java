@@ -1,5 +1,7 @@
 package Plugin;
 
+import java.sql.SQLException;
+
 /**
  * Created by claytonkingsbury on 4/8/18.
  */

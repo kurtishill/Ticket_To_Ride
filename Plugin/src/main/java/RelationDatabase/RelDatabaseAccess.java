@@ -269,7 +269,7 @@ public class RelDatabaseAccess implements IDatabaseAccess {
 
     public void openConnection() throws DatabaseException {
         try {
-            final String CONNECTION_URL = "jdbc:sqlite:/Users/claytonkingsbury/Documents/GitHub/Ticket_To_Ride/ticket_to_ride.db"; //todo have to put the absolute path here
+            final String CONNECTION_URL = "jdbc:sqlite:ticket_to_ride.db"; //todo have to put the absolute path here
 
             // Open a database connection
             conn = DriverManager.getConnection(CONNECTION_URL);

@@ -1,5 +1,6 @@
 package RelationDatabase;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,10 +74,9 @@ public class RelUserDao implements IUserDao {
 
     @Override
     public void clear() {
-//        String sql = "DELETE FROM User WHERE currentGame = ?";
-//        List<Object> deleteRow = new ArrayList<>();
-//        deleteRow.add(sql);
-//        deleteRow.add(Integer.toString(Id));
-//        database.delete(deleteRow);
+        String sql = "DELETE FROM User";
+        List<Object> deleteRow = new ArrayList<>();
+        deleteRow.add(sql);
+        database.delete(deleteRow);
     }
 }
