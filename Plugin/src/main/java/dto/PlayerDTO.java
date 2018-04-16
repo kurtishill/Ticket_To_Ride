@@ -1,10 +1,12 @@
 package dto;
 
+import java.io.Serializable;
+
 /**
  * Created by kurtishill on 4/9/18.
  */
 
-public class PlayerDTO {
+public class PlayerDTO implements Serializable {
 
     private String id;
 

@@ -1,5 +1,6 @@
 package com.example.server;
 
+import com.example.server.Database.RestoreServer;
 import com.example.server.Database.StoredData;
 import Plugin.IPlugin;
 import Plugin.PluginWrapper;
@@ -62,7 +63,7 @@ public class server {
 
         }
 
-
+        RestoreServer.restore();
 
         server.start();
 
@@ -82,7 +83,14 @@ public class server {
         registry.loadConfiguration(persistenceType);
         IPlugin plugin = (IPlugin) registry.register();
         PluginWrapper.instance().InstallPlugin(plugin);
-
+        PluginWrapper.instance().getPlugin().test();
+        if (args.length == 4) {
+            if (args[3].equals("clear")) {
+                plugin.getUserDao().clear();
+                plugin.getGameDao().clear();
+                plugin.getCommandDao().clear();
+            }
+        }
         new server().run(portNumber);
     }
 }

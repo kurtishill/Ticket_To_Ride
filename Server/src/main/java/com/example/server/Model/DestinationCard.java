@@ -1,9 +1,11 @@
 package com.example.server.Model;
 
+import java.io.Serializable;
+
 /**
  Created by tnels on Feb 24 2018
  **/
-public class DestinationCard
+public class DestinationCard implements Serializable
 {
     private City city1;
     private City city2;

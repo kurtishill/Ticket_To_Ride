@@ -3,6 +3,6 @@
    "className": "RelationDatabase.RelPlugin",
    "filePath": "file:///users/guest/f/frytime/Ticket_To_Ride/Plugin/build/libs/Plugin.jar"},
   {"name":"json",
-    "className": "com.example.server.Plugins.JSONPlugin",
+    "className": "JSONDatabase.JSONPlugin",
     "filePath": "file:///users/guest/f/frytime/Ticket_To_Ride/Plugin/build/libs/Plugin.jar"}
 ]
