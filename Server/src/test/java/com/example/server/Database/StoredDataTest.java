@@ -6,9 +6,15 @@ import com.example.server.Results.GenericCommand;
 import com.example.server.Results.ICommand;
 import com.example.server.Serializer;
 
-import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 import RelationDatabase.RelCommandDao;
@@ -33,18 +39,45 @@ public class StoredDataTest {
         RelCommandDao commandDao = new RelCommandDao();
         GenericCommand command = new GenericCommand("test", "test1", new Class[]{String.class}, new Object[]{"test"} );
         byte[] commandByteArray = {};
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
         try {
-            commandByteArray = SerializationUtils.serialize(command);
-        }
-        catch (Exception ex) {
-            System.out.println("Error while serializing command");
-            ex.printStackTrace();
+            out = new ObjectOutputStream(bos);
+            out.writeObject(command);
+            out.flush();
+            commandByteArray = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
         }
         CommandDTO commandDTO = new CommandDTO(1, commandByteArray, 1);
         commandDao.create(commandDTO);
         List<CommandDTO> list = commandDao.read();
         assertEquals(list.size(), 1);
-        Object obj = SerializationUtils.deserialize(list.get(0).getCommand());
+        ByteArrayInputStream bis = new ByteArrayInputStream(list.get(0).getCommand());
+        ObjectInput in = null;
+        Object obj = null;
+        try {
+            in = new ObjectInputStream(bis);
+            obj = in.readObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
         ICommand commandRet = ((ICommand) obj);
         commandDao.delete(1);
     }
@@ -54,12 +87,21 @@ public class StoredDataTest {
         RelCommandDao commandDao = new RelCommandDao();
         GenericCommand command = new GenericCommand("test", "test1", new Class[]{String.class}, new Object[]{"test"} );
         byte[] commandByteArray = {};
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
         try {
-            commandByteArray = SerializationUtils.serialize(command);
-        }
-        catch (Exception ex) {
-            System.out.println("Error while serializing command");
-            ex.printStackTrace();
+            out = new ObjectOutputStream(bos);
+            out.writeObject(command);
+            out.flush();
+            commandByteArray = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
         }
         CommandDTO commandDTO = new CommandDTO(1, commandByteArray, 1);
         commandDao.create(commandDTO);
@@ -75,12 +117,21 @@ public class StoredDataTest {
         RelCommandDao commandDao = new RelCommandDao();
         GenericCommand command = new GenericCommand("test", "test1", new Class[]{String.class}, new Object[]{"test"} );
         byte[] commandByteArray = {};
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
         try {
-            commandByteArray = SerializationUtils.serialize(command);
-        }
-        catch (Exception ex) {
-            System.out.println("Error while serializing command");
-            ex.printStackTrace();
+            out = new ObjectOutputStream(bos);
+            out.writeObject(command);
+            out.flush();
+            commandByteArray = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
         }
         CommandDTO commandDTO = new CommandDTO(1, commandByteArray, 1);
         commandDao.create(commandDTO);
@@ -94,12 +145,21 @@ public class StoredDataTest {
         RelCommandDao commandDao = new RelCommandDao();
         GenericCommand command = new GenericCommand("test", "test1", new Class[]{String.class}, new Object[]{"test"} );
         byte[] commandByteArray = {};
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
         try {
-            commandByteArray = SerializationUtils.serialize(command);
-        }
-        catch (Exception ex) {
-            System.out.println("Error while serializing command");
-            ex.printStackTrace();
+            out = new ObjectOutputStream(bos);
+            out.writeObject(command);
+            out.flush();
+            commandByteArray = bos.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
         }
         CommandDTO commandDTO = new CommandDTO(1, commandByteArray, 1);
         commandDao.create(commandDTO);
